@@ -1,6 +1,7 @@
 package server
 
 import (
+	"bilibili/monster-go/configs"
 	"context"
 	"fmt"
 	"github.com/evanyxw/game_proto/msg"
@@ -20,12 +21,15 @@ type WorldServer struct {
 
 // Broadcast
 func (s *WorldServer) Broadcast(ctx context.Context, req *msg.Req) (*msg.Res, error) {
+	fmt.Println("Broadcasting")
 	// 实现 Test 方法的逻辑
 	return &msg.Res{}, nil
 }
 
 func (s *WorldServer) Run() {
-	listen, err := net.Listen("tcp", ":8024")
+	config := configs.Get()
+
+	listen, err := net.Listen("tcp", config.Rpc.Address)
 	if err != nil {
 		panic(err)
 	}
@@ -40,7 +44,7 @@ func (s *WorldServer) Run() {
 			panic(err)
 		}
 	}()
-	
+
 	// 监听操作系统的终止信号
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)

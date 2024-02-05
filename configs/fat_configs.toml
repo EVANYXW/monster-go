@@ -50,3 +50,5 @@ maxConnNum=100
 buffSize=100
 pprof=true
 pprofAddress = ':6060'
+[rpc]
+address = ':8024'

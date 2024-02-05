@@ -1,7 +1,7 @@
 package client
 
 import (
-	"bilibili/monster-go/internal/server"
+	"bilibili/monster-go/internal/rpc"
 	"context"
 	"fmt"
 	"github.com/evanyxw/game_proto/msg"
@@ -21,12 +21,12 @@ func NewLogicRpcClient() (msg.WorldClient, error) {
 	merchantQueryConnOnce.Do(func() {
 		ctx := c.NewContext(context.Background())
 		opts := make([]grpc.DialOption, 0)
-		rs := etcdv3.NewResolver(etcdConfig, server.Logic)
+		rs := etcdv3.NewResolver(etcdConfig, rpc.LogicRpc)
 		opts = append(opts, grpc.WithResolvers(rs))
 		opts = append(opts, grpc.WithDefaultServiceConfig(fmt.Sprintf(`{"LoadBalancingPolicy": "%s"}`, roundrobin.Name)))
 		opts = append(opts, grpc.WithUnaryInterceptor(middleware.Interceptor))
 		opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
-		conn, err := grpc.DialContext(ctx, rs.Scheme()+"://authority/"+server.Logic, opts...)
+		conn, err := grpc.DialContext(ctx, rs.Scheme()+"://authority/"+rpc.LogicRpc, opts...)
 		if err != nil {
 			panic(err)
 		}

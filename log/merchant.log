@@ -45,3 +45,21 @@
 {"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 14:28:39"}
 {"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 14:32:34"}
 {"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 15:13:19"}
+{"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 15:48:06"}
+{"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 16:13:12"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":69,"msg":"更新可用服务信息,prefix:/etcd-v3/registry/default/schema/world/,[{Addr: \":8023\", ServerName: \"\", }]","time":"2024-02-05 16:14:53"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":93,"msg":"watch prefix:/etcd-v3/registry/default/schema/world/","time":"2024-02-05 16:14:53"}
+{"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 16:17:52"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":69,"msg":"更新可用服务信息,prefix:/etcd-v3/registry/default/schema/world/,[{Addr: \":8024\", ServerName: \"\", }]","time":"2024-02-05 16:17:58"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":93,"msg":"watch prefix:/etcd-v3/registry/default/schema/world/","time":"2024-02-05 16:17:58"}
+{"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 16:35:56"}
+{"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 16:41:03"}
+{"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 16:41:04"}
+{"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 16:45:04"}
+{"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 16:45:04"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":69,"msg":"更新可用服务信息,prefix:/etcd-v3/registry/default/schema/world/,[{Addr: \":8023\", ServerName: \"\", }]","time":"2024-02-05 16:45:51"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":93,"msg":"watch prefix:/etcd-v3/registry/default/schema/world/","time":"2024-02-05 16:45:51"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":69,"msg":"更新可用服务信息,prefix:/etcd-v3/registry/default/schema/world_rpc/,[{Addr: \":8024\", ServerName: \"\", }]","time":"2024-02-05 16:46:59"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":93,"msg":"watch prefix:/etcd-v3/registry/default/schema/world_rpc/","time":"2024-02-05 16:46:59"}
+{"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 16:47:02"}
+{"filePath":"etcdv3/grpc_registry.go","level":"info","line":68,"msg":"解除续约成功","time":"2024-02-05 16:47:02"}

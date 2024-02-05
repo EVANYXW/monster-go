@@ -25,3 +25,5 @@
 {"level":"info","time":"2024-02-05 15:09:43","caller":"network/server.go:97","msg":"lai ren la","domain":"monsterGo[fat]"}
 {"level":"info","time":"2024-02-05 15:09:49","caller":"network/server.go:97","msg":"lai ren la","domain":"monsterGo[fat]"}
 {"level":"info","time":"2024-02-05 15:11:32","caller":"network/server.go:97","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 16:14:53","caller":"network/server.go:97","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 16:45:51","caller":"network/server.go:97","msg":"lai ren la","domain":"monsterGo[fat]"}

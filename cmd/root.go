@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// RootCmd root命令
 var RootCmd = &cobra.Command{
 	Use:   "monsterGo",
 	Short: "games server",
@@ -17,9 +18,10 @@ var RootCmd = &cobra.Command{
 	},
 }
 
+// Execute 执行
 func Execute() {
 
-	RootCmd.AddCommand(WorldCmd)
+	RootCmd.AddCommand(ServertCmd)
 
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)

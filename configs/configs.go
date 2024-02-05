@@ -75,6 +75,10 @@ type Config struct {
 		PprofAddress string `toml:"profAddress"`
 	} `toml:"server"`
 
+	Rpc struct {
+		Address string `toml:"address"`
+	} `toml:"rpc"`
+
 	Etcd struct {
 		Address   []string `toml:"address"`
 		Namespace string   `toml:"namespace"`
