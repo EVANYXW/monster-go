@@ -1,0 +1,5 @@
+Log file created at: 2024/02/02 10:08:56
+Running on machine: xuweiyideMBP
+Built with gc go1.19.4 for darwin/arm64
+line format: mmdd hh:mm:ss.uuuuuu  file:line level msg
+2024/02/02 10:08:56.497273 /Users/xuweiyi/go/src/gameFrame/monster-go/internal/network/client.go:52: ERROR dial tcp6 :8023: connect: connection refused

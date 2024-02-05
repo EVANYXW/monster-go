@@ -1,4 +1,4 @@
-package main
+package client
 
 import (
 	"bufio"
@@ -37,10 +37,14 @@ func (c *ClientConsole) Run() {
 			fmt.Println("input err, check your input and  try again !!! ")
 			continue
 		}
+		//for {
 		in := &InputParam{
 			Command: split[0],
 			Param:   split[1:],
 		}
 		c.chInput <- in
+		//time.Sleep(time.Duration(1) * time.Second)
+		//}
+
 	}
 }

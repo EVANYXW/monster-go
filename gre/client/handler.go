@@ -1,7 +1,7 @@
-package main
+package client
 
 import (
-	"bilibili/monster-go/network"
+	"bilibili/monster-go/internal/network"
 	"fmt"
 	"github.com/phuhao00/greatestworks-proto/gen/player"
 	"strconv"
@@ -15,7 +15,8 @@ type InputHandler func(param *InputParam)
 
 // CreatePlayer 创建角色
 func (c *Client) CreatePlayer(param *InputParam) {
-	id := c.GetMessageIdByCmd(param.Command)
+	fmt.Println("wofale")
+	id := c.cli.TcpConn.GetMessageIdByCmd(param.Command)
 
 	if len(param.Param) != 2 {
 		return
@@ -34,7 +35,7 @@ func (c *Client) OnCreatePlayerRsp(packet *network.Packet) {
 }
 
 func (c *Client) Login(param *InputParam) {
-	id := c.GetMessageIdByCmd(param.Command)
+	id := c.cli.TcpConn.GetMessageIdByCmd(param.Command)
 
 	if len(param.Param) != 2 {
 		return
@@ -61,7 +62,7 @@ func (c *Client) OnLoginRsp(packet *network.Packet) {
 }
 
 func (c *Client) AddFriend(param *InputParam) {
-	id := c.GetMessageIdByCmd(param.Command)
+	id := c.cli.TcpConn.GetMessageIdByCmd(param.Command)
 
 	if len(param.Param) != 1 || len(param.Param[0]) == 0 { //""
 		return
@@ -83,7 +84,7 @@ func (c *Client) OnAddFriendRsp(packet *network.Packet) {
 }
 
 func (c *Client) DelFriend(param *InputParam) {
-	id := c.GetMessageIdByCmd(param.Command)
+	id := c.cli.TcpConn.GetMessageIdByCmd(param.Command)
 
 	if len(param.Param) != 1 || len(param.Param[0]) == 0 { //""
 		return
@@ -107,7 +108,7 @@ func (c *Client) OnDelFriendRsp(packet *network.Packet) {
 }
 
 func (c *Client) SendChatMsg(param *InputParam) {
-	id := c.GetMessageIdByCmd(param.Command)
+	id := c.cli.TcpConn.GetMessageIdByCmd(param.Command)
 
 	if len(param.Param) != 3 { //""
 		return
