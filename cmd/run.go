@@ -1,6 +1,10 @@
 package cmd
 
 import (
+	"bilibili/monster-go/internal/network"
+	"bilibili/monster-go/internal/pkg/output"
+	"bilibili/monster-go/pkg/async"
+	"bilibili/monster-go/pkg/env"
 	"fmt"
 	"net/http"
 	_ "net/http/pprof" // for side effects only
@@ -29,17 +33,28 @@ type Server interface {
 	Stop()
 }
 
-// ServertCmd server 服务的cmd方法、
-var ServertCmd = &cobra.Command{
+func init() {
+	ServerCmd.Flags().StringVar(&serverName, "server_name", "", "server_name")
+}
+
+// ServerCmd server 服务的cmd方法、
+var ServerCmd = &cobra.Command{
 	Use:   "run",
 	Short: "games world server",
 	Run: func(cmd *cobra.Command, args []string) {
+
 		if serverName == "" {
 			fmt.Println("Please specify a server name")
 			return
 		}
 
 		allConfig := configs.Get()
+		serverInfo := network.Info{
+			ServerName: serverName,
+			Address:    allConfig.Server.Address,
+			RpcAddr:    allConfig.Rpc.Address,
+			Env:        env.Active().Value(),
+		}
 
 		{
 			InitLog() // 主要etcd 包里在用
@@ -52,14 +67,23 @@ var ServertCmd = &cobra.Command{
 			etcd := initEtcd()
 
 			// tcp 服务注册etcd
-			tcpEtcd := registerEtcd(etcd, serverName, allConfig.Server.Address)
+			tcpEtcd := registerEtcd(etcd, serverInfo.ServerName, serverInfo.Address)
 			defer tcpEtcd.Stop()
 
 			// rpc 服务注册etcd
-			rpcEtcd := registerEtcd(etcd, fmt.Sprintf("%s%s", serverName, server.Rpc), allConfig.Rpc.Address)
+			rpcEtcd := registerEtcd(etcd, fmt.Sprintf("%s%s", serverName, server.Rpc), serverInfo.RpcAddr)
 			defer rpcEtcd.Stop()
 
-			pprofs()
+			// 开启pprof
+			if allConfig.Server.Pprof {
+				async.Go(func() {
+					pprofs(allConfig.Server.PprofAddress)
+				})
+			}
+
+			async.Go(func() {
+				output.NewOutput(serverInfo.ServerName, serverInfo.Address, serverInfo.RpcAddr)
+			})
 		}
 
 		fmt.Println(fmt.Sprintf("Starting【 %s 】server...", serverName))
@@ -67,41 +91,34 @@ var ServertCmd = &cobra.Command{
 		var server Server
 		switch serverName {
 		case "world":
-			server = world.NewWorld()
+			server = world.NewWorld(serverInfo)
 		}
 
-		//内部服务启动
 		{
+			//内部服务启动
 			server.Start()
+			defer func() {
+				//内部服务关闭
+				server.Stop()
+				close()
+			}()
+
 			fmt.Println(fmt.Sprintf("【 %s 】server is started", serverName))
 			sugar.WaitSignal(world.Oasis.OnSystemSignal)
-		}
-
-		//内部服务关闭
-		{
-			fmt.Println(fmt.Sprintf("Stopping【 %s 】server...", serverName))
-			server.Stop()
-			close()
-
-			fmt.Println(fmt.Sprintf("【 %s 】server is stoped", serverName))
 		}
 	},
 }
 
-func init() {
-	ServertCmd.Flags().StringVar(&serverName, "server_name", "", "server_name")
-}
-
 func registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service {
 	tcpEtcdServe, err := etcdv3.NewService(etcd, etcdv3.ServiceInfo{Name: serverName, Address: address})
-	go func() {
+	async.Go(func() {
 		if err != nil {
 			panic(err)
 		}
 		if err = tcpEtcdServe.Start(); err != nil {
 			fmt.Println(err)
 		}
-	}()
+	})
 	return tcpEtcdServe
 }
 
@@ -161,17 +178,17 @@ func recvPublish(channel string, data string) {
 	fmt.Println(channel, data)
 }
 
-func pprofs() {
-	serverConfig := configs.Get().Server
-	if serverConfig.Pprof {
-		go func() {
-			http.ListenAndServe(serverConfig.PprofAddress, nil)
-		}()
-	}
+func pprofs(addr string) {
+	http.ListenAndServe(addr, nil)
 }
 
 func close() {
+	fmt.Println(fmt.Sprintf("Stopping【 %s 】server...", serverName))
+
 	mysql.DBRepo.DbRClose()
 	mysql.DBRepo.DbWClose()
 	redis.RedisManagers.Close()
+
+	fmt.Println(fmt.Sprintf("【 %s 】server is stoped", serverName))
+
 }

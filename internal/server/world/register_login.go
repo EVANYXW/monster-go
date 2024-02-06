@@ -8,6 +8,7 @@ import (
 )
 
 func (w *world) CreatePlayer(message *network.Packet) {
+
 	msg := &player.CSLogin{}
 	err := proto.Unmarshal(message.Msg.Data, msg)
 	if err != nil {

@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	client.Broadcast()
-	return
+	//client.Broadcast()
+	//return
 	c := client.NewClient()
 	c.InputHandlerRegister()
 	c.MessageHandlerRegister()

@@ -2,7 +2,9 @@ package world
 
 import (
 	"bilibili/monster-go/configs"
+	"bilibili/monster-go/internal/configure"
 	"bilibili/monster-go/internal/network"
+	alert2 "bilibili/monster-go/internal/pkg/alert"
 	rpcServer "bilibili/monster-go/internal/rpc/server"
 	"bilibili/monster-go/pkg/env"
 	"bilibili/monster-go/pkg/logger"
@@ -23,14 +25,14 @@ var (
 type handlerFunc func(message *network.Packet)
 
 type world struct {
-	server    *network.Server
-	handlers  map[messageId.MessageId]handlerFunc
-	closeChan chan struct{}
+	networkServer *network.Server
+	handlers      map[messageId.MessageId]handlerFunc
+	closeChan     chan struct{}
 }
 
 var Oasis *world
 
-func Init() {
+func initLog() {
 	log, err := logger.NewJSONLogger(
 		logger.WithDisableConsole(),
 		logger.WithField("domain", fmt.Sprintf("%s[%s]", configs.ProjectName, env.Active().Value())),
@@ -43,53 +45,58 @@ func Init() {
 	Logger = log
 }
 
-func NewWorld() *world {
-	Init()
-
+func NewWorld(info network.Info) *world {
+	// 日志初始化
+	initLog()
+	alert2.NotifyHandler(Logger)(&alert2.AlertMessage{
+		ProjectName: "monster-go",
+		Env:         "test",
+	})
 	config := configs.Get().Server
 	w := &world{
 		handlers:  make(map[messageId.MessageId]handlerFunc),
 		closeChan: make(chan struct{}),
 	}
 
-	s := network.NewServer(fmt.Sprintf("%s", config.Address),
-		config.MaxConnNum, config.BuffSize, Logger)
+	w.networkServer = network.NewServer(fmt.Sprintf("%s", config.Address),
+		config.MaxConnNum, config.BuffSize, Logger, info)
 
-	s.MessageHandler = w.OnSessionPacket
-	w.server = s
+	w.networkServer.MessageHandler = w.OnSessionPacket
+
+	return w
+}
+
+func (w *world) Start() {
+
+	// 加载配置
+	configure.Load()
+
+	// pb消息的注册
+	w.HandlerRegister()
+	go w.networkServer.Run()
+
+	worldRpcServer := &rpcServer.WorldServer{}
+	go worldRpcServer.Run()
 
 	// 监听配置文件
-
 	go func() {
 	outer:
 		for {
 			select {
 			case <-w.closeChan:
 				break outer
-			case s := <-configs.NotifyChan:
+			case <-configs.NotifyChan:
 				// TODO: 监听 configs的本地配置文件,有修改重新加载
-				fmt.Println(s)
 			}
 		}
 	}()
-
-	return w
-}
-
-func (w *world) Start() {
-	w.HandlerRegister()
-	go w.server.Run()
-
-	worldServer := &rpcServer.WorldServer{}
-	go worldServer.Run()
 }
 
 func (w *world) Stop() {
-	// close
 	Logger.Sync()
 	go func() {
 		w.closeChan <- struct{}{}
-		w.server.OnClose()
+		w.networkServer.OnClose()
 	}()
 
 }
@@ -116,8 +123,7 @@ func (w *world) OnSessionPacket(packet *network.Packet) {
 
 // OnSystemSignal 监听退出信道
 func (w *world) OnSystemSignal(signal os.Signal) bool {
-	//logger.Logger.DebugF("[World] 收到信号 %v \n", signal)
-	fmt.Printf("[World] 收到信号 %v \n", signal.String())
+	//Logger.Debug("[World] 收到信号 %v \n", zap.String("signal", signal.String()))
 	tag := true
 	switch signal {
 	case syscall.SIGHUP:
@@ -126,7 +132,7 @@ func (w *world) OnSystemSignal(signal os.Signal) bool {
 	case syscall.SIGPIPE:
 		fmt.Println("SIGPIPE")
 	default:
-		//logger.Logger.DebugF("[World] 收到信号准备退出...")
+		Logger.Debug("[World] 收到信号准备退出 %v \n", zap.String("signal", signal.String()))
 		tag = false
 	}
 	return tag

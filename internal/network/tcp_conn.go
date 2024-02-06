@@ -34,7 +34,7 @@ type TcpConn struct {
 	logger      *zap.Logger
 }
 
-func NewTcpConn(conn *net.TCPConn, msgBuffSize int, log *zap.Logger) (*TcpConn, error) {
+func NewTcpConn(conn *net.TCPConn, log *zap.Logger) (*TcpConn, error) {
 	return &TcpConn{
 		Conn:        conn,
 		closed:      -1,
@@ -73,7 +73,6 @@ func (c *TcpConn) Reset() {
 
 func (c *TcpConn) Connect() {
 	if atomic.CompareAndSwapInt32(&c.closed, -1, 0) {
-
 		c.wg.Add(1)
 		go c.HandleRead()
 		c.wg.Add(1)
@@ -119,7 +118,6 @@ func (c *TcpConn) Write(b []byte) (int, error) {
 	if c.closed == -1 {
 		return 0, nil
 	}
-	//fmt.Println("write:", b)
 	return c.Conn.Write(b)
 }
 func (c *TcpConn) HandleRead() {
@@ -139,14 +137,10 @@ func (c *TcpConn) HandleRead() {
 
 	for {
 		data, err := c.msgParser.Read(c)
-		//data := make([]byte, 1024)
-		//read, err := c.Conn.Read(data)
-		//fmt.Println("read:", read)
-		fmt.Printf("%s,%s", "read", string(data))
+		//fmt.Printf("%s,%s", "read", string(data))
 		if err != nil {
 			if err != io.EOF {
-				//c.logger.ErrorF("read message error: %v", err)
-				fmt.Println(err)
+				c.logger.Error("read message error: %v", zap.Error(err))
 			}
 			break
 		}
@@ -160,7 +154,8 @@ func (c *TcpConn) HandleRead() {
 		//} else {
 		//	fmt.Println("data:", string(message.Data))
 		//}
-		fmt.Println("message:", message)
+
+		//fmt.Println("message:", message)
 		c.Impl.OnMessage(message, c)
 
 	}
@@ -296,7 +291,6 @@ func (c *TcpConn) PackWrite(msg interface{}) error {
 func (c *TcpConn) GetMessageIdByCmd(cmd string) messageId.MessageId {
 	mid, ok := messageId.MessageId_value[cmd]
 	if ok {
-		fmt.Println("mid-2", messageId.MessageId(mid))
 		return messageId.MessageId(mid)
 	}
 	return messageId.MessageId_None

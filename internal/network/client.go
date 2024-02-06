@@ -53,7 +53,7 @@ func (c *Client) Run() {
 		//c.logger.ErrorF("%v", err)
 		return
 	}
-	tcpConn, err := NewTcpConn(conn, c.bufferSize, nil)
+	tcpConn, err := NewTcpConn(conn, nil)
 	if err != nil {
 		//c.logger.ErrorF("%v", err)
 		return

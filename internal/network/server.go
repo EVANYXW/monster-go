@@ -1,28 +1,41 @@
 package network
 
 import (
+	"bilibili/monster-go/internal/pkg/alert"
+	"bilibili/monster-go/internal/pkg/output"
+	"bilibili/monster-go/pkg/async"
 	"go.uber.org/zap"
 	"net"
 	"os"
+	"runtime/debug"
 	"sync"
 	"time"
 )
 
+type Info struct {
+	ServerName string
+	Env        string
+	Address    string
+	RpcAddr    string
+}
+
 type Server struct {
-	addr           string
-	maxConnNum     int
-	connBuffSize   int
+	Info
+	alertNotify    alert.Handler
+	logger         *zap.Logger
 	swg            sync.WaitGroup
 	ls             *net.TCPListener
-	connMap        map[net.Conn]interface{}
 	mux            sync.Mutex
-	pid            int64
 	MessageHandler func(packet *Packet)
-	logger         *zap.Logger
+	maxConnNum     int
+	connBuffSize   int
+	pid            int64
+	connMap        map[net.Conn]interface{}
+	addr           string
 	closeChan      chan struct{}
 }
 
-func NewServer(addr string, maxConnNum int, buffSize int, log *zap.Logger) *Server {
+func NewServer(addr string, maxConnNum int, buffSize int, log *zap.Logger, info Info) *Server {
 	s := &Server{
 		addr:         addr,
 		maxConnNum:   maxConnNum,
@@ -30,6 +43,8 @@ func NewServer(addr string, maxConnNum int, buffSize int, log *zap.Logger) *Serv
 		connMap:      make(map[net.Conn]interface{}, 0),
 		logger:       log,
 		closeChan:    make(chan struct{}),
+		alertNotify:  alert.NotifyHandler(log),
+		Info:         info,
 	}
 	s.Init()
 
@@ -38,21 +53,19 @@ func NewServer(addr string, maxConnNum int, buffSize int, log *zap.Logger) *Serv
 
 func (s *Server) Init() {
 	tcpAddr, err := net.ResolveTCPAddr("tcp4", s.addr)
-
 	if err != nil {
-		//s.logger.FatalF("[net] addr resolve error", tcpAddr, err)
+		s.logger.Fatal("[net] addr resolve error", zap.Error(err))
 	}
 
-	//ln, err := net.ListenTCP("tcp6", tcpAddr)
 	ln, err := net.ListenTCP("tcp4", tcpAddr)
 
 	if err != nil {
-		//s.logger.FatalF("%v", err)
+		s.logger.Fatal("%v", zap.Error(err))
 	}
 
 	if s.maxConnNum <= 0 {
 		s.maxConnNum = 100
-		//s.logger.InfoF("invalid MaxConnNum, reset to %v", s.MaxConnNum)
+		s.logger.Info("invalid MaxConnNum, reset to %v", zap.Int("maxConnNum", s.maxConnNum))
 	}
 
 	s.ls = ln
@@ -65,6 +78,12 @@ func (s *Server) addConn(conn *net.TCPConn, tcpConn *TcpConn) {
 	defer s.mux.Unlock()
 	s.connMap[conn] = tcpConn
 	tcpConn.ConnID = 12323
+	if output.Oput != nil {
+		output.Oput.Update(output.Data{
+			ConnNum: int32(len(s.connMap)),
+			GoCount: async.GetGoCount(),
+		})
+	}
 }
 
 func (s *Server) removeConn(conn *net.TCPConn, tcpConn *TcpConn) {
@@ -72,12 +91,29 @@ func (s *Server) removeConn(conn *net.TCPConn, tcpConn *TcpConn) {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 	delete(s.connMap, conn)
+	if output.Oput != nil {
+		output.Oput.Update(output.Data{
+			ConnNum: int32(len(s.connMap)),
+			GoCount: async.GetGoCount(),
+		})
+	}
 }
 
 func (s *Server) Run() {
 	defer func() {
 		if err := recover(); err != nil {
-			//s.logger.ErrorF("[net] panic", err, "\n", string(debug.Stack()))
+			if err, ok := err.(error); ok {
+				s.alertNotify(&alert.AlertMessage{
+					ProjectName:  s.Info.ServerName,
+					Env:          s.Info.Env,
+					HOST:         s.Info.Address,
+					ErrorMessage: err.Error,
+					ErrorStack:   string(debug.Stack()),
+				})
+				s.logger.Error("[net run] panic", zap.Error(err))
+			} else {
+				s.logger.Error("Recovered value is not an error")
+			}
 		}
 	}()
 	s.swg.Add(1)
@@ -94,7 +130,6 @@ outer:
 		}
 
 		conn, err := s.ls.AcceptTCP()
-		s.logger.Info("lai ren la")
 		if err != nil {
 			if _, ok := err.(net.Error); ok {
 				if tempDelay == 0 {
@@ -116,11 +151,11 @@ outer:
 
 		if len(s.connMap) >= s.maxConnNum {
 			conn.Close()
-			// s.logger.InfoF("too many connections %v", atomic.LoadInt64(&s.counter))
+			s.logger.Info("too many connections %v", zap.Int("connections", len(s.connMap)))
 			continue
 		}
 
-		tcpConn, err := NewTcpConn(conn, s.connBuffSize, s.logger)
+		tcpConn, err := NewTcpConn(conn, s.logger)
 		if err != nil {
 			continue
 		}
@@ -137,19 +172,34 @@ outer:
 }
 
 func (s *Server) OnMessage(message *Message, conn *TcpConn) {
+	defer func() {
+		if err := recover(); err != nil {
+			s.alertNotify(&alert.AlertMessage{
+				ProjectName:  s.Info.ServerName,
+				Env:          s.Info.Env,
+				HOST:         s.Info.Address,
+				ErrorMessage: err,
+				ErrorStack:   string(debug.Stack()),
+			})
+			if err, ok := err.(error); ok {
+				s.logger.Error("[OnMessage] panic", zap.Error(err))
+			} else {
+				s.logger.Error("Recovered value is not an error")
+			}
+		}
+	}()
 	if s.MessageHandler != nil {
 		s.MessageHandler(&Packet{
 			Msg:  message,
 			Conn: conn,
 		})
 	}
+}
+
+func (s *Server) OnConnect() {
 
 }
 
 func (s *Server) OnClose() {
 	s.closeChan <- struct{}{}
-}
-
-func (s *Server) OnConnect() {
-
 }

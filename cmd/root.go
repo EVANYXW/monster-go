@@ -21,7 +21,7 @@ var RootCmd = &cobra.Command{
 // Execute 执行
 func Execute() {
 
-	RootCmd.AddCommand(ServertCmd)
+	RootCmd.AddCommand(ServerCmd)
 
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)

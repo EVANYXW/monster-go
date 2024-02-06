@@ -27,3 +27,145 @@
 {"level":"info","time":"2024-02-05 15:11:32","caller":"network/server.go:97","msg":"lai ren la","domain":"monsterGo[fat]"}
 {"level":"info","time":"2024-02-05 16:14:53","caller":"network/server.go:97","msg":"lai ren la","domain":"monsterGo[fat]"}
 {"level":"info","time":"2024-02-05 16:45:51","caller":"network/server.go:97","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:12:51","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 18:13:02","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 18:13:29","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:13:56","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 18:14:32","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 18:14:35","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:14:47","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:15:38","caller":"network/server.go:106","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:16:24","caller":"network/server.go:105","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:17:18","caller":"network/server.go:106","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:18:24","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:20:02","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:20:39","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:21:35","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:23:06","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:24:09","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:26:28","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 18:27:57","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 18:28:02","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:02","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:02","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:02","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:02","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:02","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:02","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:03","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:03","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:04","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:05","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:05","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:06","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:07","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:08","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:09","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:10","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:11","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:12","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:13","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:14","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:15","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:16","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:17","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:18","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:19","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:20","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:21","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:22","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:23","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:24","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:25","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:28:36","caller":"network/server.go:103","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 18:29:07","caller":"network/server.go:108","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 18:29:10","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 20:41:48","caller":"network/server.go:108","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 20:41:53","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 20:41:57","caller":"network/server.go:108","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 20:42:00","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 21:51:03","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:51:15","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 21:51:27","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"error","time":"2024-02-05 21:51:28","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 21:51:35","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 21:51:40","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 21:52:01","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 21:52:40","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 21:53:18","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:54:41","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 21:55:27","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 21:55:28","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 21:55:38","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 21:55:51","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 21:56:22","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 21:56:28","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:28","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:28","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:28","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:28","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:28","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:28","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:29","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:29","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:30","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:31","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:32","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:33","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:34","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:35","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:36","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:37","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:38","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:39","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:40","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:41","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:42","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:43","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:44","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:45","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:46","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:47","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:48","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:49","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:50","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:51","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:52","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:53","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:54","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:55","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:56:56","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:57:20","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:57:42","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"info","time":"2024-02-05 21:57:45","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 21:57:53","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"error","time":"2024-02-05 21:57:55","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 21:58:24","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 21:58:33","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 21:58:40","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 21:58:46","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 22:41:28","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 22:41:33","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 22:41:37","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 22:41:39","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"info","time":"2024-02-05 22:43:59","caller":"network/server.go:111","msg":"lai ren la","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-05 22:44:04","caller":"network/tcp_conn.go:144","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"error","time":"2024-02-06 10:01:34","caller":"network/tcp_conn.go:143","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"error","time":"2024-02-06 10:43:36","caller":"alert/alert.go:47","msg":"发送告警通知邮件失败","domain":"monsterGo[fat]","error":"535 Error: authentication failed","errorVerbose":"535 Error: authentication failed\nbilibili/monster-go/pkg/alert.NotifyHandler.func1\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/alert/alert.go:47\nbilibili/monster-go/internal/server/world.NewWorld\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/internal/server/world/world.go:51\nbilibili/monster-go/cmd.glob..func2\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/run.go:85\ngithub.com/spf13/cobra.(*Command).execute\n\t/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:987\ngithub.com/spf13/cobra.(*Command).ExecuteC\n\t/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1115\ngithub.com/spf13/cobra.(*Command).Execute\n\t/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1039\nbilibili/monster-go/cmd.Execute\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/root.go:26\nmain.main\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/main.go:8\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:250\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_arm64.s:1172\n"}
+{"level":"error","time":"2024-02-06 10:48:13","caller":"alert/alert.go:47","msg":"发送告警通知邮件失败","domain":"monsterGo[fat]","error":"535 Error: authentication failed","errorVerbose":"535 Error: authentication failed\nbilibili/monster-go/pkg/alert.NotifyHandler.func1\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/alert/alert.go:47\nbilibili/monster-go/internal/server/world.NewWorld\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/internal/server/world/world.go:51\nbilibili/monster-go/cmd.glob..func2\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/run.go:85\ngithub.com/spf13/cobra.(*Command).execute\n\t/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:987\ngithub.com/spf13/cobra.(*Command).ExecuteC\n\t/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1115\ngithub.com/spf13/cobra.(*Command).Execute\n\t/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1039\nbilibili/monster-go/cmd.Execute\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/root.go:26\nmain.main\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/main.go:8\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:250\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_arm64.s:1172\n"}
+{"level":"error","time":"2024-02-06 10:48:56","caller":"alert/alert.go:47","msg":"发送告警通知邮件失败","domain":"monsterGo[fat]","error":"535 Error: authentication failed","errorVerbose":"535 Error: authentication failed\nbilibili/monster-go/pkg/alert.NotifyHandler.func1\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/alert/alert.go:47\nbilibili/monster-go/internal/server/world.NewWorld\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/internal/server/world/world.go:51\nbilibili/monster-go/cmd.glob..func2\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/run.go:85\ngithub.com/spf13/cobra.(*Command).execute\n\t/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:987\ngithub.com/spf13/cobra.(*Command).ExecuteC\n\t/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1115\ngithub.com/spf13/cobra.(*Command).Execute\n\t/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1039\nbilibili/monster-go/cmd.Execute\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/root.go:26\nmain.main\n\t/Users/xuweiyi/go/src/gameFrame/monster-go/main.go:8\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:250\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_arm64.s:1172\n"}
+{"level":"error","time":"2024-02-06 11:36:50","caller":"network/tcp_conn.go:129","msg":"Recovered value is not an error","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-06 11:40:35","caller":"network/tcp_conn.go:143","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"error","time":"2024-02-06 11:40:42","caller":"network/server.go:187","msg":"Recovered value is not an error","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-06 12:11:54","caller":"network/server.go:187","msg":"Recovered value is not an error","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-06 12:14:05","caller":"network/server.go:187","msg":"Recovered value is not an error","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-06 12:14:37","caller":"network/server.go:187","msg":"Recovered value is not an error","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-06 12:15:56","caller":"network/tcp_conn.go:143","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"error","time":"2024-02-06 12:16:14","caller":"network/server.go:187","msg":"Recovered value is not an error","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-06 12:16:54","caller":"network/server.go:187","msg":"Recovered value is not an error","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-06 12:28:50","caller":"network/tcp_conn.go:143","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"error","time":"2024-02-06 12:28:54","caller":"network/tcp_conn.go:143","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"error","time":"2024-02-06 12:28:56","caller":"network/tcp_conn.go:143","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"error","time":"2024-02-06 12:33:49","caller":"network/tcp_conn.go:143","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
+{"level":"error","time":"2024-02-06 12:34:22","caller":"network/server.go:187","msg":"Recovered value is not an error","domain":"monsterGo[fat]"}
+{"level":"error","time":"2024-02-06 13:02:33","caller":"network/tcp_conn.go:143","msg":"read message error: %v","domain":"monsterGo[fat]","error":"EOF readLen:0"}
