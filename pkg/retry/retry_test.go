@@ -21,7 +21,7 @@ func TestRetry_Retry(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:   "test3",
+			name:   "test",
 			fields: fields{retryCount: 3, retryDelay: 1, retryTimeout: 1000},
 			args: args{fn: func() error {
 
