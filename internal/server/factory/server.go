@@ -20,8 +20,8 @@ import (
 //
 // Server cmd的server
 type Server interface {
-	Start()
-	Stop()
+	Run()
+	Destroy()
 }
 
 type ServerNewFunc func(info network.Info) Server

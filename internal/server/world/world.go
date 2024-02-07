@@ -63,7 +63,7 @@ func New(info network.Info) factory.Server {
 	return w
 }
 
-func (w *World) Start() {
+func (w *World) Run() {
 
 	// 加载配置
 	configure.Global.Load()
@@ -89,7 +89,7 @@ func (w *World) Start() {
 	}()
 }
 
-func (w *World) Stop() {
+func (w *World) Destroy() {
 	Logger.Sync()
 	go func() {
 		w.closeChan <- struct{}{}

@@ -18,8 +18,15 @@ import (
 	"hl.hexinchain.com/welfare-center/basic/logs"
 	"hl.hexinchain.com/welfare-center/basic/service"
 	"net/http"
-	"time"
 )
+
+type EtcdServers []*etcdv3.Service
+
+var etcdServerArr EtcdServers
+
+func (e EtcdServers) add(server *etcdv3.Service) {
+	etcdServerArr = append(e, server)
+}
 
 func Init(allConfig configs.Config, serverInfo network.Info) {
 	{
@@ -34,11 +41,11 @@ func Init(allConfig configs.Config, serverInfo network.Info) {
 
 		// tcp 服务注册etcd
 		tcpEtcd := registerEtcd(etcd, serverInfo.ServerName, serverInfo.Address)
-		defer tcpEtcd.Stop()
+		etcdServerArr.add(tcpEtcd)
 
 		// rpc 服务注册etcd
 		rpcEtcd := registerEtcd(etcd, fmt.Sprintf("%s%s", serverName, server.Rpc), serverInfo.RpcAddr)
-		defer rpcEtcd.Stop()
+		etcdServerArr.add(rpcEtcd)
 
 		// 开启pprof
 		pprofUrl := ""
@@ -75,18 +82,16 @@ func Run(serverName string) {
 		panic("找不到对应服务")
 	}
 	server = instance(serverInfo)
-	{
-		//内部服务启动
-		server.Start()
-		defer func() {
-			//内部服务关闭
-			server.Stop()
-			close()
-		}()
+	//内部服务启动
+	server.Run()
+	defer func() {
+		//内部服务关闭
+		server.Destroy()
+		close()
+	}()
 
-		fmt.Println(fmt.Sprintf("【 %s 】server is started", serverName))
-		sugar.WaitSignal(world.Oasis.OnSystemSignal)
-	}
+	fmt.Println(fmt.Sprintf("【 %s 】server is started", serverName))
+	sugar.WaitSignal(world.Oasis.OnSystemSignal)
 }
 
 func registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service {
@@ -100,7 +105,6 @@ func registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service
 		}
 	})
 
-	time.Sleep(time.Duration(1) * time.Second)
 	return tcpEtcdServe
 }
 
@@ -126,7 +130,7 @@ func initEtcd() *etcdv3.Etcd {
 		panic(err)
 	}
 
-	client.Init(etcd) // fixMe 这里初始化有些鸡肋
+	client.Init(etcd)
 	return etcd
 }
 
@@ -156,7 +160,7 @@ func redisSub(subFun redis.SubFun) {
 }
 
 func recvPublish(channel string, data string) {
-	// TODO: 可以实现好一些配置重读等控制
+	// TODO: 通过redis的订阅发布，可以实现一些配置重读等控制
 	fmt.Println(channel, data)
 }
 
@@ -170,6 +174,9 @@ func close() {
 	mysql.DBRepo.DbRClose()
 	mysql.DBRepo.DbWClose()
 	redis.RedisManagers.Close()
+	for _, etcdServer := range etcdServerArr {
+		etcdServer.Stop()
+	}
 
 	fmt.Println(fmt.Sprintf("【 %s 】server is stoped", serverName))
 
