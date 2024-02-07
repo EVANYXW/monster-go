@@ -49,7 +49,7 @@ address = ':8023'
 maxConnNum=100
 buffSize=100
 pprof=true
-pprofAddress = ':6060'
+pprofAddress = '127.0.0.1:6060'
 
 [rpc]
 address = ':8024'

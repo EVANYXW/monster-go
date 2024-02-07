@@ -6,33 +6,42 @@ type IConfigure interface {
 	Get()
 }
 
-var (
-	Map = make(map[string]IConfigure)
-)
-
-func Init() {
-	Register(Best, &BetConfigM{})
+type globalConfig struct {
+	Map map[string]IConfigure
 }
 
-func Register(name string, config IConfigure) {
-	if _, ok := Map[name]; !ok {
-		Map[name] = config
+var (
+	Global = New()
+)
+
+func New() *globalConfig {
+	return &globalConfig{
+		Map: make(map[string]IConfigure),
 	}
 }
 
-func Load() {
-	Init()
-	for _, config := range Map {
+func init() {
+	Global.Register(Best, &BetConfigM{})
+}
+
+func (c *globalConfig) Register(name string, config IConfigure) {
+	if _, ok := c.Map[name]; !ok {
+		c.Map[name] = config
+	}
+}
+
+func (c *globalConfig) Load() {
+	for _, config := range c.Map {
 		config.Load()
 	}
 }
 
-func Reset() {
-	for _, config := range Map {
+func (c *globalConfig) Reset() {
+	for _, config := range c.Map {
 		config.ReSet()
 	}
 }
 
-func Get(name string) IConfigure {
-	return Map[name]
+func (c *globalConfig) Get(name string) IConfigure {
+	return c.Map[name]
 }

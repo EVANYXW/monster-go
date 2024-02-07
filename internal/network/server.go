@@ -107,8 +107,7 @@ func (s *Server) Run() {
 					ProjectName:  s.Info.ServerName,
 					Env:          s.Info.Env,
 					HOST:         s.Info.Address,
-					ErrorMessage: err.Error,
-					ErrorStack:   string(debug.Stack()),
+					ErrorMessage: err.Error, ErrorStack: string(debug.Stack()),
 				})
 				s.logger.Error("[net run] panic", zap.Error(err))
 			} else {

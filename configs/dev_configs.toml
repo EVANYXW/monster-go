@@ -6,11 +6,11 @@ secret = '6ab6122836cfef95f8db'
 local = 'zh-cn'
 
 [mail]
-host = 'smtp.163.com'
-pass = ''
+host = 'smtp.126.com'
+pass = 'UFJNUIGZXYXECBJF'
 port = 465
-to = ''
-user = ''
+to = '188267943@qq.com'
+user = 'evan_yxw@126.com'
 
 [mysql]
 [mysql.base]
@@ -37,3 +37,19 @@ maxretries = 3
 minidleconns = 5
 pass = ''
 poolsize = 10
+isCluster = false
+
+[etcd]
+address = ['host.docker.internal:2379']
+namespace='default'
+secret= ''
+
+[server]
+address = ':8023'
+maxConnNum=100
+buffSize=100
+pprof=true
+pprofAddress = ':6060'
+
+[rpc]
+address = ':8024'

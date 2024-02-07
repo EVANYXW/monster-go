@@ -1,7 +1,6 @@
 package env
 
 import (
-	"flag"
 	"fmt"
 	"strings"
 )
@@ -52,11 +51,11 @@ func (e *environment) IsPro() bool {
 
 func (e *environment) t() {}
 
-func init() {
-	env := flag.String("env", "", "请输入运行环境:\n dev:开发环境\n fat:测试环境\n uat:预上线环境\n pro:正式环境\n")
-	flag.Parse()
+func Init(env string) {
+	//env := flag.String("env", "", "请输入运行环境:\n dev:开发环境\n fat:测试环境\n uat:预上线环境\n pro:正式环境\n")
+	//flag.Parse()
 
-	switch strings.ToLower(strings.TrimSpace(*env)) {
+	switch strings.ToLower(strings.TrimSpace(env)) {
 	case "dev":
 		active = dev
 	case "fat":

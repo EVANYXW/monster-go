@@ -22,6 +22,7 @@ type Output struct {
 	ServerName string
 	Address    string
 	RpcAddress string
+	Url        string
 }
 
 // 定义颜色结构体
@@ -45,39 +46,46 @@ var colors = map[string]int{
 
 var clear map[string]func() //create a map for storing clear func
 
-var tamplate = `+----------------------------------+
+var tamplate = `+--------------------------------------------------+
 |   Server Name: {{Name}}
 |   Server Addr: {{Addr}}  
 |   Server Rpc Addr: {{RpcAddr}}
 |
 |   Player Num: {{PlayerNum}}
 |   Go Num: {{GoNum}}
-+----------------------------------+`
+|   Pprof: {{Pprof}}
++--------------------------------------------------+`
 
 func init() {
 	clear = make(map[string]func()) //Initialize it
-	linuxFun := func() {
-		cmd := exec.Command("clear") //Linux example, its tested
-		cmd.Stdout = os.Stdout
-		cmd.Run()
-	}
+
+	linuxFun := clearCmd(func() *exec.Cmd {
+		return exec.Command("clear") //Linux example, its tested
+	})
 
 	clear["linux"] = linuxFun
 	clear["darwin"] = linuxFun
-	clear["windows"] = func() {
-		cmd := exec.Command("cmd", "/c", "cls") //Windows example, its tested
-		cmd.Stdout = os.Stdout
-		cmd.Run()
-
-	}
+	clear["windows"] = clearCmd(func() *exec.Cmd {
+		return exec.Command("cmd", "/c", "cls") //Windows example, its tested
+	})
 }
 
-func NewOutput(name, addr, rpc string) {
+func clearCmd(fun func() *exec.Cmd) func() {
+	return func() {
+		cmd := fun()
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+	}
+
+}
+
+func NewOutput(name, addr, rpc, url string) {
 	Oput = &Output{
 		ServerName: name,
 		Address:    addr,
 		RpcAddress: rpc,
 		Chan:       make(chan Data, 1),
+		Url:        url,
 	}
 
 	Oput.Print(Data{0, async.GetGoCount()})
@@ -106,6 +114,10 @@ func clearScreen() {
 	fmt.Print("\033[H\033[2J")
 }
 
+func findMaxLen() {
+
+}
+
 func addLine(replacedText string) string {
 	// 在每行末尾添加虚线
 	lines := strings.Split(replacedText, "\n")
@@ -130,9 +142,18 @@ func (s *Output) Print(data Data) {
 	str = strings.Replace(str, "{{RpcAddr}}", s.RpcAddress, -1)
 	str = strings.Replace(str, "{{PlayerNum}}", cast.ToString(data.ConnNum), -1)
 	str = strings.Replace(str, "{{GoNum}}", cast.ToString(data.GoCount), -1)
+	if s.Url != "" {
+		str = strings.Replace(str, "{{Pprof}}", fmt.Sprintf("%s%s%s", "http://", s.Url, "/debug/pprof"), -1)
+	}
+
 	lineStr := addLine(str)
-	//fmt.Println(lineStr)
 	ColorPrint("blue", "null", lineStr)
+
+	//linkText := "Click here!"
+	//linkURL := "www.example.com"
+
+	//fmt.Printf("\033[4m%s\033[0m\n", linkText)
+	//fmt.Printf("Visit %s for more information.\n", linkURL)
 }
 
 func (s *Output) Clear() {
@@ -153,13 +174,6 @@ func ColorPrint(foreground string, background string, text string) {
 
 	fmt.Printf("%s%s%s\n", color, text, reset)
 }
-
-//func colorPrint(foregroundColor int, backgroundColor int, text string) {
-//	color := fmt.Sprintf("\033[1;%d;%dm", foregroundColor, backgroundColor+10) // 生成颜色代码
-//	reset := "\033[0m"                                                         // 重置颜色
-//
-//	fmt.Printf("%s%s%s\n", color, text, reset)
-//}
 
 func save() {
 	fmt.Println("\033[1;31mThis is red text\033[0m")     // 红色文本

@@ -7,7 +7,7 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func (w *world) CreatePlayer(message *network.Packet) {
+func (w *World) CreatePlayer(message *network.Packet) {
 
 	msg := &player.CSLogin{}
 	err := proto.Unmarshal(message.Msg.Data, msg)
@@ -24,6 +24,6 @@ func (w *world) CreatePlayer(message *network.Packet) {
 	err = message.Conn.PackWrite(pack)
 }
 
-func (w *world) UserLogin(message *network.Packet) {
+func (w *World) UserLogin(message *network.Packet) {
 	fmt.Println("登录成功")
 }

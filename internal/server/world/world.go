@@ -4,8 +4,8 @@ import (
 	"bilibili/monster-go/configs"
 	"bilibili/monster-go/internal/configure"
 	"bilibili/monster-go/internal/network"
-	alert2 "bilibili/monster-go/internal/pkg/alert"
 	rpcServer "bilibili/monster-go/internal/rpc/server"
+	"bilibili/monster-go/internal/server/factory"
 	"bilibili/monster-go/pkg/env"
 	"bilibili/monster-go/pkg/logger"
 	"bilibili/monster-go/pkg/timeutil"
@@ -24,13 +24,13 @@ var (
 
 type handlerFunc func(message *network.Packet)
 
-type world struct {
+type World struct {
 	networkServer *network.Server
 	handlers      map[messageId.MessageId]handlerFunc
 	closeChan     chan struct{}
 }
 
-var Oasis *world
+var Oasis *World
 
 func initLog() {
 	log, err := logger.NewJSONLogger(
@@ -45,15 +45,12 @@ func initLog() {
 	Logger = log
 }
 
-func NewWorld(info network.Info) *world {
+func New(info network.Info) factory.Server {
 	// 日志初始化
 	initLog()
-	alert2.NotifyHandler(Logger)(&alert2.AlertMessage{
-		ProjectName: "monster-go",
-		Env:         "test",
-	})
+
 	config := configs.Get().Server
-	w := &world{
+	w := &World{
 		handlers:  make(map[messageId.MessageId]handlerFunc),
 		closeChan: make(chan struct{}),
 	}
@@ -66,10 +63,10 @@ func NewWorld(info network.Info) *world {
 	return w
 }
 
-func (w *world) Start() {
+func (w *World) Start() {
 
 	// 加载配置
-	configure.Load()
+	configure.Global.Load()
 
 	// pb消息的注册
 	w.HandlerRegister()
@@ -92,7 +89,7 @@ func (w *world) Start() {
 	}()
 }
 
-func (w *world) Stop() {
+func (w *World) Stop() {
 	Logger.Sync()
 	go func() {
 		w.closeChan <- struct{}{}
@@ -102,28 +99,15 @@ func (w *world) Stop() {
 }
 
 // OnSessionPacket 根据注册方法调佣
-func (w *world) OnSessionPacket(packet *network.Packet) {
+func (w *World) OnSessionPacket(packet *network.Packet) {
 	if handler, ok := w.handlers[messageId.MessageId(packet.Msg.ID)]; ok {
 		handler(packet)
 		return
 	}
-
-	//
-	//if packet.Msg.ID == 3 {
-	//	fmt.Println("hello hao")
-	//}
-	//packet.Conn.AsyncSend(
-	//	1,
-	//	//&player.SCSendChatMsg{},
-	//	&player.SCLogin{
-	//		Ok: true,
-	//	},
-	//)
 }
 
 // OnSystemSignal 监听退出信道
-func (w *world) OnSystemSignal(signal os.Signal) bool {
-	//Logger.Debug("[World] 收到信号 %v \n", zap.String("signal", signal.String()))
+func (w *World) OnSystemSignal(signal os.Signal) bool {
 	tag := true
 	switch signal {
 	case syscall.SIGHUP:

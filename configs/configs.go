@@ -105,7 +105,7 @@ func Get() Config {
 	return *config
 }
 
-func init() {
+func Init() {
 	var r io.Reader
 	switch env.Active().Value() {
 	case "dev":
