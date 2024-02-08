@@ -1,14 +1,15 @@
 package cmd
 
 import (
-	"bilibili/monster-go/configs"
-	"bilibili/monster-go/internal/server"
-	"bilibili/monster-go/internal/server/factory"
-	"bilibili/monster-go/internal/server/world"
-	"bilibili/monster-go/pkg/env"
-	"github.com/spf13/cobra"
 	"log"
 	_ "net/http/pprof" // for side effects only
+
+	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/internal/server"
+	"github.com/evanyxw/monster-go/internal/server/factory"
+	"github.com/evanyxw/monster-go/internal/server/world"
+	"github.com/evanyxw/monster-go/pkg/env"
+	"github.com/spf13/cobra"
 )
 
 var (
@@ -31,6 +32,7 @@ var ServerCmd = &cobra.Command{
 	Use:   "run",
 	Short: "Run game server",
 	Run: func(cmd *cobra.Command, args []string) {
+
 		env.Init(envStr)
 		configs.Init()
 

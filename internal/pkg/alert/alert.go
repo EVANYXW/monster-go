@@ -1,8 +1,8 @@
 package alert
 
 import (
-	"bilibili/monster-go/configs"
-	"bilibili/monster-go/pkg/mail"
+	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/pkg/mail"
 	"github.com/pkg/errors"
 
 	"go.uber.org/zap"

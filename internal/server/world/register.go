@@ -1,6 +1,6 @@
 package world
 
-import "github.com/phuhao00/greatestworks-proto/gen/messageId"
+import "github.com/evanyxw/game_proto/msg/messageId"
 
 func (w *World) HandlerRegister() {
 	w.handlers[messageId.MessageId_CSCreatePlayer] = w.CreatePlayer

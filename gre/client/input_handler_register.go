@@ -1,8 +1,7 @@
 package client
 
 import (
-	"github.com/phuhao00/greatestworks-proto/gen/messageId"
-
+	"github.com/evanyxw/game_proto/msg/messageId"
 	"google.golang.org/protobuf/proto"
 )
 

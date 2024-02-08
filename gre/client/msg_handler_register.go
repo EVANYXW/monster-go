@@ -1,6 +1,6 @@
 package client
 
-import "github.com/phuhao00/greatestworks-proto/gen/messageId"
+import "github.com/evanyxw/game_proto/msg/messageId"
 
 // MessageId_SCCreatePlayer
 func (c *Client) MessageHandlerRegister() {

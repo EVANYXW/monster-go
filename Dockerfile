@@ -1,16 +1,20 @@
 # FROM 基于 golang:1.16-alpine
 FROM golang:1.19-alpine AS builder
 
-# ENV 设置环境变量
-ENV GOPATH=/opt/repo
-ENV GO111MODULE=on
-ENV GOPROXY=https://goproxy.io,direct
+WORKDIR /opt/repo/monster-go
 
 # COPY 源路径 目标路径
-COPY . $GOPATH/monster-go/
+COPY . .
 
-# RUN 执行 go build .
-RUN cd $GOPATH/monster-go/ && go build -o monsterGo .
+
+RUN go env -w GO111MODULE=on \
+    && go env -w GOPATH=/opt/repo \
+    && go env -w GOPROXY=https://goproxy.cn,direct \
+    && go env -w CGO_ENABLED=0 \
+    && go env \
+    && go mod tidy \
+    && go build -o monsterGo .
+
 
 # FROM 基于 alpine:latest
 FROM alpine:latest
@@ -35,4 +39,4 @@ EXPOSE 6060
 WORKDIR /opt
 
 # CMD 设置启动命令
-CMD ["./monsterGo", "-env", "dev"]
+CMD ["./monsterGo","run","--server_name","world", "--env", "dev"]

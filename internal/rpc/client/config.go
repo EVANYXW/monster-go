@@ -1,6 +1,6 @@
 package client
 
-import "hl.hexinchain.com/welfare-center/basic/etcdv3"
+import "github.com/evanyxw/monster-go/pkg/etcdv3"
 
 var (
 	etcdConfig *etcdv3.Etcd

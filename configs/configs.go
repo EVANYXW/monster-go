@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"bilibili/monster-go/pkg/env"
-	"bilibili/monster-go/pkg/file"
+	"github.com/evanyxw/monster-go/pkg/env"
+	"github.com/evanyxw/monster-go/pkg/file"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"

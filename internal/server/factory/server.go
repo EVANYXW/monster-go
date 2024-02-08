@@ -1,7 +1,7 @@
 package factory
 
 import (
-	"bilibili/monster-go/internal/network"
+	"github.com/evanyxw/monster-go/internal/network"
 )
 
 // 方案一：

@@ -1,16 +1,16 @@
 package world
 
 import (
-	"bilibili/monster-go/configs"
-	"bilibili/monster-go/internal/configure"
-	"bilibili/monster-go/internal/network"
-	rpcServer "bilibili/monster-go/internal/rpc/server"
-	"bilibili/monster-go/internal/server/factory"
-	"bilibili/monster-go/pkg/env"
-	"bilibili/monster-go/pkg/logger"
-	"bilibili/monster-go/pkg/timeutil"
 	"fmt"
-	"github.com/phuhao00/greatestworks-proto/gen/messageId"
+	"github.com/evanyxw/game_proto/msg/messageId"
+	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/internal/configure"
+	"github.com/evanyxw/monster-go/internal/network"
+	rpcServer "github.com/evanyxw/monster-go/internal/rpc/server"
+	"github.com/evanyxw/monster-go/internal/server/factory"
+	"github.com/evanyxw/monster-go/pkg/env"
+	"github.com/evanyxw/monster-go/pkg/logger"
+	"github.com/evanyxw/monster-go/pkg/timeutil"
 	"go.uber.org/zap"
 
 	//"github.com/phuhao00/network/example/logger"

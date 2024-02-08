@@ -1,12 +1,12 @@
 package server
 
 import (
-	"bilibili/monster-go/configs"
 	"context"
 	"fmt"
 	"github.com/evanyxw/game_proto/msg"
+	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/pkg/middleware"
 	"google.golang.org/grpc"
-	"hl.hexinchain.com/welfare-center/basic/middleware"
 	"net"
 	"os"
 	"os/signal"

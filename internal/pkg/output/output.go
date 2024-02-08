@@ -1,8 +1,8 @@
 package output
 
 import (
-	"bilibili/monster-go/pkg/async"
 	"fmt"
+	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/spf13/cast"
 	"os"
 	"os/exec"
@@ -70,15 +70,6 @@ func init() {
 	})
 }
 
-func clearCmd(fun func() *exec.Cmd) func() {
-	return func() {
-		cmd := fun()
-		cmd.Stdout = os.Stdout
-		cmd.Run()
-	}
-
-}
-
 func NewOutput(name, addr, rpc, url string) {
 	Oput = &Output{
 		ServerName: name,
@@ -97,8 +88,6 @@ func (s *Output) Update(data Data) {
 }
 
 func (s *Output) Output() {
-	//fmt.Println("|-----player number-----|----------|----------|----------|----------|")
-	//fmt.Println("|-----     5       -----|----------|----------|----------|----------|")
 	for {
 		select {
 		case data := <-s.Chan:
@@ -107,6 +96,15 @@ func (s *Output) Output() {
 			s.Print(data)
 		}
 	}
+}
+
+func clearCmd(fun func() *exec.Cmd) func() {
+	return func() {
+		cmd := fun()
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+	}
+
 }
 
 // 清空终端屏幕
@@ -171,34 +169,59 @@ func ColorPrint(foreground string, background string, text string) {
 
 	color := fmt.Sprintf("\033[%d;%dm", foregroundCode, backgroundCode) // 生成颜色代码
 	reset := "\033[0m"                                                  // 重置颜色
-
 	fmt.Printf("%s%s%s\n", color, text, reset)
 }
 
 func save() {
-	fmt.Println("\033[1;31mThis is red text\033[0m")     // 红色文本
-	fmt.Println("\033[1;32mThis is green text\033[0m")   // 绿色文本
-	fmt.Println("\033[1;33mThis is yellow text\033[0m")  // 黄色文本
-	fmt.Println("\033[1;34mThis is blue text\033[0m")    // 蓝色文本
-	fmt.Println("\033[1;35mThis is magenta text\033[0m") // 品红色文本
-	fmt.Println("\033[1;36mThis is cyan text\033[0m")    // 青色文本
-
-	fmt.Println("\033[41;37mThis is red text with white background\033[0m")    // 红色文本，白色底色
-	fmt.Println("\033[42;30mThis is green text with black background\033[0m")  // 绿色文本，黑色底色
-	fmt.Println("\033[43;34mThis is yellow text with blue background\033[0m")  // 黄色文本，蓝色底色
-	fmt.Println("\033[44;33mThis is blue text with yellow background\033[0m")  // 蓝色文本，黄色底色
-	fmt.Println("\033[45;36mThis is magenta text with cyan background\033[0m") // 品红色文本，青色底色
-	fmt.Println("\033[46;31mThis is cyan text with red background\033[0m")
+	//fmt.Println("\033[1;31mThis is red text\033[0m")     // 红色文本
+	//fmt.Println("\033[1;32mThis is green text\033[0m")   // 绿色文本
+	//fmt.Println("\033[1;33mThis is yellow text\033[0m")  // 黄色文本
+	//fmt.Println("\033[1;34mThis is blue text\033[0m")    // 蓝色文本
+	//fmt.Println("\033[1;35mThis is magenta text\033[0m") // 品红色文本
+	//fmt.Println("\033[1;36mThis is cyan text\033[0m")    // 青色文本
+	//
+	//fmt.Println("\033[41;37mThis is red text with white background\033[0m")    // 红色文本，白色底色
+	//fmt.Println("\033[42;30mThis is green text with black background\033[0m")  // 绿色文本，黑色底色
+	//fmt.Println("\033[43;34mThis is yellow text with blue background\033[0m")  // 黄色文本，蓝色底色
+	//fmt.Println("\033[44;33mThis is blue text with yellow background\033[0m")  // 蓝色文本，黄色底色
+	//fmt.Println("\033[45;36mThis is magenta text with cyan background\033[0m") // 品红色文本，青色底色
+	//fmt.Println("\033[46;31mThis is cyan text with red background\033[0m")
 	fmt.Print("\x1b[31m") // 设置文本颜色为红色
 	fmt.Print("This is red text")
 	fmt.Print("\x1b[0m") // 重置文本颜色
 	fmt.Print("\x1b[1m") // 设置文本为加粗
 	fmt.Print("This is bold text")
-	fmt.Print("\x1b[0m") // 重置文本样式
-	fmt.Print("\x1b[3m") // 设置文本为斜体
-	fmt.Print("This is italic text")
-	fmt.Print("\x1b[0m") // 重置文本样式
-	fmt.Print("\x1b[4m") // 设置文本下划线
-	fmt.Print("This is underlined text")
-	fmt.Print("\x1b[0m") // 重置文本样式
+	//fmt.Print("\x1b[0m") // 重置文本样式
+	//fmt.Print("\x1b[3m") // 设置文本为斜体
+	//fmt.Print("This is italic text")
+	//fmt.Print("\x1b[0m") // 重置文本样式
+	//fmt.Print("\x1b[4m") // 设置文本下划线
+	//fmt.Print("This is underlined text")
+	//fmt.Print("\x1b[0m") // 重置文本样式
+}
+
+// 设置文本颜色
+func setFontColor(color string) {
+	c := colors[color]
+	fmt.Print(fmt.Sprintf("\x1b[%dm", c))
+}
+
+// 重置文本样式
+func resetFont() {
+	fmt.Print("\x1b[0m")
+}
+
+// 设置文本为加粗
+func setFontWeight() {
+	fmt.Print("\x1b[1m")
+}
+
+// 设置文本为斜体
+func setFontXie() {
+	fmt.Print("\x1b[3m")
+}
+
+// 设置文本下划线
+func setFontUnderline() {
+	fmt.Print("\x1b[4m")
 }

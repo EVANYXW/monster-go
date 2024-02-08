@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bilibili/monster-go/cmd"
+	"github.com/evanyxw/monster-go/cmd"
 )
 
 func main() {

@@ -1,22 +1,21 @@
 package cmd
 
 import (
-	"bilibili/monster-go/configs"
-	"bilibili/monster-go/internal/mysql"
-	"bilibili/monster-go/internal/network"
-	"bilibili/monster-go/internal/pkg/output"
-	"bilibili/monster-go/internal/redis"
-	"bilibili/monster-go/internal/rpc/client"
-	"bilibili/monster-go/internal/server"
-	"bilibili/monster-go/internal/server/factory"
-	"bilibili/monster-go/internal/server/world"
-	"bilibili/monster-go/pkg/async"
-	"bilibili/monster-go/pkg/env"
 	"fmt"
+	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/internal/mysql"
+	"github.com/evanyxw/monster-go/internal/network"
+	"github.com/evanyxw/monster-go/internal/pkg/output"
+	"github.com/evanyxw/monster-go/internal/redis"
+	"github.com/evanyxw/monster-go/internal/rpc/client"
+	"github.com/evanyxw/monster-go/internal/server"
+	"github.com/evanyxw/monster-go/internal/server/factory"
+	"github.com/evanyxw/monster-go/internal/server/world"
+	"github.com/evanyxw/monster-go/pkg/async"
+	"github.com/evanyxw/monster-go/pkg/env"
+	"github.com/evanyxw/monster-go/pkg/etcdv3"
+	"github.com/evanyxw/monster-go/pkg/logs"
 	"github.com/phuhao00/sugar"
-	"hl.hexinchain.com/welfare-center/basic/etcdv3"
-	"hl.hexinchain.com/welfare-center/basic/logs"
-	"hl.hexinchain.com/welfare-center/basic/service"
 	"net/http"
 )
 
@@ -111,7 +110,7 @@ func registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service
 // initLog init log
 func initLog() {
 	logs.NewLogger(
-		logs.WithFilePath(fmt.Sprintf("log/%s.log", service.Merchant)),
+		logs.WithFilePath(fmt.Sprintf("log/%s.log", serverName)),
 		logs.WithCompress(false),
 		logs.WithPrettyPrint(false),
 		logs.WithFormat("json"),

@@ -1,9 +1,9 @@
 package network
 
 import (
-	"bilibili/monster-go/internal/pkg/alert"
-	"bilibili/monster-go/internal/pkg/output"
-	"bilibili/monster-go/pkg/async"
+	"github.com/evanyxw/monster-go/internal/pkg/alert"
+	"github.com/evanyxw/monster-go/internal/pkg/output"
+	"github.com/evanyxw/monster-go/pkg/async"
 	"go.uber.org/zap"
 	"net"
 	"os"

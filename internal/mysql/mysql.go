@@ -1,8 +1,8 @@
 package mysql
 
 import (
-	"bilibili/monster-go/configs"
 	"fmt"
+	"github.com/evanyxw/monster-go/configs"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"

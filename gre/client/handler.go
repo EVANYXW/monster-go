@@ -1,8 +1,8 @@
 package client
 
 import (
-	"bilibili/monster-go/internal/network"
 	"fmt"
+	"github.com/evanyxw/monster-go/internal/network"
 	"github.com/phuhao00/greatestworks-proto/gen/player"
 	"strconv"
 

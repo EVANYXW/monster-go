@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bilibili/monster-go/gre/client"
+	"github.com/evanyxw/monster-go/gre/client"
 	"github.com/phuhao00/sugar"
 )
 

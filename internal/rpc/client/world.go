@@ -1,16 +1,16 @@
 package client
 
 import (
-	"bilibili/monster-go/internal/rpc"
 	"context"
 	"fmt"
 	"github.com/evanyxw/game_proto/msg"
+	"github.com/evanyxw/monster-go/internal/rpc"
+	c "github.com/evanyxw/monster-go/pkg/context"
+	"github.com/evanyxw/monster-go/pkg/etcdv3"
+	"github.com/evanyxw/monster-go/pkg/middleware"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/balancer/roundrobin"
 	"google.golang.org/grpc/credentials/insecure"
-	c "hl.hexinchain.com/welfare-center/basic/context"
-	"hl.hexinchain.com/welfare-center/basic/etcdv3"
-	"hl.hexinchain.com/welfare-center/basic/middleware"
 	"sync"
 )
 

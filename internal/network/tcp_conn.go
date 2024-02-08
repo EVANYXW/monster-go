@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"github.com/phuhao00/greatestworks-proto/gen/messageId"
+	"github.com/evanyxw/game_proto/msg/messageId"
 	"go.uber.org/zap"
 	"io"
 	"net"

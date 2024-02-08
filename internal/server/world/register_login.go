@@ -1,9 +1,9 @@
 package world
 
 import (
-	"bilibili/monster-go/internal/network"
 	"fmt"
-	"github.com/phuhao00/greatestworks-proto/gen/player"
+	"github.com/evanyxw/game_proto/msg/player"
+	"github.com/evanyxw/monster-go/internal/network"
 	"google.golang.org/protobuf/proto"
 )
 
