@@ -7,7 +7,7 @@ go 1.19
 //replace hl.hexinchain.com/welfare-center/basic => /Users/xuweiyi/go/src/demo/gotool/basic
 
 require (
-	github.com/evanyxw/game_proto v1.0.2
+	github.com/evanyxw/game_proto v1.0.3
 	github.com/fsnotify/fsnotify v1.7.0
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/golang/protobuf v1.5.3

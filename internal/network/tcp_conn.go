@@ -173,6 +173,9 @@ func (c *TcpConn) HandleWrite() {
 	}()
 	defer c.Close()
 	defer c.wg.Done()
+	defer close(c.signal)
+	defer close(c.lastSignal)
+
 	for {
 		select {
 		case signal := <-c.signal: // 普通消息
