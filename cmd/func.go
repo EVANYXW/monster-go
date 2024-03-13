@@ -95,10 +95,10 @@ func Run(serverName string) {
 
 func registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service {
 	tcpEtcdServe, err := etcdv3.NewService(etcd, etcdv3.ServiceInfo{Name: serverName, Address: address})
+	if err != nil {
+		panic(err)
+	}
 	async.Go(func() {
-		if err != nil {
-			panic(err)
-		}
 		if err = tcpEtcdServe.Start(); err != nil {
 			fmt.Println(err)
 		}

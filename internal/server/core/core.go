@@ -1,4 +1,4 @@
-package world
+package core
 
 import (
 	"fmt"
@@ -24,13 +24,13 @@ var (
 
 type handlerFunc func(message *network.Packet)
 
-type World struct {
+type Server struct {
 	networkServer *network.Server
 	handlers      map[messageId.MessageId]handlerFunc
 	closeChan     chan struct{}
 }
 
-var Oasis *World
+var Oasis *Server
 
 func initLog() {
 	log, err := logger.NewJSONLogger(
@@ -50,7 +50,7 @@ func New(info network.Info) factory.Server {
 	initLog()
 
 	config := configs.Get().Server
-	w := &World{
+	w := &Server{
 		handlers:  make(map[messageId.MessageId]handlerFunc),
 		closeChan: make(chan struct{}),
 		networkServer: network.NewServer(fmt.Sprintf("%s", config.Address),
@@ -62,12 +62,12 @@ func New(info network.Info) factory.Server {
 	return w
 }
 
-func (w *World) Run() {
+func (w *Server) Run() {
 	// 加载配置
 	configure.Global.Load()
 
-	// pb消息的注册
-	w.HandlerRegister()
+	//// pb消息的注册
+	//w.HandlerRegister()
 	go w.networkServer.Run()
 
 	worldRpcServer := &rpcServer.WorldServer{}
@@ -87,7 +87,7 @@ func (w *World) Run() {
 	}()
 }
 
-func (w *World) Destroy() {
+func (w *Server) Destroy() {
 	Logger.Sync()
 	go func() {
 		w.closeChan <- struct{}{}
@@ -97,7 +97,7 @@ func (w *World) Destroy() {
 }
 
 // OnSessionPacket 根据注册方法调佣
-func (w *World) OnSessionPacket(packet *network.Packet) {
+func (w *Server) OnSessionPacket(packet *network.Packet) {
 	if handler, ok := w.handlers[messageId.MessageId(packet.Msg.ID)]; ok {
 		handler(packet)
 		return
@@ -105,7 +105,7 @@ func (w *World) OnSessionPacket(packet *network.Packet) {
 }
 
 // OnSystemSignal 监听退出信道
-func (w *World) OnSystemSignal(signal os.Signal) bool {
+func (w *Server) OnSystemSignal(signal os.Signal) bool {
 	tag := true
 	switch signal {
 	case syscall.SIGHUP:
