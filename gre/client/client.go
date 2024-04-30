@@ -3,14 +3,14 @@ package client
 import (
 	"fmt"
 	"github.com/evanyxw/game_proto/msg/messageId"
-	"github.com/evanyxw/monster-go/internal/network"
+	network2 "github.com/evanyxw/monster-go/pkg/network"
 	"github.com/phuhao00/network/example/logger"
 	"os"
 	"syscall"
 )
 
 type Client struct {
-	cli             *network.Client
+	cli             *network2.Client
 	inputHandlers   map[string]InputHandler
 	messageHandlers map[messageId.MessageId]MessageHandler
 	console         *ClientConsole
@@ -19,13 +19,13 @@ type Client struct {
 
 func NewClient() *Client {
 	c := &Client{
-		cli:             network.NewClient("0.0.0.0:8023", 200, logger.Logger),
+		cli:             network2.NewClient("0.0.0.0:8023", 200, logger.Logger),
 		inputHandlers:   map[string]InputHandler{},
 		messageHandlers: map[messageId.MessageId]MessageHandler{},
 		console:         NewClientConsole(),
 	}
 	c.cli.OnMessageCb = c.OnMessage
-	c.cli.ChMsg = make(chan *network.Message, 1)
+	c.cli.ChMsg = make(chan *network2.Message, 1)
 	//c.chInput = make(chan *InputParam, 1)
 	//c.console.chInput = c.chInput
 	c.console.chInput = make(chan *InputParam, 1)
@@ -51,7 +51,7 @@ func (c *Client) Run() {
 	go c.cli.Run()
 }
 
-func (c *Client) OnMessage(packet *network.Packet) {
+func (c *Client) OnMessage(packet *network2.Packet) {
 	fmt.Println(c.messageHandlers)
 	fmt.Println(packet.Msg.ID)
 	if handler, ok := c.messageHandlers[messageId.MessageId(packet.Msg.ID)]; ok {

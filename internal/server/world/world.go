@@ -3,12 +3,12 @@ package world
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/configs"
-	"github.com/evanyxw/monster-go/internal/network"
 	rpcServer "github.com/evanyxw/monster-go/internal/rpc/server"
 	"github.com/evanyxw/monster-go/internal/server/core"
 	"github.com/evanyxw/monster-go/internal/server/factory"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/logger"
+	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/timeutil"
 	"go.uber.org/zap"
 	"os"

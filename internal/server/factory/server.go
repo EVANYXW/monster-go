@@ -1,7 +1,7 @@
 package factory
 
 import (
-	"github.com/evanyxw/monster-go/internal/network"
+	"github.com/evanyxw/monster-go/pkg/network"
 	"os"
 )
 

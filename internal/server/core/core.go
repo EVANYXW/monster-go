@@ -5,9 +5,9 @@ import (
 	"github.com/evanyxw/game_proto/msg/messageId"
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/internal/configure"
-	"github.com/evanyxw/monster-go/internal/network"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/logger"
+	network2 "github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/timeutil"
 	"go.uber.org/zap"
 )
@@ -16,10 +16,10 @@ var (
 	Logger *zap.Logger
 )
 
-type handlerFunc func(message *network.Packet)
+type handlerFunc func(message *network2.Packet)
 
 type Server struct {
-	networkServer *network.Server
+	networkServer *network2.Server
 	handlers      map[messageId.MessageId]handlerFunc
 	closeChan     chan struct{}
 }
@@ -39,7 +39,7 @@ func initLog() {
 	Logger = log
 }
 
-func NewServer(info network.Info, logger *zap.Logger) *Server {
+func NewServer(info network2.Info, logger *zap.Logger) *Server {
 	// 日志初始化
 	//initLog()
 
@@ -47,7 +47,7 @@ func NewServer(info network.Info, logger *zap.Logger) *Server {
 	w := &Server{
 		handlers:  make(map[messageId.MessageId]handlerFunc),
 		closeChan: make(chan struct{}),
-		networkServer: network.NewServer(fmt.Sprintf("%s", config.Address),
+		networkServer: network2.NewServer(fmt.Sprintf("%s", config.Address),
 			config.MaxConnNum, config.BuffSize, logger, info),
 	}
 	w.networkServer.MessageHandler = w.OnSessionPacket
@@ -94,7 +94,7 @@ func (w *Server) Destroy() {
 }
 
 // OnSessionPacket 根据注册方法调佣
-func (w *Server) OnSessionPacket(packet *network.Packet) {
+func (w *Server) OnSessionPacket(packet *network2.Packet) {
 	if handler, ok := w.handlers[messageId.MessageId(packet.Msg.ID)]; ok {
 		handler(packet)
 		return

@@ -3,7 +3,7 @@ package world
 import (
 	"fmt"
 	"github.com/evanyxw/game_proto/msg/player"
-	"github.com/evanyxw/monster-go/internal/network"
+	"github.com/evanyxw/monster-go/pkg/network"
 	"google.golang.org/protobuf/proto"
 )
 

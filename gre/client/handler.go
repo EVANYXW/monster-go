@@ -2,7 +2,7 @@ package client
 
 import (
 	"fmt"
-	"github.com/evanyxw/monster-go/internal/network"
+	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/phuhao00/greatestworks-proto/gen/player"
 	"strconv"
 

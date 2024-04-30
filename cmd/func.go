@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/internal/mysql"
-	"github.com/evanyxw/monster-go/internal/network"
 	"github.com/evanyxw/monster-go/internal/pkg/output"
 	"github.com/evanyxw/monster-go/internal/redis"
 	"github.com/evanyxw/monster-go/internal/rpc/client"
@@ -14,6 +13,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/etcdv3"
 	"github.com/evanyxw/monster-go/pkg/logs"
+	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/phuhao00/sugar"
 	"net/http"
 )
