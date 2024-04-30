@@ -2,6 +2,7 @@ package factory
 
 import (
 	"github.com/evanyxw/monster-go/internal/network"
+	"os"
 )
 
 // 方案一：
@@ -22,6 +23,7 @@ import (
 type Server interface {
 	Run()
 	Destroy()
+	OnSystemSignal(signal os.Signal) bool
 }
 
 type ServerNewFunc func(info network.Info) Server

@@ -6,16 +6,10 @@ import (
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/internal/configure"
 	"github.com/evanyxw/monster-go/internal/network"
-	rpcServer "github.com/evanyxw/monster-go/internal/rpc/server"
-	"github.com/evanyxw/monster-go/internal/server/factory"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/timeutil"
 	"go.uber.org/zap"
-
-	//"github.com/phuhao00/network/example/logger"
-	"os"
-	"syscall"
 )
 
 var (
@@ -45,21 +39,24 @@ func initLog() {
 	Logger = log
 }
 
-func New(info network.Info) factory.Server {
+func NewServer(info network.Info, logger *zap.Logger) *Server {
 	// 日志初始化
-	initLog()
+	//initLog()
 
 	config := configs.Get().Server
 	w := &Server{
 		handlers:  make(map[messageId.MessageId]handlerFunc),
 		closeChan: make(chan struct{}),
 		networkServer: network.NewServer(fmt.Sprintf("%s", config.Address),
-			config.MaxConnNum, config.BuffSize, Logger, info),
+			config.MaxConnNum, config.BuffSize, logger, info),
 	}
-
 	w.networkServer.MessageHandler = w.OnSessionPacket
 
 	return w
+}
+
+func (s *Server) RegisterMsg(msgId messageId.MessageId, fun handlerFunc) {
+	s.handlers[msgId] = fun
 }
 
 func (w *Server) Run() {
@@ -67,11 +64,11 @@ func (w *Server) Run() {
 	configure.Global.Load()
 
 	//// pb消息的注册
-	//w.HandlerRegister()
+	//w.HandlerRegister() // todo
 	go w.networkServer.Run()
 
-	worldRpcServer := &rpcServer.WorldServer{}
-	go worldRpcServer.Run()
+	//worldRpcServer := &rpcServer.WorldServer{}
+	//go worldRpcServer.Run()
 
 	// 监听配置文件
 	go func() {
@@ -88,7 +85,7 @@ func (w *Server) Run() {
 }
 
 func (w *Server) Destroy() {
-	Logger.Sync()
+	//Logger.Sync()
 	go func() {
 		w.closeChan <- struct{}{}
 		w.networkServer.OnClose()
@@ -105,17 +102,17 @@ func (w *Server) OnSessionPacket(packet *network.Packet) {
 }
 
 // OnSystemSignal 监听退出信道
-func (w *Server) OnSystemSignal(signal os.Signal) bool {
-	tag := true
-	switch signal {
-	case syscall.SIGHUP:
-		//todo
-		fmt.Println("SIGHUP")
-	case syscall.SIGPIPE:
-		fmt.Println("SIGPIPE")
-	default:
-		Logger.Debug("[World] 收到信号准备退出 %v \n", zap.String("signal", signal.String()))
-		tag = false
-	}
-	return tag
-}
+//func (w *Server) OnSystemSignal(signal os.Signal) bool {
+//	tag := true
+//	switch signal {
+//	case syscall.SIGHUP:
+//		//todo
+//		fmt.Println("SIGHUP")
+//	case syscall.SIGPIPE:
+//		fmt.Println("SIGPIPE")
+//	default:
+//		Logger.Debug("[World] 收到信号准备退出 %v \n", zap.String("signal", signal.String()))
+//		tag = false
+//	}
+//	return tag
+//}

@@ -10,7 +10,6 @@ import (
 	"github.com/evanyxw/monster-go/internal/rpc/client"
 	"github.com/evanyxw/monster-go/internal/server"
 	"github.com/evanyxw/monster-go/internal/server/factory"
-	"github.com/evanyxw/monster-go/internal/server/world"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/etcdv3"
@@ -78,7 +77,7 @@ func Run(serverName string) {
 	var server factory.Server
 	instance := factory.MakeInstance(serverName)
 	if instance == nil {
-		panic("找不到对应服务")
+		panic("Unable to find corresponding service")
 	}
 	server = instance(serverInfo)
 	//内部服务启动
@@ -90,7 +89,7 @@ func Run(serverName string) {
 	}()
 
 	fmt.Println(fmt.Sprintf("【 %s 】server is started", serverName))
-	sugar.WaitSignal(world.Oasis.OnSystemSignal)
+	sugar.WaitSignal(server.OnSystemSignal)
 }
 
 func registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service {
@@ -159,7 +158,10 @@ func redisSub(subFun redis.SubFun) {
 }
 
 func recvPublish(channel string, data string) {
+	// TODO: By subscribing to and publishing through Redis,
+	// TODO: some control measures such as configuration rereading can be implemented
 	// TODO: 通过redis的订阅发布，可以实现一些配置重读等控制
+
 	fmt.Println(channel, data)
 }
 

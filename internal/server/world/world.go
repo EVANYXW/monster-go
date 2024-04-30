@@ -2,18 +2,15 @@ package world
 
 import (
 	"fmt"
-	"github.com/evanyxw/game_proto/msg/messageId"
 	"github.com/evanyxw/monster-go/configs"
-	"github.com/evanyxw/monster-go/internal/configure"
 	"github.com/evanyxw/monster-go/internal/network"
 	rpcServer "github.com/evanyxw/monster-go/internal/rpc/server"
+	"github.com/evanyxw/monster-go/internal/server/core"
 	"github.com/evanyxw/monster-go/internal/server/factory"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/timeutil"
 	"go.uber.org/zap"
-
-	//"github.com/phuhao00/network/example/logger"
 	"os"
 	"syscall"
 )
@@ -22,12 +19,8 @@ var (
 	Logger *zap.Logger
 )
 
-type handlerFunc func(message *network.Packet)
-
 type World struct {
-	networkServer *network.Server
-	handlers      map[messageId.MessageId]handlerFunc
-	closeChan     chan struct{}
+	*core.Server
 }
 
 var Oasis *World
@@ -46,62 +39,26 @@ func initLog() {
 }
 
 func New(info network.Info) factory.Server {
-	// 日志初始化
 	initLog()
-
-	config := configs.Get().Server
 	w := &World{
-		handlers:  make(map[messageId.MessageId]handlerFunc),
-		closeChan: make(chan struct{}),
-		networkServer: network.NewServer(fmt.Sprintf("%s", config.Address),
-			config.MaxConnNum, config.BuffSize, Logger, info),
+		core.NewServer(info, Logger),
 	}
-
-	w.networkServer.MessageHandler = w.OnSessionPacket
 
 	return w
 }
 
+// Run 启动服务
 func (w *World) Run() {
-	// 加载配置
-	configure.Global.Load()
-
-	// pb消息的注册
 	w.HandlerRegister()
-	go w.networkServer.Run()
+	w.Server.Run()
 
-	worldRpcServer := &rpcServer.WorldServer{}
+	worldRpcServer := rpcServer.NewWorldServer()
 	go worldRpcServer.Run()
-
-	// 监听配置文件
-	go func() {
-	outer:
-		for {
-			select {
-			case <-w.closeChan:
-				break outer
-			case <-configs.NotifyChan:
-				// TODO: 监听 configs的本地配置文件,有修改重新加载
-			}
-		}
-	}()
 }
 
+// Destroy 注销服务
 func (w *World) Destroy() {
-	Logger.Sync()
-	go func() {
-		w.closeChan <- struct{}{}
-		w.networkServer.OnClose()
-	}()
-
-}
-
-// OnSessionPacket 根据注册方法调佣
-func (w *World) OnSessionPacket(packet *network.Packet) {
-	if handler, ok := w.handlers[messageId.MessageId(packet.Msg.ID)]; ok {
-		handler(packet)
-		return
-	}
+	w.Server.Destroy()
 }
 
 // OnSystemSignal 监听退出信道
