@@ -1,14 +1,12 @@
 package logger
 
 import (
+	"fmt"
 	"go.uber.org/zap"
-	"io"
 	"os"
-	"path/filepath"
 	"time"
 
 	"go.uber.org/zap/zapcore"
-	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 const (
@@ -19,100 +17,110 @@ const (
 	DefaultTimeLayout = time.RFC3339
 )
 
-// Option represents
-type Option func(*option)
+var (
+	zapLog        *zap.Logger
+	sugar         *zap.SugaredLogger
+	OutputConsole = true
+	filePath      = ""
+	serverName    = ""
+)
 
-type option struct {
-	level          zapcore.Level
-	fields         map[string]string
-	file           io.Writer
-	timeLayout     string
-	disableConsole bool
-}
-
-// WithDebugLevel only greater than 'level' will output
-func WithDebugLevel() Option {
-	return func(opt *option) {
-		opt.level = zapcore.DebugLevel
-	}
-}
-
-// WithInfoLevel only greater than 'level' will output
-func WithInfoLevel() Option {
-	return func(opt *option) {
-		opt.level = zapcore.InfoLevel
-	}
-}
-
-// WithWarnLevel only greater than 'level' will output
-func WithWarnLevel() Option {
-	return func(opt *option) {
-		opt.level = zapcore.WarnLevel
-	}
-}
-
-// WithErrorLevel only greater than 'level' will output
-func WithErrorLevel() Option {
-	return func(opt *option) {
-		opt.level = zapcore.ErrorLevel
-	}
-}
-
-// WithField add some field(s) to log
-func WithField(key, value string) Option {
-	return func(opt *option) {
-		opt.fields[key] = value
-	}
-}
-
-// WithFileP write log to some file
-func WithFileP(file string) Option {
-	dir := filepath.Dir(file)
-	if err := os.MkdirAll(dir, 0766); err != nil {
-		panic(err)
+func NewLogger(opts ...Option) {
+	opt := &option{level: DefaultLevel, fields: make(map[string]string)}
+	for _, f := range opts {
+		f(opt)
 	}
 
-	f, err := os.OpenFile(file, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0766)
-	if err != nil {
-		panic(err)
+	encoderConfig := zapcore.EncoderConfig{
+		TimeKey:        "time",
+		LevelKey:       "level",
+		NameKey:        "logger",
+		MessageKey:     "msg",
+		StacktraceKey:  "stacktrace",
+		LineEnding:     zapcore.DefaultLineEnding,
+		EncodeLevel:    zapcore.CapitalColorLevelEncoder, // 小写编码器
+		EncodeTime:     zapcore.ISO8601TimeEncoder,       // ISO8601 UTC 时间格式
+		EncodeDuration: zapcore.StringDurationEncoder,
+		EncodeCaller:   zapcore.ShortCallerEncoder,
 	}
 
-	return func(opt *option) {
-		opt.file = zapcore.Lock(f)
-	}
-}
-
-// WithFileRotationP write log to some file with rotation
-func WithFileRotationP(file string) Option {
-	dir := filepath.Dir(file)
-	if err := os.MkdirAll(dir, 0766); err != nil {
-		panic(err)
+	// 设置日志级别
+	var atom zap.AtomicLevel
+	if opt.debug {
+		atom = zap.NewAtomicLevelAt(zap.DebugLevel)
+	} else {
+		atom = zap.NewAtomicLevelAt(zap.InfoLevel)
 	}
 
-	return func(opt *option) {
-		opt.file = &lumberjack.Logger{ // concurrent-safed
-			Filename:   file, // 文件路径
-			MaxSize:    128,  // 单个文件最大尺寸，默认单位 M
-			MaxBackups: 300,  // 最多保留 300 个备份
-			MaxAge:     30,   // 最大时间，默认单位 day
-			LocalTime:  true, // 使用本地时间
-			Compress:   true, // 是否压缩 disabled by default
+	config := zap.Config{
+		Level:         atom,                                      // 日志级别
+		Encoding:      "console",                                 // 输出格式 console 或 json
+		EncoderConfig: encoderConfig,                             // 编码器配置
+		InitialFields: map[string]interface{}{"服务器": serverName}, // 初始化字段，如：添加一个服务器名称
+		// Sampling: &zap.SamplingConfig{
+		// 	Initial:    10,   // 每条记录中的一条会被记录
+		// 	Thereafter: 1000, // 随后每 1000 条记录中的一条会被记录
+		// },
+	}
+
+	if opt.debug {
+		config.Development = true
+	} else {
+		config.Development = false
+	}
+
+	//logDir := xsf_server.RunDirPrefix + "/log/"
+	//exsits, _ := xsf_util.PathExists(logDir)
+	//if !exsits {
+	//	os.Mkdir(logDir, os.ModePerm)
+	//}
+
+	//var logfile string
+	//if false {
+	//	logfile = fmt.Sprintf("%s%s.log", logDir, xsf_server.ServerTag)
+	//} else {
+	//	xsf_server.LogIndex = 1
+	//	for {
+	//		logfile = fmt.Sprintf("%s%s-%s-%d.log", logDir, xsf_server.ServerTag,
+	//			xsf_util.EP2Name(int(xsf_server.SID.Type)),
+	//			xsf_server.LogIndex)
+	//
+	//		_, err := os.Stat(logfile)
+	//		if err == nil {
+	//			xsf_server.LogIndex++
+	//		} else {
+	//			break
+	//		}
+	//	}
+	//
+	//}
+
+	if opt.disableConsole {
+		config.OutputPaths = []string{"stdout", filePath}
+		config.ErrorOutputPaths = []string{"stderr", filePath}
+	} else {
+		config.OutputPaths = []string{filePath}
+		config.ErrorOutputPaths = []string{filePath}
+	}
+
+	{
+		var outputFile string
+		outputFile = fmt.Sprintf("%s%s.race.log", filePath, serverName)
+
+		err := os.Setenv("GORACE", fmt.Sprintf("log_path=%s", outputFile))
+		if err != nil {
+			panic(fmt.Sprintf("Failed to set environment variable:%v", err))
 		}
 	}
-}
 
-// WithTimeLayout custom time format
-func WithTimeLayout(timeLayout string) Option {
-	return func(opt *option) {
-		opt.timeLayout = timeLayout
+	// 构建日志
+	var err error
+	zapLog, err = config.Build()
+	if err != nil {
+		panic(fmt.Sprintf("log 初始化失败: %v", err))
 	}
-}
 
-// WithDisableConsole WithEnableConsole write log to os.Stdout or os.Stderr
-func WithDisableConsole() Option {
-	return func(opt *option) {
-		opt.disableConsole = true
-	}
+	sugar = zapLog.Sugar()
 }
 
 func NewJSONLogger(opts ...Option) (*zap.Logger, error) {
@@ -184,13 +192,78 @@ func NewJSONLogger(opts ...Option) (*zap.Logger, error) {
 		)
 	}
 
-	logger := zap.New(core,
+	zapLog = zap.New(core,
 		zap.AddCaller(),
 		zap.ErrorOutput(stderr),
 	)
 
 	for key, value := range opt.fields {
-		logger = logger.WithOptions(zap.Fields(zapcore.Field{Key: key, Type: zapcore.StringType, String: value}))
+		zapLog = zapLog.WithOptions(zap.Fields(zapcore.Field{Key: key, Type: zapcore.StringType, String: value}))
 	}
-	return logger, nil
+
+	return zapLog, nil
 }
+
+func GetLogger() *zap.Logger {
+	return zapLog
+}
+
+func Release() {
+	zapLog.Sync()
+}
+
+func Debug(message string, fields ...zapcore.Field) {
+	zapLog.Debug(message, fields...)
+}
+
+func Info(message string, fields ...zapcore.Field) {
+	zapLog.Info(message, fields...)
+}
+
+func Warn(message string, fields ...zapcore.Field) {
+	zapLog.Warn(message, fields...)
+}
+
+func Error(message string, fields ...zapcore.Field) {
+	zapLog.Error(message, fields...)
+}
+
+func DPanic(message string, fields ...zapcore.Field) {
+	zapLog.DPanic(message, fields...)
+}
+
+func Panic(message string, fields ...zapcore.Field) {
+	zapLog.Panic(message, fields...)
+}
+
+func Fatal(message string, fields ...zapcore.Field) {
+	zapLog.Fatal(message, fields...)
+}
+
+//func Debugf(template string, args ...interface{}) {
+//	sugar.Debugf(template, args...)
+//}
+//
+//func Infof(template string, args ...interface{}) {
+//	sugar.Infof(template, args...)
+//}
+//
+//func Warnf(template string, args ...interface{}) {
+//	sugar.Warnf(template, args...)
+//}
+//
+//func Errorf(template string, args ...interface{}) {
+//	sugar.Errorf(template, args...)
+//}
+//
+//func DPanicf(template string, args ...interface{}) {
+//	sugar.DPanicf(template, args...)
+//}
+//
+//func Panicf(template string, args ...interface{}) {
+//	sugar.Panicf(template, args...)
+//}
+//
+//func Fatalf(template string, args ...interface{}) {
+//	sugar.Fatalf(template, args...)
+//}

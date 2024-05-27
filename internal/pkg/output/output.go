@@ -2,7 +2,6 @@ package output
 
 import (
 	"fmt"
-	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/spf13/cast"
 	"os"
 	"os/exec"
@@ -18,11 +17,14 @@ type Data struct {
 }
 
 type Output struct {
-	Chan       chan Data
-	ServerName string
-	Address    string
-	RpcAddress string
-	Url        string
+	Chan        chan Data
+	ServerName  string
+	Address     string
+	GateAddress string
+	//RpcAddress string
+	Url     string
+	ConnNum int32
+	GoCount int32
 }
 
 // 定义颜色结构体
@@ -48,8 +50,7 @@ var clear map[string]func() //create a map for storing clear func
 
 var tamplate = `+--------------------------------------------------+
 |   Server Name: {{Name}}
-|   Server Addr: {{Addr}}  
-|   Server Rpc Addr: {{RpcAddr}}
+|   Server Addr: {{Addr}}
 |
 |   Player Num: {{PlayerNum}}
 |   Go Num: {{GoNum}}
@@ -70,30 +71,61 @@ func init() {
 	})
 }
 
-func NewOutput(name, addr, rpc, url string) {
+func NewOutput(name, addr, rpc, url string) *Output {
 	Oput = &Output{
 		ServerName: name,
 		Address:    addr,
-		RpcAddress: rpc,
-		Chan:       make(chan Data, 1),
-		Url:        url,
+		//RpcAddress: rpc,
+		Chan: make(chan Data, 1),
+		Url:  url,
 	}
 
-	Oput.Print(Data{0, async.GetGoCount()})
-	Oput.Output()
+	return Oput
 }
 
-func (s *Output) Update(data Data) {
+func (s *Output) Run() {
+	Oput.run()
+}
+
+func (s *Output) SetConnNum(num int32) {
+	data := Data{
+		GoCount: -1,
+		ConnNum: num,
+	}
 	s.Chan <- data
 }
 
-func (s *Output) Output() {
+func (s *Output) SetGoNum(num int32) {
+	data := Data{
+		GoCount: num,
+		ConnNum: -1,
+	}
+	s.Chan <- data
+}
+
+func (s *Output) SetData(data Data) {
+	s.Chan <- data
+}
+
+func (s *Output) SetServerAddr(addr string) {
+	s.Address = addr
+	s.Clear()
+	s.Print()
+}
+
+func (s *Output) run() {
 	for {
 		select {
 		case data := <-s.Chan:
-			fmt.Println(data)
+			if data.GoCount != -1 {
+				s.GoCount = data.GoCount
+			}
+
+			if data.ConnNum != -1 {
+				s.ConnNum = data.ConnNum
+			}
 			s.Clear()
-			s.Print(data)
+			s.Print()
 		}
 	}
 }
@@ -110,10 +142,6 @@ func clearCmd(fun func() *exec.Cmd) func() {
 // 清空终端屏幕
 func clearScreen() {
 	fmt.Print("\033[H\033[2J")
-}
-
-func findMaxLen() {
-
 }
 
 func addLine(replacedText string) string {
@@ -133,13 +161,14 @@ func addLine(replacedText string) string {
 	return replacedText
 }
 
-func (s *Output) Print(data Data) {
+func (s *Output) Print() {
 	str := tamplate
 	str = strings.Replace(str, "{{Name}}", s.ServerName, -1)
 	str = strings.Replace(str, "{{Addr}}", s.Address, -1)
-	str = strings.Replace(str, "{{RpcAddr}}", s.RpcAddress, -1)
-	str = strings.Replace(str, "{{PlayerNum}}", cast.ToString(data.ConnNum), -1)
-	str = strings.Replace(str, "{{GoNum}}", cast.ToString(data.GoCount), -1)
+	str = strings.Replace(str, "{{GateAddress}}", s.GateAddress, -1)
+	//str = strings.Replace(str, "{{RpcAddr}}", s.RpcAddress, -1)
+	str = strings.Replace(str, "{{PlayerNum}}", cast.ToString(s.ConnNum), -1)
+	str = strings.Replace(str, "{{GoNum}}", cast.ToString(s.GoCount), -1)
 	if s.Url != "" {
 		str = strings.Replace(str, "{{Pprof}}", fmt.Sprintf("%s%s%s", "http://", s.Url, "/debug/pprof"), -1)
 	}
@@ -156,7 +185,8 @@ func (s *Output) Print(data Data) {
 
 func (s *Output) Clear() {
 	value, ok := clear[runtime.GOOS] //runtime.GOOS -> linux, windows, darwin etc.
-	if ok {                          //if we defined a clear func for that platform:
+	if ok {
+		//if we defined a clear func for that platform:
 		value() //we execute it
 	} else {
 		//unsupported platform

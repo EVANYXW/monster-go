@@ -1,0 +1,738 @@
+2024-05-24T18:52:42.478+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:52:42.504+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:52:42.504+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:52:42.505+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59757\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:52:42.505+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:52:42.505+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:52:42.505+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:52:42.505+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:52:50.473+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:52:50.473+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-24T18:53:01.544+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:53:01.567+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:53:01.569+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:53:01.569+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59772\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:53:01.569+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:53:01.569+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:53:01.569+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:53:01.570+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:53:04.084+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:53:04.084+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-24T18:53:05.650+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:53:05.672+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:53:05.673+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:53:05.673+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59772\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:53:05.673+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:53:05.673+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:53:05.673+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:53:05.673+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:53:06.212+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:53:06.212+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-24T18:53:07.624+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:53:07.642+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:53:07.643+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:53:07.643+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59772\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:53:07.644+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:53:07.644+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:53:07.644+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:53:07.644+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:53:08.135+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:53:08.135+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-24T18:53:09.537+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:53:09.559+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:53:09.560+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:53:09.560+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59772\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:53:09.560+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:53:09.560+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:53:09.560+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:53:09.560+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:53:12.886+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:53:12.886+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-24T18:53:14.348+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:53:14.372+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:53:14.373+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:53:14.374+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59772\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:53:14.374+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:53:14.374+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:53:14.374+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:53:14.374+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:53:14.695+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:53:14.695+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-24T18:53:16.082+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:53:16.102+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:53:16.102+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:53:16.103+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59772\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:53:16.103+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:53:16.103+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:53:16.103+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:53:16.103+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:53:16.501+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:53:16.502+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-24T18:53:17.959+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:53:17.985+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:53:17.985+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:53:17.985+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59772\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:53:17.986+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:53:17.986+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:53:17.986+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:53:17.986+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:53:21.818+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:53:21.818+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-24T18:53:23.285+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:53:23.313+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:53:23.313+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:53:23.314+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59772\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:53:23.314+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:53:23.314+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:53:23.314+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:53:23.314+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:53:25.704+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:53:25.704+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-24T18:53:27.150+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:53:27.173+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:53:27.174+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:53:27.174+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59772\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:53:27.174+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:53:27.174+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:53:27.174+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:53:27.174+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:53:30.264+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:53:30.264+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-24T18:53:31.680+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T18:53:31.705+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T18:53:31.705+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T18:53:31.706+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:59772\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-24T18:53:31.706+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T18:53:31.706+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T18:53:31.706+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T18:53:31.706+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-24T18:53:34.248+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-24T18:53:34.248+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-26T11:09:15.109+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-26T11:09:15.126+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-26T11:09:15.127+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-26T11:09:21.092+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3010, "message": "server_id:66561"}
+2024-05-26T11:09:21.092+0800	[31mERROR[0m	centerConnectorHandler OnCCServerOk server not found	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "server": 1}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/internal/servers/core.(*CenterConnector).OnNodeOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/core/center_connector.go:103
+github.com/evanyxw/monster-go/internal/servers/core.(*CenterConnector).C_Cc_ServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/core/center_connector.go:266
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:108
+github.com/evanyxw/monster-go/pkg/network.(*Client).OnMessage
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/client.go:91
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:182
+2024-05-26T11:09:21.093+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-26T11:09:21.093+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:50242\"  ports:0  ports:20001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:1}"}
+2024-05-26T11:09:21.093+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T11:09:21.093+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T11:09:21.093+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26T11:09:21.093+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-26T11:12:42.404+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-26T11:12:42.407+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-26T11:12:42.407+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-26T11:12:42.408+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-26T11:12:42.408+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-26T13:35:15.414+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-26T13:35:15.839+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-26T13:35:15.839+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-26T13:35:15.841+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-26T13:35:17.916+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-26T13:35:17.917+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-26T14:15:03.759+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-26T14:15:03.841+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-26T14:15:03.844+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-26T14:15:03.846+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-26T14:15:33.324+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:61854\"  ports:0  ports:20001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:1}"}
+2024-05-26T14:15:33.324+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T14:15:33.324+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T14:15:33.324+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26T14:15:33.346+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3010, "message": "server_id:66561"}
+2024-05-26T14:15:33.346+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-26T14:15:33.346+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26T14:15:33.399+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66561"}
+2024-05-26T14:15:33.399+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-26T14:16:21.258+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-26T14:16:21.272+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-26T14:16:21.273+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-26T14:16:21.274+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:61992\"  ports:0  ports:20001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-26T14:16:21.274+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T14:16:21.274+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T14:16:21.274+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-26T14:16:21.274+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26T14:16:21.274+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-26T14:16:29.171+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-26T14:16:29.171+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-26T15:42:46.692+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-26T15:42:46.704+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-26T15:42:46.705+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-26T15:42:46.708+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:63478\"  ports:0  ports:20001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-26T15:42:46.708+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T15:42:46.708+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T15:42:46.708+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26T15:42:46.708+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-26T15:42:47.244+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-26T15:42:47.244+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-26T15:42:47.245+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-26T16:03:39.203+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-26T16:03:39.574+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-26T16:03:39.576+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-26T16:03:39.578+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:63689\"  ports:0  ports:20001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-26T16:03:39.597+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T16:03:39.597+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T16:03:39.597+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26T16:03:39.599+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-26T16:09:15.787+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-26T16:09:15.788+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-26T16:12:38.574+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-26T16:12:38.587+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-26T16:12:38.588+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-26T16:12:38.593+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:64811\"  ports:0  ports:20001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-26T16:12:38.594+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T16:12:38.594+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T16:12:38.594+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26T16:12:38.594+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-26T16:15:14.158+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-26T16:15:14.159+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-26T16:15:14.161+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-26T16:29:20.474+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-26T16:29:20.759+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-26T16:29:20.759+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-26T16:29:20.761+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:49862\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-26T16:29:20.761+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T16:29:20.761+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T16:29:20.761+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-26T16:29:20.761+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26T16:29:20.761+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-26T16:30:19.597+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66562 ip:\"127.0.0.1:50116\" ports:0 ports:20002 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10001 status:1}"}
+2024-05-26 16:30:19.597498 +0800 CST m=+59.131713834 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:19.618+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26 16:30:19.61805 +0800 CST m=+59.152265626 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:19.636+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26 16:30:19.636894 +0800 CST m=+59.171109334 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:19.655+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 2}
+2024-05-26 16:30:19.65591 +0800 CST m=+59.190125042 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:30.923+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3010, "message": "server_id:66562"}
+2024-05-26 16:30:30.92394 +0800 CST m=+70.458087667 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:30.942+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66562, "server": 1, "type": "gate", "index": 2}
+2024-05-26 16:30:30.942396 +0800 CST m=+70.476543542 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:30.961+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "world", "node length:": 2}
+2024-05-26 16:30:30.961664 +0800 CST m=+70.495811376 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:31.009+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66562"}
+2024-05-26 16:30:31.009931 +0800 CST m=+70.544078751 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:31.027+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26 16:30:31.027549 +0800 CST m=+70.561696876 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:38.789+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-26T16:30:38.852+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-26T16:30:38.859+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-26T16:30:38.866+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:49862\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2} infos:{server_id:67329 ip:\"127.0.0.1:49919\" ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 status:2}"}
+2024-05-26T16:30:38.866+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T16:30:38.866+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T16:30:38.866+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-26T16:30:38.866+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T16:30:38.866+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T16:30:38.867+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:67330 ip:\"127.0.0.1:50200\" ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 status:1}"}
+2024-05-26 16:30:38.867034 +0800 CST m=+78.401134626 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:38.866+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-26T16:30:38.868+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 2}
+2024-05-26T16:30:38.868+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67330 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-26T16:30:38.888+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26 16:30:38.888153 +0800 CST m=+78.422253834 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:38.908+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26 16:30:38.908249 +0800 CST m=+78.442349626 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:38.925+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 2}
+2024-05-26 16:30:38.925548 +0800 CST m=+78.459648626 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:38.943+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3010, "message": "server_id:67330"}
+2024-05-26 16:30:38.943476 +0800 CST m=+78.477576042 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:38.961+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 67330, "server": 1, "type": "world", "index": 2}
+2024-05-26 16:30:38.961445 +0800 CST m=+78.495544709 write error: write /dev/stdout: input/output error
+2024-05-26T16:30:38.979+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "world", "node length:": 2}
+2024-05-26 16:30:38.979535 +0800 CST m=+78.513634876 write error: write /dev/stdout: input/output error
+2024-05-26T16:32:44.741+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-26T16:32:44.742+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-26T16:32:44.744+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:67330"}
+2024-05-26 16:32:44.744522 +0800 CST m=+204.279328667 write error: write /dev/stdout: input/output error
+2024-05-26T16:32:44.764+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26 16:32:44.764409 +0800 CST m=+204.299215876 write error: write /dev/stdout: input/output error
+2024-05-26T16:32:48.515+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-26T16:32:48.763+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-26T16:32:48.764+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-26T16:32:48.766+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:49862\" ports:0 ports:20001 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2} infos:{server_id:67329 ip:\"127.0.0.1:49919\" ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 status:2}"}
+2024-05-26T16:32:48.766+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T16:32:48.766+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T16:32:48.766+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-26T16:32:48.766+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26T16:32:48.770+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:67330 ip:\"127.0.0.1:50743\" ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 status:1}"}
+2024-05-26 16:32:48.770141 +0800 CST m=+208.304952584 write error: write /dev/stdout: input/output error
+2024-05-26T16:32:48.766+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26T16:32:48.789+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-26T16:32:48.790+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 2}
+2024-05-26T16:32:48.790+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67330 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-26T16:32:48.814+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-26 16:32:48.814736 +0800 CST m=+208.349546959 write error: write /dev/stdout: input/output error
+2024-05-26T16:32:48.843+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-26 16:32:48.843114 +0800 CST m=+208.377925584 write error: write /dev/stdout: input/output error
+2024-05-26T16:32:48.860+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 2}
+2024-05-26 16:32:48.86049 +0800 CST m=+208.395301501 write error: write /dev/stdout: input/output error
+2024-05-26T16:32:48.884+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3010, "message": "server_id:67330"}
+2024-05-26 16:32:48.884711 +0800 CST m=+208.419522584 write error: write /dev/stdout: input/output error
+2024-05-26T16:32:48.908+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 67330, "server": 1, "type": "world", "index": 2}
+2024-05-26 16:32:48.908857 +0800 CST m=+208.443668626 write error: write /dev/stdout: input/output error
+2024-05-26T16:32:48.945+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "world", "node length:": 2}
+2024-05-26 16:32:48.945133 +0800 CST m=+208.479943876 write error: write /dev/stdout: input/output error
+2024-05-26T16:33:19.768+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-26T16:33:19.769+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-26T16:33:19.770+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:67330"}
+2024-05-26 16:33:19.770872 +0800 CST m=+239.305588126 write error: write /dev/stdout: input/output error
+2024-05-26T16:33:19.792+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-26 16:33:19.792345 +0800 CST m=+239.327061376 write error: write /dev/stdout: input/output error
+2024-05-26T16:33:22.351+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-26 16:33:22.351961 +0800 CST m=+241.886665334 write error: write /dev/stdout: input/output error
+2024-05-26T16:33:22.353+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-26 16:33:22.353775 +0800 CST m=+241.888479209 write error: write /dev/stdout: input/output error
+2024-05-26T16:33:22.396+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-26T16:33:22.419+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-26 16:33:22.419536 +0800 CST m=+241.954239126 write error: write /dev/stdout: input/output error
+2024-05-26 16:33:22.396211 +0800 CST m=+241.930915126 write error: write /dev/stdout: input/output error
+2024-05-26T16:33:22.439+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-26 16:33:22.439107 +0800 CST m=+241.973810501 write error: write /dev/stdout: input/output error
+2024-05-26T17:01:03.536+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-26T17:01:03.540+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-26 17:01:03.536387 +0800 CST m=+1903.040636334 write error: write /dev/stdout: input/output error
+2024-05-26 17:01:03.540892 +0800 CST m=+1903.045141542 write error: write /dev/stdout: input/output error
+2024-05-26T17:01:03.590+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-26 17:01:03.590867 +0800 CST m=+1903.095116209 write error: write /dev/stdout: input/output error
+2024-05-26T17:01:03.637+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-26 17:01:03.637393 +0800 CST m=+1903.141641251 write error: write /dev/stdout: input/output error
+2024-05-27T12:14:37.875+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T12:14:37.896+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T12:14:37.897+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T12:14:37.898+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:50280\" ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-27T12:14:37.898+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T12:14:37.898+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T12:14:37.898+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T12:14:37.898+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T12:14:37.898+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-27T12:15:19.702+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66561"}
+2024-05-27T12:15:19.703+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-27T12:15:20.591+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T12:15:20.591+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T12:15:28.181+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T12:15:28.195+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T12:15:28.198+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T12:15:28.200+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:50522\" ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-27T12:15:28.200+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T12:15:28.200+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T12:15:28.200+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T12:15:28.200+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T12:15:28.200+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-27T12:16:07.288+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66561"}
+2024-05-27T12:16:07.288+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-27T12:16:08.370+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T12:16:08.370+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T12:17:37.757+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T12:17:37.770+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T12:17:37.771+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T12:17:37.775+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:50785\" ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-27T12:17:37.775+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T12:17:37.775+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T12:17:37.775+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T12:17:37.775+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T12:17:37.775+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-27T12:18:47.148+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T12:18:47.150+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T12:18:47.150+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T12:18:47.150+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T12:18:50.312+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T12:18:50.714+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T12:18:50.715+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T12:18:50.716+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:50785\" ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-27T12:18:50.716+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T12:18:50.716+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T12:18:50.716+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T12:18:50.716+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T12:18:50.716+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-27T12:21:00.016+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66561"}
+2024-05-27T12:21:00.016+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-27T12:22:34.717+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T12:22:34.718+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T12:22:47.691+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T12:22:47.707+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T12:22:47.707+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T12:22:47.711+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1:51566\" ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-27T12:22:47.711+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T12:22:47.711+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T12:22:47.711+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T12:22:47.711+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T12:22:47.711+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-27T12:23:29.954+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66561"}
+2024-05-27T12:23:29.954+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-27T12:23:33.048+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T12:23:33.048+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T14:27:29.959+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T14:27:29.989+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T14:27:29.990+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T14:27:29.991+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:57179\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T14:27:29.991+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T14:27:29.991+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T14:27:29.991+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T14:27:29.991+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T14:27:29.991+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-27T14:28:48.590+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T14:28:48.592+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:28:48.592+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T14:28:48.592+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T14:31:50.292+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T14:31:50.323+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T14:31:50.326+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T14:31:50.328+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:57848\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T14:31:50.328+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T14:31:50.328+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T14:31:50.328+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T14:31:50.328+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T14:31:50.328+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-27T14:32:34.486+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T14:32:34.487+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:32:34.487+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T14:32:34.487+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "read tcp4 127.0.0.1:57868->127.0.0.1:8023: use of closed network connection readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T14:32:34.490+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:32:34.490+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:32:34.491+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:32:34.491+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:32:34.491+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:32:34.491+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T14:32:47.755+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T14:32:47.779+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T14:32:47.789+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T14:32:47.791+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:58034\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T14:32:47.791+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T14:32:47.791+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T14:32:47.791+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T14:32:47.791+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T14:32:47.791+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-27T14:34:05.458+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66561"}
+2024-05-27T14:34:05.458+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-27T14:35:15.274+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T14:35:15.276+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:35:15.276+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T14:35:15.276+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:35:15.277+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:35:26.860+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T14:35:26.861+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T14:35:40.317+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T14:35:40.346+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T14:35:40.349+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T14:35:40.353+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:58507\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T14:35:40.353+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T14:35:40.353+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T14:35:40.353+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T14:35:40.353+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T14:35:40.353+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T14:36:32.055+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66561"}
+2024-05-27T14:36:32.055+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-27T14:36:34.647+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T14:36:34.647+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T14:38:07.464+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T14:38:07.495+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T14:38:07.495+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T14:38:46.013+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:58724\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T14:38:46.013+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T14:38:46.014+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T14:38:46.014+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T14:38:46.014+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T14:38:46.014+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T14:40:42.902+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66561"}
+2024-05-27T14:40:42.902+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-27T14:41:17.510+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T14:41:17.511+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T14:43:24.642+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T14:43:24.666+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T14:43:24.667+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T14:43:24.669+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:59444\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T14:43:24.669+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T14:43:24.669+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T14:43:24.669+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T14:43:24.669+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T14:43:24.669+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T14:45:07.669+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T14:45:07.671+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:45:07.671+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T14:45:07.672+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:45:07.672+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:45:10.112+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T14:45:10.112+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T14:45:27.246+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T14:45:27.268+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T14:45:27.269+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T14:45:27.271+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:59959\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T14:45:27.271+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T14:45:27.271+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T14:45:27.271+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T14:45:27.271+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T14:45:27.271+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T14:51:30.455+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T14:51:30.457+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:51:30.457+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T14:51:30.458+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:51:30.458+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T14:51:35.105+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T14:51:35.105+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T14:55:26.786+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T14:55:26.806+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T14:55:26.807+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T14:55:26.808+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561 ip:\"127.0.0.1\" ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000 status:2}"}
+2024-05-27T14:55:26.809+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T14:55:26.809+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T14:55:26.809+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T14:55:26.809+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T14:55:26.809+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:10001 ports:0 ports:0 ports:0 ports:0 ports:10002"}
+2024-05-27T15:00:22.082+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66561"}
+2024-05-27T15:00:22.083+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-27T15:00:26.693+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T15:00:26.694+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:00:26.694+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T15:00:26.694+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:00:26.694+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:00:28.721+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T15:00:28.721+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T15:25:35.315+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T15:25:35.342+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T15:25:35.344+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T15:25:35.348+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T15:25:35.348+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T15:25:35.348+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T15:25:35.348+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T15:25:35.348+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T15:25:35.348+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T15:30:28.827+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T15:30:28.829+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:30:28.829+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T15:30:28.829+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "read tcp4 127.0.0.1:63408->127.0.0.1:8023: use of closed network connection readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T15:30:28.829+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:30:28.830+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:30:28.830+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:30:28.830+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:30:28.830+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:30:28.831+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:30:28.831+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T15:30:42.553+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T15:30:42.572+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T15:30:42.573+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T15:30:42.574+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10000  ports:0  ports:0  ports:0  ports:0  ports:10001"}
+2024-05-27T15:30:54.697+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-27T15:30:54.697+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T15:30:54.697+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T15:30:54.697+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T15:30:56.781+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3010, "message": "server_id:66561"}
+2024-05-27T15:30:56.781+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T15:30:56.781+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T15:42:47.280+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T15:42:47.281+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T15:42:47.281+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T15:42:47.281+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "read tcp4 127.0.0.1:64426->127.0.0.1:8023: use of closed network connection readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T15:42:47.282+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T15:42:55.280+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T15:42:55.309+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T15:42:55.309+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T15:42:55.311+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10000  ports:0  ports:0  ports:0  ports:0  ports:10001"}
+2024-05-27T15:43:24.769+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T15:43:24.769+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T15:43:34.252+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T15:43:34.284+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T15:43:34.285+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T15:43:34.326+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10000  ports:0  ports:0  ports:0  ports:0  ports:10001"}
+2024-05-27T15:44:29.565+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T15:44:29.566+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T15:44:38.631+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T15:44:38.662+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T15:44:38.663+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T15:44:38.664+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10000  ports:0  ports:0  ports:0  ports:0  ports:10001"}
+2024-05-27T15:44:40.854+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T15:44:40.855+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T15:45:10.585+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T15:45:10.610+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T15:45:10.610+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T15:45:10.611+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10000  ports:0  ports:0  ports:0  ports:0  ports:10001"}
+2024-05-27T15:45:47.071+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T15:45:47.095+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T16:01:15.653+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T16:01:15.687+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T16:01:25.643+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T16:01:25.644+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T16:02:04.757+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T16:02:04.759+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T16:02:04.759+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T16:02:04.759+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "read tcp4 127.0.0.1:51980->127.0.0.1:8023: use of closed network connection readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T16:02:04.782+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T16:02:04.782+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T16:02:04.783+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T16:02:04.784+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T16:02:04.784+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T16:02:13.684+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T16:02:13.709+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T16:03:40.337+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T16:03:40.362+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T16:03:44.590+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T16:03:44.842+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T16:03:44.848+0800	[34mINFO[0m	新建立网络模块：:0	{"服务器": "world"}
+2024-05-27T16:05:39.109+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T16:05:39.136+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T16:05:44.914+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T16:05:44.931+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T16:25:30.176+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T16:25:30.177+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T16:25:40.872+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T16:25:40.907+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T16:25:44.418+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T16:25:44.420+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:10000 ports:0 ports:0 ports:0 ports:0 ports:10001"}
+2024-05-27T16:25:44.674+0800	[34mINFO[0m	新建立网络模块：:0	{"服务器": "world"}
+2024-05-27T16:27:53.281+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T16:27:53.282+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T16:27:56.724+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T16:27:56.752+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T16:28:02.786+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T16:28:02.790+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049 new_id:67329 ports:0 ports:0 ports:0 ports:0 ports:10000 ports:0 ports:0 ports:0 ports:0 ports:10001"}
+2024-05-27T16:28:47.628+0800	[34mINFO[0m	新建立网络模块：:0	{"服务器": "world"}
+2024-05-27T16:28:47.628+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T16:28:47.628+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T16:28:52.650+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T16:28:52.681+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T16:28:57.525+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T16:28:57.525+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10000  ports:0  ports:0  ports:0  ports:0  ports:10001"}
+2024-05-27T16:28:58.059+0800	[34mINFO[0m	新建立网络模块：:10000	{"服务器": "world"}
+2024-05-27T16:29:15.973+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T16:29:15.974+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T16:33:31.941+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T16:33:31.971+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T16:33:31.972+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T16:33:31.974+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T16:33:31.974+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T16:33:31.974+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T16:33:31.974+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T16:33:31.974+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T16:33:31.974+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T16:33:31.987+0800	[34mINFO[0m	新建立网络模块：:10001	{"服务器": "world"}
+2024-05-27T16:51:12.600+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3008, "message": "server_id:66561"}
+2024-05-27T16:51:12.601+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "world", "node length:": 0}
+2024-05-27T16:51:17.653+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T16:51:17.657+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T16:51:17.657+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T16:51:17.658+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T16:51:17.658+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:00:19.999+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T17:00:19.999+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:00:19.999+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T17:00:26.916+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T17:00:26.953+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T17:00:26.955+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T17:00:26.956+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T17:00:26.956+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T17:00:26.956+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T17:00:26.956+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T17:00:26.956+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T17:00:26.956+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T17:00:26.977+0800	[34mINFO[0m	新建立网络模块：:10001	{"服务器": "world"}
+2024-05-27T17:00:26.984+0800	[34mINFO[0m	New net point:	{"服务器": "world", "ip:": "127.0.0.1"}
+2024-05-27T17:00:26.985+0800	[34mINFO[0m	net point is create	{"服务器": "world"}
+2024-05-27T17:14:50.414+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T17:14:50.415+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.415+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.416+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "read tcp4 127.0.0.1:58879->127.0.0.1:8023: use of closed network connection readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T17:14:50.416+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.417+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.418+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.418+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.418+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.419+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.419+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.419+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.420+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.420+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.421+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.421+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.421+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.422+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.422+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.422+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.422+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:14:50.423+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}
+2024-05-27T17:15:04.568+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-27T17:15:04.591+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-27T17:15:04.593+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-27T17:15:04.594+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-27T17:15:04.594+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-27T17:15:04.594+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-27T17:15:04.594+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-27T17:15:04.594+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-27T17:15:04.654+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-27T17:15:04.669+0800	[34mINFO[0m	新建立网络模块：:10001	{"服务器": "world"}
+2024-05-27T17:15:10.398+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:15:10.400+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "world", "np:": ""}
+2024-05-27T17:15:10.400+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "world", "error": "read tcp4 127.0.0.1:61593->127.0.0.1:8023: use of closed network connection readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-27T17:15:10.401+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:15:10.402+0800	[34mINFO[0m	NetPoint Close	{"服务器": "world", "np:": ""}
+2024-05-27T17:15:10.393+0800	[34mINFO[0m	【 world 】Stopping server...	{"服务器": "world"}
+2024-05-27T17:15:10.402+0800	[34mINFO[0m	【 world 】server is stoped	{"服务器": "world"}

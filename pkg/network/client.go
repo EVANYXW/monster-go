@@ -1,45 +1,51 @@
 package network
 
 import (
-	"github.com/phuhao00/spoor"
+	"github.com/evanyxw/monster-go/pkg/logger"
+	"github.com/evanyxw/monster-go/pkg/rpc"
+	"go.uber.org/zap"
 	"net"
 	"sync/atomic"
 )
 
 type Client struct {
-	*TcpConn
-	Address         string
-	ChMsg           chan *Message
-	OnMessageCb     func(message *Packet)
-	logger          *spoor.Spoor
-	bufferSize      int
+	*NetPoint
+	address         string
 	running         atomic.Value
+	OnMessageCb     func(message *Packet)
 	OnCloseCallBack func()
-	closed          int32
-	msgParser       *BufferPacker
+
+	//msgParser   *BufferPacker
+	msgParser   Packer
+	rpcAcceptor *rpc.Acceptor
+
+	//closed          int32
+	//ChMsg   chan *Message
+	//logger      *zap.Logger
+	//bufferSize      int
+	//logger          *spoor.Spoor
 }
 
-func NewClient(address string, connBuffSize int, logger *spoor.Spoor) *Client {
+func NewClient(address string, rpcAcceptor *rpc.Acceptor) *Client {
 	client := &Client{
-		bufferSize: connBuffSize,
-		Address:    address,
-		logger:     logger,
-		TcpConn:    nil,
-		msgParser:  newInActionPacker(),
+		//bufferSize: connBuffSize,
+		address:     address,
+		NetPoint:    nil,
+		msgParser:   newDefaultPacker(),
+		rpcAcceptor: rpcAcceptor,
 	}
+
 	client.running.Store(false)
 	return client
 }
 
 func (c *Client) Dial() (*net.TCPConn, error) {
-	tcpAddr, err := net.ResolveTCPAddr("tcp4", c.Address)
-
+	tcpAddr, err := net.ResolveTCPAddr("tcp4", c.address)
 	if err != nil {
 		return nil, err
 	}
 
 	conn, err := net.DialTCP("tcp4", nil, tcpAddr)
-
 	if err != nil {
 		return nil, err
 	}
@@ -51,29 +57,25 @@ func (c *Client) Run() {
 	conn, err := c.Dial()
 	if err != nil {
 		//c.logger.ErrorF("%v", err)
+		logger.Error("Client Run is error:", zap.Error(err))
 		return
 	}
-	tcpConn, err := NewTcpConn(conn, nil)
+	tcpConn, err := NewNetPoint(conn)
 	if err != nil {
-		//c.logger.ErrorF("%v", err)
+		logger.Error(err.Error())
 		return
 	}
-	c.TcpConn = tcpConn
+	c.NetPoint = tcpConn
+
+	c.SetNetEventRPC(c.rpcAcceptor)
+
 	c.Impl = c
 	c.Reset()
 	c.running.Store(true)
 	go c.Connect()
 }
 
-func (c *Client) OnClose() {
-	if c.OnCloseCallBack != nil {
-		c.OnCloseCallBack()
-	}
-	c.running.Store(false)
-	c.TcpConn.OnClose()
-}
-
-func (c *Client) OnMessage(data *Message, conn *TcpConn) {
+func (c *Client) OnMessage(data *Message, conn *NetPoint) {
 
 	//c.Verify()
 
@@ -83,21 +85,30 @@ func (c *Client) OnMessage(data *Message, conn *TcpConn) {
 		}
 	}()
 
+	if c.OnMessageCb == nil {
+		logger.Error("[OnMessage] is nil")
+		return
+	}
+
 	c.OnMessageCb(&Packet{
-		Msg:  data,
-		Conn: conn,
+		Msg:      data,
+		NetPoint: conn,
 	})
 }
-
-// Close 关闭连接
-func (c *Client) Close() {
-	if atomic.CompareAndSwapInt32(&c.closed, 0, 1) {
-		c.Conn.Close()
-		close(c.stopped)
+func (c *Client) OnClose() {
+	if c.OnCloseCallBack != nil {
+		c.OnCloseCallBack()
 	}
+	c.running.Store(false)
+	c.NetPoint.Close()
 }
 
 func (c *Client) Pack(msgID uint64, msg interface{}) (pack []byte, err error) {
 	pack, err = c.msgParser.Pack(msgID, msg)
+	return
+}
+
+func (c *Client) UnPack(data []byte) (pack *Message, err error) {
+	pack, err = c.msgParser.Unpack(data)
 	return
 }

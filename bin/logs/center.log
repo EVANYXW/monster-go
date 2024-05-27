@@ -1,0 +1,136 @@
+2024-05-24T15:48:17.665+0800	[34mINFO[0m	SID:	{"服务器": "center", "ID": 1, "type": 2, "index": 1}
+2024-05-24T15:48:17.692+0800	[34mINFO[0m	【 center 】Starting server...	{"服务器": "center"}
+2024-05-24T15:48:17.693+0800	[34mINFO[0m	【 center 】server is started	{"服务器": "center"}
+2024-05-24T15:48:17.693+0800	[34mINFO[0m	找不到bin文件夹，执行当前目录sh文件	{"服务器": "center"}
+2024-05-24T15:48:17.695+0800	[34mINFO[0m	找不到bin文件夹，执行当前目录sh文件	{"服务器": "center"}
+2024-05-24T15:48:17.713+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3001, "message": "server_id:67328  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	<<<< server login	{"服务器": "center", "remote id": 1, "remote type": 7, "remote index": 1}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3001, "message": "server_id:66560  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	<<<< server login	{"服务器": "center", "remote id": 1, "remote type": 4, "remote index": 1}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3009, "message": ""}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	SMSGID_Cc_C_ServerOk	{"服务器": "center", "id": 67329}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	OnNodeOK node length:	{"服务器": "center", "node length:": 2}
+2024-05-24T15:48:17.716+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3009, "message": ""}
+2024-05-24T15:48:17.716+0800	[34mINFO[0m	SMSGID_Cc_C_ServerOk	{"服务器": "center", "id": 66561}
+2024-05-24T15:48:17.716+0800	[34mINFO[0m	OnNodeOK node length:	{"服务器": "center", "node length:": 2}
+2024-05-24T15:48:23.716+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:23.716+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:29.716+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:29.716+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:35.716+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:35.717+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:36.188+0800	[34mINFO[0m	SID:	{"服务器": "center", "ID": 1, "type": 2, "index": 1}
+2024-05-24T15:48:36.212+0800	[34mINFO[0m	【 center 】Starting server...	{"服务器": "center"}
+2024-05-24T15:48:36.212+0800	[31mFATAL[0m	%v	{"服务器": "center", "error": "listen tcp4 :8023: bind: address already in use"}
+github.com/evanyxw/monster-go/pkg/logger.Fatal
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:240
+github.com/evanyxw/monster-go/pkg/network.(*Acceptor).Init
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/acceptor.go:71
+github.com/evanyxw/monster-go/pkg/network.NewAcceptor
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/acceptor.go:53
+github.com/evanyxw/monster-go/pkg/module.NewNetKernel
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_kernel.go:28
+github.com/evanyxw/monster-go/internal/servers/core.NewCenterAcceptor
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/core/center_acceptor.go:32
+github.com/evanyxw/monster-go/internal/servers/center.New
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/center.go:23
+github.com/evanyxw/monster-go/cmd.Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/func.go:97
+github.com/evanyxw/monster-go/cmd.glob..func2
+	/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/run.go:57
+github.com/spf13/cobra.(*Command).execute
+	/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:987
+github.com/spf13/cobra.(*Command).ExecuteC
+	/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1115
+github.com/spf13/cobra.(*Command).Execute
+	/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1039
+github.com/evanyxw/monster-go/cmd.Execute
+	/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/root.go:26
+main.main
+	/Users/xuweiyi/go/src/gameFrame/monster-go/main.go:8
+runtime.main
+	/Users/xuweiyi/go/go1.20.5/src/runtime/proc.go:250
+2024-05-24T15:48:41.716+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:41.716+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:47.715+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:47.716+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:53.716+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:53.717+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:59.717+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:48:59.717+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:51:43.262+0800	[34mINFO[0m	SID:	{"服务器": "center", "ID": 1, "type": 2, "index": 1}
+2024-05-24T15:51:43.288+0800	[34mINFO[0m	【 center 】Starting server...	{"服务器": "center"}
+2024-05-24T15:51:43.288+0800	[34mINFO[0m	【 center 】server is started	{"服务器": "center"}
+2024-05-24T15:51:43.289+0800	[34mINFO[0m	找不到bin文件夹，执行当前目录sh文件	{"服务器": "center"}
+2024-05-24T15:51:43.290+0800	[34mINFO[0m	找不到bin文件夹，执行当前目录sh文件	{"服务器": "center"}
+2024-05-24T15:51:43.346+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3001, "message": "server_id:67328  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T15:51:43.346+0800	[34mINFO[0m	<<<< server login	{"服务器": "center", "remote id": 1, "remote type": 7, "remote index": 1}
+2024-05-24T15:51:43.346+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3001, "message": "server_id:66560  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T15:51:43.346+0800	[34mINFO[0m	<<<< server login	{"服务器": "center", "remote id": 1, "remote type": 4, "remote index": 1}
+2024-05-24T15:51:43.357+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3009, "message": ""}
+2024-05-24T15:51:43.357+0800	[34mINFO[0m	SMSGID_Cc_C_ServerOk	{"服务器": "center", "id": 67329}
+2024-05-24T15:51:43.359+0800	[34mINFO[0m	OnNodeOK node length:	{"服务器": "center", "node length:": 2}
+2024-05-24T15:51:43.359+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3009, "message": ""}
+2024-05-24T15:51:43.359+0800	[34mINFO[0m	SMSGID_Cc_C_ServerOk	{"服务器": "center", "id": 66561}
+2024-05-24T15:51:43.359+0800	[34mINFO[0m	OnNodeOK node length:	{"服务器": "center", "node length:": 2}
+2024-05-24T15:51:49.353+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:51:49.358+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:51:55.353+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:51:55.358+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:52:01.353+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:52:01.358+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:52:07.353+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:52:07.358+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:52:13.353+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:52:13.358+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:52:30.281+0800	[34mINFO[0m	SID:	{"服务器": "center", "ID": 1, "type": 2, "index": 1}
+2024-05-24T15:52:30.301+0800	[34mINFO[0m	【 center 】Starting server...	{"服务器": "center"}
+2024-05-24T15:52:30.302+0800	[34mINFO[0m	找不到bin文件夹，执行当前目录sh文件	{"服务器": "center"}
+2024-05-24T15:52:30.302+0800	[34mINFO[0m	【 center 】server is started	{"服务器": "center"}
+2024-05-24T15:52:30.304+0800	[34mINFO[0m	找不到bin文件夹，执行当前目录sh文件	{"服务器": "center"}
+2024-05-24T15:52:30.328+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3001, "message": "server_id:66560  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T15:52:30.328+0800	[34mINFO[0m	<<<< server login	{"服务器": "center", "remote id": 1, "remote type": 4, "remote index": 1}
+2024-05-24T15:52:30.328+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3001, "message": "server_id:67328  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T15:52:30.328+0800	[34mINFO[0m	<<<< server login	{"服务器": "center", "remote id": 1, "remote type": 7, "remote index": 1}
+2024-05-24T15:52:30.328+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3009, "message": ""}
+2024-05-24T15:52:30.328+0800	[34mINFO[0m	SMSGID_Cc_C_ServerOk	{"服务器": "center", "id": 66561}
+2024-05-24T15:52:30.328+0800	[34mINFO[0m	OnNodeOK node length:	{"服务器": "center", "node length:": 2}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3009, "message": ""}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	SMSGID_Cc_C_ServerOk	{"服务器": "center", "id": 67329}
+2024-05-24T15:52:30.330+0800	[34mINFO[0m	OnNodeOK node length:	{"服务器": "center", "node length:": 2}
+2024-05-24T15:52:36.330+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:52:36.330+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:52:42.330+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T15:52:42.330+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3003, "message": ""}
+2024-05-24T16:16:02.215+0800	[34mINFO[0m	SID:	{"服务器": "center", "ID": 1, "type": 2, "index": 1}
+2024-05-24T16:16:02.254+0800	[34mINFO[0m	【 center 】Starting server...	{"服务器": "center"}
+2024-05-24T16:16:02.255+0800	[34mINFO[0m	【 center 】server is started	{"服务器": "center"}
+2024-05-24T16:16:02.256+0800	[34mINFO[0m	找不到bin文件夹，执行当前目录sh文件	{"服务器": "center"}
+2024-05-24T16:16:02.257+0800	[34mINFO[0m	找不到bin文件夹，执行当前目录sh文件	{"服务器": "center"}
+2024-05-24T16:16:02.275+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3001, "message": "server_id:66560  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T16:16:02.275+0800	[34mINFO[0m	<<<< server login	{"服务器": "center", "remote id": 1, "remote type": 4, "remote index": 1}
+2024-05-24T16:16:02.275+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3001, "message": "server_id:67328  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T16:16:02.275+0800	[34mINFO[0m	<<<< server login	{"服务器": "center", "remote id": 1, "remote type": 7, "remote index": 1}
+2024-05-24T16:16:02.276+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3009, "message": ""}
+2024-05-24T16:16:02.276+0800	[34mINFO[0m	SMSGID_Cc_C_ServerOk	{"服务器": "center", "id": 66561}
+2024-05-24T16:16:02.276+0800	[34mINFO[0m	OnNodeOK node length:	{"服务器": "center", "node length:": 2}
+2024-05-24T16:16:02.277+0800	[34mINFO[0m	read message:	{"服务器": "center", "Message ID": 3009, "message": ""}
+2024-05-24T16:16:02.278+0800	[34mINFO[0m	SMSGID_Cc_C_ServerOk	{"服务器": "center", "id": 67329}
+2024-05-24T16:16:02.278+0800	[34mINFO[0m	OnNodeOK node length:	{"服务器": "center", "node length:": 2}
+2024-05-24T23:16:20.674+0800	[34mINFO[0m	SID:	{"服务器": "center", "ID": 1, "type": 2, "index": 1}
+2024-05-24T23:16:20.698+0800	[34mINFO[0m	【 center 】Starting server...	{"服务器": "center"}
+2024-05-24T23:16:20.698+0800	[34mINFO[0m	【 center 】server is started	{"服务器": "center"}
+2024-05-24T23:16:20.699+0800	[31mFATAL[0m	%v	{"服务器": "center", "error": "listen tcp4 :8023: bind: address already in use"}
+github.com/evanyxw/monster-go/pkg/logger.Fatal
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:240
+github.com/evanyxw/monster-go/pkg/network.(*Acceptor).Connect
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/acceptor.go:78
+github.com/evanyxw/monster-go/pkg/module.(*NetKernel).Start.func1
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_kernel.go:58
+github.com/evanyxw/monster-go/pkg/async.Try
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:67
+github.com/evanyxw/monster-go/pkg/async.Go.func1
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:49
+2024-05-24T23:17:19.107+0800	[34mINFO[0m	SID:	{"服务器": "center", "ID": 1, "type": 2, "index": 1}
+2024-05-24T23:17:19.127+0800	[34mINFO[0m	【 center 】Starting server...	{"服务器": "center"}
+2024-05-24T23:17:19.128+0800	[34mINFO[0m	【 center 】server is started	{"服务器": "center"}

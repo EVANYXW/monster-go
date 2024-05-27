@@ -1,6 +1,6 @@
 module github.com/evanyxw/monster-go
 
-go 1.19
+go 1.20
 
 //replace github.com/evanyxw/game_proto => /Users/xuweiyi/go/src/game_proto
 
@@ -13,8 +13,6 @@ require (
 	github.com/golang/protobuf v1.5.3
 	github.com/olivere/elastic v6.2.37+incompatible
 	github.com/phuhao00/greatestworks-proto v1.0.1
-	github.com/phuhao00/network v1.0.4
-	github.com/phuhao00/spoor v1.0.8
 	github.com/phuhao00/sugar v1.0.1
 	github.com/pkg/errors v0.9.1
 	github.com/shopspring/decimal v1.3.1

@@ -1,3 +1,8 @@
+[server]
+autoStart=false
+innerPort=10000
+outPort=30000
+
 [hashids]
 length = 12
 secret = '6ab6122836cfef95f8db'
@@ -44,12 +49,24 @@ address = ['127.0.0.1:2379']
 namespace='default'
 secret= ''
 
-[server]
+[center]
 address = ':8023'
-maxConnNum=100
+maxConnNum=10000
 buffSize=100
 pprof=true
 pprofAddress = '127.0.0.1:6060'
 
 [rpc]
 address = ':8024'
+
+[[ServerList]]
+Name = "网关服"
+EPName = "gate"
+DBMongoId = 0
+RedisId = 0
+
+[[ServerList]]
+Name = "管理服"
+EPName = "world"
+DBMongoId = 0
+RedisId = 0

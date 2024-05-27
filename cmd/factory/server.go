@@ -1,7 +1,7 @@
 package factory
 
 import (
-	"github.com/evanyxw/monster-go/pkg/network"
+	"github.com/evanyxw/monster-go/pkg/server"
 	"os"
 )
 
@@ -19,14 +19,15 @@ import (
 //		return v.Interface()
 //	}
 //
-// Server cmd的server
-type Server interface {
+
+// CmdServer cmd的server
+type CmdServer interface {
 	Run()
 	Destroy()
 	OnSystemSignal(signal os.Signal) bool
 }
 
-type ServerNewFunc func(info network.Info) Server
+type ServerNewFunc func(info server.Info) CmdServer
 
 var typeRegistry = make(map[string]ServerNewFunc)
 

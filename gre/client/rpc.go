@@ -1,11 +1,7 @@
 package client
 
 import (
-	"context"
 	"fmt"
-	"github.com/evanyxw/game_proto/msg"
-	"github.com/evanyxw/monster-go/internal/rpc/client"
-	"github.com/evanyxw/monster-go/pkg/etcdv3"
 	"github.com/evanyxw/monster-go/pkg/logs"
 )
 
@@ -20,17 +16,17 @@ func Broadcast() {
 		logs.WithServerName("world"),
 	)
 
-	etcd, err := etcdv3.NewEtcd([]string{"127.0.0.1:2379"}, "default", "",
-		"default", 3, nil)
-	if err != nil {
-		panic(err)
-	}
-
-	client.Init(etcd)
-	rpcClient, err := client.NewWorldRpcClient()
-	if err != nil {
-		panic(err)
-	}
-
-	rpcClient.Broadcast(context.Background(), &msg.Req{})
+	//etcd, err := etcdv3.NewEtcd([]string{"127.0.0.1:2379"}, "default", "",
+	//	"default", 3, nil)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//client.Init(etcd)
+	//rpcClient, err := client.NewWorldRpcClient()
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//rpcClient.Broadcast(context.Background(), &msg.Req{})
 }

@@ -1,12 +1,10 @@
 package client
 
-import "github.com/evanyxw/game_proto/msg/messageId"
-
 // MessageId_SCCreatePlayer
 func (c *Client) MessageHandlerRegister() {
-	c.messageHandlers[messageId.MessageId_SCCreatePlayer] = c.OnCreatePlayerRsp
-	c.messageHandlers[messageId.MessageId_SCLogin] = c.OnLoginRsp
-	c.messageHandlers[messageId.MessageId_SCAddFriend] = c.OnAddFriendRsp
-	c.messageHandlers[messageId.MessageId_SCDelFriend] = c.OnDelFriendRsp
-	c.messageHandlers[messageId.MessageId_SCSendChatMsg] = c.OnSendChatMsgRsp
+	//c.messageHandlers[messageId.MessageId_SCCreatePlayer] = c.OnCreatePlayerRsp
+	//c.messageHandlers[messageId.MessageId_SCLogin] = c.OnLoginRsp
+	//c.messageHandlers[messageId.MessageId_SCAddFriend] = c.OnAddFriendRsp
+	//c.messageHandlers[messageId.MessageId_SCDelFriend] = c.OnDelFriendRsp
+	//c.messageHandlers[messageId.MessageId_SCSendChatMsg] = c.OnSendChatMsgRsp
 }

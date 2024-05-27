@@ -1,7 +1,7 @@
 package async
 
 import (
-	"fmt"
+	"github.com/evanyxw/monster-go/internal/pkg/output"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -26,36 +26,33 @@ func Wait() {
 	waitAll.Wait()
 }
 
+func OputUpdate() {
+	if output.Oput == nil {
+		return
+	}
+	output.Oput.SetGoNum(GetGoCount())
+}
+
 func Go(fn func()) {
 	waitAll.Add(1)
-	/*var debugStr string
-	id := atomic.AddUint32(&goid, 1)
-	c := atomic.AddInt32(&gocount, 1)
-	if DefLog.Level() <= LogLevelDebug {
-		debugStr = LogSimpleStack()
-		LogDebug("goroutine start id:%d count:%d from:%s", id, c, debugStr)
-	}*/
-	atomic.AddInt32(&statis.GoCount, 1)
+	//fmt.Println(string(debug.Stack()))
+
 	go func() {
 		defer func() {
-			atomic.AddInt32(&statis.GoCount, -1)
 			waitAll.Done()
+			atomic.AddInt32(&statis.GoCount, -1)
+			OputUpdate()
 		}()
 
+		atomic.AddInt32(&statis.GoCount, 1)
+		OputUpdate()
 		Try(fn, nil)
-
-		/*c = atomic.AddInt32(&gocount, -1)
-
-		if DefLog.Level() <= LogLevelDebug {
-			LogDebug("goroutine end id:%d count:%d from:%s", id, c, debugStr)
-		}*/
 	}()
 }
 
 func Try(fun func(), handler func(interface{})) {
 	defer func() {
 		if err := recover(); err != nil {
-			fmt.Println()
 			if handler == nil {
 				//LogStack()
 				//LogError("error catch:%v", err)

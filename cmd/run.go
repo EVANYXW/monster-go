@@ -1,13 +1,18 @@
 package cmd
 
 import (
+	"fmt"
+	"github.com/evanyxw/monster-go/cmd/factory"
+	"github.com/evanyxw/monster-go/internal/servers"
+	"github.com/evanyxw/monster-go/internal/servers/center"
+	"github.com/evanyxw/monster-go/internal/servers/gate"
+	"github.com/evanyxw/monster-go/pkg/logger"
+	"github.com/evanyxw/monster-go/pkg/timeutil"
 	"log"
 	_ "net/http/pprof" // for side effects only
 
 	"github.com/evanyxw/monster-go/configs"
-	"github.com/evanyxw/monster-go/internal/server"
-	"github.com/evanyxw/monster-go/internal/server/factory"
-	"github.com/evanyxw/monster-go/internal/server/world"
+	"github.com/evanyxw/monster-go/internal/servers/world"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/spf13/cobra"
 )
@@ -19,7 +24,9 @@ var (
 
 func init() {
 	// 游戏服务注册
-	factory.Register(server.World, world.New)
+	factory.Register(servers.Gate, gate.New)
+	factory.Register(servers.World, world.New)
+	factory.Register(servers.Center, center.New)
 
 	// 启动服务参数
 	ServerCmd.Flags().StringVar(&envStr, "env", "", "env")
@@ -39,6 +46,13 @@ var ServerCmd = &cobra.Command{
 		if serverName == "" {
 			log.Fatal("Please specify a server name")
 		}
+
+		logger.NewLogger(
+			logger.WithDisableConsole(),
+			logger.WithField("domain", fmt.Sprintf("%s[%s]", configs.ProjectName, env.Active().Value())),
+			logger.WithTimeLayout(timeutil.CSTLayout),
+			logger.WithFileP(configs.LogFile, serverName),
+		)
 
 		Run(serverName)
 	},

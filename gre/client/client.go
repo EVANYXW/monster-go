@@ -1,10 +1,8 @@
 package client
 
 import (
-	"fmt"
-	"github.com/evanyxw/game_proto/msg/messageId"
 	network2 "github.com/evanyxw/monster-go/pkg/network"
-	"github.com/phuhao00/network/example/logger"
+	"github.com/evanyxw/monster-go/pkg/rpc"
 	"os"
 	"syscall"
 )
@@ -12,20 +10,21 @@ import (
 type Client struct {
 	cli             *network2.Client
 	inputHandlers   map[string]InputHandler
-	messageHandlers map[messageId.MessageId]MessageHandler
+	messageHandlers network2.HandlerMap
 	console         *ClientConsole
 	chInput         chan *InputParam
 }
 
 func NewClient() *Client {
+	rpcAcceptor := rpc.NewAcceptor(1000)
 	c := &Client{
-		cli:             network2.NewClient("0.0.0.0:8023", 200, logger.Logger),
+		cli:             network2.NewClient(":20001", rpcAcceptor),
 		inputHandlers:   map[string]InputHandler{},
-		messageHandlers: map[messageId.MessageId]MessageHandler{},
+		messageHandlers: make(network2.HandlerMap, network2.Pool_id_Max),
 		console:         NewClientConsole(),
 	}
 	c.cli.OnMessageCb = c.OnMessage
-	c.cli.ChMsg = make(chan *network2.Message, 1)
+	//c.cli.ChMsg = make(chan *network2.Message, 1)
 	//c.chInput = make(chan *InputParam, 1)
 	//c.console.chInput = c.chInput
 	c.console.chInput = make(chan *InputParam, 1)
@@ -52,11 +51,11 @@ func (c *Client) Run() {
 }
 
 func (c *Client) OnMessage(packet *network2.Packet) {
-	fmt.Println(c.messageHandlers)
-	fmt.Println(packet.Msg.ID)
-	if handler, ok := c.messageHandlers[messageId.MessageId(packet.Msg.ID)]; ok {
-		handler(packet)
-	}
+	//fmt.Println(c.messageHandlers)
+	//fmt.Println(packet.Msg.ID)
+	//if handler, ok := c.messageHandlers[messageId.MessageId(packet.Msg.ID)]; ok {
+	//	handler(packet)
+	//}
 }
 
 func (c *Client) OnSystemSignal(signal os.Signal) bool {

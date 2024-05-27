@@ -172,10 +172,6 @@ github.com/pelletier/go-toml/v2 v2.1.0 h1:FnwAJ4oYMvbT/34k9zzHuZNrhlz48GB3/s6at6
 github.com/pelletier/go-toml/v2 v2.1.0/go.mod h1:tJU2Z3ZkXwnxa4DPO899bsyIoywizdUvyaeZurnPPDc=
 github.com/phuhao00/greatestworks-proto v1.0.1 h1:RWMd2FV1aJZjoyvg+nG1pnCssxKhEZM+rMm+YQ6kHeg=
 github.com/phuhao00/greatestworks-proto v1.0.1/go.mod h1:GTKTNZwdOHyg/Ts298VPWdLT+ieS+qrJcadZPh/0giY=
-github.com/phuhao00/network v1.0.4 h1:OWiNXr3qTojwRZVVfWwy9xn1xsBVftQ758lKYJe8Nfk=
-github.com/phuhao00/network v1.0.4/go.mod h1:CqNfpNisnjjcNUVBIoG04ipSqr0WN647/chPs0YWhf0=
-github.com/phuhao00/spoor v1.0.8 h1:f9MMDId8KJqoD/4gaHuPAw23fZ6nJJvdPrkoJfmzJ4M=
-github.com/phuhao00/spoor v1.0.8/go.mod h1:ngHgUs5EWhgqiyJW+aMMLH1ipNBP4uQNjX1DlBQukek=
 github.com/phuhao00/sugar v1.0.1 h1:b42TQychB4Tfcor9/j/AfEmE9sqk5tMT5Z5CONtO+Ik=
 github.com/phuhao00/sugar v1.0.1/go.mod h1:9D1zN1owEzhGv6+z6x+TKifpPSLcdp5OB8QjcR9P858=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=

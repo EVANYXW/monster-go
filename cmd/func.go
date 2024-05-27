@@ -2,19 +2,22 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/evanyxw/monster-go/cmd/factory"
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/internal/mysql"
 	"github.com/evanyxw/monster-go/internal/pkg/output"
 	"github.com/evanyxw/monster-go/internal/redis"
 	"github.com/evanyxw/monster-go/internal/rpc/client"
-	"github.com/evanyxw/monster-go/internal/server"
-	"github.com/evanyxw/monster-go/internal/server/factory"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/etcdv3"
+	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/logs"
+	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
+	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/phuhao00/sugar"
+	"go.uber.org/zap"
 	"net/http"
 )
 
@@ -26,8 +29,20 @@ func (e EtcdServers) add(server *etcdv3.Service) {
 	etcdServerArr = append(e, server)
 }
 
-func Init(allConfig configs.Config, serverInfo network.Info) {
+func Init(allConfig configs.Config, serverInfo server.Info) {
 	{
+		network.SID.Type = network.Name2EP(serverInfo.ServerName)
+		network.SID.ID = 1
+		if network.Name2EP(serverInfo.ServerName) == network.EP_Center {
+			network.SID.Index = 1
+		}
+		logger.Info("SID:", zap.Uint16("ID", network.SID.ID),
+			zap.Uint8("type", network.SID.Type), zap.Uint8("index", network.SID.Index))
+
+		network.UpdateID()
+
+		module.Init(module.ModuleID_Max)
+
 		initLog() // 主要etcd 包里在用
 		// mysql、redis
 		newModel()
@@ -35,51 +50,52 @@ func Init(allConfig configs.Config, serverInfo network.Info) {
 		redisSub(recvPublish)
 
 		// 初始化etcd
-		etcd := initEtcd()
-
-		// tcp 服务注册etcd
-		tcpEtcd := registerEtcd(etcd, serverInfo.ServerName, serverInfo.Address)
-		etcdServerArr.add(tcpEtcd)
-
-		// rpc 服务注册etcd
-		rpcEtcd := registerEtcd(etcd, fmt.Sprintf("%s%s", serverName, server.Rpc), serverInfo.RpcAddr)
-		etcdServerArr.add(rpcEtcd)
+		//etcd := initEtcd()
+		//
+		//// tcp 服务注册etcd
+		//tcpEtcd := registerEtcd(etcd, serverInfo.ServerName, serverInfo.Address)
+		//etcdServerArr.add(tcpEtcd)
+		//
+		//// rpc 服务注册etcd
+		//rpcEtcd := registerEtcd(etcd, fmt.Sprintf("%s%s", serverName, servers.Rpc), serverInfo.RpcAddr)
+		//etcdServerArr.add(rpcEtcd)
 
 		// 开启pprof
 		pprofUrl := ""
-		if allConfig.Server.Pprof {
-			pprofUrl = allConfig.Server.PprofAddress
+		if allConfig.Center.Pprof {
+			pprofUrl = allConfig.Center.PprofAddress
 			async.Go(func() {
-				pprofs(allConfig.Server.PprofAddress)
+				pprofs(allConfig.Center.PprofAddress)
 			})
 		}
 
 		async.Go(func() {
 			output.NewOutput(serverInfo.ServerName, serverInfo.Address, serverInfo.RpcAddr,
-				pprofUrl)
+				pprofUrl).Run()
 		})
 	}
 }
 
 func Run(serverName string) {
 	allConfig := configs.Get()
-	serverInfo := network.Info{
+	serverInfo := server.Info{
 		ServerName: serverName,
-		Address:    allConfig.Server.Address,
+		Address:    allConfig.Center.Address,
 		RpcAddr:    allConfig.Rpc.Address,
 		Env:        env.Active().Value(),
 	}
 
 	Init(allConfig, serverInfo)
 
-	fmt.Println(fmt.Sprintf("Starting【 %s 】server...", serverName))
+	logger.Info(fmt.Sprintf("【 %s 】Starting server...", serverName))
 
-	var server factory.Server
+	var server factory.CmdServer
 	instance := factory.MakeInstance(serverName)
 	if instance == nil {
 		panic("Unable to find corresponding service")
 	}
 	server = instance(serverInfo)
+
 	//内部服务启动
 	server.Run()
 	defer func() {
@@ -88,7 +104,7 @@ func Run(serverName string) {
 		close()
 	}()
 
-	fmt.Println(fmt.Sprintf("【 %s 】server is started", serverName))
+	logger.Info(fmt.Sprintf("【 %s 】server is started", serverName))
 	sugar.WaitSignal(server.OnSystemSignal)
 }
 
@@ -162,7 +178,7 @@ func recvPublish(channel string, data string) {
 	// TODO: some control measures such as configuration rereading can be implemented
 	// TODO: 通过redis的订阅发布，可以实现一些配置重读等控制
 
-	fmt.Println(channel, data)
+	//fmt.Println(channel, data)
 }
 
 func pprofs(addr string) {
@@ -170,7 +186,7 @@ func pprofs(addr string) {
 }
 
 func close() {
-	fmt.Println(fmt.Sprintf("Stopping【 %s 】server...", serverName))
+	logger.Info(fmt.Sprintf("【 %s 】Stopping server...", serverName))
 
 	mysql.DBRepo.DbRClose()
 	mysql.DBRepo.DbWClose()
@@ -179,6 +195,6 @@ func close() {
 		etcdServer.Stop()
 	}
 
-	fmt.Println(fmt.Sprintf("【 %s 】server is stoped", serverName))
+	logger.Info(fmt.Sprintf("【 %s 】server is stoped", serverName))
 
 }

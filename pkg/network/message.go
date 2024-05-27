@@ -4,3 +4,8 @@ type Message struct {
 	ID   uint64
 	Data []byte
 }
+
+type Packet struct {
+	Msg      *Message
+	NetPoint *NetPoint
+}

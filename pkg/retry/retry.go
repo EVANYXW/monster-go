@@ -1,7 +1,6 @@
 package retry
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -41,7 +40,6 @@ func (r *Retry) Retry(fn func() error) error {
 			break
 		}
 
-		fmt.Println(1)
 		retryCount++
 		time.Sleep(r.retryDelay)
 	}

@@ -1,0 +1,47 @@
+2024-05-24T15:48:17.703+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T15:48:17.713+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T15:48:17.713+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:56104\"  ports:0  ports:20000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:1}"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T15:48:17.716+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3010, "message": "server_id:66561"}
+2024-05-24T15:48:17.716+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-24T15:48:17.716+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T15:51:43.298+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T15:51:43.314+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T15:51:43.314+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T15:51:43.351+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T15:51:43.352+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:56204\"  ports:0  ports:20000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:1}"}
+2024-05-24T15:51:43.352+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T15:51:43.352+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T15:51:43.352+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T15:51:43.359+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3010, "message": "server_id:66561"}
+2024-05-24T15:51:43.359+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-24T15:51:43.359+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T15:52:30.312+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T15:52:30.327+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T15:52:30.327+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:56234\"  ports:0  ports:20000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:1}"}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3010, "message": "server_id:66561"}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T16:16:02.264+0800	[34mINFO[0m	SID:	{"服务器": "world", "ID": 1, "type": 7, "index": 0}
+2024-05-24T16:16:02.273+0800	[34mINFO[0m	【 world 】Starting server...	{"服务器": "world"}
+2024-05-24T16:16:02.275+0800	[34mINFO[0m	【 world 】server is started	{"服务器": "world"}
+2024-05-24T16:16:02.276+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:56756\"  ports:0  ports:20000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:1}"}
+2024-05-24T16:16:02.276+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T16:16:02.276+0800	[34mINFO[0m	新增结点	{"服务器": "world"}
+2024-05-24T16:16:02.276+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T16:16:02.276+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3002, "message": "server_id:66049  new_id:67329  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-24T16:16:02.276+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:56756\"  ports:0  ports:20000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:1}"}
+2024-05-24T16:16:02.277+0800	[34mINFO[0m	收到服务器信息	{"服务器": "world"}
+2024-05-24T16:16:02.277+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "world", "node length:": 1}
+2024-05-24T16:16:02.277+0800	[34mINFO[0m	read message:	{"服务器": "world", "Message ID": 3010, "message": "server_id:66561"}
+2024-05-24T16:16:02.277+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "world", "id": 66561, "server": 1, "type": "gate", "index": 1}
+2024-05-24T16:16:02.277+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "world", "node length:": 1}

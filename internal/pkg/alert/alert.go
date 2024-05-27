@@ -2,6 +2,7 @@ package alert
 
 import (
 	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/mail"
 	"github.com/pkg/errors"
 
@@ -9,10 +10,7 @@ import (
 )
 
 // NotifyHandler 告警通知
-func NotifyHandler(logger *zap.Logger) func(msg *AlertMessage) {
-	if logger == nil {
-		panic("logger required")
-	}
+func NotifyHandler() func(msg *AlertMessage) {
 
 	return func(msg *AlertMessage) {
 		cfg := configs.Get().Mail

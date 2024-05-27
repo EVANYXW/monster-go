@@ -19,7 +19,18 @@ var config = new(Config)
 var NotifyChan = make(chan struct{})
 
 // Config 配置
+type ServerNode struct {
+	Name      string
+	EPName    string
+	DBMongoId uint32
+	RedisId   uint32
+}
 type Config struct {
+	Server struct {
+		AutoStart bool `toml:"autoStart"`
+		InnerPort int32
+		OutPort   int32
+	}
 	MySQL struct {
 		Read struct {
 			Addr string `toml:"addr"`
@@ -67,9 +78,9 @@ type Config struct {
 		Local string `toml:"local"`
 	} `toml:"language"`
 
-	Server struct {
+	Center struct {
 		Address      string `toml:"address"`
-		MaxConnNum   int    `toml:"maxConnNum"`
+		MaxConnNum   uint32 `toml:"maxConnNum"`
 		BuffSize     int    `toml:"buffSize"`
 		Pprof        bool   `toml:"prof"`
 		PprofAddress string `toml:"profAddress"`
@@ -84,6 +95,8 @@ type Config struct {
 		Namespace string   `toml:"namespace"`
 		Secret    string   `toml:"secret"`
 	}
+
+	ServerList []ServerNode
 }
 
 var (

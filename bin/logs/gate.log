@@ -1,0 +1,134 @@
+2024-05-24T15:48:17.703+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-24T15:48:17.713+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-24T15:48:17.713+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1:56102\"  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  status:1}"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:20000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-24T15:48:17.715+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-24T15:48:17.716+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T15:51:43.297+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-24T15:51:43.314+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-24T15:51:43.346+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-24T15:51:43.357+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1:56203\"  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  status:1}"}
+2024-05-24T15:51:43.357+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-24T15:51:43.357+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-24T15:51:43.357+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T15:51:43.357+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:20000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-24T15:51:43.359+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-24T15:51:43.359+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-24T15:51:43.359+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T15:52:30.312+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-24T15:52:30.326+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-24T15:52:30.327+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-24T15:52:30.328+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:20000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-24T15:52:30.328+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1:56235\"  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  status:1}"}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-24T15:52:30.329+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T15:52:30.330+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-24T15:52:30.330+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-24T15:52:30.330+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T16:16:02.264+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-24T16:16:02.273+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-24T16:16:02.274+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-24T16:16:02.275+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:20000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-24T16:16:02.275+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1:56757\"  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  status:1}"}
+2024-05-24T16:16:02.275+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-24T16:16:02.275+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-24T16:16:02.275+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T16:16:02.278+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-24T16:16:02.278+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-24T16:16:02.278+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T23:21:43.121+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-24T23:21:43.146+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-24T23:21:43.146+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-24T23:21:43.147+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:20001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-24T23:22:10.095+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-24T23:22:10.113+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-24T23:22:10.115+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-24T23:22:10.116+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1:64301\"  ports:0  ports:20001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-24T23:22:10.116+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:66562  ip:\"127.0.0.1:64316\"  ports:0  ports:20002  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10001  status:1}"}
+2024-05-24T23:22:10.116+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-24T23:22:10.116+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-24T23:22:10.116+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-24T23:22:10.116+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-24T23:22:10.116+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T23:22:10.116+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T23:22:10.116+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66562  ports:0  ports:20002  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10001"}
+2024-05-24T23:22:10.117+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:66562"}
+2024-05-24T23:22:10.117+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 66562, "server": 1, "type": "gate", "index": 2}
+2024-05-24T23:22:10.117+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-24T23:22:15.059+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-24T23:22:15.079+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-24T23:22:15.081+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-24T23:22:15.082+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:66562  ip:\"127.0.0.1:64316\"  ports:0  ports:20002  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10001  status:2}  infos:{server_id:66561  ip:\"127.0.0.1:64301\"  ports:0  ports:20001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:2}"}
+2024-05-24T23:22:15.082+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-24T23:22:15.082+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-24T23:22:15.082+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-24T23:22:15.082+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-24T23:22:15.082+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 2}
+2024-05-24T23:22:15.083+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:66563  ip:\"127.0.0.1:64321\"  ports:0  ports:20003  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-24T23:22:15.083+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-24T23:22:15.083+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-24T23:22:15.083+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 2}
+2024-05-24T23:22:15.082+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66563  ports:0  ports:20003  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10002"}
+2024-05-24T23:22:15.083+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:66563  ip:\"127.0.0.1:64321\"  ports:0  ports:20003  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-24T23:22:15.083+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-24T23:22:15.083+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-24T23:22:15.083+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 2}
+2024-05-24T23:22:15.085+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:66563"}
+2024-05-24T23:22:15.085+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 66563, "server": 1, "type": "gate", "index": 3}
+2024-05-24T23:22:15.085+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 2}
+2024-05-24T23:22:15.085+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:66563"}
+2024-05-24T23:22:15.086+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 66563, "server": 1, "type": "gate", "index": 3}
+2024-05-24T23:22:15.086+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 2}
+2024-05-25T00:01:45.153+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:66563"}
+2024-05-25T00:01:45.153+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:66563"}
+2024-05-25T00:01:45.154+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-25T00:01:45.154+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-25T00:01:45.153+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-25T00:01:45.155+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-25T00:01:45.155+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-25T00:01:45.156+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-25T00:01:45.156+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-25T00:05:48.737+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-25T00:05:48.737+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-25T00:05:48.737+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-25 00:05:48.737585 +0800 CST m=+2228.515920335 write error: write /dev/stdout: input/output error
+2024-05-25 00:05:48.73746 +0800 CST m=+2196.557952126 write error: write /dev/stdout: input/output error
+2024-05-25 00:05:48.73769 +0800 CST m=+2201.521945001 write error: write /dev/stdout: input/output error
+2024-05-25T00:05:48.742+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-25T00:05:48.742+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-25T00:05:48.742+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-25 00:05:48.742901 +0800 CST m=+2228.521236710 write error: write /dev/stdout: input/output error
+2024-05-25T00:05:48.779+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-25 00:05:48.74298 +0800 CST m=+2196.563471667 write error: write /dev/stdout: input/output error
+2024-05-25 00:05:48.742866 +0800 CST m=+2201.527121209 write error: write /dev/stdout: input/output error
+2024-05-25T00:05:48.839+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-25T00:05:48.839+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-25T00:05:48.847+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-25T00:05:48.847+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-25 00:05:48.779387 +0800 CST m=+2228.557721960 write error: write /dev/stdout: input/output error
+2024-05-25T00:05:48.852+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-25T00:05:48.851+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-25T00:05:48.854+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-25 00:05:48.83913 +0800 CST m=+2201.623384084 write error: write /dev/stdout: input/output error
+2024-05-25T00:05:48.873+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-25 00:05:48.839215 +0800 CST m=+2196.659706209 write error: write /dev/stdout: input/output error
+2024-05-25T00:05:48.875+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-25 00:05:48.873894 +0800 CST m=+2201.658147542 write error: write /dev/stdout: input/output error
