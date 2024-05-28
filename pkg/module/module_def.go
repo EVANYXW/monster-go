@@ -15,6 +15,7 @@ type IServerInfoHandler interface {
 // IModule 定义
 type IModule interface {
 	GetID() int32
+	GetKernel() IModuleKernel
 
 	Init()
 	DoRun()
@@ -28,6 +29,7 @@ type IModule interface {
 // 模块内核定义、继承该接口将成为 Module
 type IModuleKernel interface {
 	Init() bool
+	GetNoWaitStart() bool
 	AddModules()
 	DoRegist()
 	Start()

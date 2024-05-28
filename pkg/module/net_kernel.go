@@ -17,6 +17,20 @@ const (
 	Outer
 )
 
+type kernelOption func(kernel *NetKernel)
+
+func WithNoWaitStart(noWaitStart bool) kernelOption {
+	return func(kernel *NetKernel) {
+		kernel.NoWaitStart = noWaitStart
+	}
+}
+
+func WithNetType(netType NetType) kernelOption {
+	return func(kernel *NetKernel) {
+		kernel.netType = netType
+	}
+}
+
 type NetKernel struct {
 	Owner       INetHandler
 	netType     NetType
@@ -30,9 +44,9 @@ type NetKernel struct {
 	NoWaitStart bool
 }
 
-func NewNetKernel(maxConnNum uint32, info server.Info, Owner INetHandler, noWaitStart bool, netType NetType) *NetKernel {
+func NewNetKernel(maxConnNum uint32, info server.Info, Owner INetHandler, options ...kernelOption) *NetKernel {
 	rpcAcceptor := rpc.NewAcceptor(10000)
-	nodePointManager := network.NewNormalManager(maxConnNum, rpcAcceptor)
+	nodePointManager := network.NewNormal(maxConnNum, rpcAcceptor)
 
 	kernel := &NetKernel{
 		NPManager:   nodePointManager,
@@ -41,9 +55,14 @@ func NewNetKernel(maxConnNum uint32, info server.Info, Owner INetHandler, noWait
 		handlers:    make(network.HandlerMap, xsf_pb.SMSGID_Server_Max),
 		closeChan:   make(chan struct{}),
 		Owner:       Owner,
-		NoWaitStart: noWaitStart,
-		netType:     netType,
+		NoWaitStart: false,
+		netType:     Inner, // 默认内网
 	}
+
+	for _, fn := range options {
+		fn(kernel)
+	}
+
 	kernel.NetAcceptor.MessageHandler = kernel.MessageHandler
 	kernel.Init()
 	return kernel
@@ -59,8 +78,8 @@ func (n *NetKernel) AddModules() {
 }
 
 func (n *NetKernel) DoRegist() {
-	n.RpcAcceptor.Regist(network.RPC_NET_ACCEPT, n.OnRpcNetAccept)
-	n.RpcAcceptor.Regist(network.RPC_NET_ERROR, n.OnRpcNetError)
+	n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
+	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
 }
 
 func (n *NetKernel) Start() {
@@ -73,9 +92,9 @@ func (n *NetKernel) Start() {
 }
 
 func (n *NetKernel) DoStart() {
-	port := network.Ports[network.EP_Client]
+	port := server.Ports[server.EP_Client]
 	if n.netType == Inner {
-		port = network.Ports[network.EP_Gate]
+		port = server.Ports[server.EP_Gate]
 	}
 	addr := fmt.Sprintf(":%d", port)
 	output.Oput.SetServerAddr(addr)
@@ -113,6 +132,10 @@ func (n *NetKernel) OnStartCheck() int {
 
 func (n *NetKernel) OnCloseCheck() int {
 	return 0
+}
+
+func (n *NetKernel) GetNoWaitStart() bool {
+	return n.NoWaitStart
 }
 
 func (n *NetKernel) RegisterMsg(msgId uint16, handlerFunc network.HandlerFunc) {

@@ -1,6 +1,7 @@
 package network
 
 import (
+	"github.com/evanyxw/monster-go/pkg/server"
 	"net/http"
 )
 
@@ -20,7 +21,7 @@ const (
 type ServerInfo struct {
 	ID     uint32
 	IP     string
-	Ports  [EP_Max]uint32
+	Ports  [server.EP_Max]uint32
 	Status uint32
 }
 
@@ -36,14 +37,6 @@ type ServerInfo struct {
 //	ServerStatus_Running  = 2
 //	ServerStatus_Stopping = 3
 //)
-
-const (
-	RPC_NET_ACCEPT    = "NetAccept"
-	RPC_NET_ERROR     = "NetError"
-	RPC_NET_DATA      = "NetData"
-	RPC_NET_MESSAGE   = "NetMessage"
-	RPC_NET_CONNECTED = "NetConnected"
-)
 
 func OpenPPROF() {
 	go func() {

@@ -13,12 +13,12 @@ import (
 )
 
 type Center struct {
-	*core.CenterNet
+	centerNet *core.CenterNet
 }
 
 func New(info server.Info) factory.CmdServer {
 	w := &Center{
-		CenterNet: core.NewCenterNet(module.ModuleID_SM, 10000, info),
+		centerNet: core.NewCenterNet(module.ModuleID_SM, 10000, info),
 	}
 
 	return w
@@ -26,14 +26,12 @@ func New(info server.Info) factory.CmdServer {
 
 // Run 外部通知开启Module
 func (w *Center) Run() {
-	//w.CenterAcceptor.Run()
 	module.Run()
 
 }
 
 // Destroy 注销服务
 func (w *Center) Destroy() {
-	//w.CenterAcceptor.Release()
 	module.Close()
 }
 

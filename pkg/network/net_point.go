@@ -8,6 +8,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/rpc"
+	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/evanyxw/monster-go/pkg/utils"
 	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
@@ -36,10 +37,9 @@ type NetPoint struct {
 	timeoutTime int
 	verify      int32
 	Impl        IConn
-	//logger      *zap.Logger
-	Time uint32
+	Time        uint32
 
-	SID           ServerID
+	SID           server.ServerID
 	ID            uint32
 	RemoteIP      string
 	isHandshake   bool
@@ -52,7 +52,7 @@ func NewNetPoint(conn *net.TCPConn) (*NetPoint, error) {
 		Conn:        conn,
 		closed:      -1,
 		verify:      0,
-		msgParser:   newDefaultPacker(),
+		msgParser:   NewDefaultPacker(),
 		stopped:     make(chan bool, 1),
 		signal:      make(chan interface{}, 100),
 		lastSignal:  make(chan interface{}, 1),
@@ -64,7 +64,7 @@ func NewNetPoint(conn *net.TCPConn) (*NetPoint, error) {
 
 func (np *NetPoint) SetID(id uint32) {
 	np.ID = id
-	ID2Sid(id, &np.SID)
+	server.ID2Sid(id, &np.SID)
 }
 
 func (np *NetPoint) Verified() bool {
@@ -163,7 +163,7 @@ func (np *NetPoint) HandleRead() {
 
 		if err != nil {
 			if err != io.EOF {
-				np.RpcAcceptor.Go(RPC_NET_ERROR, np)
+				np.RpcAcceptor.Go(rpc.RPC_NET_ERROR, np)
 				logger.Error("read message RPC_NET_ERROR: %v", zap.Error(err))
 			}
 			break

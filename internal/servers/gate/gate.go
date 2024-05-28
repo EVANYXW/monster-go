@@ -13,16 +13,16 @@ import (
 )
 
 type Gate struct {
-	*core.CenterConnector  // 中心服务器连接器
-	*core.ClientNet        // 用户端网络模块
-	*core.ConnectorManager // 其他服务器链接管理器 // fixMe 恢复
+	centerConnector  *core.CenterConnector  // 中心服务器连接器
+	clientNet        *core.ClientNet        // 用户端网络模块
+	connectorManager *core.ConnectorManager // 其他服务器链接管理器
 }
 
 func New(info server.Info) factory.CmdServer {
 	w := &Gate{
-		CenterConnector:  core.NewCenterConnector(module.ModuleID_CenterConnector, core.NewGateServerInfoHandler()),
-		ClientNet:        core.NewClientNet(module.ModuleID_Client, 10000, info, module.Outer),
-		ConnectorManager: core.NewConnectorManager(module.ModuleID_ConnectorManager),
+		centerConnector:  core.NewCenterConnector(module.ModuleID_CenterConnector, core.NewGateServerInfoHandler()),
+		clientNet:        core.NewClientNet(module.ModuleID_Client, 10000, info, module.Outer),
+		connectorManager: core.NewConnectorManager(module.ModuleID_ConnectorManager),
 	}
 
 	return w
@@ -30,14 +30,11 @@ func New(info server.Info) factory.CmdServer {
 
 // Run 外部告诉内部服务器启动
 func (w *Gate) Run() {
-	//w.CenterConnector.Run()
 	module.Run()
 }
 
 // Destroy 外部通知内部注销关闭，信号量
 func (w *Gate) Destroy() {
-	//w.CenterConnector.Destroy()
-	fmt.Println("Destroy")
 	module.Close()
 }
 

@@ -18,7 +18,7 @@ type NPManagerArray struct {
 	rpcAcceptor *rpc.Acceptor
 }
 
-func NewArrayManager(maxCount uint32, rpcAcceptor *rpc.Acceptor) *NPManagerArray {
+func NewArray(maxCount uint32, rpcAcceptor *rpc.Acceptor) *NPManagerArray {
 	return &NPManagerArray{
 		maxCount: maxCount,
 		//nps:         make([]*NetPoint, 1),

@@ -13,14 +13,14 @@ import (
 )
 
 type World struct {
-	*core.CenterConnector
-	*core.ClientNet
+	centerConnector *core.CenterConnector
+	clientNet       *core.ClientNet
 }
 
 func New(info server.Info) factory.CmdServer {
 	w := &World{
-		CenterConnector: core.NewCenterConnector(module.ModuleID_CenterConnector, core.NewServerInfoHandler()),
-		ClientNet:       core.NewClientNet(module.ModuleID_Client, 10000, info, module.Inner),
+		centerConnector: core.NewCenterConnector(module.ModuleID_CenterConnector, core.NewServerInfoHandler()),
+		clientNet:       core.NewClientNet(module.ModuleID_Client, 10000, info, module.Inner),
 	}
 
 	return w

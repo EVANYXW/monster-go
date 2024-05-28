@@ -16,8 +16,8 @@ import (
 
 type CenterNet struct {
 	*module.BaseModule
-	*module.NetKernel
-	module.NodeManager
+	netKernel   *module.NetKernel
+	nodeManager module.NodeManager
 
 	ID           int32
 	status       int
@@ -28,12 +28,11 @@ type CenterNet struct {
 func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 	centerNet := &CenterNet{
 		ID:          id,
-		NodeManager: module.NewNodeManager(),
+		nodeManager: module.NewNodeManager(),
 	}
-	centerNet.NetKernel = module.NewNetKernel(maxConnNum, info, centerNet, true, module.Inner)
+	centerNet.netKernel = module.NewNetKernel(maxConnNum, info, centerNet, module.WithNoWaitStart(true))
 
 	baseModule := module.NewBaseModule(centerNet)
-	baseModule.NoWaitStart = true
 	baseModule.Init()
 
 	centerNet.BaseModule = baseModule
@@ -41,13 +40,13 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 }
 
 func (c *CenterNet) Init() {
-	c.NetKernel.Init()
+	c.netKernel.Init()
 }
 
 func (c *CenterNet) DoRun() {
 	c.DoRegister()
-	c.NodeManager.Start()
-	c.NetKernel.Start()
+	c.nodeManager.Start()
+	c.netKernel.Start()
 
 	c.status = server.CN_RunStep_StartServer
 	c.startIndex = 0
@@ -58,7 +57,7 @@ func (c *CenterNet) DoStart() {
 }
 
 func (c *CenterNet) DoRelease() {
-	c.NetKernel.Release()
+	c.netKernel.Release()
 }
 
 func (c *CenterNet) OnStartCheck() int {
@@ -109,7 +108,7 @@ func (c *CenterNet) OnStartCheck() int {
 }
 
 func (c *CenterNet) OnCloseCheck() int {
-	return c.NetKernel.OnCloseCheck()
+	return c.netKernel.OnCloseCheck()
 }
 
 func (c *CenterNet) Update() {
@@ -121,14 +120,18 @@ func (c *CenterNet) GetID() int32 {
 }
 
 func (c *CenterNet) DoRegister() {
-	c.NetKernel.DoRegist()
-	c.NetKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Handshake), c.Cc_C_Handshake)
-	c.NetKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Heartbeat), c.Cc_C_Heartbeat)
-	c.NetKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_ServerOk), c.Cc_C_ServerOk)
+	c.netKernel.DoRegist()
+	c.netKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Handshake), c.Cc_C_Handshake)
+	c.netKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Heartbeat), c.Cc_C_Heartbeat)
+	c.netKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_ServerOk), c.Cc_C_ServerOk)
 }
 
 func (c *CenterNet) Release() {
-	c.NetKernel.Release()
+	c.netKernel.Release()
+}
+
+func (c *CenterNet) GetKernel() module.IModuleKernel {
+	return c.netKernel
 }
 
 func (c *CenterNet) OnNetError(np *network.NetPoint) {
@@ -141,7 +144,7 @@ func (c *CenterNet) OnServerOk() {
 }
 
 func (c *CenterNet) OnNPDel(np *network.NetPoint) {
-	c.NodeManager.OnNodeLost(np.ID, np.SID.Type)
+	c.nodeManager.OnNodeLost(np.ID, np.SID.Type)
 }
 
 func (c *CenterNet) OnNPAdd(np *network.NetPoint) {
@@ -160,7 +163,7 @@ func (c *CenterNet) OnNPAdd(np *network.NetPoint) {
 func (c *CenterNet) Cc_C_Handshake(message *network.Packet) {
 	localMsg := &xsf_pb.Cc_C_Handshake{}
 	proto.Unmarshal(message.Msg.Data, localMsg)
-	si := c.NodeManager.AddNode(localMsg.ServerId, message.NetPoint.RemoteIP, localMsg.Ports)
+	si := c.nodeManager.AddNode(localMsg.ServerId, message.NetPoint.RemoteIP, localMsg.Ports)
 	if si == nil {
 		message.NetPoint.Close()
 		return
@@ -169,22 +172,22 @@ func (c *CenterNet) Cc_C_Handshake(message *network.Packet) {
 	message.NetPoint.SetID(si.ID)
 
 	np := message.NetPoint
-	if c.GetNPManager().OnHandshake(np) {
+	if c.netKernel.GetNPManager().OnHandshake(np) {
 		//c.NetKernel.OnNPAdd(np)
 		c.OnNPAdd(np)
 		message.NetPoint.OnHeartbeat()
 		// 同步本地已经有的服务器列表信息到这个节点
-		c.NodeManager.Send(np, si)
+		c.nodeManager.Send(np, si)
 
 		// 再回一个握手消息
 		pb := &xsf_pb.C_Cc_Handshake{}
-		pb.ServerId = network.ID
+		pb.ServerId = server.ID
 		pb.NewId = si.ID
 		pb.Ports = si.Ports[:]
 		np.SendMessage(uint64(xsf_pb.SMSGID_C_Cc_Handshake), pb)
 
 		// 把该节点信息广播给其他所有服务器
-		c.NodeManager.Broadcast(si)
+		c.nodeManager.Broadcast(si)
 	}
 }
 
@@ -195,5 +198,5 @@ func (c *CenterNet) Cc_C_Heartbeat(message *network.Packet) {
 func (c *CenterNet) Cc_C_ServerOk(message *network.Packet) {
 	np := message.NetPoint
 	logger.Info("SMSGID_Cc_C_ServerOk", zap.Uint32("id", np.ID))
-	c.NodeManager.OnNodeOK(np.ID)
+	c.nodeManager.OnNodeOK(np.ID)
 }

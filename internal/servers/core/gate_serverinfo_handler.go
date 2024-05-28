@@ -5,6 +5,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
+	"github.com/evanyxw/monster-go/pkg/server"
 	"go.uber.org/zap"
 )
 
@@ -26,20 +27,20 @@ func (h *gateServerInfoHandler) OnServerLost(id uint32) {
 
 // OnServerOk 服务器已准备好
 func (h *gateServerInfoHandler) OnServerOk(info *network.ServerInfo) {
-	logger.Info("siHandler OnServerOk", zap.Uint("id", uint(network.ID)))
+	logger.Info("siHandler OnServerOk", zap.Uint("id", uint(server.ID)))
 
-	var SID network.ServerID
-	network.ID2Sid(info.ID, &SID)
+	var SID server.ServerID
+	server.ID2Sid(info.ID, &SID)
 
-	if SID.Type == network.EP_Login || SID.Type == network.EP_Game || SID.Type == network.EP_Mail || SID.Type == network.EP_World {
+	if SID.Type == server.EP_Login || SID.Type == server.EP_Game || SID.Type == server.EP_Mail || SID.Type == server.EP_World {
 		moduler := module.GetModule(module.ModuleID_ConnectorManager).GetOwner()
 		connectorManager := moduler.(*ConnectorManager)
 
-		fmt.Println("ports:", network.Ports)
-		conn := connectorManager.CreateConnector(info.ID, info.IP, info.Ports[network.EP_Gate])
+		fmt.Println("ports:", server.Ports)
+		conn := connectorManager.CreateConnector(info.ID, info.IP, info.Ports[server.EP_Gate])
 		if conn == nil {
 			logger.Error("siHandler OnServerOk create connector error", zap.Uint("server", uint(SID.ID)),
-				zap.String("type", network.EP2Name(SID.Type)),
+				zap.String("type", server.EP2Name(SID.Type)),
 				zap.Uint("index", uint(SID.Index)))
 		}
 	}

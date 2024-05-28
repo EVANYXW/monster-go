@@ -55,6 +55,10 @@ func (c ConnectorManager) Update() {
 
 }
 
+func (c ConnectorManager) GetKernel() module.IModuleKernel {
+	return nil
+}
+
 func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *module.ConnectorKernel {
 	ck := module.NewConnectorKernel(nil, ip, port)
 	ck.SetID(id)

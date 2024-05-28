@@ -1,4 +1,4 @@
-package network
+package server
 
 func Name2EP(name string) uint8 {
 	if val, ok := NameMap[name]; ok {

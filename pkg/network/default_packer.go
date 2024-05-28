@@ -27,7 +27,7 @@ type DefaultBufferPacker struct {
 	byteOrder binary.ByteOrder
 }
 
-func newDefaultPacker() *DefaultBufferPacker {
+func NewDefaultPacker() *DefaultBufferPacker {
 	msgParser := &DefaultBufferPacker{
 		lenMsgLen: 4,
 		minMsgLen: 2,

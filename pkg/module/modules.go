@@ -118,6 +118,13 @@ func Run() {
 		if moduleNode.module == nil {
 			continue
 		}
+		moduleNode.module.Init()
+	}
+
+	for _, moduleNode := range modules {
+		if moduleNode.module == nil {
+			continue
+		}
 		moduleNode.module.Run()
 	}
 }

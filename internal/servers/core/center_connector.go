@@ -7,6 +7,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
+	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
 	"time"
@@ -14,7 +15,7 @@ import (
 
 type CenterConnector struct {
 	*module.BaseModule
-	*module.ConnectorKernel
+	connectorKernel   *module.ConnectorKernel
 	serverInfoHandler module.IServerInfoHandler
 	nodes             map[uint32]*network.ServerInfo
 	ID                int32
@@ -22,12 +23,12 @@ type CenterConnector struct {
 
 func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *CenterConnector {
 	c := &CenterConnector{
-		ID: id,
-
+		ID:                id,
 		nodes:             make(map[uint32]*network.ServerInfo),
 		serverInfoHandler: serverInfoHandler,
 	}
-	c.ConnectorKernel = module.NewConnectorKernel(c, "", 8023)
+
+	c.connectorKernel = module.NewConnectorKernel(c, "", 8023)
 
 	baseModule := module.NewBaseModule(c)
 	baseModule.NoWaitStart = true
@@ -35,17 +36,17 @@ func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *
 
 	c.BaseModule = baseModule
 
-	c.ConnectorKernel.Owner = c
+	c.connectorKernel.Owner = c
 	return c
 }
 
 func (c *CenterConnector) Init() {
-	c.ConnectorKernel.Init()
+	c.connectorKernel.Init()
 }
 
 func (c *CenterConnector) DoRun() {
 	c.DoRegister()
-	c.ConnectorKernel.Start()
+	c.connectorKernel.Start()
 	c.OnHandshake()
 }
 
@@ -54,7 +55,7 @@ func (c *CenterConnector) DoStart() {
 }
 
 func (c *CenterConnector) DoRelease() {
-	c.ConnectorKernel.Release()
+	c.connectorKernel.Release()
 }
 
 func (c *CenterConnector) GetID() int32 {
@@ -62,15 +63,19 @@ func (c *CenterConnector) GetID() int32 {
 }
 
 func (c *CenterConnector) OnStartCheck() int {
-	return c.ConnectorKernel.OnStartCheck()
+	return c.connectorKernel.OnStartCheck()
 }
 
 func (c *CenterConnector) OnCloseCheck() int {
-	return c.ConnectorKernel.OnCloseCheck()
+	return c.connectorKernel.OnCloseCheck()
 }
 
 func (c *CenterConnector) OnServerOk() {
 
+}
+
+func (c *CenterConnector) GetKernel() module.IModuleKernel {
+	return c.connectorKernel
 }
 
 func (c *CenterConnector) Update() {
@@ -85,8 +90,8 @@ func (c *CenterConnector) OnOK() {
 	messageID := uint64(xsf_pb.SMSGID_Cc_C_ServerOk)
 	msg, _ := rpc.GetMessage(messageID)
 	sendMsg := msg.(*xsf_pb.Cc_C_ServerOk)
-	pack, _ := c.Client.Pack(messageID, sendMsg)
-	c.ConnectorKernel.NetPoint.SetSignal(pack)
+	pack, _ := c.connectorKernel.Client.Pack(messageID, sendMsg)
+	c.connectorKernel.NetPoint.SetSignal(pack)
 }
 
 func (c *CenterConnector) OnNPAdd(np *network.NetPoint) {
@@ -94,19 +99,19 @@ func (c *CenterConnector) OnNPAdd(np *network.NetPoint) {
 }
 
 func (c *CenterConnector) OnNodeOk(id uint32) {
-	var SID network.ServerID
-	network.ID2Sid(id, &SID)
+	var SID server.ServerID
+	server.ID2Sid(id, &SID)
 
 	s, ok := c.nodes[id]
 	if !ok {
 		logger.Error("centerConnectorHandler OnCCServerOk server not found", zap.Uint32("id", id), zap.Uint16("server", SID.ID),
-			zap.String("type", network.EP2Name(SID.Type)),
+			zap.String("type", server.EP2Name(SID.Type)),
 			zap.Uint8("server", SID.Index))
 	} else {
 		s.Status = network.ServerInfo_Ok
 
 		logger.Info("【中心服连接器】收到服务器已准备好", zap.Uint32("id", s.ID), zap.Uint16("server", SID.ID),
-			zap.String("type", network.EP2Name(SID.Type)),
+			zap.String("type", server.EP2Name(SID.Type)),
 			zap.Uint8("index", SID.Index))
 
 		c.serverInfoHandler.OnServerOk(s)
@@ -129,25 +134,25 @@ func (c *CenterConnector) OnNodeOk(id uint32) {
 }
 
 func (c *CenterConnector) DoRegister() {
-	c.ConnectorKernel.DoRegist()
-	c.ConnectorKernel.RegisterMsg(uint16(xsf_pb.SMSGID_C_Cc_Handshake), c.C_Cc_Handshake)
-	c.ConnectorKernel.RegisterMsg(uint16(xsf_pb.SMSGID_C_Cc_ServerInfo), c.C_Cc_ServerInfo)
-	c.ConnectorKernel.RegisterMsg(uint16(xsf_pb.SMSGID_C_Cc_ServerOk), c.C_Cc_ServerOk)
-	c.ConnectorKernel.RegisterMsg(uint16(xsf_pb.SMSGID_C_Cc_ServerLost), c.C_Cc_ServerLost)
+	c.connectorKernel.DoRegist()
+	c.connectorKernel.RegisterMsg(uint16(xsf_pb.SMSGID_C_Cc_Handshake), c.C_Cc_Handshake)
+	c.connectorKernel.RegisterMsg(uint16(xsf_pb.SMSGID_C_Cc_ServerInfo), c.C_Cc_ServerInfo)
+	c.connectorKernel.RegisterMsg(uint16(xsf_pb.SMSGID_C_Cc_ServerOk), c.C_Cc_ServerOk)
+	c.connectorKernel.RegisterMsg(uint16(xsf_pb.SMSGID_C_Cc_ServerLost), c.C_Cc_ServerLost)
 }
 
 func (c *CenterConnector) OnHandshake() {
 	messageID := uint64(xsf_pb.SMSGID_Cc_C_Handshake)
 	msg, _ := rpc.GetMessage(messageID)
 	localMsg := msg.(*xsf_pb.Cc_C_Handshake)
-	localMsg.ServerId = network.ID
-	localMsg.Ports = network.Ports[:]
+	localMsg.ServerId = server.ID
+	localMsg.Ports = server.Ports[:]
 
 	//localMsg := &xsf_pb.Cc_C_Handshake{}
 	//localMsg.ServerId = network.ID
 	//localMsg.Ports = network.Ports[:]
 
-	pack, _ := c.Client.Pack(messageID, localMsg)
+	pack, _ := c.connectorKernel.Client.Pack(messageID, localMsg)
 
 	//message, _ := c.Client.UnPack(pack)
 	//fmt.Println("unpack message id:", message.ID)
@@ -161,7 +166,7 @@ func (c *CenterConnector) OnHandshake() {
 	//err := proto.Unmarshal(message.Data, &is)
 	//fmt.Println(is, err)
 
-	c.ConnectorKernel.NetPoint.SetSignal(pack)
+	c.connectorKernel.NetPoint.SetSignal(pack)
 }
 
 func (c *CenterConnector) AddNode(message *xsf_pb.C_Cc_ServerInfo) {
@@ -172,20 +177,20 @@ func (c *CenterConnector) AddNode(message *xsf_pb.C_Cc_ServerInfo) {
 		isNewAdd := false
 		if ok {
 			node.IP = info.Ip
-			node.Ports = [network.EP_Max]uint32(info.Ports)
+			node.Ports = [server.EP_Max]uint32(info.Ports)
 			node.Status = info.Status
 		} else {
 			isNewAdd = true
 			node = new(network.ServerInfo)
 			node.ID = info.ServerId
 			node.IP = info.Ip
-			node.Ports = [network.EP_Max]uint32(info.Ports)
+			node.Ports = [server.EP_Max]uint32(info.Ports)
 			node.Status = info.Status
 			c.nodes[node.ID] = node
 		}
 
-		var SID network.ServerID
-		network.ID2Sid(node.ID, &SID)
+		var SID server.ServerID
+		server.ID2Sid(node.ID, &SID)
 
 		//logger.Info("收到服务器信息", zapcore.Field{Key: "id", Integer: int64(node.ID)},
 		//	zapcore.Field{Key: "type", Integer: int64(SID.Type)},
@@ -208,8 +213,8 @@ func (c *CenterConnector) OnNodeLost(id uint32) {
 	// todo
 	//c.handler.OnServerLost(id)
 
-	var SID network.ServerID
-	network.ID2Sid(id, &SID)
+	var SID server.ServerID
+	server.ID2Sid(id, &SID)
 }
 
 func (c *CenterConnector) handshakeTicker() {
@@ -220,8 +225,8 @@ func (c *CenterConnector) handshakeTicker() {
 			//msg := &xsf_pb.Cc_C_Heartbeat{}
 			messageID := uint64(xsf_pb.SMSGID_Cc_C_Heartbeat)
 			msg, _ := rpc.GetMessage(messageID)
-			pack, _ := c.Client.Pack(messageID, msg)
-			c.NetPoint.SetSignal(pack)
+			pack, _ := c.connectorKernel.Client.Pack(messageID, msg)
+			c.connectorKernel.NetPoint.SetSignal(pack)
 		}
 	})
 }
@@ -231,11 +236,11 @@ func (c *CenterConnector) C_Cc_Handshake(message *network.Packet) {
 	msg, _ := rpc.GetMessage(messageID)
 	localMsg := msg.(*xsf_pb.C_Cc_Handshake)
 	proto.Unmarshal(message.Msg.Data, localMsg)
-	c.SetID(localMsg.ServerId)
+	c.connectorKernel.SetID(localMsg.ServerId)
 
-	network.ID = localMsg.NewId
-	network.UpdateSID()
-	network.Ports = [network.EP_Max]uint32(localMsg.Ports)
+	server.ID = localMsg.NewId
+	server.UpdateSID()
+	server.Ports = [server.EP_Max]uint32(localMsg.Ports)
 
 	// 握手定时器
 	c.handshakeTicker()
@@ -245,6 +250,7 @@ func (c *CenterConnector) C_Cc_Handshake(message *network.Packet) {
 	//	xsf_log.Info("服务器本身已启动完毕，直接同步数据")
 	//	cc.OnOK(sc)
 	//}
+	//fixMe gate 链接world ，比world创建tcp链接更快
 	c.OnOK()
 }
 

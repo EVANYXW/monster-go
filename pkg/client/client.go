@@ -1,7 +1,8 @@
-package network
+package client
 
 import (
 	"github.com/evanyxw/monster-go/pkg/logger"
+	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"go.uber.org/zap"
 	"net"
@@ -9,14 +10,14 @@ import (
 )
 
 type Client struct {
-	*NetPoint
+	*network.NetPoint
 	address         string
 	running         atomic.Value
-	OnMessageCb     func(message *Packet)
+	OnMessageCb     func(message *network.Packet)
 	OnCloseCallBack func()
 
 	//msgParser   *BufferPacker
-	msgParser   Packer
+	msgParser   network.Packer
 	rpcAcceptor *rpc.Acceptor
 
 	//closed          int32
@@ -31,7 +32,7 @@ func NewClient(address string, rpcAcceptor *rpc.Acceptor) *Client {
 		//bufferSize: connBuffSize,
 		address:     address,
 		NetPoint:    nil,
-		msgParser:   newDefaultPacker(),
+		msgParser:   network.NewDefaultPacker(),
 		rpcAcceptor: rpcAcceptor,
 	}
 
@@ -60,7 +61,7 @@ func (c *Client) Run() {
 		logger.Error("Client Run is error:", zap.Error(err))
 		return
 	}
-	tcpConn, err := NewNetPoint(conn)
+	tcpConn, err := network.NewNetPoint(conn)
 	if err != nil {
 		logger.Error(err.Error())
 		return
@@ -75,7 +76,7 @@ func (c *Client) Run() {
 	go c.Connect()
 }
 
-func (c *Client) OnMessage(data *Message, conn *NetPoint) {
+func (c *Client) OnMessage(data *network.Message, conn *network.NetPoint) {
 
 	//c.Verify()
 
@@ -90,7 +91,7 @@ func (c *Client) OnMessage(data *Message, conn *NetPoint) {
 		return
 	}
 
-	c.OnMessageCb(&Packet{
+	c.OnMessageCb(&network.Packet{
 		Msg:      data,
 		NetPoint: conn,
 	})
@@ -108,7 +109,7 @@ func (c *Client) Pack(msgID uint64, msg interface{}) (pack []byte, err error) {
 	return
 }
 
-func (c *Client) UnPack(data []byte) (pack *Message, err error) {
+func (c *Client) UnPack(data []byte) (pack *network.Message, err error) {
 	pack, err = c.msgParser.Unpack(data)
 	return
 }

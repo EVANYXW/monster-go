@@ -18,7 +18,7 @@ type NPManagerNormal struct {
 	rpcAcceptor *rpc.Acceptor
 }
 
-func NewNormalManager(maxCount uint32, rpcAcceptor *rpc.Acceptor) *NPManagerNormal {
+func NewNormal(maxCount uint32, rpcAcceptor *rpc.Acceptor) *NPManagerNormal {
 	return &NPManagerNormal{
 		maxCount:    maxCount,
 		nps:         make(map[uint32]*NetPoint),

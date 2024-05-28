@@ -10,8 +10,8 @@ import (
 
 type ClientNet struct {
 	*module.BaseModule
-	*module.NetKernel
-	module.NodeManager
+	netKernel    *module.NetKernel
+	nodeManager  module.NodeManager
 	curStartNode *configs.ServerNode
 	ID           int32
 	status       int
@@ -21,15 +21,15 @@ type ClientNet struct {
 }
 
 func NewClientNet(id int32, maxConnNum uint32, info server.Info, netType module.NetType) *ClientNet {
-	acceptor := &ClientNet{
+	c := &ClientNet{
 		ID:          id,
-		NodeManager: module.NewNodeManager(),
+		nodeManager: module.NewNodeManager(),
 	}
-	acceptor.NetKernel = module.NewNetKernel(maxConnNum, info, acceptor, false, netType)
-	baseModule := module.NewBaseModule(acceptor)
+	c.netKernel = module.NewNetKernel(maxConnNum, info, c, module.WithNetType(netType))
+	baseModule := module.NewBaseModule(c)
 	baseModule.Init()
-	acceptor.BaseModule = baseModule
-	return acceptor
+	c.BaseModule = baseModule
+	return c
 }
 
 // 外部通知开启Module
@@ -38,24 +38,24 @@ func (c *ClientNet) Run() {
 }
 
 func (c *ClientNet) Init() {
-	c.NetKernel.Init()
+	c.netKernel.Init()
 }
 
 func (c *ClientNet) DoRun() {
 	c.DoRegister()
-	c.NodeManager.Start()
-	c.NetKernel.Start()
+	c.nodeManager.Start()
+	c.netKernel.Start()
 
 	c.status = server.CN_RunStep_StartServer
 	c.startIndex = 0
 }
 
 func (c *ClientNet) DoStart() {
-	c.NetKernel.DoStart()
+	c.netKernel.DoStart()
 }
 
 func (c *ClientNet) DoRelease() {
-	c.NetKernel.Release()
+	c.netKernel.Release()
 }
 
 func (c *ClientNet) OnStartCheck() int {
@@ -63,7 +63,11 @@ func (c *ClientNet) OnStartCheck() int {
 }
 
 func (c *ClientNet) OnCloseCheck() int {
-	return c.NetKernel.OnCloseCheck()
+	return c.netKernel.OnCloseCheck()
+}
+
+func (c *ClientNet) GetKernel() module.IModuleKernel {
+	return c.netKernel
 }
 
 func (c *ClientNet) Update() {
@@ -75,19 +79,19 @@ func (c *ClientNet) GetID() int32 {
 }
 
 func (c *ClientNet) DoRegister() {
-	c.NetKernel.DoRegist()
+	c.netKernel.DoRegist()
 	//c.NetKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Handshake), c.Cc_C_Handshake)
 	//c.NetKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Heartbeat), c.Cc_C_Heartbeat)
 	//c.NetKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_ServerOk), c.Cc_C_ServerOk)
 }
 
 func (c *ClientNet) Release() {
-	c.NetKernel.Release()
+	c.netKernel.Release()
 }
 
 func (c *ClientNet) OnNetError(np *network.NetPoint) {
 	logger.Debug("center onNetError")
-	c.NodeManager.OnNodeLost(np.ID, np.SID.Type)
+	c.nodeManager.OnNodeLost(np.ID, np.SID.Type)
 }
 
 func (c *ClientNet) OnServerOk() {

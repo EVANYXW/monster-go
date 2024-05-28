@@ -8,12 +8,13 @@ import (
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
+	"github.com/evanyxw/monster-go/pkg/server"
 	"go.uber.org/zap"
 )
 
 type NodeManager interface {
 	Start()
-	GetIndex(sid *network.ServerID)
+	GetIndex(sid *server.ServerID)
 	AddNode(id uint32, ip string, ports []uint32) *network.ServerInfo
 	Send(np *network.NetPoint, si *network.ServerInfo)
 	OnNodeLost(id uint32, ep uint8)
@@ -31,14 +32,14 @@ type nodeManager struct {
 
 func NewNodeManager() NodeManager {
 	return &nodeManager{
-		lostList:   make([]list.List, network.EP_Max),
+		lostList:   make([]list.List, server.EP_Max),
 		nodes:      make(map[uint32]*network.ServerInfo),
-		nodesIndex: make([]int, network.EP_Max),
+		nodesIndex: make([]int, server.EP_Max),
 	}
 }
 
 func (nm *nodeManager) Start() {
-	for i := 0; i < network.EP_Max; i++ {
+	for i := 0; i < server.EP_Max; i++ {
 		nm.nodesIndex[i] = 1
 	}
 	serverCnf := configs.Get().Server
@@ -47,7 +48,7 @@ func (nm *nodeManager) Start() {
 	nm.nodes = make(map[uint32]*network.ServerInfo)
 }
 
-func (nm *nodeManager) GetIndex(sid *network.ServerID) {
+func (nm *nodeManager) GetIndex(sid *server.ServerID) {
 	sid.Index = uint8(nm.nodesIndex[sid.Type])
 	nm.nodesIndex[sid.Type] = int(sid.Index) + 1
 }
@@ -86,25 +87,25 @@ func (nm *nodeManager) getNextPort(IsInner bool) uint32 {
 }
 
 func (nm *nodeManager) GetPorts(ep uint8) []uint32 {
-	ports := make([]uint32, network.EP_Max)
+	ports := make([]uint32, server.EP_Max)
 	switch ep {
-	case network.EP_Gate:
-		ports[network.EP_Client] = nm.getNextPort(false)
-		ports[network.EP_Robot] = nm.getNextPort(true)
-	case network.EP_Game:
-		ports[network.EP_Gate] = nm.getNextPort(true)
-		ports[network.EP_Robot] = nm.getNextPort(true)
-	case network.EP_Login:
-		ports[network.EP_Gate] = nm.getNextPort(true)
-		ports[network.EP_Robot] = nm.getNextPort(true)
-	case network.EP_Manager:
-	case network.EP_World:
-		ports[network.EP_Gate] = nm.getNextPort(true)
-		ports[network.EP_Robot] = nm.getNextPort(true)
-	case network.EP_Mail:
-		ports[network.EP_Gate] = nm.getNextPort(true)
-	case network.EP_Center:
-		ports[network.EP_Robot] = nm.getNextPort(true)
+	case server.EP_Gate:
+		ports[server.EP_Client] = nm.getNextPort(false)
+		ports[server.EP_Robot] = nm.getNextPort(true)
+	case server.EP_Game:
+		ports[server.EP_Gate] = nm.getNextPort(true)
+		ports[server.EP_Robot] = nm.getNextPort(true)
+	case server.EP_Login:
+		ports[server.EP_Gate] = nm.getNextPort(true)
+		ports[server.EP_Robot] = nm.getNextPort(true)
+	case server.EP_Manager:
+	case server.EP_World:
+		ports[server.EP_Gate] = nm.getNextPort(true)
+		ports[server.EP_Robot] = nm.getNextPort(true)
+	case server.EP_Mail:
+		ports[server.EP_Gate] = nm.getNextPort(true)
+	case server.EP_Center:
+		ports[server.EP_Robot] = nm.getNextPort(true)
 	}
 	fmt.Println("ports:", ports)
 
@@ -112,8 +113,8 @@ func (nm *nodeManager) GetPorts(ep uint8) []uint32 {
 }
 
 func (nm *nodeManager) AddNode(id uint32, ip string, ports []uint32) *network.ServerInfo {
-	var SID network.ServerID
-	network.ID2Sid(id, &SID)
+	var SID server.ServerID
+	server.ID2Sid(id, &SID)
 
 	var si *network.ServerInfo
 	if SID.Index == 0 { // 如果是新来的服务器
@@ -123,8 +124,8 @@ func (nm *nodeManager) AddNode(id uint32, ip string, ports []uint32) *network.Se
 			newPorts := nm.GetPorts(SID.Type)
 
 			si = new(network.ServerInfo)
-			si.ID = network.Sid2ID(&SID)
-			si.Ports = [network.EP_Max]uint32(newPorts)
+			si.ID = server.Sid2ID(&SID)
+			si.Ports = [server.EP_Max]uint32(newPorts)
 			si.IP = ip
 			si.Status = network.ServerInfo_New
 
@@ -156,7 +157,7 @@ func (nm *nodeManager) AddNode(id uint32, ip string, ports []uint32) *network.Se
 					return nil
 				}
 
-				for i := 0; i < network.EP_Max; i++ {
+				for i := 0; i < server.EP_Max; i++ {
 					if oldSi.Ports[i] != ports[i] {
 						//xsf_log.Error("nodeManager AddNode, port error", xsf_log.Int("ep", i), xsf_log.Uint32("old port", oldSi.Ports[i]), xsf_log.Uint32("new port", ports[i]))
 						return nil
@@ -275,7 +276,7 @@ func (nm *nodeManager) OnNodeOK(id uint32) {
 		logger.Info(message)
 		//notice.SendNotice(message)
 
-		network.Ports = [10]uint32(nm.GetPorts(network.EP_Center))
+		server.Ports = [10]uint32(nm.GetPorts(server.EP_Center))
 		// todo
 		DoStart()
 	}

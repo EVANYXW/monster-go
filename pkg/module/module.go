@@ -19,12 +19,18 @@ type BaseModule struct {
 }
 
 func NewBaseModule(owner IModule) *BaseModule {
+	noWaitStart := false
+	if owner.GetKernel() != nil {
+		noWaitStart = owner.GetKernel().GetNoWaitStart()
+	}
+
 	b := &BaseModule{
-		owner:    owner,
-		okSig:    make(chan bool),
-		closeSig: make(chan bool),
-		id:       owner.GetID(),
-		name:     ModuleId2Name(int(owner.GetID())),
+		owner:       owner,
+		okSig:       make(chan bool),
+		closeSig:    make(chan bool),
+		id:          owner.GetID(),
+		name:        ModuleId2Name(int(owner.GetID())),
+		NoWaitStart: noWaitStart,
 	}
 
 	AddModule(b)

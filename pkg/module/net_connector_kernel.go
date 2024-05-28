@@ -3,18 +3,20 @@ package module
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
+	"github.com/evanyxw/monster-go/pkg/client"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
+	"github.com/evanyxw/monster-go/pkg/server"
 	"sync"
 )
 
 type ConnectorKernel struct {
 	Owner INetHandler
-	*network.Client
+	*client.Client
 	handlers    network.HandlerMap
 	RpcAcceptor *rpc.Acceptor
 	ID          uint32
-	SID         network.ServerID
+	SID         server.ServerID
 	wg          sync.WaitGroup
 	runStatus   int
 	//forceClose atomic.Bool
@@ -28,7 +30,7 @@ func NewConnectorKernel(owner INetHandler, ip string, port uint32) *ConnectorKer
 	rpcAcceptor := rpc.NewAcceptor(10000)
 	connector := &ConnectorKernel{
 		handlers:    make(network.HandlerMap, xsf_pb.SMSGID_Server_Max),
-		Client:      network.NewClient(fmt.Sprintf("%s:%d", ip, port), rpcAcceptor),
+		Client:      client.NewClient(fmt.Sprintf("%s:%d", ip, port), rpcAcceptor),
 		RpcAcceptor: rpcAcceptor,
 	}
 	connector.Client.OnMessageCb = connector.MessageHandler
@@ -37,11 +39,10 @@ func NewConnectorKernel(owner INetHandler, ip string, port uint32) *ConnectorKer
 
 func (c *ConnectorKernel) SetID(id uint32) {
 	c.ID = id
-	network.ID2Sid(id, &c.SID)
+	server.ID2Sid(id, &c.SID)
 }
 
 func (c *ConnectorKernel) Init() bool {
-	//n.AddModules()
 	c.runStatus = ModuleRunStatus_Start
 	return true
 }
@@ -54,8 +55,8 @@ func (c *ConnectorKernel) AddModules() {
 }
 
 func (c *ConnectorKernel) DoRegist() {
-	c.RpcAcceptor.Regist(network.RPC_NET_ACCEPT, c.OnRpcNetAccept)
-	c.RpcAcceptor.Regist(network.RPC_NET_ERROR, c.OnRpcNetError)
+	c.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, c.OnRpcNetAccept)
+	c.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, c.OnRpcNetError)
 }
 
 func (c *ConnectorKernel) Start() {
@@ -94,6 +95,10 @@ func (c *ConnectorKernel) OnStartCheck() int {
 		return ModuleRunCode_Ok
 	}
 	return ModuleRunCode_Wait
+}
+
+func (c *ConnectorKernel) GetNoWaitStart() bool {
+	return false
 }
 
 func (c *ConnectorKernel) OnCloseCheck() int {

@@ -16,7 +16,7 @@ type ClientBufferPacker struct {
 	byteOrder binary.ByteOrder
 }
 
-func newClientPacker() *ClientBufferPacker {
+func NewClientPacker() *ClientBufferPacker {
 	msgParser := &ClientBufferPacker{
 		lenMsgLen: 4,
 		minMsgLen: 2,

@@ -1,6 +1,7 @@
 package client
 
 import (
+	"github.com/evanyxw/monster-go/pkg/client"
 	network2 "github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"os"
@@ -8,7 +9,7 @@ import (
 )
 
 type Client struct {
-	cli             *network2.Client
+	cli             *client.Client
 	inputHandlers   map[string]InputHandler
 	messageHandlers network2.HandlerMap
 	console         *ClientConsole
@@ -18,7 +19,7 @@ type Client struct {
 func NewClient() *Client {
 	rpcAcceptor := rpc.NewAcceptor(1000)
 	c := &Client{
-		cli:             network2.NewClient(":20001", rpcAcceptor),
+		cli:             client.NewClient(":20001", rpcAcceptor),
 		inputHandlers:   map[string]InputHandler{},
 		messageHandlers: make(network2.HandlerMap, network2.Pool_id_Max),
 		console:         NewClientConsole(),

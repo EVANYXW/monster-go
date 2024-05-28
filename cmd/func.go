@@ -14,7 +14,6 @@ import (
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/logs"
 	"github.com/evanyxw/monster-go/pkg/module"
-	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/phuhao00/sugar"
 	"go.uber.org/zap"
@@ -31,15 +30,15 @@ func (e EtcdServers) add(server *etcdv3.Service) {
 
 func Init(allConfig configs.Config, serverInfo server.Info) {
 	{
-		network.SID.Type = network.Name2EP(serverInfo.ServerName)
-		network.SID.ID = 1
-		if network.Name2EP(serverInfo.ServerName) == network.EP_Center {
-			network.SID.Index = 1
+		server.SID.Type = server.Name2EP(serverInfo.ServerName)
+		server.SID.ID = 1
+		if server.Name2EP(serverInfo.ServerName) == server.EP_Center {
+			server.SID.Index = 1
 		}
-		logger.Info("SID:", zap.Uint16("ID", network.SID.ID),
-			zap.Uint8("type", network.SID.Type), zap.Uint8("index", network.SID.Index))
+		logger.Info("SID:", zap.Uint16("ID", server.SID.ID),
+			zap.Uint8("type", server.SID.Type), zap.Uint8("index", server.SID.Index))
 
-		network.UpdateID()
+		server.UpdateID()
 
 		module.Init(module.ModuleID_Max)
 
