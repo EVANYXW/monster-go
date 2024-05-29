@@ -1,23 +1,20 @@
-package core
+package module
 
-import (
-	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/module"
-)
+import "github.com/evanyxw/monster-go/pkg/logger"
 
 type ConnectorManager struct {
-	*module.BaseModule
-	connectors map[uint32]*module.ConnectorKernel
+	*BaseModule
+	connectors map[uint32]*ConnectorKernel
 	ID         int32
 }
 
 func NewConnectorManager(id int32) *ConnectorManager {
 	c := &ConnectorManager{
 		ID:         id,
-		connectors: make(map[uint32]*module.ConnectorKernel),
+		connectors: make(map[uint32]*ConnectorKernel),
 	}
 
-	module.NewBaseModule(c)
+	NewBaseModule(c)
 
 	return c
 }
@@ -44,26 +41,27 @@ func (c ConnectorManager) DoRelease() {
 }
 
 func (c ConnectorManager) OnStartCheck() int {
-	return module.ModuleRunCode_Ok
+	return ModuleRunCode_Ok
 }
 
 func (c ConnectorManager) OnCloseCheck() int {
-	return module.ModuleRunCode_Ok
+	return ModuleRunCode_Ok
 }
 
 func (c ConnectorManager) Update() {
 
 }
 
-func (c ConnectorManager) GetKernel() module.IModuleKernel {
+func (c ConnectorManager) GetKernel() IModuleKernel {
 	return nil
 }
 
-func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *module.ConnectorKernel {
-	ck := module.NewConnectorKernel(nil, ip, port)
+func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *ConnectorKernel {
+	ck := NewConnectorKernel(ip, port, nil)
 	ck.SetID(id)
 	c.connectors[id] = ck
-	ck.Start()
 	logger.Info("CreateConnector success")
+	ck.Start()
+	logger.Info("CreateConnector over")
 	return ck
 }

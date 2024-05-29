@@ -1804,3 +1804,901 @@ runtime.main
 2024-05-28T13:39:55.683+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
 2024-05-28T13:39:58.302+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
 2024-05-28T13:39:58.303+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T13:50:59.261+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T13:50:59.295+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T13:50:59.296+0800	[31mERROR[0m	Client Run is error:	{"服务器": "gate", "error": "dial tcp4 :8023: connect: connection refused"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/client.(*Client).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:61
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).Start
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:65
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).DoRun
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:49
+github.com/evanyxw/monster-go/pkg/module.(*BaseModule).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/module.go:102
+github.com/evanyxw/monster-go/pkg/module.Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/modules.go:128
+github.com/evanyxw/monster-go/internal/servers/gate.(*Gate).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/gate/gate.go:35
+github.com/evanyxw/monster-go/cmd.Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/func.go:99
+github.com/evanyxw/monster-go/cmd.glob..func2
+	/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/run.go:57
+github.com/spf13/cobra.(*Command).execute
+	/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:987
+github.com/spf13/cobra.(*Command).ExecuteC
+	/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1115
+github.com/spf13/cobra.(*Command).Execute
+	/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1039
+github.com/evanyxw/monster-go/cmd.Execute
+	/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/root.go:26
+main.main
+	/Users/xuweiyi/go/src/gameFrame/monster-go/main.go:8
+runtime.main
+	/Users/xuweiyi/go/go1.20.5/src/runtime/proc.go:250
+2024-05-28T14:00:09.081+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T14:00:09.090+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T14:00:09.092+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T14:00:09.093+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049 new_id:66561 ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000"}
+2024-05-28T14:00:09.100+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T14:00:14.130+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329 ip:\"127.0.0.1\" ports:0 ports:0 ports:0 ports:0 ports:10001 ports:0 ports:0 ports:0 ports:0 ports:10002 status:1}"}
+2024-05-28T14:00:14.131+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-28T14:00:14.131+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-28T14:00:14.131+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T14:00:14.135+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-28T14:00:14.135+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-28T14:00:14.135+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-28T14:00:14.136+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-28T14:00:14.136+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T14:01:36.000+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-28T14:01:36.001+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-28T14:01:36.010+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T14:01:36.011+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T14:01:36.011+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T14:01:36.012+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T14:01:36.659+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T14:01:36.659+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T14:01:47.850+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T14:01:47.873+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T14:01:47.874+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T14:01:47.878+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-28T14:01:47.887+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T14:01:53.093+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-28T14:01:53.093+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-28T14:01:53.093+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-28T14:01:53.093+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T14:01:53.105+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-28T14:01:53.105+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-28T14:01:53.105+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-28T14:01:53.106+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-28T14:01:53.106+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T14:03:08.523+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T14:03:08.524+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T14:03:08.524+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T14:03:08.524+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T14:03:08.525+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T14:03:09.636+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T14:03:09.636+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T15:57:53.623+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T15:57:53.650+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T15:57:53.652+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T15:57:53.654+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-28T15:57:53.662+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T15:59:02.482+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-28T15:59:02.482+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-28T15:59:02.482+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-28T15:59:02.482+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T15:59:02.492+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-28T15:59:02.492+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-28T15:59:02.492+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-28T15:59:02.494+0800	[31mERROR[0m	Client Run is error:	{"服务器": "gate", "error": "dial tcp4 127.0.0.1:10001: connect: connection refused"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/client.(*Client).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:61
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).Start
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:65
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorManager).CreateConnector
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/connector_manager.go:65
+github.com/evanyxw/monster-go/internal/servers/gate/handler.(*gateServerInfoHandler).OnServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/gate/handler/gate_serverinfo_handler.go:40
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).OnNodeOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:117
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).C_Cc_ServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:267
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:114
+github.com/evanyxw/monster-go/pkg/client.(*Client).OnMessage
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:94
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:182
+2024-05-28T15:59:02.497+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-28T15:59:02.504+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T15:59:25.307+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-28T15:59:25.307+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-28T15:59:27.165+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-28T15:59:27.165+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-28T15:59:27.165+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-28T15:59:27.165+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T15:59:27.171+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-28T15:59:27.171+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-28T15:59:27.171+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-28T15:59:27.174+0800	[31mERROR[0m	Client Run is error:	{"服务器": "gate", "error": "dial tcp4 127.0.0.1:10001: connect: connection refused"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/client.(*Client).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:61
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).Start
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:65
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorManager).CreateConnector
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/connector_manager.go:65
+github.com/evanyxw/monster-go/internal/servers/gate/handler.(*gateServerInfoHandler).OnServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/gate/handler/gate_serverinfo_handler.go:40
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).OnNodeOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:117
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).C_Cc_ServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:267
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:114
+github.com/evanyxw/monster-go/pkg/client.(*Client).OnMessage
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:94
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:182
+2024-05-28T15:59:27.174+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-28T15:59:27.174+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T15:59:36.885+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-28T15:59:36.885+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-28T15:59:39.393+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-28T15:59:39.393+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-28T15:59:39.393+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-28T15:59:39.393+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T15:59:39.397+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-28T15:59:39.397+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-28T15:59:39.397+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-28T15:59:39.402+0800	[31mERROR[0m	Client Run is error:	{"服务器": "gate", "error": "dial tcp4 127.0.0.1:10001: connect: connection refused"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/client.(*Client).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:61
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).Start
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:65
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorManager).CreateConnector
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/connector_manager.go:65
+github.com/evanyxw/monster-go/internal/servers/gate/handler.(*gateServerInfoHandler).OnServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/gate/handler/gate_serverinfo_handler.go:40
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).OnNodeOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:117
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).C_Cc_ServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:267
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:114
+github.com/evanyxw/monster-go/pkg/client.(*Client).OnMessage
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:94
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:182
+2024-05-28T15:59:39.403+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-28T15:59:39.403+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T16:01:05.143+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-28T16:01:05.143+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-28T16:01:13.862+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-28T16:01:13.862+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-28T16:01:13.862+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-28T16:01:13.862+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T16:01:13.868+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-28T16:01:13.868+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-28T16:01:13.868+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-28T16:01:13.869+0800	[31mERROR[0m	Client Run is error:	{"服务器": "gate", "error": "dial tcp4 127.0.0.1:10001: connect: connection refused"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/client.(*Client).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:61
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).Start
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:65
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorManager).CreateConnector
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/connector_manager.go:65
+github.com/evanyxw/monster-go/internal/servers/gate/handler.(*gateServerInfoHandler).OnServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/gate/handler/gate_serverinfo_handler.go:40
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).OnNodeOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:117
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).C_Cc_ServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:267
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:114
+github.com/evanyxw/monster-go/pkg/client.(*Client).OnMessage
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:94
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:182
+2024-05-28T16:01:13.872+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-28T16:01:13.872+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T16:01:20.334+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-28T16:01:20.334+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-28T16:01:21.627+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T16:01:21.627+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T16:28:53.262+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T16:28:53.295+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T16:28:53.297+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T16:28:53.298+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049 new_id:66561 ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000"}
+2024-05-28T16:28:53.307+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T16:28:57.119+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329 ip:\"127.0.0.1\" ports:0 ports:0 ports:0 ports:0 ports:10001 ports:0 ports:0 ports:0 ports:0 ports:10002 status:1}"}
+2024-05-28T16:28:57.119+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-28T16:28:57.119+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-28T16:28:57.119+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T16:28:57.130+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-28T16:28:57.130+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-28T16:28:57.130+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-28T16:28:57.133+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-28T16:28:57.133+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T16:29:07.622+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T16:29:07.625+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T16:29:07.625+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T16:29:07.626+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T16:29:07.628+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T16:29:08.071+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T16:29:08.071+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T16:29:33.384+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T16:29:33.410+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T16:29:33.411+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T16:29:33.412+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-28T16:29:33.435+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T16:29:36.192+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-28T16:29:36.192+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-28T16:29:36.192+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-28T16:29:36.192+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T16:29:36.213+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-28T16:29:36.213+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-28T16:29:36.213+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-28T16:29:36.224+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-28T16:29:36.224+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T16:29:40.059+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T16:29:40.062+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-28T16:29:40.062+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-28T16:29:40.065+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T16:29:40.065+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T16:29:40.072+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T16:29:41.839+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T16:29:41.839+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T16:32:24.427+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T16:32:24.450+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T16:32:24.451+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T16:32:24.453+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049 new_id:66561 ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000"}
+2024-05-28T16:32:24.461+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T16:32:27.833+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329 ip:\"127.0.0.1\" ports:0 ports:0 ports:0 ports:0 ports:10001 ports:0 ports:0 ports:0 ports:0 ports:10002 status:1}"}
+2024-05-28T16:32:27.834+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-28T16:32:27.834+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-28T16:32:27.834+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T16:32:27.840+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-28T16:32:27.840+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-28T16:32:27.840+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-28T16:32:27.843+0800	[31mERROR[0m	Client Run is error:	{"服务器": "gate", "error": "dial tcp4 127.0.0.1:10001: connect: connection refused"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/client.(*Client).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:61
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).Start
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:65
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorManager).CreateConnector
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/connector_manager.go:65
+github.com/evanyxw/monster-go/internal/servers/gate/handler.(*gateServerInfoHandler).OnServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/gate/handler/gate_serverinfo_handler.go:40
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).OnNodeOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:117
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).C_Cc_ServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:267
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:114
+github.com/evanyxw/monster-go/pkg/client.(*Client).OnMessage
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:94
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:182
+2024-05-28T16:32:27.844+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-28T16:32:27.844+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T17:05:15.226+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T17:05:15.227+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T17:06:10.049+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T17:06:10.070+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T17:06:10.071+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T17:06:10.074+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049 new_id:66561 ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000"}
+2024-05-28T17:06:10.100+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T17:06:14.439+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329 ip:\"127.0.0.1\" ports:0 ports:0 ports:0 ports:0 ports:10001 ports:0 ports:0 ports:0 ports:0 ports:10002 status:1}"}
+2024-05-28T17:06:14.439+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-28T17:06:14.439+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-28T17:06:14.439+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T17:06:14.456+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-28T17:06:14.456+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-28T17:06:14.456+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-28T17:06:14.462+0800	[31mERROR[0m	Client Run is error:	{"服务器": "gate", "error": "dial tcp4 127.0.0.1:10001: connect: connection refused"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/client.(*Client).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:61
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).Start
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:65
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorManager).CreateConnector
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/connector_manager.go:65
+github.com/evanyxw/monster-go/internal/servers/gate/handler.(*gateServerInfoHandler).OnServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/gate/handler/gate_serverinfo_handler.go:40
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).OnNodeOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:117
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).C_Cc_ServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:267
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:115
+github.com/evanyxw/monster-go/pkg/client.(*Client).OnMessage
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:94
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:182
+2024-05-28T17:06:14.464+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-28T17:06:14.473+0800	[34mINFO[0m	C_Cc_ServerOk center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-28T17:06:37.413+0800	[34mINFO[0m	New net point:	{"服务器": "gate", "ip:": "127.0.0.1"}
+2024-05-28T17:06:37.413+0800	[34mINFO[0m	net point is create	{"服务器": "gate"}
+2024-05-28T17:06:37.414+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T17:06:37.415+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:06:37.415+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T17:06:37.416+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:06:37.416+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:08:18.896+0800	[34mINFO[0m	New net point:	{"服务器": "gate", "ip:": "127.0.0.1"}
+2024-05-28T17:08:18.896+0800	[34mINFO[0m	net point is create	{"服务器": "gate"}
+2024-05-28T17:08:18.897+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T17:08:18.898+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:08:18.898+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T17:08:18.898+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:08:18.898+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:08:51.191+0800	[34mINFO[0m	New net point:	{"服务器": "gate", "ip:": "127.0.0.1"}
+2024-05-28T17:08:51.191+0800	[34mINFO[0m	net point is create	{"服务器": "gate"}
+2024-05-28T17:08:51.193+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3001, "message": "ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0"}
+2024-05-28T17:09:01.193+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T17:09:01.193+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:01.193+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:01.193+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:01.194+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:19.989+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T17:09:19.990+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:19.990+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:19.990+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "read tcp4 127.0.0.1:49259->127.0.0.1:8023: use of closed network connection readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T17:09:19.991+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:19.992+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:19.992+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:19.993+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:19.993+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:09:19.992+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T17:09:46.044+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T17:09:46.068+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T17:09:46.069+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T17:09:46.072+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-28T17:09:46.079+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T17:09:54.370+0800	[34mINFO[0m	New net point:	{"服务器": "gate", "ip:": "127.0.0.1"}
+2024-05-28T17:09:54.370+0800	[34mINFO[0m	net point is create	{"服务器": "gate"}
+2024-05-28T17:09:54.370+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3001, "message": "ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-28T17:10:04.367+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T17:10:04.367+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:10:04.367+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T17:10:04.367+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:10:04.367+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:10:08.368+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T17:10:08.368+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T17:10:45.857+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T17:10:45.877+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T17:10:45.878+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T17:10:45.880+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-28T17:10:45.887+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T17:10:50.294+0800	[34mINFO[0m	New net point:	{"服务器": "gate", "ip:": "127.0.0.1"}
+2024-05-28T17:10:50.294+0800	[34mINFO[0m	net point is create	{"服务器": "gate"}
+2024-05-28T17:10:50.295+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3001, "message": "ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0"}
+2024-05-28T17:11:00.295+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T17:11:00.295+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:11:00.295+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T17:11:00.296+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:11:00.296+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T17:12:15.798+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T17:12:15.798+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T23:38:12.152+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T23:38:12.162+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T23:38:12.162+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T23:38:17.419+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T23:38:17.419+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": "null"}
+2024-05-28T23:38:17.419+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T23:38:19.283+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T23:38:19.301+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T23:38:19.302+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T23:39:04.371+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T23:39:04.371+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": "null"}
+2024-05-28T23:39:04.372+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T23:39:07.026+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T23:39:07.113+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T23:39:07.114+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T23:39:07.115+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-28T23:39:07.142+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T23:42:03.390+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T23:42:03.391+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T23:42:03.392+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T23:42:03.391+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T23:42:03.392+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T23:42:04.549+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T23:42:04.549+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T23:42:14.826+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T23:42:14.971+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T23:42:14.972+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T23:42:19.870+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T23:42:19.870+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": "null"}
+2024-05-28T23:42:19.870+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T23:42:22.279+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T23:42:22.632+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T23:42:22.634+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T23:42:23.717+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T23:42:23.718+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T23:42:28.210+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T23:42:28.456+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T23:42:28.458+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T23:42:28.459+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049 new_id:66561 ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000"}
+2024-05-28T23:42:28.550+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T23:43:06.576+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T23:43:06.576+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T23:43:06.576+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "read tcp4 127.0.0.1:52140->127.0.0.1:8023: use of closed network connection readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T23:43:06.577+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T23:43:06.577+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T23:43:06.578+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T23:43:25.834+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T23:43:25.844+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T23:43:37.154+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T23:43:37.163+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": "null"}
+2024-05-28T23:43:37.170+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-28T23:43:37.170+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-28T23:44:51.051+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-28T23:44:51.060+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-28T23:44:51.061+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-28T23:44:51.063+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049 new_id:66561 ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000"}
+2024-05-28T23:44:51.069+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-28T23:52:28.412+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-28T23:52:28.417+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T23:52:28.417+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-28T23:52:28.417+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-28T23:52:28.418+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T12:22:57.902+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T12:22:57.903+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T12:22:57.919+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29T12:37:44.869+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T12:37:44.970+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T12:37:44.970+0800	[31mERROR[0m	Client Run is error:	{"服务器": "gate", "error": "dial tcp4 :8023: connect: connection refused"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/client.(*Client).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:61
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).Start
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:80
+github.com/evanyxw/monster-go/internal/servers/center/module.(*CenterConnector).DoRun
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/module/center_connector.go:47
+github.com/evanyxw/monster-go/pkg/module.(*BaseModule).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/module.go:102
+github.com/evanyxw/monster-go/pkg/module.Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/modules.go:128
+github.com/evanyxw/monster-go/internal/servers/gate.(*Gate).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/gate/gate.go:34
+github.com/evanyxw/monster-go/cmd.Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/func.go:99
+github.com/evanyxw/monster-go/cmd.glob..func2
+	/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/run.go:57
+github.com/spf13/cobra.(*Command).execute
+	/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:987
+github.com/spf13/cobra.(*Command).ExecuteC
+	/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1115
+github.com/spf13/cobra.(*Command).Execute
+	/Users/xuweiyi/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1039
+github.com/evanyxw/monster-go/cmd.Execute
+	/Users/xuweiyi/go/src/gameFrame/monster-go/cmd/root.go:26
+main.main
+	/Users/xuweiyi/go/src/gameFrame/monster-go/main.go:8
+runtime.main
+	/Users/xuweiyi/go/go1.20.5/src/runtime/proc.go:250
+2024-05-29T17:24:18.839+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T17:24:18.875+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T17:24:18.877+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T17:24:18.878+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-29T17:24:18.885+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-29T17:24:41.427+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T17:24:41.427+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T17:24:41.427+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T17:24:41.427+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T17:25:52.070+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T17:25:52.115+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T17:25:52.117+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T17:25:52.118+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:66562  ip:\"127.0.0.1\"  ports:0  ports:30001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10003  status:1}"}
+2024-05-29 17:25:52.118476 +0800 CST m=+93.285464417 write error: write /dev/stdout: input/output error
+2024-05-29T17:25:52.118+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:66561  ip:\"127.0.0.1\"  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000  status:1}  infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T17:25:52.119+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T17:25:52.137+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29 17:25:52.137652 +0800 CST m=+93.304640751 write error: write /dev/stdout: input/output error
+2024-05-29T17:25:52.138+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T17:25:52.157+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T17:25:52.157+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T17:25:52.157+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 2}
+2024-05-29T17:25:52.158+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66562  ports:0  ports:30001  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10003"}
+2024-05-29T17:25:52.174+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29 17:25:52.174632 +0800 CST m=+93.341620417 write error: write /dev/stdout: input/output error
+2024-05-29T17:25:52.193+0800	[34mINFO[0m	新建立网络模块：:30001	{"服务器": "gate"}
+2024-05-29T17:25:52.210+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 2}
+2024-05-29 17:25:52.210618 +0800 CST m=+93.377605626 write error: write /dev/stdout: input/output error
+2024-05-29T17:26:13.040+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67330  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10004  ports:0  ports:0  ports:0  ports:0  ports:10005  status:1}"}
+2024-05-29 17:26:13.040573 +0800 CST m=+114.207394834 write error: write /dev/stdout: input/output error
+2024-05-29T17:26:13.040+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67330  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10004  ports:0  ports:0  ports:0  ports:0  ports:10005  status:1}"}
+2024-05-29T17:26:13.041+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T17:26:13.041+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T17:26:13.041+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 3}
+2024-05-29T17:26:13.060+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29 17:26:13.060056 +0800 CST m=+114.226877084 write error: write /dev/stdout: input/output error
+2024-05-29T17:26:13.096+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29 17:26:13.096953 +0800 CST m=+114.263774459 write error: write /dev/stdout: input/output error
+2024-05-29T17:26:13.133+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 3}
+2024-05-29 17:26:13.133984 +0800 CST m=+114.300804834 write error: write /dev/stdout: input/output error
+2024-05-29T18:04:25.217+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-29T18:04:25.217+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-29 18:04:25.21788 +0800 CST m=+2406.407226667 write error: write /dev/stdout: input/output error
+2024-05-29T18:04:25.219+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T18:04:25.219+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-29T18:04:25.219+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T18:04:25.220+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29 18:04:25.219929 +0800 CST m=+2406.409276042 write error: write /dev/stdout: input/output error
+2024-05-29T18:04:25.220+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T18:04:25.238+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T18:04:25.274+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-29 18:04:25.238505 +0800 CST m=+2406.427851834 write error: write /dev/stdout: input/output error
+2024-05-29 18:04:25.274328 +0800 CST m=+2406.463674917 write error: write /dev/stdout: input/output error
+2024-05-29T18:04:25.367+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29 18:04:25.367269 +0800 CST m=+2406.556615584 write error: write /dev/stdout: input/output error
+2024-05-29T18:04:25.920+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T18:04:25.922+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29T18:04:52.680+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T18:04:52.707+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T18:04:52.708+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T18:04:52.710+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-29T18:05:02.653+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T18:05:02.654+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29T18:21:35.735+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T18:21:35.768+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T18:21:35.769+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T18:21:35.775+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-29T18:21:35.793+0800	[31mFATAL[0m	%v	{"服务器": "gate", "error": "listen tcp4 :30000: bind: address already in use"}
+github.com/evanyxw/monster-go/pkg/logger.Fatal
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:240
+github.com/evanyxw/monster-go/pkg/network.(*Acceptor).Connect
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/acceptor.go:74
+github.com/evanyxw/monster-go/pkg/module.(*NetKernel).DoStart.func1
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_kernel.go:106
+github.com/evanyxw/monster-go/pkg/async.Try
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:67
+github.com/evanyxw/monster-go/pkg/async.Go.func1
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:49
+2024-05-29T18:21:56.582+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29 18:21:56.582389 +0800 CST m=+3457.709116542 write error: write /dev/stdout: input/output error
+2024-05-29T18:21:56.583+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29 18:21:56.583549 +0800 CST m=+3457.710276959 write error: write /dev/stdout: input/output error
+2024-05-29T18:21:56.603+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29 18:21:56.603389 +0800 CST m=+3457.730116376 write error: write /dev/stdout: input/output error
+2024-05-29T18:21:56.621+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T18:22:07.499+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T18:22:07.525+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T18:22:07.526+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T18:22:07.528+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-29T18:22:07.534+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-29T18:22:15.556+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:22:15.557+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:22:15.557+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:22:15.557+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:22:15.592+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-29T18:22:15.592+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-29T18:22:43.792+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T18:22:43.792+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29T18:23:42.008+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T18:23:42.035+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T18:23:42.037+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T18:23:42.038+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-29T18:23:42.046+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-29T18:23:46.014+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:23:46.014+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:23:46.014+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:23:46.014+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:23:46.049+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-29T18:23:46.049+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-29T18:24:00.394+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:24:00.394+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:24:00.394+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:24:00.394+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:24:00.427+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-29T18:24:00.427+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-29T18:24:58.604+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:24:58.604+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:24:58.604+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:24:58.604+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:25:44.168+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-29T18:25:44.169+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-29T18:26:00.769+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T18:26:00.769+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29T18:32:00.554+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T18:32:00.589+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T18:32:00.591+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T18:32:00.592+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-29T18:32:00.599+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-29T18:32:03.758+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:32:03.759+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:32:03.759+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:32:03.759+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:32:34.190+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T18:32:34.192+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29T18:32:40.070+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T18:32:40.098+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T18:32:43.806+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T18:32:43.806+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-29T18:32:43.980+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-29T18:32:53.226+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:32:53.226+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:32:53.226+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:32:53.226+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:33:41.002+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-29T18:33:41.003+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-29T18:33:44.627+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:34:03.358+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:34:03.358+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:34:03.358+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:34:10.899+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-29T18:34:10.899+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-29T18:34:14.731+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-29T18:34:14.735+0800	[31mERROR[0m	Acceptor.Exec err:runtime error: invalid memory address or nil pointer dereference: goroutine 28 [running]:
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).exec.func1()
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:58 +0x70
+panic({0x103593b40, 0x103e49080})
+	/Users/xuweiyi/go/go1.20.5/src/runtime/panic.go:890 +0x230
+github.com/evanyxw/monster-go/internal/servers/center/handler.(*MsgHandler).OnNPDel(0x14000546300, 0x1400021afa0)
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/handler/center_connector_handler.go:196 +0x48
+github.com/evanyxw/monster-go/internal/servers/center/handler.(*MsgHandler).OnNetError(0x14000546300, 0x1400021afa0)
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/handler/center_connector_handler.go:56 +0x24
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).OnRpcNetError(0x1400031f130, {0x140001166b0, 0x1, 0x1})
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:147 +0x84
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).exec(0x140005487e0, 0x14000120780)
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:63 +0xb4
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).Execute(0x140005487e0, 0x14000120780)
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:70 +0x28
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).Run.func1()
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:99 +0x58
+github.com/evanyxw/monster-go/pkg/async.Try(0x14000072230, 0x0)
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:67 +0x6c
+github.com/evanyxw/monster-go/pkg/async.Go.func1()
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:49 +0xa0
+created by github.com/evanyxw/monster-go/pkg/async.Go
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:40 +0x8c
+ 	{"服务器": "gate"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).Execute
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:72
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).Run.func1
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:99
+github.com/evanyxw/monster-go/pkg/async.Try
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:67
+github.com/evanyxw/monster-go/pkg/async.Go.func1
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:49
+2024-05-29T18:34:14.736+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T18:34:14.736+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-29T18:34:14.737+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T18:34:21.039+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T18:34:21.039+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29T18:34:23.274+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T18:34:23.302+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T18:34:28.927+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T18:34:28.927+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-29T18:34:31.671+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-29T18:34:36.368+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:34:39.118+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:34:39.118+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:34:39.118+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:35:03.550+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-29T18:35:03.550+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-29T18:35:05.994+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:35:08.516+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:35:08.516+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:35:08.516+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:38:11.539+0800	[31mERROR[0m	read message RPC_NET_ERROR: %v	{"服务器": "gate", "error": "EOF readLen:0"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:167
+2024-05-29T18:38:11.544+0800	[31mERROR[0m	Acceptor.Exec err:runtime error: invalid memory address or nil pointer dereference: goroutine 16 [running]:
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).exec.func1()
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:58 +0x70
+panic({0x101d2bb40, 0x1025e1080})
+	/Users/xuweiyi/go/go1.20.5/src/runtime/panic.go:890 +0x230
+github.com/evanyxw/monster-go/internal/servers/center/handler.(*MsgHandler).OnNPDel(0x14000182150, 0x1400048c0a0)
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/handler/center_connector_handler.go:196 +0x48
+github.com/evanyxw/monster-go/internal/servers/center/handler.(*MsgHandler).OnNetError(0x14000182150, 0x1400048c0a0)
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/handler/center_connector_handler.go:56 +0x24
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).OnRpcNetError(0x140001180f0, {0x140004a0010, 0x1, 0x1})
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:147 +0x84
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).exec(0x14000180150, 0x1400058a4b0)
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:63 +0xb4
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).Execute(0x14000180150, 0x1400058a4b0)
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:70 +0x28
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).Run.func1()
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:99 +0x58
+github.com/evanyxw/monster-go/pkg/async.Try(0x14000180200, 0x0)
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:67 +0x6c
+github.com/evanyxw/monster-go/pkg/async.Go.func1()
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:49 +0xa0
+created by github.com/evanyxw/monster-go/pkg/async.Go
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:40 +0x8c
+ 	{"服务器": "gate"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).Execute
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:72
+github.com/evanyxw/monster-go/pkg/rpc.(*Acceptor).Run.func1
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/rpc/acceptor.go:99
+github.com/evanyxw/monster-go/pkg/async.Try
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:67
+github.com/evanyxw/monster-go/pkg/async.Go.func1
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/async/base.go:49
+2024-05-29T18:38:11.545+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T18:38:11.545+0800	[34mINFO[0m	NetPoint Close Success	{"服务器": "gate", "np:": ""}
+2024-05-29T18:38:11.546+0800	[34mINFO[0m	NetPoint Close	{"服务器": "gate", "np:": ""}
+2024-05-29T18:42:57.412+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T18:42:57.413+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29T18:43:06.370+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T18:43:06.401+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T18:43:06.402+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T18:43:06.403+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-29T18:43:06.412+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-29T18:43:10.723+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:43:10.723+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:43:10.723+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:43:10.723+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:43:10.725+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-29T18:43:10.726+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-29T18:43:10.726+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-29T18:43:10.726+0800	[31mERROR[0m	Client Run is error:	{"服务器": "gate", "error": "dial tcp4 127.0.0.1:10001: connect: connection refused"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/client.(*Client).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:61
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).Start
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:80
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorManager).CreateConnector
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/connector_manager.go:65
+github.com/evanyxw/monster-go/internal/servers/gate/handler.(*gateServerInfoHandler).OnServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/gate/handler/gate_serverinfo_handler.go:40
+github.com/evanyxw/monster-go/internal/servers/center/handler.(*MsgHandler).OnNodeOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/handler/center_connector_handler.go:96
+github.com/evanyxw/monster-go/internal/servers/center/handler.(*MsgHandler).C_Cc_ServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/handler/center_connector_handler.go:242
+github.com/evanyxw/monster-go/pkg/network.(*Processor).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/processor.go:21
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:132
+github.com/evanyxw/monster-go/pkg/client.(*Client).OnMessage
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:94
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:182
+2024-05-29T18:43:26.024+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3008, "message": "server_id:67329"}
+2024-05-29T18:43:26.025+0800	[34mINFO[0m	C_Cc_ServerLost center connector nodes:	{"服务器": "gate", "node length:": 0}
+2024-05-29T18:43:28.189+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:43:28.189+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:43:28.189+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:43:28.189+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:43:28.192+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-29T18:43:28.192+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-29T18:43:28.192+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-29T18:43:28.193+0800	[31mERROR[0m	Client Run is error:	{"服务器": "gate", "error": "dial tcp4 127.0.0.1:10001: connect: connection refused"}
+github.com/evanyxw/monster-go/pkg/logger.Error
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/logger/logger.go:228
+github.com/evanyxw/monster-go/pkg/client.(*Client).Run
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:61
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).Start
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:80
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorManager).CreateConnector
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/connector_manager.go:65
+github.com/evanyxw/monster-go/internal/servers/gate/handler.(*gateServerInfoHandler).OnServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/gate/handler/gate_serverinfo_handler.go:40
+github.com/evanyxw/monster-go/internal/servers/center/handler.(*MsgHandler).OnNodeOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/handler/center_connector_handler.go:96
+github.com/evanyxw/monster-go/internal/servers/center/handler.(*MsgHandler).C_Cc_ServerOk
+	/Users/xuweiyi/go/src/gameFrame/monster-go/internal/servers/center/handler/center_connector_handler.go:242
+github.com/evanyxw/monster-go/pkg/network.(*Processor).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/processor.go:21
+github.com/evanyxw/monster-go/pkg/module.(*ConnectorKernel).MessageHandler
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/module/net_connector_kernel.go:132
+github.com/evanyxw/monster-go/pkg/client.(*Client).OnMessage
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/client/client.go:94
+github.com/evanyxw/monster-go/pkg/network.(*NetPoint).HandleRead
+	/Users/xuweiyi/go/src/gameFrame/monster-go/pkg/network/net_point.go:182
+2024-05-29T18:44:04.628+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T18:44:04.628+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29T18:44:10.458+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T18:44:10.484+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T18:44:11.486+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T18:44:11.488+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049  new_id:66561  ports:0  ports:30000  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:0  ports:10000"}
+2024-05-29T18:44:11.492+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-29T18:44:14.879+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329  ip:\"127.0.0.1\"  ports:0  ports:0  ports:0  ports:0  ports:10001  ports:0  ports:0  ports:0  ports:0  ports:10002  status:1}"}
+2024-05-29T18:44:14.879+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:44:14.879+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:44:14.879+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:44:14.884+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-29T18:44:14.884+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-29T18:44:14.884+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-29T18:46:10.831+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T18:46:10.831+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}
+2024-05-29T18:46:17.988+0800	[34mINFO[0m	SID:	{"服务器": "gate", "ID": 1, "type": 4, "index": 0}
+2024-05-29T18:46:18.012+0800	[34mINFO[0m	【 gate 】Starting server...	{"服务器": "gate"}
+2024-05-29T18:46:19.014+0800	[34mINFO[0m	【 gate 】server is started	{"服务器": "gate"}
+2024-05-29T18:46:19.015+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3002, "message": "server_id:66049 new_id:66561 ports:0 ports:30000 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:0 ports:10000"}
+2024-05-29T18:46:19.019+0800	[34mINFO[0m	新建立网络模块：:30000	{"服务器": "gate"}
+2024-05-29T18:46:22.245+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3006, "message": "infos:{server_id:67329 ip:\"127.0.0.1\" ports:0 ports:0 ports:0 ports:0 ports:10001 ports:0 ports:0 ports:0 ports:0 ports:10002 status:1}"}
+2024-05-29T18:46:22.245+0800	[34mINFO[0m	收到服务器信息	{"服务器": "gate"}
+2024-05-29T18:46:22.245+0800	[34mINFO[0m	新增结点	{"服务器": "gate"}
+2024-05-29T18:46:22.245+0800	[34mINFO[0m	C_Cc_ServerInfo center connector nodes:	{"服务器": "gate", "node length:": 1}
+2024-05-29T18:46:22.248+0800	[34mINFO[0m	read message:	{"服务器": "gate", "Message ID": 3010, "message": "server_id:67329"}
+2024-05-29T18:46:22.248+0800	[34mINFO[0m	【中心服连接器】收到服务器已准备好	{"服务器": "gate", "id": 67329, "server": 1, "type": "world", "index": 1}
+2024-05-29T18:46:22.248+0800	[34mINFO[0m	siHandler OnServerOk	{"服务器": "gate", "id": 66561}
+2024-05-29T18:46:22.248+0800	[34mINFO[0m	CreateConnector success	{"服务器": "gate"}
+2024-05-29T18:47:14.417+0800	[34mINFO[0m	【 gate 】Stopping server...	{"服务器": "gate"}
+2024-05-29T18:47:14.417+0800	[34mINFO[0m	【 gate 】server is stoped	{"服务器": "gate"}

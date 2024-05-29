@@ -1,4 +1,4 @@
-package core
+package handler
 
 import (
 	"github.com/evanyxw/monster-go/pkg/network"

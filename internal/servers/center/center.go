@@ -3,7 +3,7 @@ package center
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/cmd/factory"
-	"github.com/evanyxw/monster-go/internal/servers/core"
+	centerModule "github.com/evanyxw/monster-go/internal/servers/center/module"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -13,12 +13,12 @@ import (
 )
 
 type Center struct {
-	centerNet *core.CenterNet
+	centerNet *centerModule.CenterNet
 }
 
 func New(info server.Info) factory.CmdServer {
 	w := &Center{
-		centerNet: core.NewCenterNet(module.ModuleID_SM, 10000, info),
+		centerNet: centerModule.NewCenterNet(module.ModuleID_SM, 10000, info),
 	}
 
 	return w

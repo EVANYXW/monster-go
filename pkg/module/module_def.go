@@ -30,7 +30,7 @@ type IModule interface {
 type IModuleKernel interface {
 	Init() bool
 	GetNoWaitStart() bool
-	AddModules()
+
 	DoRegist()
 	Start()
 	DoStart()

@@ -3,7 +3,8 @@ package gate
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/cmd/factory"
-	"github.com/evanyxw/monster-go/internal/servers/core"
+	centerModule "github.com/evanyxw/monster-go/internal/servers/center/module"
+	gateHandle "github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -13,16 +14,18 @@ import (
 )
 
 type Gate struct {
-	centerConnector  *core.CenterConnector  // 中心服务器连接器
-	clientNet        *core.ClientNet        // 用户端网络模块
-	connectorManager *core.ConnectorManager // 其他服务器链接管理器
+	centerConnector  *centerModule.CenterConnector // 中心服务器连接器
+	clientNet        *module.ClientNet             // 用户端网络模块
+	connectorManager *module.ConnectorManager      // 其他服务器链接管理器
 }
 
 func New(info server.Info) factory.CmdServer {
 	w := &Gate{
-		centerConnector:  core.NewCenterConnector(module.ModuleID_CenterConnector, core.NewGateServerInfoHandler()),
-		clientNet:        core.NewClientNet(module.ModuleID_Client, 10000, info, module.Outer),
-		connectorManager: core.NewConnectorManager(module.ModuleID_ConnectorManager),
+		centerConnector: centerModule.NewCenterConnector(module.ModuleID_CenterConnector,
+			gateHandle.NewGateServerInfoHandler()),
+		clientNet: module.NewClientNet(module.ModuleID_Client, 10000,
+			gateHandle.New(true), info, module.Outer),
+		connectorManager: module.NewConnectorManager(module.ModuleID_ConnectorManager),
 	}
 
 	return w

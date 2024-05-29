@@ -3,7 +3,9 @@ package world
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/cmd/factory"
-	"github.com/evanyxw/monster-go/internal/servers/core"
+	module2 "github.com/evanyxw/monster-go/internal/servers/center/module"
+	"github.com/evanyxw/monster-go/internal/servers/core/handler"
+	gateHandle "github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -13,14 +15,15 @@ import (
 )
 
 type World struct {
-	centerConnector *core.CenterConnector
-	clientNet       *core.ClientNet
+	centerConnector *module2.CenterConnector
+	clientNet       *module.ClientNet
 }
 
 func New(info server.Info) factory.CmdServer {
 	w := &World{
-		centerConnector: core.NewCenterConnector(module.ModuleID_CenterConnector, core.NewServerInfoHandler()),
-		clientNet:       core.NewClientNet(module.ModuleID_Client, 10000, info, module.Inner),
+		centerConnector: module2.NewCenterConnector(module.ModuleID_CenterConnector, handler.NewServerInfoHandler()),
+		clientNet: module.NewClientNet(module.ModuleID_Client, 10000,
+			gateHandle.New(false), info, module.Inner),
 	}
 
 	return w
@@ -28,7 +31,6 @@ func New(info server.Info) factory.CmdServer {
 
 // Run 外部通知开启Module
 func (w *World) Run() {
-	//w.CenterConnector.Run()
 	module.Run()
 	//worldRpcServer := rpcServer.NewWorldServer()
 	//go worldRpcServer.Run()
@@ -36,7 +38,6 @@ func (w *World) Run() {
 
 // Destroy 注销服务
 func (w *World) Destroy() {
-	//w.CenterConnector.Release()
 	module.Close()
 }
 

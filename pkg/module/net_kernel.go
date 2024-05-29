@@ -3,7 +3,6 @@ package module
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/internal/pkg/output"
-	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
@@ -32,19 +31,20 @@ func WithNetType(netType NetType) kernelOption {
 }
 
 type NetKernel struct {
-	Owner       INetHandler
 	netType     NetType
 	NetAcceptor *network.Acceptor
 	RpcAcceptor *rpc.Acceptor
-	handlers    network.HandlerMap
+	//handlers    network.HandlerMap
+	processor   *network.Processor
 	NPManager   network.INPManager
+	msgHandler  MsgHandler
 	closeChan   chan struct{}
 	port        uint32
 	netMaxCount uint32
 	NoWaitStart bool
 }
 
-func NewNetKernel(maxConnNum uint32, info server.Info, Owner INetHandler, options ...kernelOption) *NetKernel {
+func NewNetKernel(maxConnNum uint32, info server.Info, msgHandler MsgHandler, options ...kernelOption) *NetKernel {
 	rpcAcceptor := rpc.NewAcceptor(10000)
 	nodePointManager := network.NewNormal(maxConnNum, rpcAcceptor)
 
@@ -52,11 +52,12 @@ func NewNetKernel(maxConnNum uint32, info server.Info, Owner INetHandler, option
 		NPManager:   nodePointManager,
 		NetAcceptor: network.NewAcceptor(maxConnNum, info, rpcAcceptor, nodePointManager),
 		RpcAcceptor: rpcAcceptor,
-		handlers:    make(network.HandlerMap, xsf_pb.SMSGID_Server_Max),
+		//handlers:    make(network.HandlerMap, xsf_pb.SMSGID_Server_Max),
+		processor:   network.NewProcessor(),
 		closeChan:   make(chan struct{}),
-		Owner:       Owner,
 		NoWaitStart: false,
 		netType:     Inner, // 默认内网
+		msgHandler:  msgHandler,
 	}
 
 	for _, fn := range options {
@@ -69,17 +70,18 @@ func NewNetKernel(maxConnNum uint32, info server.Info, Owner INetHandler, option
 }
 
 func (n *NetKernel) Init() bool {
-	n.AddModules()
-	return true
-}
-
-func (n *NetKernel) AddModules() {
 	AddManager(ModuleID_SM, n.NPManager)
+	return true
 }
 
 func (n *NetKernel) DoRegist() {
 	n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
 	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
+
+	if n.msgHandler != nil {
+		n.msgHandler.MsgRegister(n.processor)
+	}
+
 }
 
 func (n *NetKernel) Start() {
@@ -89,6 +91,7 @@ func (n *NetKernel) Start() {
 			n.NetAcceptor.Run()
 		})
 	}
+	n.msgHandler.Start()
 }
 
 func (n *NetKernel) DoStart() {
@@ -139,12 +142,19 @@ func (n *NetKernel) GetNoWaitStart() bool {
 }
 
 func (n *NetKernel) RegisterMsg(msgId uint16, handlerFunc network.HandlerFunc) {
-	n.handlers[msgId] = handlerFunc
+	//n.handlers[msgId] = handlerFunc
+	n.processor.RegisterMsg(msgId, handlerFunc)
 }
 
 func (n *NetKernel) MessageHandler(packet *network.Packet) {
-	handler := n.handlers[packet.Msg.ID]
-	handler(packet)
+	if n.msgHandler != nil && n.msgHandler.GetIsHandle() {
+		n.msgHandler.HandleMsg(packet)
+		return
+	}
+
+	//handler := n.handlers[packet.Msg.ID]
+	//handler(packet)
+	n.processor.MessageHandler(packet)
 }
 
 func (n *NetKernel) GetNPManager() network.INPManager {
@@ -162,7 +172,8 @@ func (n *NetKernel) OnRpcNetConnected(args []interface{}) {
 func (n *NetKernel) OnRpcNetError(args []interface{}) {
 	np := args[0].(*network.NetPoint)
 	n.GetNPManager().Del(np)
-	n.Owner.OnNetError(np)
+	//n.Owner.OnNetError(np)
+	n.msgHandler.OnNetError(np)
 	np.Close()
 }
 

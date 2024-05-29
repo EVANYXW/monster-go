@@ -2,7 +2,6 @@ package module
 
 import (
 	"fmt"
-	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/client"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
@@ -11,14 +10,17 @@ import (
 )
 
 type ConnectorKernel struct {
-	Owner INetHandler
 	*client.Client
-	handlers    network.HandlerMap
+
 	RpcAcceptor *rpc.Acceptor
 	ID          uint32
 	SID         server.ServerID
 	wg          sync.WaitGroup
 	runStatus   int
+	NoWaitStart bool
+	msgHandler  MsgHandler
+	processor   *network.Processor
+	//handlers    network.HandlerMap
 	//forceClose atomic.Bool
 	//Addr string
 	//Helper IConnectorHelper
@@ -26,14 +28,30 @@ type ConnectorKernel struct {
 	//hbTimer *xsf_timer.Timer
 }
 
-func NewConnectorKernel(owner INetHandler, ip string, port uint32) *ConnectorKernel {
+type ckernelOption func(kernel *ConnectorKernel)
+
+func WithCNoWaitStart(noWaitStart bool) ckernelOption {
+	return func(kernel *ConnectorKernel) {
+		kernel.NoWaitStart = noWaitStart
+	}
+}
+
+func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler, options ...ckernelOption) *ConnectorKernel {
 	rpcAcceptor := rpc.NewAcceptor(10000)
 	connector := &ConnectorKernel{
-		handlers:    make(network.HandlerMap, xsf_pb.SMSGID_Server_Max),
+		//handlers:    make(network.HandlerMap, xsf_pb.SMSGID_Server_Max),
+		processor:   network.NewProcessor(),
 		Client:      client.NewClient(fmt.Sprintf("%s:%d", ip, port), rpcAcceptor),
 		RpcAcceptor: rpcAcceptor,
+		NoWaitStart: false,
+		msgHandler:  msgHandler,
 	}
 	connector.Client.OnMessageCb = connector.MessageHandler
+
+	for _, fn := range options {
+		fn(connector)
+	}
+
 	return connector
 }
 
@@ -47,16 +65,13 @@ func (c *ConnectorKernel) Init() bool {
 	return true
 }
 
-func (c *ConnectorKernel) AddModules() {
-	//module, ok := c.Owner.(IModule)
-	//if ok {
-	//	AddModule(module)
-	//}
-}
-
 func (c *ConnectorKernel) DoRegist() {
 	c.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, c.OnRpcNetAccept)
 	c.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, c.OnRpcNetError)
+
+	if c.msgHandler != nil {
+		c.msgHandler.MsgRegister(c.processor)
+	}
 }
 
 func (c *ConnectorKernel) Start() {
@@ -64,6 +79,7 @@ func (c *ConnectorKernel) Start() {
 	c.RpcAcceptor.Run()
 	c.Client.Run()
 	c.runStatus = ModuleRunStatus_Running
+	c.msgHandler.Start()
 }
 
 func (c *ConnectorKernel) DoStart() {
@@ -98,7 +114,7 @@ func (c *ConnectorKernel) OnStartCheck() int {
 }
 
 func (c *ConnectorKernel) GetNoWaitStart() bool {
-	return false
+	return c.NoWaitStart
 }
 
 func (c *ConnectorKernel) OnCloseCheck() int {
@@ -106,12 +122,14 @@ func (c *ConnectorKernel) OnCloseCheck() int {
 }
 
 func (c *ConnectorKernel) RegisterMsg(msgId uint16, handlerFunc network.HandlerFunc) {
-	c.handlers[msgId] = handlerFunc
+	//c.handlers[msgId] = handlerFunc
+	c.processor.RegisterMsg(msgId, handlerFunc)
 }
 
 func (c *ConnectorKernel) MessageHandler(packet *network.Packet) {
-	handler := c.handlers[packet.Msg.ID]
-	handler(packet)
+	//handler := c.handlers[packet.Msg.ID]
+	//handler(packet)
+	c.processor.MessageHandler(packet)
 }
 
 func (c *ConnectorKernel) OnRpcNetAccept(args []interface{}) {
@@ -125,8 +143,8 @@ func (c *ConnectorKernel) OnRpcNetConnected(args []interface{}) {
 func (c *ConnectorKernel) OnRpcNetError(args []interface{}) {
 	np := args[0].(*network.NetPoint)
 	// connector manager 就传的nil
-	if c.Owner != nil {
-		c.Owner.OnNetError(np)
+	if c.msgHandler != nil {
+		c.msgHandler.OnNetError(np)
 	}
 	np.Close()
 }

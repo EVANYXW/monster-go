@@ -15,7 +15,7 @@ func main() {
 	//client.Broadcast()
 	//return
 	c := client.NewClient()
-	//c.InputHandlerRegister()
+	c.InputHandlerRegister()
 	c.MessageHandlerRegister()
 	c.Run()
 	sugar.WaitSignal(c.OnSystemSignal)

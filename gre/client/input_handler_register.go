@@ -1,5 +1,9 @@
 package client
 
+func (c *Client) InputHandlerRegister() {
+	c.inputHandlers["Cc_C_Handshake"] = c.Test
+}
+
 //
 //func (c *Client) InputHandlerRegister() {
 //	c.inputHandlers[messageId.MessageId_CSCreatePlayer.String()] = c.CreatePlayer

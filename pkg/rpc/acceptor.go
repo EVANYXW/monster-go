@@ -5,10 +5,12 @@ import (
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
+	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
 	"reflect"
 	"runtime"
+	"strings"
 )
 
 const LenStackBuf = 4096
@@ -98,6 +100,32 @@ func (a *Acceptor) Run() {
 			}
 		}
 	})
+}
+
+func GetMsgEp(id uint64) int {
+	msgName := MsgId2Name(int32(id))
+	if strings.Contains(msgName, "Clt_") {
+		return server.EP_Client
+	} else if strings.Contains(msgName, "G_") {
+		return server.EP_Game
+	} else if strings.Contains(msgName, "L_") {
+		return server.EP_Login
+	} else if strings.Contains(msgName, "Gt_") {
+		return server.EP_Gate
+	} else if strings.Contains(msgName, "C_") {
+		return server.EP_Center
+	} else if strings.Contains(msgName, "Mg_") {
+		return server.EP_Manager
+	} else if strings.Contains(msgName, "Ml_") {
+		return server.EP_Mail
+	} else {
+		// fmt.Println("GetEP ep not handler, msgID=", msgID)
+		return server.EP_None
+	}
+}
+
+func MsgId2Name(msgId int32) string {
+	return xsf_pb.SMSGID_name[msgId]
 }
 
 func GetMessage(messageID uint64) (interface{}, error) {

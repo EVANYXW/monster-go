@@ -11,6 +11,19 @@ type MessageHandler func(packet *network.Packet)
 
 type InputHandler func(param *InputParam)
 
+func (c *Client) Test(param *InputParam) {
+	//fmt.Println("wofale")
+	//id := c.cli.TcpConn.GetMessageIdByCmd(param.Command)
+
+	if len(param.Param) != 2 {
+		return
+	}
+
+	//msg := &xsf_pb.Cc_C_Handshake{}
+
+	//c.Transport(id, msg)
+}
+
 // CreatePlayer 创建角色
 func (c *Client) CreatePlayer(param *InputParam) {
 	//fmt.Println("wofale")

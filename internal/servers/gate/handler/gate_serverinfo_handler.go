@@ -1,4 +1,4 @@
-package core
+package handler
 
 import (
 	"fmt"
@@ -34,7 +34,7 @@ func (h *gateServerInfoHandler) OnServerOk(info *network.ServerInfo) {
 
 	if SID.Type == server.EP_Login || SID.Type == server.EP_Game || SID.Type == server.EP_Mail || SID.Type == server.EP_World {
 		moduler := module.GetModule(module.ModuleID_ConnectorManager).GetOwner()
-		connectorManager := moduler.(*ConnectorManager)
+		connectorManager := moduler.(*module.ConnectorManager)
 
 		fmt.Println("ports:", server.Ports)
 		conn := connectorManager.CreateConnector(info.ID, info.IP, info.Ports[server.EP_Gate])
