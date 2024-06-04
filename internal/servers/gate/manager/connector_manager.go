@@ -30,6 +30,10 @@ func (c *ConnectorManager) Init() {
 	//}
 }
 
+func (c ConnectorManager) DoRegister() {
+
+}
+
 func (c ConnectorManager) DoRun() {
 
 }

@@ -2,42 +2,40 @@ package module
 
 import (
 	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/pkg/logger"
+	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 )
 
 var (
-	netKernel *NetKernel
+	netKernel *module.NetKernel
 )
 
 type ClientNet struct {
-	*BaseModule
-	netKernel    *NetKernel
-	nodeManager  NodeManager
+	*module.BaseModule
+	netKernel    *module.NetKernel
+	nodeManager  module.NodeManager
 	curStartNode *configs.ServerNode
 
 	ID         int32
-	status     int
 	startIndex int
 
-	netType NetType
+	netType module.NetType
 }
 
-func GetNetKernel() *NetKernel {
-	return netKernel
-}
-
-func NewClientNet(id int32, maxConnNum uint32, msgHandler MsgHandler, info server.Info, netType NetType) *ClientNet {
+func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, info server.Info, netType module.NetType) *ClientNet {
 	c := &ClientNet{
 		ID:          id,
-		nodeManager: NewNodeManager(),
+		nodeManager: module.NewNodeManager(),
 	}
-	c.netKernel = NewNetKernel(maxConnNum, info, msgHandler, WithNetType(netType))
-	baseModule := NewBaseModule(c)
+	c.netKernel = module.NewNetKernel(maxConnNum, info, msgHandler, module.WithNetType(netType))
+	baseModule := module.NewBaseModule(c)
 
 	c.BaseModule = baseModule
 	netKernel = c.netKernel
+	servers.NetPointManager = c.netKernel.NPManager
 	return c
 }
 
@@ -51,11 +49,10 @@ func (c *ClientNet) Init() {
 }
 
 func (c *ClientNet) DoRun() {
-	c.DoRegister()
+	//c.DoRegister()
 	c.nodeManager.Start()
 	c.netKernel.Start()
 
-	c.status = server.CN_RunStep_StartServer
 	c.startIndex = 0
 }
 
@@ -67,15 +64,23 @@ func (c *ClientNet) DoRelease() {
 	c.netKernel.Release()
 }
 
+func (c *ClientNet) OnOk() {
+
+}
+
 func (c *ClientNet) OnStartCheck() int {
-	return ModuleRunCode_Ok
+	// TCP链接准备好
+	if c.netKernel.Status == server.Net_RunStep_Done {
+		return module.ModuleRunCode_Ok
+	}
+	return module.ModuleRunCode_Wait
 }
 
 func (c *ClientNet) OnCloseCheck() int {
 	return c.netKernel.OnCloseCheck()
 }
 
-func (c *ClientNet) GetKernel() IModuleKernel {
+func (c *ClientNet) GetKernel() module.IModuleKernel {
 	return c.netKernel
 }
 
@@ -89,10 +94,6 @@ func (c *ClientNet) GetID() int32 {
 
 func (c *ClientNet) DoRegister() {
 	c.netKernel.DoRegist()
-
-	//c.NetKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Handshake), c.Cc_C_Handshake)
-	//c.NetKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Heartbeat), c.Cc_C_Heartbeat)
-	//c.NetKernel.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_ServerOk), c.Cc_C_ServerOk)
 }
 
 func (c *ClientNet) Release() {
