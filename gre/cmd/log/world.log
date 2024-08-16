@@ -1,0 +1,6 @@
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":69,"msg":"更新可用服务信息,prefix:/etcd-v3/registry/default/schema/world_rpc/,[{Addr: \":8024\", ServerName: \"\", }]","time":"2024-03-15 15:31:03"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":93,"msg":"watch prefix:/etcd-v3/registry/default/schema/world_rpc/","time":"2024-03-15 15:31:03"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":69,"msg":"更新可用服务信息,prefix:/etcd-v3/registry/default/schema/world_rpc/,[{Addr: \":8024\", ServerName: \"\", }]","time":"2024-03-15 15:31:09"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":93,"msg":"watch prefix:/etcd-v3/registry/default/schema/world_rpc/","time":"2024-03-15 15:31:09"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":69,"msg":"更新可用服务信息,prefix:/etcd-v3/registry/default/schema/world_rpc/,[{Addr: \":8024\", ServerName: \"\", }]","time":"2024-03-15 15:31:22"}
+{"filePath":"etcdv3/grpc_resolver.go","level":"info","line":93,"msg":"watch prefix:/etcd-v3/registry/default/schema/world_rpc/","time":"2024-03-15 15:31:22"}
