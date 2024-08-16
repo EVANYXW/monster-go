@@ -23,12 +23,13 @@ type ClientNet struct {
 	netType module.NetType
 }
 
-func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, info server.Info, netType module.NetType, packer network.Packer) *ClientNet {
+func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, info server.Info, netType module.NetType,
+	packerFactory network.PackerFactory) *ClientNet {
 	c := &ClientNet{
 		ID:          id,
 		nodeManager: module.NewNodeManager(),
 	}
-	c.netKernel = module.NewNetKernel(maxConnNum, info, msgHandler, packer, module.WithNetType(netType))
+	c.netKernel = module.NewNetKernel(maxConnNum, info, msgHandler, packerFactory, module.WithNetType(netType))
 	baseModule := module.NewBaseModule(c)
 
 	c.BaseModule = baseModule

@@ -34,7 +34,7 @@ func New(info server.Info) engine.Kernel {
 			accHandler.NewAcceptor(),
 			info,
 			module.Inner,
-			network.NewDefaultPacker(),
+			new(network.ClientPackerFactory),
 		),
 		loginModule.NewLoginManager(module.ModuleID_LoginManager),
 	}

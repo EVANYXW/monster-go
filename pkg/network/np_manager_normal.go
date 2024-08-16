@@ -12,27 +12,27 @@ import (
 
 // 数组存储服务器节点管理
 type NPManagerNormal struct {
-	maxCount    uint32 // 容纳最大个数
-	nps         map[uint32]*NetPoint
-	tempConns   *list.List // 临时连接集合
-	rpcAcceptor *rpc.Acceptor
-	processor   *Processor
-	packer      Packer
+	maxCount      uint32 // 容纳最大个数
+	nps           map[uint32]*NetPoint
+	tempConns     *list.List // 临时连接集合
+	rpcAcceptor   *rpc.Acceptor
+	processor     *Processor
+	packerFactory PackerFactory
 }
 
-func NewNormal(maxCount uint32, rpcAcceptor *rpc.Acceptor, processor *Processor, packer Packer) *NPManagerNormal {
+func NewNormal(maxCount uint32, rpcAcceptor *rpc.Acceptor, processor *Processor, packerFactory PackerFactory) *NPManagerNormal {
 	return &NPManagerNormal{
-		maxCount:    maxCount,
-		nps:         make(map[uint32]*NetPoint),
-		tempConns:   list.New(),
-		rpcAcceptor: rpcAcceptor,
-		processor:   processor,
-		packer:      packer,
+		maxCount:      maxCount,
+		nps:           make(map[uint32]*NetPoint),
+		tempConns:     list.New(),
+		rpcAcceptor:   rpcAcceptor,
+		processor:     processor,
+		packerFactory: packerFactory,
 	}
 }
 
 func (mn *NPManagerNormal) New(conn *net.TCPConn) *NetPoint {
-	point, _ := NewNetPoint(conn, mn.packer)
+	point, _ := NewNetPoint(conn, mn.packerFactory)
 	logger.Info("New net point:", zap.String("ip:", point.RemoteIP))
 	mn.tempConns.PushBack(point)
 
@@ -150,7 +150,7 @@ func (mn *NPManagerNormal) Broadcast(msgId int32, msg proto.Message, skip uint32
 
 	for _, v := range mn.nps {
 		if v != nil && v.ID != skip {
-			packData, _ := v.Pack(uint64(msgId), msg)
+			packData, _ := v.Pack(msg)
 			v.SetSignal(packData)
 		}
 	}

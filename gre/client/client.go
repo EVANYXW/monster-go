@@ -22,7 +22,7 @@ func NewClient() *Client {
 	processor := network.NewProcessor()
 	c := &Client{
 		//cli:             client.NewClient(":20001", rpcAcceptor, processor),
-		cli:             client.NewClient(":30000", rpcAcceptor, processor, network.NewDefaultPacker()),
+		cli:             client.NewClient(":30000", rpcAcceptor, processor, new(network.DefaultPackerFactory)),
 		inputHandlers:   map[string]InputHandler{},
 		messageHandlers: make(network.HandlerMap, network.Pool_id_Max),
 		console:         NewClientConsole(),

@@ -36,7 +36,7 @@ func New(info server.Info) engine.Kernel {
 			gateMsgHandler,
 			info,
 			module.Outer,
-			network.NewDefaultPacker(),
+			new(network.DefaultPackerFactory),
 		),
 		// 其他服务的连接器
 		manager.NewConnectorManager(module.ModuleID_ConnectorManager),

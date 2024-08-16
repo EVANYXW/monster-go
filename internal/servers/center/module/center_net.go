@@ -33,7 +33,7 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 	centerNet := &CenterNet{
 		ID:          id,
 		nodeManager: module.NewNodeManager(),
-		netKernel: module.NewNetKernel(maxConnNum, info, handler.NewCenterNet(), network.NewDefaultPacker(),
+		netKernel: module.NewNetKernel(maxConnNum, info, handler.NewCenterNet(), new(network.DefaultPackerFactory),
 			module.WithNoWaitStart(true)),
 	}
 

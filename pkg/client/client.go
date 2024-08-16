@@ -17,9 +17,10 @@ type Client struct {
 	OnCloseCallBack func()
 
 	//msgParser   *BufferPacker
-	msgParser   network.Packer
-	rpcAcceptor *rpc.Acceptor
-	processor   *network.Processor
+	msgParser     network.Packer
+	packerFactory network.PackerFactory
+	rpcAcceptor   *rpc.Acceptor
+	processor     *network.Processor
 
 	//closed          int32
 	//ChMsg   chan *Message
@@ -28,14 +29,15 @@ type Client struct {
 	//logger          *spoor.Spoor
 }
 
-func NewClient(address string, rpcAcceptor *rpc.Acceptor, processor *network.Processor, packer network.Packer) *Client {
+func NewClient(address string, rpcAcceptor *rpc.Acceptor, processor *network.Processor, packerFactory network.PackerFactory) *Client {
 	client := &Client{
 		//bufferSize: connBuffSize,
 		address: address,
 		//msgParser:   network.NewDefaultPacker(),
-		msgParser:   packer,
-		rpcAcceptor: rpcAcceptor,
-		processor:   processor,
+		msgParser:     packerFactory.CreatePacker(),
+		packerFactory: packerFactory,
+		rpcAcceptor:   rpcAcceptor,
+		processor:     processor,
 	}
 
 	client.running.Store(false)
@@ -65,7 +67,7 @@ func (c *Client) Run() {
 		return
 	}
 
-	tcpConn, err := network.NewNetPoint(conn, c.msgParser)
+	tcpConn, err := network.NewNetPoint(conn, c.packerFactory)
 
 	if err != nil {
 		logger.Error(err.Error())
@@ -115,7 +117,8 @@ func (c *Client) OnClose() {
 }
 
 func (c *Client) Pack(msgID uint64, msg interface{}) (pack []byte, err error) {
-	pack, err = c.msgParser.Pack(msgID, msg)
+	// fixMe 上面创建了tcp，有一个packer传入到nodePoint里，这里又用c.Packer，是否有问题
+	pack, err = c.msgParser.Pack(msg)
 	return
 }
 

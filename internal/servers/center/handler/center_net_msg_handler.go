@@ -60,7 +60,7 @@ func (m *centerNetMsgHandler) Cc_C_Handshake(message *network.Packet) {
 		pb.ServerId = server.ID
 		pb.NewId = si.ID
 		pb.Ports = si.Ports[:]
-		np.SendMessage(uint64(xsf_pb.SMSGID_C_Cc_Handshake), pb)
+		np.SendMessage(pb)
 
 		// 把该节点信息广播给其他所有服务器
 		servers.NodeManager.Broadcast(si)

@@ -57,7 +57,7 @@ func (c *client) OnNetMessage(pack *network.Packet) {
 	case server.EP_Manager:
 		connector := c.GetConnector(ep)
 		if connector != nil {
-			connector.SendMessage(pack.Msg.ID, &xsf_pb.Clt_L_Login{})
+			connector.SendMessage(&xsf_pb.Clt_L_Login{}, network.WithRaID(c.ID.Load()))
 
 			// 写入ClientID
 			//binary.LittleEndian.PutUint32(data[6:], c.ID.Get())
@@ -134,7 +134,7 @@ func (c *client) OnNPAdd(np *network.NetPoint) {
 }
 
 func (c *client) SendMessage(msgId uint64, message proto.Message) {
-	c.netPoint.SendMessage(msgId, message)
+	c.netPoint.SendMessage(message)
 }
 
 func (c *client) GetID() uint32 {

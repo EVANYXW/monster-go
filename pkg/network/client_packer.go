@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/golang/protobuf/proto"
 	"io"
 	"sync"
@@ -127,9 +128,17 @@ func (p *ClientBufferPacker) Reset() {
 	p.sendBuff = NewByteBuffer()
 }
 
-func (p *ClientBufferPacker) Pack(msgID uint64, msg interface{}) ([]byte, error) {
+func (p *ClientBufferPacker) Pack(msg interface{}, ops ...PackerOptions) ([]byte, error) {
 	//pack := p.TestPack(msgID, msg)
 	//return pack, nil
+
+	localMsg := msg.(proto.Message)
+	msgID, _ := rpc.GetMsgID(localMsg)
+
+	op := &option{}
+	for _, fun := range ops {
+		fun(op)
+	}
 
 	pbMsg, ok := msg.(proto.Message)
 	if !ok {
@@ -140,6 +149,19 @@ func (p *ClientBufferPacker) Pack(msgID uint64, msg interface{}) ([]byte, error)
 	if err != nil {
 		return data, err
 	}
+
+	if len(data) < 4 {
+		// 填充数据到 4 字节（例如填充零）
+		paddedData := make([]byte, 4)
+		copy(paddedData, data)
+		p.byteOrder.PutUint32(paddedData[:4], op.RawID)
+		data = paddedData
+	} else {
+		// 数据长度足够
+		p.byteOrder.PutUint32(data[:4], op.RawID)
+	}
+	//p.byteOrder.PutUint32(data[:4], op.RawID)
+
 	// 4byte = len(flag)[2byte] + len(msgID)[2byte]
 	buf := make([]byte, 4+len(data))
 	mId := uint16(msgID)
@@ -187,9 +209,12 @@ func (p *ClientBufferPacker) Unpack(data []byte) (*Message, error) {
 		return nil, errors.New("protobuf data too short")
 	}
 	msgID := p.byteOrder.Uint16(data[:2])
+	rawID := p.byteOrder.Uint32(data[2:6])
 	msg := &Message{
-		ID:   uint64(msgID),
-		Data: data[2:],
+		ID: uint64(msgID),
+		//Data: data[2:],
+		Data:  data[6:],
+		RawID: rawID,
 	}
 	return msg, nil
 }

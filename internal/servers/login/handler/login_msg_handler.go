@@ -63,5 +63,5 @@ func (m *loginMsgHandler) Clt_L_Login(message *network.Packet) {
 	msg, _ := rpc.GetMessage(uint64(xsf_pb.SMSGID_GtA_Gt_ClientMessage))
 	localMsg := msg.(*xsf_pb.GtA_Gt_ClientMessage)
 	localMsg.ClientId = append(localMsg.ClientId, message.NetPoint.ID)
-	message.NetPoint.SendMessage(uint64(xsf_pb.SMSGID_GtA_Gt_ClientMessage), localMsg)
+	message.NetPoint.SendMessage(localMsg)
 }

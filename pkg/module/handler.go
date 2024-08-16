@@ -7,7 +7,7 @@ import (
 
 type ClientHandler interface {
 	OnHandshakeTicker(netPoint *network.NetPoint)
-	SendMessage(msgId uint64, message proto.Message)
+	SendMessage(message proto.Message, options ...network.PackerOptions)
 }
 
 type MsgHandler interface {

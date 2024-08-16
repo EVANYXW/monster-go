@@ -13,20 +13,20 @@ import (
 
 // 数组存储服务器节点管理
 type NPManagerArray struct {
-	maxCount    uint32 // 容纳最大个数
-	nps         []*NetPoint
-	tempConns   *list.List // 临时连接集合
-	rpcAcceptor *rpc.Acceptor
-	packer      Packer
+	maxCount      uint32 // 容纳最大个数
+	nps           []*NetPoint
+	tempConns     *list.List // 临时连接集合
+	rpcAcceptor   *rpc.Acceptor
+	packerFactory PackerFactory
 }
 
-func NewArray(maxCount uint32, rpcAcceptor *rpc.Acceptor) *NPManagerArray {
+func NewArray(maxCount uint32, rpcAcceptor *rpc.Acceptor, packerFactory PackerFactory) *NPManagerArray {
 	return &NPManagerArray{
 		maxCount: maxCount,
 		//nps:         make([]*NetPoint, 1),
-		tempConns:   list.New(),
-		rpcAcceptor: rpcAcceptor,
-		packer:      NewDefaultPacker(),
+		tempConns:     list.New(),
+		rpcAcceptor:   rpcAcceptor,
+		packerFactory: packerFactory,
 	}
 }
 
@@ -46,7 +46,7 @@ func delFromList(list *list.List, np *NetPoint) *NetPoint {
 }
 
 func (mn *NPManagerArray) New(conn *net.TCPConn) *NetPoint {
-	point, _ := NewNetPoint(conn, mn.packer)
+	point, _ := NewNetPoint(conn, mn.packerFactory)
 	mn.tempConns.PushBack(point)
 	point.SetNetEventRPC(mn.rpcAcceptor)
 	return point
@@ -159,7 +159,7 @@ func (mn *NPManagerArray) Broadcast(msgId int32, msg proto.Message, skip uint32)
 
 	for _, v := range mn.nps {
 		if v != nil && v.ID != skip {
-			packData, _ := v.Pack(uint64(msgId), msg)
+			packData, _ := v.Pack(msg)
 			v.SetSignal(packData)
 		}
 	}

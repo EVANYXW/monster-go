@@ -37,13 +37,13 @@ func WithCNoWaitStart(noWaitStart bool) ckernelOption {
 	}
 }
 
-func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler, packer network.Packer, options ...ckernelOption) *ConnectorKernel {
+func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler, packerFactory network.PackerFactory, options ...ckernelOption) *ConnectorKernel {
 	rpcAcceptor := rpc.NewAcceptor(10000)
 	processor := network.NewProcessor()
 	connector := &ConnectorKernel{
 		//handlers:    make(network.HandlerMap, xsf_pb.SMSGID_Server_Max),
 		processor:   processor,
-		Client:      client.NewClient(fmt.Sprintf("%s:%d", ip, port), rpcAcceptor, processor, packer),
+		Client:      client.NewClient(fmt.Sprintf("%s:%d", ip, port), rpcAcceptor, processor, packerFactory),
 		RpcAcceptor: rpcAcceptor,
 		NoWaitStart: false,
 		msgHandler:  msgHandler,

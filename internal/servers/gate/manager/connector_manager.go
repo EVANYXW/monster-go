@@ -109,7 +109,7 @@ func (c ConnectorManager) GetConnector(ep uint32, id uint32) module.IModuleKerne
 
 func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *module.ConnectorKernel {
 	msgHandler := handler.NewManager()
-	ck := module.NewConnectorKernel(ip, port, msgHandler, network.NewDefaultPacker())
+	ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.ClientPackerFactory))
 	ck.SetID(id)
 
 	c.collections[ck.SID.Type][id] = ck

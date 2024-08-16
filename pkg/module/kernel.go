@@ -29,7 +29,7 @@ func (n *Kernel) Init() bool {
 
 func (n *Kernel) DoRegist() {
 	//n.msgHandler.MsgRegister(n.processor)
-
+	// fixMe login 服务器在register的时候会重复注册，导致报错
 	if n.rpcAcceptor != nil {
 		n.rpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
 		n.rpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)

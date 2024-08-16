@@ -22,7 +22,7 @@ func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *
 	centerCnf := configs.Get().Center
 	c.connectorKernel = module.NewConnectorKernel(centerCnf.Ip, centerCnf.Port,
 		handler.NewCenterConnector(serverInfoHandler),
-		network.NewDefaultPacker(),
+		new(network.DefaultPackerFactory),
 		module.WithCNoWaitStart(true))
 
 	c.BaseModule = module.NewBaseModule(c)

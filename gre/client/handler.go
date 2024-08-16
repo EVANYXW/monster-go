@@ -16,7 +16,7 @@ func (c *Client) Test(param *InputParam) {
 	}
 
 	pb := &xsf_pb.Clt_L_Login{}
-	c.cli.SendMessage(uint64(xsf_pb.MSGID_Clt_L_Login), pb)
+	c.cli.SendMessage(pb)
 	//msg := &xsf_pb.Cc_C_Handshake{}
 	//c.Transport(id, msg)
 

@@ -39,7 +39,7 @@ func (m *acceptor) SendMessage2Agent(agentID uint32, msgId uint64, message proto
 	manager := module.GetManager(module.ModuleID_SM)
 	np := manager.Get(agentID)
 	if np != nil {
-		np.SendMessage(msgId, message)
+		np.SendMessage(message)
 	}
 	//manager := GetManager(int(a.id))
 	//np := manager.Get(agentID)

@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/golang/protobuf/proto"
 	"io"
 )
@@ -30,7 +31,7 @@ func (f *ClientPackerFactory) CreatePacker() Packer {
 type Packer interface {
 	Write(tcpCoon *NetPoint, buff ...byte) error
 	Read(conn io.Reader) ([]byte, error)
-	Pack(msgID uint64, msg interface{}) ([]byte, error)
+	Pack(msg interface{}, options ...PackerOptions) ([]byte, error)
 	//PackData(msgID uint64, data []byte) ([]byte, error)
 	Unpack(data []byte) (*Message, error)
 	Reset()
@@ -164,9 +165,12 @@ func (p *DefaultBufferPacker) Reset() {
 	p.sendBuff = NewByteBuffer()
 }
 
-func (p *DefaultBufferPacker) Pack(msgID uint64, msg interface{}) ([]byte, error) {
+func (p *DefaultBufferPacker) Pack(msg interface{}, options ...PackerOptions) ([]byte, error) {
 	//pack := p.TestPack(msgID, msg)
 	//return pack, nil
+
+	localMsg := msg.(proto.Message)
+	msgID, _ := rpc.GetMsgID(localMsg)
 
 	pbMsg, ok := msg.(proto.Message)
 	if !ok {

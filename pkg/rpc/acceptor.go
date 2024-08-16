@@ -8,7 +8,6 @@ import (
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
-	"reflect"
 	"runtime"
 	"strings"
 	"time"
@@ -161,48 +160,6 @@ func MsgId2Name(msgId int32) string {
 	}
 
 	return ""
-}
-
-func GetMessage(messageID uint64) (interface{}, error) {
-	// 利用反射获取消息 ID 对应的协议结构体
-	//messageType2 := reflect.TypeOf((*proto.Message)(nil)).Elem()
-	for _, messageValue := range xsf_pb.SMSGID_value {
-		if messageValue == int32(messageID) {
-			messageName := xsf_pb.SMSGID_name[int32(messageValue)]
-			messageType := proto.MessageType("NLD_PB." + messageName)
-			if messageType == nil {
-				return nil, fmt.Errorf("未找到对应的协议结构体")
-			}
-
-			instance := reflect.New(messageType.Elem()).Interface()
-			msg, ok := instance.(proto.Message)
-			if !ok {
-				return nil, fmt.Errorf("实例化失败")
-			}
-
-			return msg, nil
-		}
-	}
-
-	for _, messageValue := range xsf_pb.MSGID_value {
-		if messageValue == int32(messageID) {
-			messageName := xsf_pb.MSGID_name[int32(messageValue)]
-			messageType := proto.MessageType("NLD_PB." + messageName)
-			if messageType == nil {
-				return nil, fmt.Errorf("未找到对应的协议结构体")
-			}
-
-			instance := reflect.New(messageType.Elem()).Interface()
-			msg, ok := instance.(proto.Message)
-			if !ok {
-				return nil, fmt.Errorf("实例化失败")
-			}
-
-			return msg, nil
-		}
-	}
-
-	return nil, fmt.Errorf("未找到对应的协议结构体")
 }
 
 func PrintMsgLog(msgId uint64, data []byte, types string) {

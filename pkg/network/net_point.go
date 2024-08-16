@@ -51,21 +51,21 @@ type NetPoint struct {
 	CloseChan          chan bool
 }
 
-func NewNetPoint(conn *net.TCPConn, packer Packer) (*NetPoint, error) {
+func NewNetPoint(conn *net.TCPConn, packerFactory PackerFactory) (*NetPoint, error) {
 
 	// fixMe 把packer传进来了之后，packer不能使用一个对象，会超大
-	var iPacker Packer
-	if packer.GetType() == "default" {
-		iPacker = NewDefaultPacker()
-	} else {
-		iPacker = NewClientPacker()
-	}
+	//var iPacker Packer
+	//if packer.GetType() == "default" {
+	//	iPacker = NewDefaultPacker()
+	//} else {
+	//	iPacker = NewClientPacker()
+	//}
 
 	return &NetPoint{
 		Conn:      conn,
 		closed:    -1,
 		verify:    0,
-		msgParser: iPacker,
+		msgParser: packerFactory.CreatePacker(),
 		//msgParser:   packer,
 		stopped:     make(chan bool, 1),
 		signal:      make(chan interface{}, 100),
@@ -274,8 +274,8 @@ OutLabel:
 	logger.Info("退出写了")
 }
 
-func (np *NetPoint) SendMessage(msgId uint64, message proto.Message) {
-	pack, _ := np.Pack(msgId, message)
+func (np *NetPoint) SendMessage(message proto.Message, options ...PackerOptions) {
+	pack, _ := np.Pack(message, options...)
 	np.SetSignal(pack)
 }
 
@@ -317,13 +317,13 @@ func (np *NetPoint) Signal(signal []byte) error {
 	}
 }
 
-func (np *NetPoint) AsyncSend(msgID uint64, msg interface{}) bool {
+func (np *NetPoint) AsyncSend(msg interface{}) bool {
 
 	if np.IsShutdown() {
 		return false
 	}
 
-	data, err := np.Pack(msgID, msg)
+	data, err := np.Pack(msg)
 
 	if err != nil {
 		logger.Error("[AsyncSend] Pack msgID:%v and msg to bytes error:%v", zap.Error(err))
@@ -332,6 +332,8 @@ func (np *NetPoint) AsyncSend(msgID uint64, msg interface{}) bool {
 	}
 
 	if uint32(len(data)) > np.msgParser.GetMaxMsgLen() {
+		localMsg := msg.(proto.Message)
+		msgID, _ := rpc.GetMsgID(localMsg)
 		logger.Error("[AsyncSend] 发送的消息包体过长 msgID:%v", zap.Uint64("msgID", msgID))
 		return false
 	}
@@ -346,9 +348,11 @@ func (np *NetPoint) AsyncSend(msgID uint64, msg interface{}) bool {
 	return true
 }
 
-func (np *NetPoint) Pack(msgID uint64, msg interface{}) ([]byte, error) {
-	data, err := np.msgParser.Pack(msgID, msg)
+func (np *NetPoint) Pack(msg interface{}, options ...PackerOptions) ([]byte, error) {
+	data, err := np.msgParser.Pack(msg, options...)
 	if err != nil {
+		localMsg := msg.(proto.Message)
+		msgID, _ := rpc.GetMsgID(localMsg)
 		logger.Error("[AsyncSend] Pack msgID:%v and msg to bytes error:%v", zap.Uint64("msgID", msgID))
 		return data, err
 	}

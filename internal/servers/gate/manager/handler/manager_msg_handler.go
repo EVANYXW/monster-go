@@ -72,7 +72,7 @@ func (m *managerMsgHandler) SendHandshake(ck *module.ConnectorKernel) {
 	//pack, _ := servers.ConnectorKernel.Client.Pack(messageID, localMsg)
 	//servers.ConnectorKernel.NetPoint.SetSignal(pack)
 
-	ck.NetPoint.SendMessage(messageID, localMsg)
+	ck.NetPoint.SendMessage(localMsg)
 }
 
 func (m *managerMsgHandler) OnHandshakeTicker(np *network.NetPoint) {
@@ -80,9 +80,9 @@ func (m *managerMsgHandler) OnHandshakeTicker(np *network.NetPoint) {
 		cnf := configs.Get()
 		ticker := time.NewTicker(time.Second * time.Duration(cnf.HtCheck))
 		defer ticker.Stop()
-		msgId := uint64(xsf_pb.SMSGID_Gt_GtA_Heartbeat)
+
 		for range ticker.C {
-			np.SendMessage(msgId, &xsf_pb.Gt_GtA_Heartbeat{})
+			np.SendMessage(&xsf_pb.Gt_GtA_Heartbeat{})
 		}
 	})
 }

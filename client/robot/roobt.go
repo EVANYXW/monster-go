@@ -19,7 +19,7 @@ type Robot struct {
 
 func NewRobot() *Robot {
 	robot := &Robot{}
-	robot.connectorKernel = module.NewConnectorKernel("", 30000, handler.NewManager(), network.NewDefaultPacker())
+	robot.connectorKernel = module.NewConnectorKernel("", 30000, handler.NewManager(), new(network.DefaultPackerFactory))
 	return robot
 }
 

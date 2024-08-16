@@ -219,7 +219,7 @@ func (nm *nodeManager) Send(np *network.NetPoint, si *network.ServerInfo) {
 	//xsf_log.Info("nodeManager Send", xsf_log.String("message", downMsg.ToString()))
 
 	if len(localMsg.Infos) > 0 {
-		np.SendMessage(uint64(xsf_pb.SMSGID_C_Cc_ServerInfo), localMsg)
+		np.SendMessage(localMsg)
 	}
 }
 
