@@ -3,6 +3,7 @@
 // @Desc
 package client_module
 
+import "C"
 import (
 	"github.com/evanyxw/monster-go/client/robot/handler"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
@@ -36,7 +37,7 @@ func (l *Login) DoRegister() {
 }
 
 func (l *Login) DoRun() {
-	l.DoRun()
+	l.ConnectorKernel.DoRun()
 
 	l.Handshake()
 	l.Login()
