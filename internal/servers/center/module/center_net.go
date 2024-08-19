@@ -45,18 +45,19 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 	return centerNet
 }
 
-func (c *CenterNet) Init() {
+func (c *CenterNet) Init() bool {
 	c.netKernel.Init()
+	return true
 }
 
 func (c *CenterNet) DoRegister() {
-	c.netKernel.DoRegist()
+	c.netKernel.DoRegister()
 }
 
 func (c *CenterNet) DoRun() {
 	//c.DoRegister()
 	c.nodeManager.Start()
-	c.netKernel.Start()
+	c.netKernel.DoRun()
 
 	c.status = server.CN_RunStep_StartServer
 	c.startIndex = 0
@@ -67,7 +68,7 @@ func (c *CenterNet) DoWaitStart() {
 }
 
 func (c *CenterNet) DoRelease() {
-	c.netKernel.Release()
+	c.netKernel.DoRelease()
 }
 
 func (c *CenterNet) OnOk() {

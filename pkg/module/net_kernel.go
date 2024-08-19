@@ -81,7 +81,7 @@ func (n *NetKernel) Init() bool {
 	return true
 }
 
-func (n *NetKernel) DoRegist() {
+func (n *NetKernel) DoRegister() {
 	n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
 	n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
 	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
@@ -100,14 +100,14 @@ func (n *NetKernel) start(options ...network.Options) {
 	n.msgHandler.Start()
 }
 
-func (n *NetKernel) Start() {
+func (n *NetKernel) DoRun() {
 	n.Status = server.Net_RunStep_Start
 	if n.NoWaitStart {
 		n.start()
 	}
 }
 
-func (n *NetKernel) DoStart() {
+func (n *NetKernel) DoWaitStart() {
 	port := server.Ports[server.EP_Client]
 	if n.netType == Inner {
 		port = server.Ports[server.EP_Gate]
@@ -125,15 +125,15 @@ func (n *NetKernel) DoStart() {
 	//n.NetAcceptor.DoStart()
 }
 
-func (n *NetKernel) Release() {
+func (n *NetKernel) DoRelease() {
 	n.NetAcceptor.OnClose()
 }
 
-func (n *NetKernel) OnUpdate(timeDelta uint32) {
+func (n *NetKernel) Update() {
 
 }
 
-func (n *NetKernel) OnOK() {
+func (n *NetKernel) OnOk() {
 	n.msgHandler.OnOk()
 }
 

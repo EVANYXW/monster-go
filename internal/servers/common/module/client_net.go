@@ -38,25 +38,26 @@ func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, inf
 	return c
 }
 
-func (c *ClientNet) Init() {
+func (c *ClientNet) Init() bool {
 	c.netKernel.Init()
+	return true
 }
 
 // DoRun BaseModule 调用
 func (c *ClientNet) DoRun() {
 	//c.DoRegister()
 	c.nodeManager.Start()
-	c.netKernel.Start()
+	c.netKernel.DoRun()
 
 	c.startIndex = 0
 }
 
 func (c *ClientNet) DoWaitStart() {
-	c.netKernel.DoStart()
+	c.netKernel.DoWaitStart()
 }
 
 func (c *ClientNet) DoRelease() {
-	c.netKernel.Release()
+	c.netKernel.DoRegister()
 }
 
 func (c *ClientNet) OnOk() {
@@ -88,11 +89,11 @@ func (c *ClientNet) GetID() int32 {
 }
 
 func (c *ClientNet) DoRegister() {
-	c.netKernel.DoRegist()
+	c.netKernel.DoRegister()
 }
 
 func (c *ClientNet) Release() {
-	c.netKernel.Release()
+	c.netKernel.DoRegister()
 }
 
 func (c *ClientNet) OnNetError(np *network.NetPoint) {

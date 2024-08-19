@@ -13,14 +13,11 @@ type IServerInfoHandler interface {
 	OnServerOpenComplete()
 }
 
-// IModule 定义
-type IModule interface {
-	GetID() int32
-	GetKernel() IModuleKernel
-	Init()
+// IModuleFlow Module流程
+type IModuleFlow interface {
+	Init() bool
 	DoRegister()
 	DoRun()
-	//DoStart()
 	DoWaitStart()
 	DoRelease()
 	OnOk()
@@ -29,21 +26,19 @@ type IModule interface {
 	Update()
 }
 
-// 模块内核定义、继承该接口将成为 Module
-type IModuleKernel interface {
-	Init() bool
-	GetNoWaitStart() bool
+// IModule 定义
+type IModule interface {
+	IModuleFlow
+	GetID() int32
+	GetKernel() IModuleKernel
+}
 
-	DoRegist()
-	Start()
-	DoStart()
-	Release()
-	OnUpdate(timeDelta uint32)
-	OnOK()
+// IModuleKernel 模块内核定义、继承该接口将成为 Module
+type IModuleKernel interface {
+	IModuleFlow
+	GetNoWaitStart() bool
 	OnStartClose()
 	DoClose()
-	OnStartCheck() int
-	OnCloseCheck() int
 }
 
 type Client interface {

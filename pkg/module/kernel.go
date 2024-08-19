@@ -27,7 +27,7 @@ func (n *Kernel) Init() bool {
 	return true
 }
 
-func (n *Kernel) DoRegist() {
+func (n *Kernel) DoRegister() {
 	//n.msgHandler.MsgRegister(n.processor)
 	// fixMe login 服务器在register的时候会重复注册，导致报错
 	if n.rpcAcceptor != nil {
@@ -41,23 +41,23 @@ func (n *Kernel) DoRegist() {
 	}
 }
 
-func (n *Kernel) Start() {
+func (n *Kernel) DoRun() {
 	n.msgHandler.Start()
 }
 
-func (n *Kernel) DoStart() {
+func (n *Kernel) DoWaitStart() {
 
 }
 
-func (n *Kernel) Release() {
+func (n *Kernel) DoRelease() {
 
 }
 
-func (n *Kernel) OnUpdate(timeDelta uint32) {
+func (n *Kernel) Update() {
 
 }
 
-func (n *Kernel) OnOK() {
+func (n *Kernel) OnOk() {
 	n.msgHandler.OnOk()
 }
 

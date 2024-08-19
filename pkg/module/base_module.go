@@ -136,7 +136,6 @@ func check() {
 }
 
 func (m *BaseModule) Run() {
-
 	if m.NoWaitStart {
 		m.owner.DoRun()
 	}

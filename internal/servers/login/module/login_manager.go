@@ -28,25 +28,17 @@ func NewLoginManager(id int32) *LoginManager {
 	return l
 }
 
-// 外部通知开启Module
-//func (l *LoginManager) Run() {
-//	l.BaseModule.Run()
-//}
-
-func (l *LoginManager) Init() {
+func (l *LoginManager) Init() bool {
 	l.kernel.Init()
+	return true
 }
 
 func (l *LoginManager) DoRun() {
-	l.kernel.Start()
+	l.kernel.DoRun()
 }
 
 func (l *LoginManager) DoWaitStart() {
-	l.kernel.DoStart()
-}
-
-func (l *LoginManager) DoRelease() {
-	l.kernel.Release()
+	l.kernel.DoWaitStart()
 }
 
 func (l *LoginManager) OnOk() {
@@ -74,11 +66,11 @@ func (l *LoginManager) GetID() int32 {
 }
 
 func (l *LoginManager) DoRegister() {
-	l.kernel.DoRegist()
+	l.kernel.DoRegister()
 }
 
-func (l *LoginManager) Release() {
-	l.kernel.Release()
+func (l *LoginManager) DoRelease() {
+	l.kernel.DoRelease()
 }
 
 func (l *LoginManager) OnNetError(np *network.NetPoint) {

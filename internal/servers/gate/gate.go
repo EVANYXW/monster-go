@@ -20,7 +20,6 @@ type Gate struct {
 }
 
 func New(info server.Info) engine.Kernel {
-	gateMsgHandler := gateHandler.New()
 	w := &Gate{
 		engine.NewEngine(servers.Gate),
 		// center 服务连接器
@@ -32,7 +31,7 @@ func New(info server.Info) engine.Kernel {
 		commonModule.NewClientNet(
 			module.ModuleID_Client,
 			5000,
-			gateMsgHandler,
+			gateHandler.New(),
 			info,
 			module.Outer,
 			new(network.DefaultPackerFactory),

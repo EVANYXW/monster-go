@@ -31,13 +31,14 @@ func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *
 	return c
 }
 
-func (c *CenterConnector) Init() {
+func (c *CenterConnector) Init() bool {
 	c.connectorKernel.Init()
+	return true
 }
 
 func (c *CenterConnector) DoRun() {
 	//c.DoRegister()
-	c.connectorKernel.Start()
+	c.connectorKernel.DoRun()
 	//c.OnHandshake() // handler
 }
 
@@ -46,7 +47,7 @@ func (c *CenterConnector) DoWaitStart() {
 }
 
 func (c *CenterConnector) DoRelease() {
-	c.connectorKernel.Release()
+	c.connectorKernel.DoRelease()
 }
 
 func (c *CenterConnector) GetID() int32 {
@@ -54,7 +55,7 @@ func (c *CenterConnector) GetID() int32 {
 }
 
 func (c *CenterConnector) OnOk() {
-	c.connectorKernel.OnOK()
+	c.connectorKernel.OnOk()
 }
 
 func (c *CenterConnector) OnStartCheck() int {
@@ -74,5 +75,5 @@ func (c *CenterConnector) Update() {
 }
 
 func (c *CenterConnector) DoRegister() {
-	c.connectorKernel.DoRegist()
+	c.connectorKernel.DoRegister()
 }

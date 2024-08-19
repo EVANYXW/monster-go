@@ -27,16 +27,16 @@ func (l *Login) GetKernel() module.IModuleKernel {
 	return l.ConnectorKernel
 }
 
-func (l *Login) Init() {
-
+func (l *Login) Init() bool {
+	return true
 }
 
 func (l *Login) DoRegister() {
-	l.ConnectorKernel.DoRegist()
+	l.ConnectorKernel.DoRegister()
 }
 
 func (l *Login) DoRun() {
-	l.Start()
+	l.DoRun()
 
 	l.Handshake()
 	l.Login()

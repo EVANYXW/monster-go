@@ -34,13 +34,14 @@ func (c ConnectorManager) GetID() int32 {
 	return c.ID
 }
 
-func (c *ConnectorManager) Init() {
+func (c *ConnectorManager) Init() bool {
 	//c.collections = make([]connectCollection, xsf_util.EP_Max)
 	c.collections = []map[uint32]*module.ConnectorKernel{}
 	for i := 0; i < server.EP_Max; i++ {
 		c.collections = append(c.collections, make(map[uint32]*module.ConnectorKernel))
 	}
 	//c.kernel.Init()
+	return true
 }
 
 func (c ConnectorManager) DoRegister() {
@@ -58,7 +59,7 @@ func (c *ConnectorManager) DoWaitStart() {
 func (c ConnectorManager) DoRelease() {
 	for _, ckArr := range c.collections {
 		for _, ck := range ckArr {
-			ck.Release()
+			ck.DoRelease()
 		}
 	}
 }
@@ -111,9 +112,9 @@ func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *m
 
 	c.collections[ck.SID.Type][id] = ck
 
-	ck.DoRegist()
+	ck.DoRegister()
 	//async.Go(func() {
-	ck.Start()
+	ck.DoRun()
 	//})
 	// fixMe 这里会不会没有运行好，在发送Handshake
 	msgHandler.SendHandshake(ck)

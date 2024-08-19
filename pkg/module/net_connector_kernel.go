@@ -67,7 +67,7 @@ func (c *ConnectorKernel) Init() bool {
 	return true
 }
 
-func (c *ConnectorKernel) DoRegist() {
+func (c *ConnectorKernel) DoRegister() {
 	c.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, c.OnRpcNetConnected)
 	c.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, c.OnRpcNetError)
 
@@ -76,25 +76,25 @@ func (c *ConnectorKernel) DoRegist() {
 	}
 }
 
-func (c *ConnectorKernel) Start() {
+func (c *ConnectorKernel) DoRun() {
 	c.Client.Run()
 	c.runStatus = ModuleRunStatus_Running
 	c.msgHandler.Start()
 }
 
-func (c *ConnectorKernel) DoStart() {
+func (c *ConnectorKernel) DoWaitStart() {
 
 }
 
-func (c *ConnectorKernel) Release() {
+func (c *ConnectorKernel) DoRelease() {
 	c.Client.OnClose()
 }
 
-func (c *ConnectorKernel) OnUpdate(timeDelta uint32) {
+func (c *ConnectorKernel) Update() {
 
 }
 
-func (c *ConnectorKernel) OnOK() {
+func (c *ConnectorKernel) OnOk() {
 	c.msgHandler.OnOk()
 }
 
