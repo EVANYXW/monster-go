@@ -3,7 +3,6 @@ package manager
 import (
 	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/internal/servers/gate/manager/handler"
-	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -23,8 +22,6 @@ type ConnectorManager struct {
 func NewConnectorManager(id int32) *ConnectorManager {
 	c := &ConnectorManager{
 		ID: id,
-		//collections: ,
-		//kernel:     module.NewKernel(handler.NewManager(false)),
 	}
 	msgHandler := handler.NewManager()
 	c.kernel = module.NewKernel(msgHandler, servers.NetPointManager.GetRpcAcceptor(), servers.NetPointManager.GetProcessor())
@@ -115,15 +112,11 @@ func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *m
 	c.collections[ck.SID.Type][id] = ck
 
 	ck.DoRegist()
-	async.Go(func() {
-		ck.Start()
-	})
+	//async.Go(func() {
+	ck.Start()
+	//})
 	// fixMe 这里会不会没有运行好，在发送Handshake
 	msgHandler.SendHandshake(ck)
+
 	return ck
 }
-
-//
-//Start()
-//OnNetMessage(pack *network.Packet)
-//MsgRegister(processor *network.Processor)

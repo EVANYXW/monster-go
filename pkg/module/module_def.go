@@ -17,7 +17,6 @@ type IServerInfoHandler interface {
 type IModule interface {
 	GetID() int32
 	GetKernel() IModuleKernel
-
 	Init()
 	DoRegister()
 	DoRun()
@@ -48,7 +47,8 @@ type IModuleKernel interface {
 }
 
 type Client interface {
-	SendMessage(msgId uint64, message proto.Message)
+	SendMessage(message proto.Message)
+	SetSignal(data []byte)
 	GetID() uint32
 }
 

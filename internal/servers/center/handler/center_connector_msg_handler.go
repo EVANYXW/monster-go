@@ -227,7 +227,7 @@ func (m *centerConnectorMsgHandler) OnHandshakeTicker() {
 }
 
 func (m *centerConnectorMsgHandler) SendMessage(msgId uint64, message interface{}) {
-	pack, _ := servers.ConnectorKernel.Client.Pack(msgId, message)
+	pack, _ := servers.ConnectorKernel.Client.Pack(message)
 	servers.ConnectorKernel.NetPoint.SetSignal(pack)
 }
 

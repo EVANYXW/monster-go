@@ -14,7 +14,6 @@ import (
 
 type Gate struct {
 	*engine.BaseEngine
-
 	*centerModule.CenterConnector // 中心服务器连接器
 	*commonModule.ClientNet       // 用户端网络模块
 	*manager.ConnectorManager     // 其他服务器链接管理器
@@ -38,9 +37,8 @@ func New(info server.Info) engine.Kernel {
 			module.Outer,
 			new(network.DefaultPackerFactory),
 		),
-		// 其他服务的连接器
+		// 其他内部服务的连接器
 		manager.NewConnectorManager(module.ModuleID_ConnectorManager),
 	}
-	//servers.ClientManager = gateMsgHandler.ClientManager
 	return w
 }

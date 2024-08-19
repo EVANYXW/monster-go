@@ -42,6 +42,7 @@ type NetPoint struct {
 
 	SID                server.ServerID
 	ID                 uint32
+	senderID           uint32 // 发送的服务器id,暂时没有用
 	RemoteIP           string
 	isHandshake        bool
 	lastHeartbeat      uint32

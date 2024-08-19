@@ -16,7 +16,6 @@ import (
 type client struct {
 	processor     *network.Processor
 	netPoint      *network.NetPoint
-	isHandle      atomic.Bool
 	lastHeartbeat uint32
 	rpcAcceptor   *rpc.Acceptor
 	ID            atomic.Uint32
@@ -40,6 +39,7 @@ func (c *client) Init() {
 	c.rpcAcceptor = rpc.NewAcceptor(100)
 
 	c.processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_L_Login), c.OnNetMessage)
+	c.processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_Gt_Handshake), c.Clt_Gt_Handshake)
 
 	c.netPoint.SetNetEventRPC(c.rpcAcceptor)
 	c.netPoint.SetProcessor(c.processor)
@@ -133,8 +133,12 @@ func (c *client) OnNPAdd(np *network.NetPoint) {
 
 }
 
-func (c *client) SendMessage(msgId uint64, message proto.Message) {
+func (c *client) SendMessage(message proto.Message) {
 	c.netPoint.SendMessage(message)
+}
+
+func (c *client) SetSignal(data []byte) {
+	c.netPoint.SetSignal(data)
 }
 
 func (c *client) GetID() uint32 {
@@ -142,9 +146,16 @@ func (c *client) GetID() uint32 {
 }
 
 func (c *client) MsgRegister(processor *network.Processor) {
-	processor.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Handshake), c.OnNetMessage)
+
 }
 
-func (c *client) Cc_C_Handshake(message *network.Packet) {
+func (c *client) OnHandshake() {
+	c.isHandshake.Store(true)
+}
 
+func (c *client) Clt_Gt_Handshake(message *network.Packet) {
+	c.OnHandshake()
+	getMessage, _ := rpc.GetMessage(uint64(xsf_pb.MSGID_Gt_Clt_Handshake))
+	msg := getMessage.(*xsf_pb.Gt_Clt_Handshake)
+	c.SendMessage(msg)
 }

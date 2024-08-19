@@ -50,14 +50,16 @@ func (mn *NPManagerNormal) GetRpcAcceptor() *rpc.Acceptor {
 }
 
 func (mn *NPManagerNormal) Get(index uint32) *NetPoint {
-	if index >= mn.maxCount {
-		return nil
-	}
+	// fixMe 用id做下标就有问题
+	//if index >= mn.maxCount {
+	//	return nil
+	//}
 
 	return mn.nps[index]
 }
 
 func (mn *NPManagerNormal) Add(np *NetPoint) bool {
+	// 只有服务之间的握手加入了
 	if np.SID.ID == 0 {
 		//xsf_log.Error("NPManager_Array Add index error", xsf_log.Int("index", int(np.SID.Index)))
 		return false
@@ -77,6 +79,7 @@ func (mn *NPManagerNormal) Add(np *NetPoint) bool {
 	}
 
 	mn.nps[np.ID] = np
+	//mn.nps[uint32(np.SID.ID)] = np
 
 	return true
 }

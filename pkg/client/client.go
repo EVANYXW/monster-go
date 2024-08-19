@@ -116,7 +116,7 @@ func (c *Client) OnClose() {
 	c.NetPoint.Close()
 }
 
-func (c *Client) Pack(msgID uint64, msg interface{}) (pack []byte, err error) {
+func (c *Client) Pack(msg interface{}) (pack []byte, err error) {
 	// fixMe 上面创建了tcp，有一个packer传入到nodePoint里，这里又用c.Packer，是否有问题
 	pack, err = c.msgParser.Pack(msg)
 	return

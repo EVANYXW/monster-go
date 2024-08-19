@@ -38,11 +38,6 @@ func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, inf
 	return c
 }
 
-//// 外部通知开启Module evan 8.3
-//func (c *ClientNet) Run() {
-//	c.BaseModule.Run()
-//}
-
 func (c *ClientNet) Init() {
 	c.netKernel.Init()
 }

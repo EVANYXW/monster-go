@@ -64,6 +64,7 @@ func (m *AcceptorMsgHandler) MsgRegister(processor *network.Processor) {
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_Gt_GtA_Handshake), m.Gt_GtA_Handshake)
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_Gt_GtA_Heartbeat), m.Gt_GtA_Heartbeat)
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_Gt_GtA_ClientClose), m.Gt_GtA_ClientClose)
+
 }
 
 func (m *AcceptorMsgHandler) Gt_GtA_Handshake(message *network.Packet) {

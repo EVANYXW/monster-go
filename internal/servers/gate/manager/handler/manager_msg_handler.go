@@ -99,19 +99,14 @@ func (m *managerMsgHandler) GtA_Gt_Handshake(message *network.Packet) {
 
 // GtA_Gt_ClientMessage gate accepts push client messages
 func (m *managerMsgHandler) GtA_Gt_ClientMessage(message *network.Packet) {
+	clientMessage := &xsf_pb.GtA_Gt_ClientMessage{}
+	proto.Unmarshal(message.Msg.Data, clientMessage)
 	fmt.Println("GtA_Gt_ClientMessage")
-	getMessage, _ := rpc.GetMessage(uint64(xsf_pb.SMSGID_GtA_Gt_ClientMessage))
-	clientMessage := getMessage.(*xsf_pb.GtA_Gt_ClientMessage)
+
 	for i := 0; i < len(clientMessage.ClientId); i++ {
-		//client := servers.ClientManager.GetClient(clientMessage.ClientId[i])
-		//client := servers.NetPointManager.Get(clientMessage.ClientId[i])
 		clt := servers.ClientManager.GetClient(clientMessage.ClientId[i])
 		if clt != nil && clt.GetID() > 0 {
-			clt.SendMessage(uint64(xsf_pb.SMSGID_GtA_Gt_ClientMessage), clientMessage)
+			clt.SetSignal(clientMessage.GetClientMessage())
 		}
-		//client := m.GetClient(msgPB.ClientId[i])
-		//if client != nil && client.ID.Get() > 0 {
-		//	client.SendData(msgPB.ClientMessage)
-		//}
 	}
 }

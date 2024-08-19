@@ -9,34 +9,34 @@ import (
 	"github.com/evanyxw/monster-go/pkg/network"
 )
 
-type gateMsgHandler struct {
+type GateMsgHandler struct {
 	ClientManager module.ClientManager
 }
 
-func New() *gateMsgHandler {
+func New() *GateMsgHandler {
 	servers.ClientManager = client.NewClientManager()
-	return &gateMsgHandler{
+	return &GateMsgHandler{
 		ClientManager: servers.ClientManager,
 	}
 }
 
-func (m *gateMsgHandler) Start() {
+func (m *GateMsgHandler) Start() {
 
 }
 
-//func (m *gateMsgHandler) GetIsHandle() bool {
+//func (m *GateMsgHandler) GetIsHandle() bool {
 //	return m.isHandle
 //}
 
-func (m *gateMsgHandler) OnNetMessage(pack *network.Packet) {
+func (m *GateMsgHandler) OnNetMessage(pack *network.Packet) {
 
 }
 
-func (m *gateMsgHandler) OnNetConnected(np *network.NetPoint) {
+func (m *GateMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *gateMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
+func (m *GateMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
 	//c := client.NewClient(np)
 	//c.Init()
 	//fmt.Println("client:", c)
@@ -60,22 +60,21 @@ func (m *gateMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
 	}
 }
 
-func (m *gateMsgHandler) OnNetError(np *network.NetPoint) {
+func (m *GateMsgHandler) OnNetError(np *network.NetPoint) {
 
 }
 
-func (m *gateMsgHandler) OnServerOk() {
+func (m *GateMsgHandler) OnServerOk() {
 
 }
 
-func (m *gateMsgHandler) OnOk() {
+func (m *GateMsgHandler) OnOk() {
 
 }
 
-func (m *gateMsgHandler) OnNPAdd(np *network.NetPoint) {
+func (m *GateMsgHandler) OnNPAdd(np *network.NetPoint) {
 
 }
 
-func (m *gateMsgHandler) MsgRegister(processor *network.Processor) {
-
+func (m *GateMsgHandler) MsgRegister(processor *network.Processor) {
 }

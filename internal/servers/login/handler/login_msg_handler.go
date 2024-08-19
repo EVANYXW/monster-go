@@ -2,18 +2,20 @@ package handler
 
 import (
 	"fmt"
+	"github.com/evanyxw/monster-go/internal/servers/gate/acceptor"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/network"
-	"github.com/evanyxw/monster-go/pkg/rpc"
 )
 
 type loginMsgHandler struct {
 	isHandle bool
+	acceptor acceptor.IAcceptor
 }
 
 func NewLoginMsgHandler(isHandle bool) *loginMsgHandler {
 	return &loginMsgHandler{
 		isHandle: isHandle,
+		acceptor: acceptor.NewAcceptor(),
 	}
 }
 
@@ -60,8 +62,7 @@ func (m *loginMsgHandler) MsgRegister(processor *network.Processor) {
 func (m *loginMsgHandler) Clt_L_Login(message *network.Packet) {
 	fmt.Println("我收到登录消息啦～")
 
-	msg, _ := rpc.GetMessage(uint64(xsf_pb.SMSGID_GtA_Gt_ClientMessage))
-	localMsg := msg.(*xsf_pb.GtA_Gt_ClientMessage)
-	localMsg.ClientId = append(localMsg.ClientId, message.NetPoint.ID)
-	message.NetPoint.SendMessage(localMsg)
+	pb := &xsf_pb.L_Clt_LoginResult{}
+	pb.Result = uint32(xsf_pb.LoginResult_LoginParamError)
+	m.acceptor.SendMessage2Client(message, pb)
 }

@@ -158,7 +158,10 @@ func (p *ClientBufferPacker) Pack(msg interface{}, ops ...PackerOptions) ([]byte
 		data = paddedData
 	} else {
 		// 数据长度足够
-		p.byteOrder.PutUint32(data[:4], op.RawID)
+		paddedData := make([]byte, len(data)+4)
+		copy(paddedData[4:], data)
+		p.byteOrder.PutUint32(paddedData[:4], op.RawID)
+		data = paddedData
 	}
 	//p.byteOrder.PutUint32(data[:4], op.RawID)
 
