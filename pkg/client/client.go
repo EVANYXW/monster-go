@@ -19,8 +19,8 @@ type Client struct {
 	//msgParser   *BufferPacker
 	msgParser     network.Packer
 	packerFactory network.PackerFactory
-	rpcAcceptor   *rpc.Acceptor
-	processor     *network.Processor
+	//rpcAcceptor   *rpc.Acceptor
+	processor *network.Processor
 
 	//closed          int32
 	//ChMsg   chan *Message
@@ -29,14 +29,13 @@ type Client struct {
 	//logger          *spoor.Spoor
 }
 
-func NewClient(address string, rpcAcceptor *rpc.Acceptor, processor *network.Processor, packerFactory network.PackerFactory) *Client {
+func NewClient(address string, processor *network.Processor, packerFactory network.PackerFactory) *Client {
 	client := &Client{
 		//bufferSize: connBuffSize,
 		address: address,
 		//msgParser:   network.NewDefaultPacker(),
 		msgParser:     packerFactory.CreatePacker(),
 		packerFactory: packerFactory,
-		rpcAcceptor:   rpcAcceptor,
 		processor:     processor,
 	}
 
@@ -59,7 +58,11 @@ func (c *Client) Dial() (*net.TCPConn, error) {
 	return conn, nil
 }
 
-func (c *Client) Run() {
+//func (c *Client) SetNetEventRPC(rpc *rpc.Acceptor) {
+//	c.rpcAcceptor = rpc
+//}
+
+func (c *Client) Run(rpcAcceptor *rpc.Acceptor) {
 	conn, err := c.Dial()
 	if err != nil {
 		//c.logger.ErrorF("%v", err)
@@ -75,13 +78,12 @@ func (c *Client) Run() {
 	}
 	c.NetPoint = tcpConn
 
-	c.SetNetEventRPC(c.rpcAcceptor)
+	//c.NetPoint.SetNetEventRPC(c.rpcAcceptor)
+	c.NetPoint.SetNetEventRPC(rpcAcceptor)
 	c.SetProcessor(c.processor)
-	//c.RpcAcceptor.Run(c.NetPoint.Stopped) //CloseChan
-	c.RpcAcceptor.Run() //CloseChan
 
 	// fixMe Go到哪里去了
-	c.RpcAcceptor.Go(rpc.RPC_NET_CONNECTED, tcpConn)
+	c.NetPoint.RpcAcceptor.Go(rpc.RPC_NET_CONNECTED, tcpConn)
 
 	c.Impl = c
 	c.Reset()

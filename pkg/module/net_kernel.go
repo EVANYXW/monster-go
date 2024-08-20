@@ -94,6 +94,7 @@ func (n *NetKernel) start(options ...network.Options) {
 	async.Go(func() {
 		n.NetAcceptor.Connect(options...)
 		n.Status = server.Net_RunStep_Done
+		//n.RpcAcceptor.Run()
 		n.NetAcceptor.Run() // 会阻塞
 	})
 	n.msgHandler.Start()

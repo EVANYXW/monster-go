@@ -42,13 +42,13 @@ func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler, packerFac
 	connector := &ConnectorKernel{
 		//handlers:    make(network.HandlerMap, xsf_pb.SMSGID_Server_Max),
 		processor:   processor,
-		Client:      client.NewClient(fmt.Sprintf("%s:%d", ip, port), rpcAcceptor, processor, packerFactory),
+		Client:      client.NewClient(fmt.Sprintf("%s:%d", ip, port), processor, packerFactory),
 		RpcAcceptor: rpcAcceptor,
 		NoWaitStart: false,
 		msgHandler:  msgHandler,
 	}
 	connector.Client.OnMessageCb = connector.MessageHandler
-
+	//connector.Client.SetNetEventRPC(rpcAcceptor)
 	for _, fn := range options {
 		fn(connector)
 	}
@@ -76,7 +76,8 @@ func (c *ConnectorKernel) DoRegister() {
 }
 
 func (c *ConnectorKernel) DoRun() {
-	c.Client.Run()
+	c.RpcAcceptor.Run()
+	c.Client.Run(c.RpcAcceptor)
 	c.runStatus = ModuleRunStatus_Running
 	c.msgHandler.Start()
 }

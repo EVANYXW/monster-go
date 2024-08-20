@@ -209,7 +209,12 @@ OUTLABEL:
 			//	fmt.Println("data:", string(message.Data))
 			//}
 
-			np.Impl.OnMessage(message, np)
+			np.Processor.MessageHandler(&Packet{
+				Msg:      message,
+				NetPoint: np,
+			})
+
+			//np.Impl.OnMessage(message, np)
 			//np.RpcAcceptor.Go(rpc.RPC_NET_MESSAGE, np, message)
 		}
 	}
@@ -271,7 +276,7 @@ OutLabel:
 
 		time.Sleep(100 * time.Millisecond)
 	}
-	logger.Info("退出写了")
+	logger.Info("退出Write协程")
 }
 
 func (np *NetPoint) SendMessage(message proto.Message, options ...PackerOptions) {
