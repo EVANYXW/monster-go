@@ -2,7 +2,6 @@ package module
 
 import (
 	"fmt"
-	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/client"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
@@ -121,6 +120,14 @@ func (c *ConnectorKernel) OnCloseCheck() int {
 	return 0
 }
 
+func (c *ConnectorKernel) GetNPManager() network.INPManager {
+	return nil
+}
+
+func (c *ConnectorKernel) GetStatus() int {
+	return 0
+}
+
 func (c *ConnectorKernel) RegisterMsg(msgId uint16, handlerFunc network.HandlerFunc) {
 	c.processor.RegisterMsg(msgId, handlerFunc)
 }
@@ -140,13 +147,14 @@ func (c *ConnectorKernel) OnRpcNetConnected(args []interface{}) {
 
 func (c *ConnectorKernel) OnRpcNetError(args []interface{}) {
 	np := args[0].(*network.NetPoint)
-	async.Go(func() {
-		np.CloseChan <- true
-	})
-	close(np.CloseChan)
+	acc := args[1].(*network.Acceptor)
+	//async.Go(func() {
+	//	np.Stopped <- true // CloseChan
+	//})
+	//close(np.Stopped) // CloseChan
 	// connector manager 就传的nil
 	if c.msgHandler != nil {
-		c.msgHandler.OnNetError(np)
+		c.msgHandler.OnNetError(np, acc)
 	}
 	fmt.Println("ConnectorKernel OnRpcNetError np close")
 	np.Close()

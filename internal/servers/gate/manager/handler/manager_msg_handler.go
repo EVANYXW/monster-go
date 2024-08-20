@@ -12,6 +12,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
+	"net"
 	"time"
 )
 
@@ -38,11 +39,13 @@ func (m *managerMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *managerMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
+func (m *managerMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	np.Connect()
+	conn := np.Conn.(*net.TCPConn)
+	acceptor.RemoveConn(conn, np)
 }
 
-func (m *managerMsgHandler) OnNetError(np *network.NetPoint) {
+func (m *managerMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
 
 }
 

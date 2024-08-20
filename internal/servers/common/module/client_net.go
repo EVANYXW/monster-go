@@ -13,7 +13,7 @@ import (
 
 type ClientNet struct {
 	*module.BaseModule
-	netKernel    *module.NetKernel
+	kernel       module.IModuleKernel
 	nodeManager  module.NodeManager
 	curStartNode *configs.ServerNode
 
@@ -29,17 +29,18 @@ func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, inf
 		ID:          id,
 		nodeManager: module.NewNodeManager(),
 	}
-	c.netKernel = module.NewNetKernel(maxConnNum, info, msgHandler, packerFactory, module.WithNetType(netType))
+	c.kernel = module.NewNetKernel(maxConnNum, info, msgHandler, packerFactory, module.WithNetType(netType))
 	baseModule := module.NewBaseModule(c)
 
 	c.BaseModule = baseModule
-	servers.NetPointManager = c.netKernel.NPManager
+	//servers.NetPointManager = c.kernel.NPManager
+	servers.NetPointManager = c.kernel.GetNPManager()
 
 	return c
 }
 
 func (c *ClientNet) Init() bool {
-	c.netKernel.Init()
+	c.kernel.Init()
 	return true
 }
 
@@ -47,17 +48,17 @@ func (c *ClientNet) Init() bool {
 func (c *ClientNet) DoRun() {
 	//c.DoRegister()
 	c.nodeManager.Start()
-	c.netKernel.DoRun()
+	c.kernel.DoRun()
 
 	c.startIndex = 0
 }
 
 func (c *ClientNet) DoWaitStart() {
-	c.netKernel.DoWaitStart()
+	c.kernel.DoWaitStart()
 }
 
 func (c *ClientNet) DoRelease() {
-	c.netKernel.DoRegister()
+	c.kernel.DoRegister()
 }
 
 func (c *ClientNet) OnOk() {
@@ -66,18 +67,18 @@ func (c *ClientNet) OnOk() {
 
 func (c *ClientNet) OnStartCheck() int {
 	// TCP链接准备好
-	if c.netKernel.Status == server.Net_RunStep_Done {
+	if c.kernel.GetStatus() == server.Net_RunStep_Done {
 		return module.ModuleRunCode_Ok
 	}
 	return module.ModuleRunCode_Wait
 }
 
 func (c *ClientNet) OnCloseCheck() int {
-	return c.netKernel.OnCloseCheck()
+	return c.kernel.OnCloseCheck()
 }
 
 func (c *ClientNet) GetKernel() module.IModuleKernel {
-	return c.netKernel
+	return c.kernel
 }
 
 func (c *ClientNet) Update() {
@@ -89,11 +90,11 @@ func (c *ClientNet) GetID() int32 {
 }
 
 func (c *ClientNet) DoRegister() {
-	c.netKernel.DoRegister()
+	c.kernel.DoRegister()
 }
 
 func (c *ClientNet) Release() {
-	c.netKernel.DoRegister()
+	c.kernel.DoRegister()
 }
 
 func (c *ClientNet) OnNetError(np *network.NetPoint) {

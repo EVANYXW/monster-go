@@ -39,12 +39,16 @@ type IModuleKernel interface {
 	GetNoWaitStart() bool
 	OnStartClose()
 	DoClose()
+	GetNPManager() network.INPManager
+	GetStatus() int
 }
 
 type Client interface {
 	SendMessage(message proto.Message)
 	SetSignal(data []byte)
 	GetID() uint32
+	GetLastHeartbeat() *uint64
+	Close()
 }
 
 type ClientManager interface {

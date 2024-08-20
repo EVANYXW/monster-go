@@ -8,13 +8,11 @@ import (
 )
 
 type loginMsgHandler struct {
-	isHandle bool
 	acceptor acceptor.IAcceptor
 }
 
-func NewLoginMsgHandler(isHandle bool) *loginMsgHandler {
+func NewLoginMsgHandler() *loginMsgHandler {
 	return &loginMsgHandler{
-		isHandle: isHandle,
 		acceptor: acceptor.NewAcceptor(),
 	}
 }
@@ -23,15 +21,11 @@ func (m *loginMsgHandler) Start() {
 
 }
 
-//func (m *loginMsgHandler) GetIsHandle() bool {
-//	return m.isHandle
-//}
-
 func (m *loginMsgHandler) OnNetMessage(pack *network.Packet) {
 
 }
 
-func (m *loginMsgHandler) OnNetError(np *network.NetPoint) {
+func (m *loginMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
 
 }
 
@@ -39,7 +33,7 @@ func (m *loginMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *loginMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
+func (m *loginMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 
 }
 

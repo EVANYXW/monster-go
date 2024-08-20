@@ -25,8 +25,6 @@ func NewRobot() *Robot {
 func (r *Robot) Start() {
 
 	//r.loginModule.Start()
-	//r.Handshake()
-	//r.Login()
 }
 
 //func (r *Robot) Handshake() {

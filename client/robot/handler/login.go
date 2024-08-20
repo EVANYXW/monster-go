@@ -5,15 +5,14 @@ package handler
 
 import (
 	"fmt"
-	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
-	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
+	"net"
 	"time"
 )
 
@@ -36,11 +35,13 @@ func (m *loginMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *loginMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
+func (m *loginMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	np.Connect()
+	conn := np.Conn.(*net.TCPConn)
+	acceptor.RemoveConn(conn, np)
 }
 
-func (m *loginMsgHandler) OnNetError(np *network.NetPoint) {
+func (m *loginMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
 
 }
 
@@ -73,15 +74,17 @@ func (m *loginMsgHandler) SendHandshake(ck *module.ConnectorKernel) {
 }
 
 func (m *loginMsgHandler) OnHandshakeTicker(np *network.NetPoint) {
-	async.Go(func() {
-		cnf := configs.Get()
-		ticker := time.NewTicker(time.Second * time.Duration(cnf.HtCheck))
-		defer ticker.Stop()
-
-		for range ticker.C {
-			np.SendMessage(&xsf_pb.Gt_GtA_Heartbeat{})
-		}
+	network.ClientHeartbeat(time.Duration(5), func() {
+		np.SendMessage(&xsf_pb.Clt_Gt_Heartbeat{})
 	})
+	//async.Go(func() {
+	//	ticker := time.NewTicker(time.Second * time.Duration(5))
+	//	defer ticker.Stop()
+	//
+	//	for range ticker.C {
+	//		np.SendMessage(&xsf_pb.Clt_Gt_Heartbeat{})
+	//	}
+	//})
 }
 
 func (m *loginMsgHandler) SendMessage(msgId uint64, message proto.Message) {
@@ -91,7 +94,7 @@ func (m *loginMsgHandler) SendMessage(msgId uint64, message proto.Message) {
 func (m *loginMsgHandler) Gt_Clt_Handshake(message *network.Packet) {
 	fmt.Println("GtA_Gt_Handshake laile")
 	logger.Info("GtA_Gt_Handshake 收到")
-	//m.OnHandshakeTicker(message.NetPoint)
+	m.OnHandshakeTicker(message.NetPoint)
 }
 
 func (m *loginMsgHandler) L_Clt_LoginResult(message *network.Packet) {

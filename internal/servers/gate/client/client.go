@@ -10,13 +10,15 @@ import (
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
+	"net"
 	"sync/atomic"
+	"time"
 )
 
-type client struct {
+type Client struct {
 	processor     *network.Processor
 	netPoint      *network.NetPoint
-	lastHeartbeat uint32
+	lastHeartbeat uint64
 	rpcAcceptor   *rpc.Acceptor
 	ID            atomic.Uint32
 
@@ -24,28 +26,39 @@ type client struct {
 	isHandshake atomic.Bool
 }
 
-func NewClient(np *network.NetPoint) *client {
-	return &client{
+func NewClient(np *network.NetPoint) *Client {
+	return &Client{
 		netPoint: np,
 	}
 }
 
-func (c *client) Start() {
+func (c *Client) Start() {
 
 }
 
-func (c *client) Init() {
+func (c *Client) Close() {
+	c.netPoint.Close()
+	c.ID.Store(0)
+	c.lastHeartbeat = 0
+}
+
+func (c *Client) Init() {
 	c.processor = network.NewProcessor()
-	c.rpcAcceptor = rpc.NewAcceptor(100)
 
 	c.processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_L_Login), c.OnNetMessage)
-	c.processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_Gt_Handshake), c.Clt_Gt_Handshake)
 
-	c.netPoint.SetNetEventRPC(c.rpcAcceptor)
+	c.processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_Gt_Handshake), c.Clt_Gt_Handshake)
+	c.processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_Gt_Heartbeat), c.Clt_Gt_Heartbeat)
+
+	//c.rpcAcceptor = rpc.NewAcceptor(100)
+	//c.rpcAcceptor.Regist(rpc.RPC_NET_ERROR, c.OnRpcNetError)
+	//c.netPoint.SetNetEventRPC(c.rpcAcceptor)
 	c.netPoint.SetProcessor(c.processor)
+
+	//c.rpcAcceptor.Run()
 }
 
-func (c *client) OnNetMessage(pack *network.Packet) {
+func (c *Client) OnNetMessage(pack *network.Packet) {
 	ep := rpc.GetClientDestEP(pack.Msg.ID)
 	switch ep {
 	case server.EP_Game: // 发往游戏服
@@ -78,7 +91,7 @@ func (c *client) OnNetMessage(pack *network.Packet) {
 	}
 }
 
-func (c *client) GetConnector(ep int) *module.ConnectorKernel {
+func (c *Client) GetConnector(ep int) *module.ConnectorKernel {
 	managerModule := module.GetConnectorManager()
 	connectorManager, ok := managerModule.(*manager.ConnectorManager)
 	if !ok {
@@ -109,53 +122,69 @@ func (c *client) GetConnector(ep int) *module.ConnectorKernel {
 	return connector
 }
 
-func (c *client) OnNetConnected(np *network.NetPoint) {
+func (c *Client) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (c *client) OnRpcNetAccept(np *network.NetPoint) {
+func (c *Client) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 
 }
 
-func (c *client) OnNetError(np *network.NetPoint) {
+func (c *Client) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
 
 }
 
-func (c *client) OnServerOk() {
+func (c *Client) OnRpcNetError(args []interface{}) {
+	np := args[0].(*network.NetPoint)
+	acc := args[1].(*network.Acceptor)
+	conn := np.Conn.(*net.TCPConn)
+	acc.RemoveConn(conn, np)
+	np.RpcAcceptor.Close()
+}
+
+func (c *Client) OnServerOk() {
 
 }
 
-func (c *client) OnOk() {
+func (c *Client) OnOk() {
 
 }
 
-func (c *client) OnNPAdd(np *network.NetPoint) {
+func (c *Client) OnNPAdd(np *network.NetPoint) {
 
 }
 
-func (c *client) SendMessage(message proto.Message) {
+func (c *Client) SendMessage(message proto.Message) {
 	c.netPoint.SendMessage(message)
 }
 
-func (c *client) SetSignal(data []byte) {
+func (c *Client) SetSignal(data []byte) {
 	c.netPoint.SetSignal(data)
 }
 
-func (c *client) GetID() uint32 {
+func (c *Client) GetID() uint32 {
 	return c.ID.Load()
 }
 
-func (c *client) MsgRegister(processor *network.Processor) {
+func (c *Client) GetLastHeartbeat() *uint64 {
+	return &c.lastHeartbeat
+}
+
+func (c *Client) MsgRegister(processor *network.Processor) {
 
 }
 
-func (c *client) OnHandshake() {
+func (c *Client) OnHandshake() {
 	c.isHandshake.Store(true)
 }
 
-func (c *client) Clt_Gt_Handshake(message *network.Packet) {
+func (c *Client) Clt_Gt_Handshake(message *network.Packet) {
 	c.OnHandshake()
 	getMessage, _ := rpc.GetMessage(uint64(xsf_pb.MSGID_Gt_Clt_Handshake))
 	msg := getMessage.(*xsf_pb.Gt_Clt_Handshake)
 	c.SendMessage(msg)
+}
+
+func (c *Client) Clt_Gt_Heartbeat(message *network.Packet) {
+	c.lastHeartbeat = uint64(time.Now().Unix())
 }

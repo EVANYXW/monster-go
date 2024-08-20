@@ -11,6 +11,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
+	"net"
 	"time"
 )
 
@@ -51,11 +52,13 @@ func (m *centerConnectorMsgHandler) OnNetConnected(np *network.NetPoint) {
 	m.SendHandshake()
 }
 
-func (m *centerConnectorMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
+func (m *centerConnectorMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	np.Connect()
+	conn := np.Conn.(*net.TCPConn)
+	acceptor.RemoveConn(conn, np)
 }
 
-func (m *centerConnectorMsgHandler) OnNetError(np *network.NetPoint) {
+func (m *centerConnectorMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
 	m.OnNPDel(np)
 }
 

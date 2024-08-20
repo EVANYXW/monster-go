@@ -10,6 +10,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
+	"net"
 )
 
 type centerNetMsgHandler struct {
@@ -71,11 +72,13 @@ func (m *centerNetMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *centerNetMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
+func (m *centerNetMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	np.Connect()
+	conn := np.Conn.(*net.TCPConn)
+	acceptor.RemoveConn(conn, np)
 }
 
-func (m *centerNetMsgHandler) OnNetError(np *network.NetPoint) {
+func (m *centerNetMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
 	m.OnNPDel(np)
 }
 

@@ -30,15 +30,23 @@ func (n *Kernel) Init() bool {
 func (n *Kernel) DoRegister() {
 	//n.msgHandler.MsgRegister(n.processor)
 	// fixMe login 服务器在register的时候会重复注册，导致报错
-	if n.rpcAcceptor != nil {
-		n.rpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
-		n.rpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
-		n.rpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
-	}
+	//if n.rpcAcceptor != nil {
+	//	n.rpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
+	//	n.rpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
+	//	n.rpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
+	//}
 
 	if n.msgHandler != nil {
 		n.msgHandler.MsgRegister(n.processor)
 	}
+}
+
+func (n *Kernel) GetNPManager() network.INPManager {
+	return nil
+}
+
+func (n *Kernel) GetStatus() int {
+	return 0
 }
 
 func (n *Kernel) DoRun() {

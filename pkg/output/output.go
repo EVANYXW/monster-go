@@ -61,7 +61,7 @@ var tamplate = `+--------------------------------------------------+
 |
 |   Player Num: {{PlayerNum}}
 |   Go Num: {{GoNum}}
-|   Go Num: {{RunGoNum}}
+|   Num Goroutine: {{RunGoNum}}
 |   Pprof: {{Pprof}}
 +--------------------------------------------------+`
 

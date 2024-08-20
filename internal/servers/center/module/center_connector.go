@@ -10,8 +10,8 @@ import (
 
 type CenterConnector struct {
 	*module.BaseModule
-	connectorKernel *module.ConnectorKernel
-	ID              int32
+	kernel module.IModuleKernel
+	ID     int32
 }
 
 func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *CenterConnector {
@@ -20,25 +20,25 @@ func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *
 	}
 
 	centerCnf := configs.Get().Center
-	c.connectorKernel = module.NewConnectorKernel(centerCnf.Ip, centerCnf.Port,
+	c.kernel = module.NewConnectorKernel(centerCnf.Ip, centerCnf.Port,
 		handler.NewCenterConnector(serverInfoHandler),
 		new(network.DefaultPackerFactory),
 		module.WithCNoWaitStart(true))
 
 	c.BaseModule = module.NewBaseModule(c)
-	servers.ConnectorKernel = c.connectorKernel
+	servers.ConnectorKernel = c.kernel.(*module.ConnectorKernel)
 
 	return c
 }
 
 func (c *CenterConnector) Init() bool {
-	c.connectorKernel.Init()
+	c.kernel.Init()
 	return true
 }
 
 func (c *CenterConnector) DoRun() {
 	//c.DoRegister()
-	c.connectorKernel.DoRun()
+	c.kernel.DoRun()
 	//c.OnHandshake() // handler
 }
 
@@ -47,7 +47,7 @@ func (c *CenterConnector) DoWaitStart() {
 }
 
 func (c *CenterConnector) DoRelease() {
-	c.connectorKernel.DoRelease()
+	c.kernel.DoRelease()
 }
 
 func (c *CenterConnector) GetID() int32 {
@@ -55,19 +55,19 @@ func (c *CenterConnector) GetID() int32 {
 }
 
 func (c *CenterConnector) OnOk() {
-	c.connectorKernel.OnOk()
+	c.kernel.OnOk()
 }
 
 func (c *CenterConnector) OnStartCheck() int {
-	return c.connectorKernel.OnStartCheck()
+	return c.kernel.OnStartCheck()
 }
 
 func (c *CenterConnector) OnCloseCheck() int {
-	return c.connectorKernel.OnCloseCheck()
+	return c.kernel.OnCloseCheck()
 }
 
 func (c *CenterConnector) GetKernel() module.IModuleKernel {
-	return c.connectorKernel
+	return c.kernel
 }
 
 func (c *CenterConnector) Update() {
@@ -75,5 +75,5 @@ func (c *CenterConnector) Update() {
 }
 
 func (c *CenterConnector) DoRegister() {
-	c.connectorKernel.DoRegister()
+	c.kernel.DoRegister()
 }

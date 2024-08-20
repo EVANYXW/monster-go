@@ -29,9 +29,9 @@ type INetHandler interface {
 	//DoClose()
 	//OnStartClose()
 	OnOk()
-	OnNetError(np *network.NetPoint)
+	OnNetError(np *network.NetPoint, acceptor *network.Acceptor)
 	OnNetConnected(np *network.NetPoint)
-	OnRpcNetAccept(np *network.NetPoint)
+	OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor)
 	OnServerOk()
 	OnNPAdd(np *network.NetPoint)
 }

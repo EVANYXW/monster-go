@@ -9,6 +9,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
+	"net"
 )
 
 /***
@@ -40,11 +41,13 @@ func (m *AcceptorMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *AcceptorMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
+func (m *AcceptorMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	np.Connect()
+	conn := np.Conn.(*net.TCPConn)
+	acceptor.RemoveConn(conn, np)
 }
 
-func (m *AcceptorMsgHandler) OnNetError(np *network.NetPoint) {
+func (m *AcceptorMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
 
 }
 

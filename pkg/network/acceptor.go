@@ -100,7 +100,8 @@ func (s *Acceptor) addConn(conn *net.TCPConn) *NetPoint {
 	point := s.NPManager.New(conn)
 	s.connMap[conn] = point
 
-	point.RpcAcceptor.Run(point.CloseChan)
+	//point.RpcAcceptor.Run(point.Stopped) //CloseChan
+	point.RpcAcceptor.Run() //CloseChan
 
 	if output.Oput != nil {
 		output.Oput.SetData(output.Data{

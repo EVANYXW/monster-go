@@ -30,7 +30,7 @@ type NetPoint struct {
 	Conn       net.Conn
 	closed     int32
 	wg         sync.WaitGroup
-	stopped    chan bool
+	Stopped    chan bool
 	signal     chan interface{}
 	lastSignal chan interface{}
 	//msgParser   *BufferPacker
@@ -53,22 +53,13 @@ type NetPoint struct {
 }
 
 func NewNetPoint(conn *net.TCPConn, packerFactory PackerFactory) (*NetPoint, error) {
-
-	// fixMe 把packer传进来了之后，packer不能使用一个对象，会超大
-	//var iPacker Packer
-	//if packer.GetType() == "default" {
-	//	iPacker = NewDefaultPacker()
-	//} else {
-	//	iPacker = NewClientPacker()
-	//}
-
 	return &NetPoint{
 		Conn:      conn,
 		closed:    -1,
 		verify:    0,
 		msgParser: packerFactory.CreatePacker(),
 		//msgParser:   packer,
-		stopped:     make(chan bool, 1),
+		Stopped:     make(chan bool, 1),
 		signal:      make(chan interface{}, 100),
 		lastSignal:  make(chan interface{}, 1),
 		timeoutTime: 30,
@@ -111,7 +102,7 @@ func (np *NetPoint) Reset() {
 	}
 	np.closed = -1
 	np.verify = 0
-	np.stopped = make(chan bool, 1)
+	np.Stopped = make(chan bool, 1)
 	//c.signal = make(chan interface{}, c.msgBuffSize)
 	np.lastSignal = make(chan interface{}, 1)
 	np.msgParser.Reset()
@@ -142,7 +133,7 @@ L:
 			//	c.Close()
 			//	break L
 			//}
-		case <-np.stopped:
+		case <-np.Stopped:
 			break L
 		}
 		time.Sleep(100 * time.Millisecond)
@@ -157,9 +148,9 @@ func (np *NetPoint) Close() {
 		logger.Info("NetPoint Close Success", zap.String("np:", string(marshal)))
 		np.Conn.Close()
 		async.Go(func() {
-			np.stopped <- true
+			np.Stopped <- true
 		})
-		close(np.stopped)
+		close(np.Stopped)
 	}
 }
 
@@ -188,31 +179,39 @@ func (np *NetPoint) HandleRead() {
 	defer np.Close()
 	defer np.wg.Done()
 
+OUTLABEL:
 	for {
-		//message, err := c.msgParser.TestRead(c)
-		data, err := np.msgParser.Read(np)
-		if err != nil {
-			if err != io.EOF {
-				np.RpcAcceptor.Go(rpc.RPC_NET_ERROR, np)
-				logger.Debug("read message RPC_NET_ERROR: %v", zap.Error(err), zap.Uint32("server_id", np.ID))
+		select {
+		case <-np.Stopped:
+			// fixMe 如何gate的client 设置了新的rpcAcceptor并且run起来会有2个chan在跑
+			np.RpcAcceptor.Go(rpc.RPC_NET_ERROR, np, &Acceptor{})
+			break OUTLABEL
+		default:
+			//message, err := c.msgParser.TestRead(c)
+			data, err := np.msgParser.Read(np)
+			if err != nil {
+				if err != io.EOF && err.Error() != "EOF readLen:0" {
+					np.RpcAcceptor.Go(rpc.RPC_NET_ERROR, np, &Acceptor{})
+					logger.Debug("read message RPC_NET_ERROR: %v", zap.Error(err), zap.Uint32("server_id", np.ID))
+				}
+				np.RpcAcceptor.Go(rpc.RPC_NET_ERROR, np, &Acceptor{})
+				break OUTLABEL
 			}
-			break
+
+			message, err := np.msgParser.Unpack(data)
+			rpc.PrintMsgLog(message.ID, message.Data, "read")
+
+			//pbMsg := &player.SCLogin{}
+			//err = proto.Unmarshal(message.Data, pbMsg)
+			//if err == nil {
+			//	fmt.Println("proto:", pbMsg)
+			//} else {
+			//	fmt.Println("data:", string(message.Data))
+			//}
+
+			np.Impl.OnMessage(message, np)
+			//np.RpcAcceptor.Go(rpc.RPC_NET_MESSAGE, np, message)
 		}
-
-		message, err := np.msgParser.Unpack(data)
-		//fmt.Printf("message:%#v", message)
-		rpc.PrintMsgLog(message.ID, message.Data, "read")
-
-		//pbMsg := &player.SCLogin{}
-		//err = proto.Unmarshal(message.Data, pbMsg)
-		//if err == nil {
-		//	fmt.Println("proto:", pbMsg)
-		//} else {
-		//	fmt.Println("data:", string(message.Data))
-		//}
-
-		np.Impl.OnMessage(message, np)
-		//np.RpcAcceptor.Go(rpc.RPC_NET_MESSAGE, np, message)
 	}
 }
 
@@ -266,7 +265,7 @@ OutLabel:
 			}
 
 			return
-		case <-np.stopped: // 连接关闭通知
+		case <-np.Stopped: // 连接关闭通知
 			break OutLabel
 		}
 
@@ -279,11 +278,6 @@ func (np *NetPoint) SendMessage(message proto.Message, options ...PackerOptions)
 	pack, _ := np.Pack(message, options...)
 	np.SetSignal(pack)
 }
-
-//func (np *NetPoint) SendDataMessage(msgId uint64, data []byte) {
-//	pack, _ := np.PackData(msgId, data)
-//	np.SetSignal(pack)
-//}
 
 func (np *NetPoint) SetSignal(byte []byte) {
 	np.signal <- byte
@@ -359,15 +353,6 @@ func (np *NetPoint) Pack(msg interface{}, options ...PackerOptions) ([]byte, err
 	}
 	return data, nil
 }
-
-//func (np *NetPoint) PackData(msgID uint64, data []byte) ([]byte, error) {
-//	data, err := np.msgParser.PackData(msgID, data)
-//	if err != nil {
-//		logger.Error("[AsyncSend] Pack msgID:%v and msg to bytes error:%v", zap.Uint64("msgID", msgID))
-//		return data, err
-//	}
-//	return data, nil
-//}
 
 func (np *NetPoint) PackWrite(msg interface{}) error {
 	data, ok := msg.([]byte)

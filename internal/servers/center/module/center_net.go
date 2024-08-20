@@ -16,7 +16,8 @@ import (
 
 type CenterNet struct {
 	*module.BaseModule
-	netKernel   *module.NetKernel
+	//netKernel   *module.NetKernel
+	kernel      module.IModuleKernel
 	nodeManager module.NodeManager
 
 	ID           int32
@@ -33,31 +34,31 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 	centerNet := &CenterNet{
 		ID:          id,
 		nodeManager: module.NewNodeManager(),
-		netKernel: module.NewNetKernel(maxConnNum, info, handler.NewCenterNet(), new(network.DefaultPackerFactory),
+		kernel: module.NewNetKernel(maxConnNum, info, handler.NewCenterNet(), new(network.DefaultPackerFactory),
 			module.WithNoWaitStart(true)),
 	}
 
 	centerNet.BaseModule = module.NewBaseModule(centerNet)
 
-	servers.NetPointManager = centerNet.netKernel.GetNPManager()
+	servers.NetPointManager = centerNet.kernel.GetNPManager()
 	servers.NodeManager = centerNet.nodeManager
 
 	return centerNet
 }
 
 func (c *CenterNet) Init() bool {
-	c.netKernel.Init()
+	c.kernel.Init()
 	return true
 }
 
 func (c *CenterNet) DoRegister() {
-	c.netKernel.DoRegister()
+	c.kernel.DoRegister()
 }
 
 func (c *CenterNet) DoRun() {
 	//c.DoRegister()
 	c.nodeManager.Start()
-	c.netKernel.DoRun()
+	c.kernel.DoRun()
 
 	c.status = server.CN_RunStep_StartServer
 	c.startIndex = 0
@@ -68,7 +69,7 @@ func (c *CenterNet) DoWaitStart() {
 }
 
 func (c *CenterNet) DoRelease() {
-	c.netKernel.DoRelease()
+	c.kernel.DoRelease()
 }
 
 func (c *CenterNet) OnOk() {
@@ -123,7 +124,7 @@ func (c *CenterNet) OnStartCheck() int {
 }
 
 func (c *CenterNet) OnCloseCheck() int {
-	return c.netKernel.OnCloseCheck()
+	return c.kernel.OnCloseCheck()
 }
 
 func (c *CenterNet) Update() {
@@ -135,5 +136,5 @@ func (c *CenterNet) GetID() int32 {
 }
 
 func (c *CenterNet) GetKernel() module.IModuleKernel {
-	return c.netKernel
+	return c.kernel
 }

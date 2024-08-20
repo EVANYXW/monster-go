@@ -7,6 +7,8 @@ import (
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
+	"net"
+	"time"
 )
 
 type GateMsgHandler struct {
@@ -36,22 +38,21 @@ func (m *GateMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *GateMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
-	//c := client.NewClient(np)
-	//c.Init()
-	//fmt.Println("client:", c)
-	//np.Connect()
+func (m *GateMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	newClient, isNew := m.ClientManager.NewClient(np)
 	if newClient != nil {
 
 		if isNew {
 
 		} else {
-
+			fmt.Println(111)
 		}
-
 		async.Go(func() {
 			np.Connect()
+		})
+		lastHeartbeat := newClient.GetLastHeartbeat()
+		network.ServerHeartbeat(time.Duration(6), time.Duration(30), lastHeartbeat, func() {
+			newClient.Close()
 		})
 	} else {
 		//Error("Client Login is full")
@@ -60,8 +61,10 @@ func (m *GateMsgHandler) OnRpcNetAccept(np *network.NetPoint) {
 	}
 }
 
-func (m *GateMsgHandler) OnNetError(np *network.NetPoint) {
-
+func (m *GateMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
+	conn := np.Conn.(*net.TCPConn)
+	acceptor.RemoveConn(conn, np)
+	//np.RpcAcceptor.Close()
 }
 
 func (m *GateMsgHandler) OnServerOk() {

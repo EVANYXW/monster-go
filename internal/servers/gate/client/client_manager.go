@@ -10,7 +10,7 @@ import (
 )
 
 type clientManager struct {
-	clients   []*client
+	clients   []*Client
 	GlobalKey uint8
 }
 
@@ -21,7 +21,7 @@ func NewClientManager() *clientManager {
 }
 
 func (c *clientManager) Init() {
-	c.clients = make([]*client, 5000)
+	c.clients = make([]*Client, 5000)
 
 }
 
@@ -37,10 +37,11 @@ func (c *clientManager) NewClient(np *network.NetPoint) (module.Client, bool) {
 			//xsf_log.Debug("NewClient new", xsf_log.Uint8("gate", client.CID.Gate), xsf_log.Uint16("id", client.CID.ID), xsf_log.Uint8("key", client.CID.Key))
 			client.ID.Store(server.Cid2ID(&client.CID))
 			c.GlobalKey++
-
 			return client, true
 		} else if c.clients[i].ID.Load() == 0 {
 			client := c.clients[i]
+			client.netPoint = np
+			client.Init()
 			client.CID.Gate = server.SID.Index
 			client.CID.ID = uint16(i)
 			client.CID.Key = c.GlobalKey

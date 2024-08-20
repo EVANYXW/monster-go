@@ -7,7 +7,6 @@ import (
 	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
-	"net"
 )
 
 type NetType int
@@ -176,13 +175,15 @@ func (n *NetKernel) GetNPManager() network.INPManager {
 	return n.NetAcceptor.NPManager
 }
 
+func (n *NetKernel) GetStatus() int {
+	return n.Status
+}
+
 func (n *NetKernel) OnRpcNetAccept(args []interface{}) {
 	np := args[0].(*network.NetPoint)
 	acc := args[1].(*network.Acceptor)
 	fmt.Println("OnRpcNetAccept ....")
-	n.msgHandler.OnRpcNetAccept(np)
-	conn := np.Conn.(*net.TCPConn)
-	acc.RemoveConn(conn, np)
+	n.msgHandler.OnRpcNetAccept(np, acc)
 }
 
 func (n *NetKernel) OnRpcNetConnected(args []interface{}) {
@@ -193,13 +194,16 @@ func (n *NetKernel) OnRpcNetConnected(args []interface{}) {
 func (n *NetKernel) OnRpcNetError(args []interface{}) {
 	fmt.Println("OnRpcNetError !!!")
 	np := args[0].(*network.NetPoint)
-	async.Go(func() {
-		np.CloseChan <- true
-	})
-	close(np.CloseChan)
-	n.NPManager.Del(np)
+	acc := args[1].(*network.Acceptor)
+	//async.Go(func() {
+	//	np.Stopped <- true //CloseChan
+	//})
+	//close(np.Stopped) // CloseChan
+
 	//n.Owner.OnNetError(np)
-	n.msgHandler.OnNetError(np)
+
+	n.NPManager.Del(np)
+	n.msgHandler.OnNetError(np, acc)
 	fmt.Println("NetKernel OnRpcNetError np close")
 	np.Close()
 }

@@ -10,14 +10,14 @@ import (
 
 type LoginManager struct {
 	*module.BaseModule
-	kernel *module.Kernel
+	kernel module.IModuleKernel
 	ID     int32
 }
 
 func NewLoginManager(id int32) *LoginManager {
 	l := &LoginManager{
 		ID: id,
-		kernel: module.NewKernel(handler.NewLoginMsgHandler(false),
+		kernel: module.NewKernel(handler.NewLoginMsgHandler(),
 			servers.NetPointManager.GetRpcAcceptor(),
 			servers.NetPointManager.GetProcessor(),
 		),

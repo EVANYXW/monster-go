@@ -26,10 +26,12 @@ type Acceptor struct {
 	functions map[string]func([]interface{})
 	ChanCall  chan *CallInfo
 	close     chan bool
+	l         int
 }
 
 func NewAcceptor(l int) *Acceptor {
 	a := new(Acceptor)
+	a.l = l
 	a.functions = make(map[string]func([]interface{}))
 	a.ChanCall = make(chan *CallInfo, l)
 	return a
@@ -46,6 +48,10 @@ func (a *Acceptor) Regist(id string, f func([]interface{})) {
 
 func (a *Acceptor) Close() {
 	close(a.ChanCall)
+}
+
+func (a *Acceptor) Open() {
+	a.ChanCall = make(chan *CallInfo, a.l)
 }
 
 func (a *Acceptor) IsFull() bool {
@@ -83,8 +89,14 @@ func (a *Acceptor) Go(id string, args ...interface{}) {
 	}
 
 	defer func() {
-		recover()
+		if x := recover(); x != nil {
+			fmt.Println("caught panic in ECBEncrypt()", x)
+		}
 	}()
+
+	if a.IsFull() {
+		return
+	}
 
 	a.ChanCall <- &CallInfo{
 		f:    f,
@@ -92,22 +104,29 @@ func (a *Acceptor) Go(id string, args ...interface{}) {
 	}
 }
 
-func (a *Acceptor) Run(npCloseChan <-chan bool) {
+func (a *Acceptor) Run() {
 	async.Go(func() {
+	OUTLABEL:
 		for {
 			select {
-			case <-npCloseChan:
-				return
+			//case <-npCloseChan:
+			//	return
+			case <-a.close:
+				break OUTLABEL
 			case callMsg, ok := <-a.ChanCall:
 				if !ok {
-					return
+					break OUTLABEL
+					//return
 				}
 				if callMsg == nil {
 					continue
 				}
 				a.Execute(callMsg)
+			default:
+				time.Sleep(100 * time.Millisecond)
 			}
-			time.Sleep(100 * time.Millisecond)
+
+			//time.Sleep(100 * time.Millisecond)
 		}
 	})
 }

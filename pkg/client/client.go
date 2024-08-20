@@ -77,7 +77,8 @@ func (c *Client) Run() {
 
 	c.SetNetEventRPC(c.rpcAcceptor)
 	c.SetProcessor(c.processor)
-	c.RpcAcceptor.Run(c.NetPoint.CloseChan)
+	//c.RpcAcceptor.Run(c.NetPoint.Stopped) //CloseChan
+	c.RpcAcceptor.Run() //CloseChan
 
 	// fixMe Go到哪里去了
 	c.RpcAcceptor.Go(rpc.RPC_NET_CONNECTED, tcpConn)
