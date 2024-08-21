@@ -103,7 +103,7 @@ func (m *managerMsgHandler) GtA_Gt_Handshake(message *network.Packet) {
 // GtA_Gt_ClientMessage gate accepts push client messages
 func (m *managerMsgHandler) GtA_Gt_ClientMessage(message *network.Packet) {
 	clientMessage := &xsf_pb.GtA_Gt_ClientMessage{}
-	proto.Unmarshal(message.Msg.Data, clientMessage)
+	rpc.Import(message.Msg.Data, clientMessage)
 	fmt.Println("GtA_Gt_ClientMessage")
 
 	for i := 0; i < len(clientMessage.ClientId); i++ {

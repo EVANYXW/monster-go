@@ -7,7 +7,6 @@ import (
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
-	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
 	"net"
 )
@@ -72,7 +71,7 @@ func (m *AcceptorMsgHandler) MsgRegister(processor *network.Processor) {
 
 func (m *AcceptorMsgHandler) Gt_GtA_Handshake(message *network.Packet) {
 	localMsg := &xsf_pb.Gt_GtA_Handshake{}
-	proto.Unmarshal(message.Msg.Data, localMsg)
+	rpc.Import(message.Msg.Data, localMsg)
 	message.NetPoint.SetID(localMsg.ServerId)
 
 	logger.Info("acceptor OnNetMessage", zap.Uint32("ServerID", localMsg.ServerId))

@@ -149,7 +149,7 @@ func (mn *NPManagerNormal) OnHandshake(np *NetPoint) bool {
 	return ok
 }
 
-func (mn *NPManagerNormal) Broadcast(msgId int32, msg proto.Message, skip uint32) {
+func (mn *NPManagerNormal) Broadcast(msg proto.Message, skip uint32) {
 
 	for _, v := range mn.nps {
 		if v != nil && v.ID != skip {

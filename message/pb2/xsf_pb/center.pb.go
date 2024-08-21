@@ -540,44 +540,6 @@ func (x *C_Cc_ServerOk) GetServerId() uint32 {
 	return 0
 }
 
-type Cc_C_Stop struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *Cc_C_Stop) Reset() {
-	*x = Cc_C_Stop{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_server_center_proto_msgTypes[10]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Cc_C_Stop) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Cc_C_Stop) ProtoMessage() {}
-
-func (x *Cc_C_Stop) ProtoReflect() protoreflect.Message {
-	mi := &file_server_center_proto_msgTypes[10]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Cc_C_Stop.ProtoReflect.Descriptor instead.
-func (*Cc_C_Stop) Descriptor() ([]byte, []int) {
-	return file_server_center_proto_rawDescGZIP(), []int{10}
-}
-
 // center --> connector 关服
 type C_Cc_Stop struct {
 	state         protoimpl.MessageState
@@ -588,7 +550,7 @@ type C_Cc_Stop struct {
 func (x *C_Cc_Stop) Reset() {
 	*x = C_Cc_Stop{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_server_center_proto_msgTypes[11]
+		mi := &file_server_center_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -601,7 +563,7 @@ func (x *C_Cc_Stop) String() string {
 func (*C_Cc_Stop) ProtoMessage() {}
 
 func (x *C_Cc_Stop) ProtoReflect() protoreflect.Message {
-	mi := &file_server_center_proto_msgTypes[11]
+	mi := &file_server_center_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -614,7 +576,7 @@ func (x *C_Cc_Stop) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use C_Cc_Stop.ProtoReflect.Descriptor instead.
 func (*C_Cc_Stop) Descriptor() ([]byte, []int) {
-	return file_server_center_proto_rawDescGZIP(), []int{11}
+	return file_server_center_proto_rawDescGZIP(), []int{10}
 }
 
 // connector --> center 设置时间穿越
@@ -629,7 +591,7 @@ type Cc_C_TimePass struct {
 func (x *Cc_C_TimePass) Reset() {
 	*x = Cc_C_TimePass{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_server_center_proto_msgTypes[12]
+		mi := &file_server_center_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -642,7 +604,7 @@ func (x *Cc_C_TimePass) String() string {
 func (*Cc_C_TimePass) ProtoMessage() {}
 
 func (x *Cc_C_TimePass) ProtoReflect() protoreflect.Message {
-	mi := &file_server_center_proto_msgTypes[12]
+	mi := &file_server_center_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -655,7 +617,7 @@ func (x *Cc_C_TimePass) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Cc_C_TimePass.ProtoReflect.Descriptor instead.
 func (*Cc_C_TimePass) Descriptor() ([]byte, []int) {
-	return file_server_center_proto_rawDescGZIP(), []int{12}
+	return file_server_center_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *Cc_C_TimePass) GetTimePass() uint32 {
@@ -677,7 +639,7 @@ type C_Cc_TimePass struct {
 func (x *C_Cc_TimePass) Reset() {
 	*x = C_Cc_TimePass{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_server_center_proto_msgTypes[13]
+		mi := &file_server_center_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -690,7 +652,7 @@ func (x *C_Cc_TimePass) String() string {
 func (*C_Cc_TimePass) ProtoMessage() {}
 
 func (x *C_Cc_TimePass) ProtoReflect() protoreflect.Message {
-	mi := &file_server_center_proto_msgTypes[13]
+	mi := &file_server_center_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -703,7 +665,7 @@ func (x *C_Cc_TimePass) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use C_Cc_TimePass.ProtoReflect.Descriptor instead.
 func (*C_Cc_TimePass) Descriptor() ([]byte, []int) {
-	return file_server_center_proto_rawDescGZIP(), []int{13}
+	return file_server_center_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *C_Cc_TimePass) GetTimePass() uint32 {
@@ -711,162 +673,6 @@ func (x *C_Cc_TimePass) GetTimePass() uint32 {
 		return x.TimePass
 	}
 	return 0
-}
-
-// connector --> center 服务器开放
-type Cc_C_ServerOpen struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *Cc_C_ServerOpen) Reset() {
-	*x = Cc_C_ServerOpen{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_server_center_proto_msgTypes[14]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Cc_C_ServerOpen) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Cc_C_ServerOpen) ProtoMessage() {}
-
-func (x *Cc_C_ServerOpen) ProtoReflect() protoreflect.Message {
-	mi := &file_server_center_proto_msgTypes[14]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Cc_C_ServerOpen.ProtoReflect.Descriptor instead.
-func (*Cc_C_ServerOpen) Descriptor() ([]byte, []int) {
-	return file_server_center_proto_rawDescGZIP(), []int{14}
-}
-
-// center --> connector 服务器开放
-type C_Cc_ServerOpen struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *C_Cc_ServerOpen) Reset() {
-	*x = C_Cc_ServerOpen{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_server_center_proto_msgTypes[15]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *C_Cc_ServerOpen) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*C_Cc_ServerOpen) ProtoMessage() {}
-
-func (x *C_Cc_ServerOpen) ProtoReflect() protoreflect.Message {
-	mi := &file_server_center_proto_msgTypes[15]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use C_Cc_ServerOpen.ProtoReflect.Descriptor instead.
-func (*C_Cc_ServerOpen) Descriptor() ([]byte, []int) {
-	return file_server_center_proto_rawDescGZIP(), []int{15}
-}
-
-// connector --> center 服务器关服
-type Cc_C_ServerClose struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *Cc_C_ServerClose) Reset() {
-	*x = Cc_C_ServerClose{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_server_center_proto_msgTypes[16]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Cc_C_ServerClose) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Cc_C_ServerClose) ProtoMessage() {}
-
-func (x *Cc_C_ServerClose) ProtoReflect() protoreflect.Message {
-	mi := &file_server_center_proto_msgTypes[16]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Cc_C_ServerClose.ProtoReflect.Descriptor instead.
-func (*Cc_C_ServerClose) Descriptor() ([]byte, []int) {
-	return file_server_center_proto_rawDescGZIP(), []int{16}
-}
-
-// center --> connector 服务器关服
-type C_Cc_ServerClose struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *C_Cc_ServerClose) Reset() {
-	*x = C_Cc_ServerClose{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_server_center_proto_msgTypes[17]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *C_Cc_ServerClose) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*C_Cc_ServerClose) ProtoMessage() {}
-
-func (x *C_Cc_ServerClose) ProtoReflect() protoreflect.Message {
-	mi := &file_server_center_proto_msgTypes[17]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use C_Cc_ServerClose.ProtoReflect.Descriptor instead.
-func (*C_Cc_ServerClose) Descriptor() ([]byte, []int) {
-	return file_server_center_proto_rawDescGZIP(), []int{17}
 }
 
 var File_server_center_proto protoreflect.FileDescriptor
@@ -912,20 +718,14 @@ var file_server_center_proto_rawDesc = []byte{
 	0x0d, 0x43, 0x5f, 0x43, 0x63, 0x5f, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x4f, 0x6b, 0x12, 0x1b,
 	0x0a, 0x09, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x0d, 0x52, 0x08, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x49, 0x64, 0x22, 0x0b, 0x0a, 0x09, 0x43,
-	0x63, 0x5f, 0x43, 0x5f, 0x53, 0x74, 0x6f, 0x70, 0x22, 0x0b, 0x0a, 0x09, 0x43, 0x5f, 0x43, 0x63,
-	0x5f, 0x53, 0x74, 0x6f, 0x70, 0x22, 0x2c, 0x0a, 0x0d, 0x43, 0x63, 0x5f, 0x43, 0x5f, 0x54, 0x69,
-	0x6d, 0x65, 0x50, 0x61, 0x73, 0x73, 0x12, 0x1b, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x70,
-	0x61, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x08, 0x74, 0x69, 0x6d, 0x65, 0x50,
-	0x61, 0x73, 0x73, 0x22, 0x2c, 0x0a, 0x0d, 0x43, 0x5f, 0x43, 0x63, 0x5f, 0x54, 0x69, 0x6d, 0x65,
-	0x50, 0x61, 0x73, 0x73, 0x12, 0x1b, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x70, 0x61, 0x73,
-	0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x08, 0x74, 0x69, 0x6d, 0x65, 0x50, 0x61, 0x73,
-	0x73, 0x22, 0x11, 0x0a, 0x0f, 0x43, 0x63, 0x5f, 0x43, 0x5f, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72,
-	0x4f, 0x70, 0x65, 0x6e, 0x22, 0x11, 0x0a, 0x0f, 0x43, 0x5f, 0x43, 0x63, 0x5f, 0x53, 0x65, 0x72,
-	0x76, 0x65, 0x72, 0x4f, 0x70, 0x65, 0x6e, 0x22, 0x12, 0x0a, 0x10, 0x43, 0x63, 0x5f, 0x43, 0x5f,
-	0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x22, 0x12, 0x0a, 0x10, 0x43,
-	0x5f, 0x43, 0x63, 0x5f, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x42,
-	0x0b, 0x5a, 0x09, 0x70, 0x62, 0x2f, 0x78, 0x73, 0x66, 0x5f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x5f, 0x43, 0x63, 0x5f, 0x53, 0x74, 0x6f, 0x70, 0x22, 0x2c, 0x0a, 0x0d, 0x43, 0x63, 0x5f, 0x43,
+	0x5f, 0x54, 0x69, 0x6d, 0x65, 0x50, 0x61, 0x73, 0x73, 0x12, 0x1b, 0x0a, 0x09, 0x74, 0x69, 0x6d,
+	0x65, 0x5f, 0x70, 0x61, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x08, 0x74, 0x69,
+	0x6d, 0x65, 0x50, 0x61, 0x73, 0x73, 0x22, 0x2c, 0x0a, 0x0d, 0x43, 0x5f, 0x43, 0x63, 0x5f, 0x54,
+	0x69, 0x6d, 0x65, 0x50, 0x61, 0x73, 0x73, 0x12, 0x1b, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x5f,
+	0x70, 0x61, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x08, 0x74, 0x69, 0x6d, 0x65,
+	0x50, 0x61, 0x73, 0x73, 0x42, 0x0b, 0x5a, 0x09, 0x70, 0x62, 0x2f, 0x78, 0x73, 0x66, 0x5f, 0x70,
+	0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -940,26 +740,21 @@ func file_server_center_proto_rawDescGZIP() []byte {
 	return file_server_center_proto_rawDescData
 }
 
-var file_server_center_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_server_center_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_server_center_proto_goTypes = []interface{}{
-	(*Cc_C_Handshake)(nil),   // 0: NLD_PB.Cc_C_Handshake
-	(*C_Cc_Handshake)(nil),   // 1: NLD_PB.C_Cc_Handshake
-	(*Cc_C_Heartbeat)(nil),   // 2: NLD_PB.Cc_C_Heartbeat
-	(*MSG_ServerInfo)(nil),   // 3: NLD_PB.MSG_ServerInfo
-	(*Cc_C_ServerInfo)(nil),  // 4: NLD_PB.Cc_C_ServerInfo
-	(*C_Cc_ServerInfo)(nil),  // 5: NLD_PB.C_Cc_ServerInfo
-	(*Cc_C_ServerLost)(nil),  // 6: NLD_PB.Cc_C_ServerLost
-	(*C_Cc_ServerLost)(nil),  // 7: NLD_PB.C_Cc_ServerLost
-	(*Cc_C_ServerOk)(nil),    // 8: NLD_PB.Cc_C_ServerOk
-	(*C_Cc_ServerOk)(nil),    // 9: NLD_PB.C_Cc_ServerOk
-	(*Cc_C_Stop)(nil),        // 10: NLD_PB.Cc_C_Stop
-	(*C_Cc_Stop)(nil),        // 11: NLD_PB.C_Cc_Stop
-	(*Cc_C_TimePass)(nil),    // 12: NLD_PB.Cc_C_TimePass
-	(*C_Cc_TimePass)(nil),    // 13: NLD_PB.C_Cc_TimePass
-	(*Cc_C_ServerOpen)(nil),  // 14: NLD_PB.Cc_C_ServerOpen
-	(*C_Cc_ServerOpen)(nil),  // 15: NLD_PB.C_Cc_ServerOpen
-	(*Cc_C_ServerClose)(nil), // 16: NLD_PB.Cc_C_ServerClose
-	(*C_Cc_ServerClose)(nil), // 17: NLD_PB.C_Cc_ServerClose
+	(*Cc_C_Handshake)(nil),  // 0: NLD_PB.Cc_C_Handshake
+	(*C_Cc_Handshake)(nil),  // 1: NLD_PB.C_Cc_Handshake
+	(*Cc_C_Heartbeat)(nil),  // 2: NLD_PB.Cc_C_Heartbeat
+	(*MSG_ServerInfo)(nil),  // 3: NLD_PB.MSG_ServerInfo
+	(*Cc_C_ServerInfo)(nil), // 4: NLD_PB.Cc_C_ServerInfo
+	(*C_Cc_ServerInfo)(nil), // 5: NLD_PB.C_Cc_ServerInfo
+	(*Cc_C_ServerLost)(nil), // 6: NLD_PB.Cc_C_ServerLost
+	(*C_Cc_ServerLost)(nil), // 7: NLD_PB.C_Cc_ServerLost
+	(*Cc_C_ServerOk)(nil),   // 8: NLD_PB.Cc_C_ServerOk
+	(*C_Cc_ServerOk)(nil),   // 9: NLD_PB.C_Cc_ServerOk
+	(*C_Cc_Stop)(nil),       // 10: NLD_PB.C_Cc_Stop
+	(*Cc_C_TimePass)(nil),   // 11: NLD_PB.Cc_C_TimePass
+	(*C_Cc_TimePass)(nil),   // 12: NLD_PB.C_Cc_TimePass
 }
 var file_server_center_proto_depIdxs = []int32{
 	3, // 0: NLD_PB.Cc_C_ServerInfo.infos:type_name -> NLD_PB.MSG_ServerInfo
@@ -1098,18 +893,6 @@ func file_server_center_proto_init() {
 			}
 		}
 		file_server_center_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Cc_C_Stop); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_server_center_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*C_Cc_Stop); i {
 			case 0:
 				return &v.state
@@ -1121,7 +904,7 @@ func file_server_center_proto_init() {
 				return nil
 			}
 		}
-		file_server_center_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+		file_server_center_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Cc_C_TimePass); i {
 			case 0:
 				return &v.state
@@ -1133,56 +916,8 @@ func file_server_center_proto_init() {
 				return nil
 			}
 		}
-		file_server_center_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+		file_server_center_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*C_Cc_TimePass); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_server_center_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Cc_C_ServerOpen); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_server_center_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*C_Cc_ServerOpen); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_server_center_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Cc_C_ServerClose); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_server_center_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*C_Cc_ServerClose); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1200,7 +935,7 @@ func file_server_center_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_server_center_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   18,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

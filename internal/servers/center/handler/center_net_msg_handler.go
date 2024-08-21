@@ -7,8 +7,8 @@ import (
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
+	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
-	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
 	"net"
 )
@@ -29,6 +29,7 @@ func (m *centerNetMsgHandler) MsgRegister(processor *network.Processor) {
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Handshake), m.Cc_C_Handshake)
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_Heartbeat), m.Cc_C_Heartbeat)
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_ServerOk), m.Cc_C_ServerOk)
+	processor.RegisterMsg(uint16(xsf_pb.SMSGID_Cc_C_ServerClose), m.Cc_C_ServerClose)
 }
 
 func (m *centerNetMsgHandler) OnNetMessage(pack *network.Packet) {
@@ -37,7 +38,7 @@ func (m *centerNetMsgHandler) OnNetMessage(pack *network.Packet) {
 
 func (m *centerNetMsgHandler) Cc_C_Handshake(message *network.Packet) {
 	localMsg := &xsf_pb.Cc_C_Handshake{}
-	proto.Unmarshal(message.Msg.Data, localMsg)
+	rpc.Import(message.Msg.Data, localMsg)
 
 	si := servers.NodeManager.AddNode(localMsg.ServerId, message.NetPoint.RemoteIP, localMsg.Ports)
 	if si == nil {
@@ -115,4 +116,10 @@ func (m *centerNetMsgHandler) Cc_C_ServerOk(message *network.Packet) {
 	np := message.NetPoint
 	logger.Info("SMSGID_Cc_C_ServerOk", zap.Uint32("id", np.ID))
 	servers.NodeManager.OnNodeOK(np.ID)
+}
+
+func (m *centerNetMsgHandler) Cc_C_ServerClose(message *network.Packet) {
+	manager := module.GetManager(module.ModuleID_SM)
+	msg := &xsf_pb.C_Cc_ServerClose{}
+	manager.Broadcast(msg, 0)
 }

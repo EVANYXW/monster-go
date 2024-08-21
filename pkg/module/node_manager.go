@@ -197,7 +197,7 @@ func (nm *nodeManager) OnNodeLost(id uint32, ep uint8) {
 
 	logger.Info("服务器已离线", zap.Uint32("id", id))
 	manager := GetManager(ModuleID_SM)
-	manager.Broadcast(int32(xsf_pb.SMSGID_C_Cc_ServerLost), downMsg, 0)
+	manager.Broadcast(downMsg, 0)
 }
 
 // 把当前服务器所有节点数据发送给np
@@ -233,7 +233,7 @@ func (nm *nodeManager) Broadcast(si *network.ServerInfo) {
 	msg.Infos = append(msg.Infos, siMsg)
 
 	manager := GetManager(ModuleID_SM)
-	manager.Broadcast(int32(xsf_pb.SMSGID_C_Cc_ServerInfo), msg, si.ID)
+	manager.Broadcast(msg, si.ID)
 }
 
 func (nm *nodeManager) OnNodeOK(id uint32) {
@@ -251,7 +251,7 @@ func (nm *nodeManager) OnNodeOK(id uint32) {
 	//xsf_log.Info("【中心服】收到服务器已准备好", xsf_log.Uint32("id", id))
 	// todo
 	manager := GetManager(ModuleID_SM)
-	manager.Broadcast(int32(xsf_pb.SMSGID_C_Cc_ServerOk), downMsg, id)
+	manager.Broadcast(downMsg, id)
 
 	isAllOK := true
 	for _, node := range nm.nodes {

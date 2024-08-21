@@ -9,7 +9,6 @@ import (
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
-	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
 	"net"
 	"time"
@@ -238,7 +237,7 @@ func (m *centerConnectorMsgHandler) C_Cc_Handshake(message *network.Packet) {
 	messageID := uint64(xsf_pb.SMSGID_C_Cc_Handshake)
 	msg, _ := rpc.GetMessage(messageID)
 	localMsg := msg.(*xsf_pb.C_Cc_Handshake)
-	proto.Unmarshal(message.Msg.Data, localMsg)
+	rpc.Import(message.Msg.Data, localMsg)
 	servers.ConnectorKernel.SetID(localMsg.ServerId)
 
 	server.ID = localMsg.NewId
@@ -263,15 +262,14 @@ func (m *centerConnectorMsgHandler) C_Cc_Handshake(message *network.Packet) {
 
 func (m *centerConnectorMsgHandler) C_Cc_ServerInfo(message *network.Packet) {
 	localMsg := &xsf_pb.C_Cc_ServerInfo{}
-	proto.Unmarshal(message.Msg.Data, localMsg)
-	//rpc.Import(message.Msg.Data, localMsg)
+	rpc.Import(message.Msg.Data, localMsg)
 	m.AddNode(localMsg)
 	logger.Info("C_Cc_ServerInfo center connector nodes:", zap.Int("node length:", len(m.nodes)))
 }
 
 func (m *centerConnectorMsgHandler) C_Cc_ServerOk(message *network.Packet) {
 	localMsg := &xsf_pb.C_Cc_ServerOk{}
-	proto.Unmarshal(message.Msg.Data, localMsg)
+	rpc.Import(message.Msg.Data, localMsg)
 	m.OnNodeOk(localMsg.ServerId)
 	logger.Info("C_Cc_ServerOk center connector nodes:", zap.Int("node length:", len(m.nodes)))
 }
@@ -279,7 +277,7 @@ func (m *centerConnectorMsgHandler) C_Cc_ServerOk(message *network.Packet) {
 func (m *centerConnectorMsgHandler) C_Cc_ServerLost(message *network.Packet) {
 
 	localMsg := &xsf_pb.C_Cc_ServerLost{}
-	proto.Unmarshal(message.Msg.Data, localMsg)
+	rpc.Import(message.Msg.Data, localMsg)
 	m.OnNodeLost(localMsg.ServerId)
 	logger.Info("C_Cc_ServerLost center connector nodes:", zap.Int("node length:", len(m.nodes)), zap.Uint32("server id", localMsg.ServerId))
 }

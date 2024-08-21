@@ -18,6 +18,6 @@ type INPManager interface {
 	OnUpdate()
 	OnHandshake(np *NetPoint) bool
 	//OnCloseCheck() int
-	Broadcast(msgId int32, msg proto.Message, skip uint32)
+	Broadcast(msg proto.Message, skip uint32)
 	//CountHandshake() int
 }

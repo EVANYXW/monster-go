@@ -51,10 +51,6 @@ func NewNetKernel(maxConnNum uint32, info server.Info, msgHandler MsgHandler, pa
 	processor := network.NewProcessor()
 	nodePointManager := network.NewNormal(maxConnNum, rpcAcceptor, processor, packerFactory)
 
-	//if network.GlobalProcess == nil {
-	//	network.GlobalProcess = network.NewProcessor()
-	//}
-
 	kernel := &NetKernel{
 		NPManager:   nodePointManager,
 		NetAcceptor: network.NewAcceptor(maxConnNum, info, nodePointManager),

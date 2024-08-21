@@ -99,7 +99,7 @@ func (m *loginMsgHandler) Gt_Clt_Handshake(message *network.Packet) {
 
 func (m *loginMsgHandler) L_Clt_LoginResult(message *network.Packet) {
 	resMsg := &xsf_pb.L_Clt_LoginResult{}
-	proto.Unmarshal(message.Msg.Data, resMsg)
+	rpc.Import(message.Msg.Data, resMsg)
 
 	fmt.Println(resMsg)
 }

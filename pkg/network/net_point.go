@@ -250,7 +250,7 @@ OutLabel:
 			//message, err := c.msgParser.Read(buffer)
 			//unpack, err := c.msgParser.Unpack(message)
 			//rpc.PrintMsgLog(unpack.ID, unpack.Data, "read")
-			fmt.Printf("----------------------------%v-------------------------", data)
+			//fmt.Printf("----------------------------%v-------------------------", data)
 			err := np.msgParser.Write(np, data...)
 			if err != nil {
 				logger.Error("write message %v error: msg is not bytes", zap.Error(err))
