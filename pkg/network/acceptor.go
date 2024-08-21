@@ -60,7 +60,6 @@ func (s *Acceptor) Connect(options ...Options) {
 	for _, option := range options {
 		option(s)
 	}
-
 	tcpAddr, err := net.ResolveTCPAddr("tcp4", s.Addr)
 	if err != nil {
 		logger.Fatal("[net] addr resolve error", zap.Error(err))
@@ -154,46 +153,45 @@ outer:
 		case <-s.closeChan:
 			break outer
 		default:
-
-		}
-
-		conn, err := s.ls.AcceptTCP()
-		if err != nil {
-			if _, ok := err.(net.Error); ok {
-				if tempDelay == 0 {
-					tempDelay = 5 * time.Millisecond
-				} else {
-					tempDelay *= 2
+			conn, err := s.ls.AcceptTCP()
+			if err != nil {
+				if _, ok := err.(net.Error); ok {
+					if tempDelay == 0 {
+						tempDelay = 5 * time.Millisecond
+					} else {
+						tempDelay *= 2
+					}
+					if max := 1 * time.Second; tempDelay > max {
+						tempDelay = max
+					}
+					// s.logger.InfoF("accept error: %v; retrying in %v", err, tempDelay)
+					time.Sleep(tempDelay)
+					continue
 				}
-				if max := 1 * time.Second; tempDelay > max {
-					tempDelay = max
-				}
-				// s.logger.InfoF("accept error: %v; retrying in %v", err, tempDelay)
-				time.Sleep(tempDelay)
+				break outer
+			}
+
+			tempDelay = 0
+
+			if uint32(len(s.connMap)) >= s.maxConnNum {
+				conn.Close()
+				logger.Info("too many connections %v", zap.Int("connections", len(s.connMap)))
 				continue
 			}
-			return
+
+			point := s.addConn(conn)
+			point.Impl = s
+
+			logger.Info("net point is create")
+			point.RpcAcceptor.Go(rpc.RPC_NET_ACCEPT, point, s)
+
+			//go func() {
+			//	point.Connect()
+			//	s.removeConn(conn, point)
+			//
+			//}()
 		}
 
-		tempDelay = 0
-
-		if uint32(len(s.connMap)) >= s.maxConnNum {
-			conn.Close()
-			logger.Info("too many connections %v", zap.Int("connections", len(s.connMap)))
-			continue
-		}
-
-		point := s.addConn(conn)
-		point.Impl = s
-
-		logger.Info("net point is create")
-		point.RpcAcceptor.Go(rpc.RPC_NET_ACCEPT, point, s)
-
-		//go func() {
-		//	point.Connect()
-		//	s.removeConn(conn, point)
-		//
-		//}()
 	}
 }
 

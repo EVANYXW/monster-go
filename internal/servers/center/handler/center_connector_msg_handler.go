@@ -264,6 +264,7 @@ func (m *centerConnectorMsgHandler) C_Cc_Handshake(message *network.Packet) {
 func (m *centerConnectorMsgHandler) C_Cc_ServerInfo(message *network.Packet) {
 	localMsg := &xsf_pb.C_Cc_ServerInfo{}
 	proto.Unmarshal(message.Msg.Data, localMsg)
+	//rpc.Import(message.Msg.Data, localMsg)
 	m.AddNode(localMsg)
 	logger.Info("C_Cc_ServerInfo center connector nodes:", zap.Int("node length:", len(m.nodes)))
 }

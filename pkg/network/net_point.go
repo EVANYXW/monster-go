@@ -54,11 +54,11 @@ type NetPoint struct {
 
 func NewNetPoint(conn *net.TCPConn, packerFactory PackerFactory) (*NetPoint, error) {
 	return &NetPoint{
-		Conn:      conn,
-		closed:    -1,
-		verify:    0,
-		msgParser: packerFactory.CreatePacker(),
-		//msgParser:   packer,
+		Conn:   conn,
+		closed: -1,
+		verify: 0,
+		//msgParser: packerFactory.CreatePacker(),
+		msgParser:   NewDefaultPacker(),
 		Stopped:     make(chan bool, 1),
 		signal:      make(chan interface{}, 100),
 		lastSignal:  make(chan interface{}, 1),
@@ -250,7 +250,7 @@ OutLabel:
 			//message, err := c.msgParser.Read(buffer)
 			//unpack, err := c.msgParser.Unpack(message)
 			//rpc.PrintMsgLog(unpack.ID, unpack.Data, "read")
-
+			fmt.Printf("----------------------------%v-------------------------", data)
 			err := np.msgParser.Write(np, data...)
 			if err != nil {
 				logger.Error("write message %v error: msg is not bytes", zap.Error(err))

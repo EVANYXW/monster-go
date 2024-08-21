@@ -57,7 +57,7 @@ func printStack() {
 func Go(fn func()) {
 	waitAll.Add(1)
 	//fmt.Println(string(debug.Stack()))
-	printStack()
+	//printStack()
 	go func() {
 		defer func() {
 			waitAll.Done()

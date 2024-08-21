@@ -7,6 +7,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"math/rand"
+	"time"
 )
 
 type ep uint8
@@ -107,7 +108,8 @@ func (c ConnectorManager) GetConnector(ep uint32, id uint32) module.IModuleKerne
 
 func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *module.ConnectorKernel {
 	msgHandler := handler.NewManager()
-	ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.ClientPackerFactory))
+	//ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.ClientPackerFactory))
+	ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.DefaultPackerFactory))
 	ck.SetID(id)
 
 	c.collections[ck.SID.Type][id] = ck
@@ -117,6 +119,7 @@ func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *m
 	ck.DoRun()
 	//})
 	// fixMe 这里会不会没有运行好，在发送Handshake
+	time.Sleep(time.Duration(3) * time.Second)
 	msgHandler.SendHandshake(ck)
 
 	return ck

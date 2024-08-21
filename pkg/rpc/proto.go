@@ -84,6 +84,10 @@ func GetMessage(messageID uint64) (interface{}, error) {
 	return nil, fmt.Errorf("未找到对应的协议结构体")
 }
 
+func Import(data []byte, msg proto.Message) {
+	proto.Unmarshal(data, msg)
+}
+
 //func GetMessage(messageID uint64) (proto.Message, error) {
 //	// 创建一个 map 来映射 messageID 到消息类型
 //	messageTypeMap := make(map[int32]reflect.Type)
