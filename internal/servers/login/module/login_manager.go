@@ -1,7 +1,6 @@
 package module
 
 import (
-	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/internal/servers/login/handler"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
@@ -18,8 +17,8 @@ func NewLoginManager(id int32) *LoginManager {
 	l := &LoginManager{
 		ID: id,
 		kernel: module.NewKernel(handler.NewLoginMsgHandler(),
-			servers.NetPointManager.GetRpcAcceptor(),
-			servers.NetPointManager.GetProcessor(),
+			network.NetPointManager.GetRpcAcceptor(),
+			network.NetPointManager.GetProcessor(),
 		),
 	}
 

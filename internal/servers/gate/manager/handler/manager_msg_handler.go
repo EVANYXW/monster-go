@@ -3,7 +3,6 @@ package handler
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/configs"
-	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
@@ -107,7 +106,7 @@ func (m *managerMsgHandler) GtA_Gt_ClientMessage(message *network.Packet) {
 	fmt.Println("GtA_Gt_ClientMessage")
 
 	for i := 0; i < len(clientMessage.ClientId); i++ {
-		clt := servers.ClientManager.GetClient(clientMessage.ClientId[i])
+		clt := module.ClientManager.GetClient(clientMessage.ClientId[i])
 		if clt != nil && clt.GetID() > 0 {
 			clt.SetSignal(clientMessage.GetClientMessage())
 		}

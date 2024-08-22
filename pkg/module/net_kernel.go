@@ -31,6 +31,7 @@ func WithNetType(netType NetType) kernelOption {
 }
 
 type NetKernel struct {
+	nodeManager INodeManager
 	netType     NetType
 	NPManager   network.INPManager
 	msgHandler  MsgHandler
@@ -60,8 +61,9 @@ func NewNetKernel(maxConnNum uint32, info server.Info, msgHandler MsgHandler, pa
 		NoWaitStart: false,
 		netType:     Inner, // 默认内网
 		msgHandler:  msgHandler,
+		nodeManager: NewNodeManager(),
 	}
-
+	NodeManager = kernel.nodeManager
 	for _, fn := range options {
 		fn(kernel)
 	}
@@ -98,6 +100,7 @@ func (n *NetKernel) start(options ...network.Options) {
 }
 
 func (n *NetKernel) DoRun() {
+	n.nodeManager.Start()
 	n.Status = server.Net_RunStep_Start
 	if n.NoWaitStart {
 		n.start()

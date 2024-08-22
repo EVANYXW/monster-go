@@ -2,7 +2,6 @@ package handler
 
 import (
 	"fmt"
-	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
@@ -41,7 +40,7 @@ func (m *centerNetMsgHandler) Cc_C_Handshake(message *network.Packet) {
 	localMsg := &xsf_pb.Cc_C_Handshake{}
 	rpc.Import(message.Msg.Data, localMsg)
 
-	si := servers.NodeManager.AddNode(localMsg.ServerId, message.NetPoint.RemoteIP, localMsg.Ports)
+	si := module.NodeManager.AddNode(localMsg.ServerId, message.NetPoint.RemoteIP, localMsg.Ports)
 	if si == nil {
 		fmt.Println("Cc_C_Handshake AddNode si is nil, net point close!")
 		message.NetPoint.Close()
@@ -51,12 +50,12 @@ func (m *centerNetMsgHandler) Cc_C_Handshake(message *network.Packet) {
 	message.NetPoint.SetID(si.ID)
 
 	np := message.NetPoint
-	if servers.NetPointManager.OnHandshake(np) {
+	if network.NetPointManager.OnHandshake(np) {
 		//c.NetKernel.OnNPAdd(np)
 		m.OnNPAdd(np)
 		message.NetPoint.OnHeartbeat()
 		// 同步本地已经有的服务器列表信息到这个节点
-		servers.NodeManager.Send(np, si)
+		module.NodeManager.Send(np, si)
 
 		// 再回一个握手消息
 		pb := &xsf_pb.C_Cc_Handshake{}
@@ -66,7 +65,7 @@ func (m *centerNetMsgHandler) Cc_C_Handshake(message *network.Packet) {
 		np.SendMessage(pb)
 
 		// 把该节点信息广播给其他所有服务器
-		servers.NodeManager.Broadcast(si)
+		module.NodeManager.Broadcast(si)
 	}
 }
 
@@ -110,7 +109,7 @@ func (m *centerNetMsgHandler) OnNPAdd(np *network.NetPoint) {
 }
 
 func (m *centerNetMsgHandler) OnNPDel(np *network.NetPoint) {
-	servers.NodeManager.OnNodeLost(np.ID, np.SID.Type)
+	module.NodeManager.OnNodeLost(np.ID, np.SID.Type)
 }
 
 func (m *centerNetMsgHandler) Cc_C_Heartbeat(message *network.Packet) {
@@ -120,7 +119,7 @@ func (m *centerNetMsgHandler) Cc_C_Heartbeat(message *network.Packet) {
 func (m *centerNetMsgHandler) Cc_C_ServerOk(message *network.Packet) {
 	np := message.NetPoint
 	logger.Info("SMSGID_Cc_C_ServerOk", zap.Uint32("id", np.ID))
-	servers.NodeManager.OnNodeOK(np.ID)
+	module.NodeManager.OnNodeOK(np.ID)
 }
 
 func (m *centerNetMsgHandler) Cc_C_ServerClose(message *network.Packet) {

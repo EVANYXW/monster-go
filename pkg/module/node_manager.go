@@ -12,7 +12,13 @@ import (
 	"go.uber.org/zap"
 )
 
-type NodeManager interface {
+var (
+	NodeManager   INodeManager
+	ConnKernel    *ConnectorKernel
+	ClientManager IClientManager
+)
+
+type INodeManager interface {
 	Start()
 	GetIndex(sid *server.ServerID)
 	AddNode(id uint32, ip string, ports []uint32) *network.ServerInfo
@@ -30,7 +36,7 @@ type nodeManager struct {
 	lostList   []list.List
 }
 
-func NewNodeManager() NodeManager {
+func NewNodeManager() INodeManager {
 	return &nodeManager{
 		lostList:   make([]list.List, server.EP_Max),
 		nodes:      make(map[uint32]*network.ServerInfo),

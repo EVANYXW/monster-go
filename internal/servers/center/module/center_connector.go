@@ -2,7 +2,6 @@ package module
 
 import (
 	"github.com/evanyxw/monster-go/configs"
-	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/internal/servers/center/handler"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
@@ -26,7 +25,7 @@ func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *
 		module.WithCNoWaitStart(true))
 
 	c.BaseModule = module.NewBaseModule(c)
-	servers.ConnectorKernel = c.kernel.(*module.ConnectorKernel)
+	module.ConnKernel = c.kernel.(*module.ConnectorKernel)
 
 	return c
 }

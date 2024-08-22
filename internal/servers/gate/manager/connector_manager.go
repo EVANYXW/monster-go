@@ -1,7 +1,6 @@
 package manager
 
 import (
-	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/internal/servers/gate/manager/handler"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
@@ -25,7 +24,7 @@ func NewConnectorManager(id int32) *ConnectorManager {
 		ID: id,
 	}
 	msgHandler := handler.NewManager()
-	c.kernel = module.NewKernel(msgHandler, servers.NetPointManager.GetRpcAcceptor(), servers.NetPointManager.GetProcessor())
+	c.kernel = module.NewKernel(msgHandler, network.NetPointManager.GetRpcAcceptor(), network.NetPointManager.GetProcessor())
 	module.NewBaseModule(c)
 
 	return c

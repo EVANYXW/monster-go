@@ -2,7 +2,6 @@ package handler
 
 import (
 	"fmt"
-	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/internal/servers/gate/client"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/module"
@@ -12,13 +11,13 @@ import (
 )
 
 type GateMsgHandler struct {
-	ClientManager module.ClientManager
+	ClientManager module.IClientManager
 }
 
 func New() *GateMsgHandler {
-	servers.ClientManager = client.NewClientManager()
+	module.ClientManager = client.NewClientManager()
 	return &GateMsgHandler{
-		ClientManager: servers.ClientManager,
+		ClientManager: module.ClientManager,
 	}
 }
 

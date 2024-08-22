@@ -51,7 +51,7 @@ type Client interface {
 	Close()
 }
 
-type ClientManager interface {
+type IClientManager interface {
 	NewClient(np *network.NetPoint) (Client, bool)
 	GetClient(id uint32) Client
 }

@@ -6,6 +6,8 @@ import (
 	"net"
 )
 
+var NetPointManager INPManager
+
 type INPManager interface {
 	//Init(module *Module, maxCount uint32)
 	New(conn *net.TCPConn) *NetPoint

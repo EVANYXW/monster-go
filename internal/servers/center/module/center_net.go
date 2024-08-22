@@ -2,7 +2,6 @@ package module
 
 import (
 	"github.com/evanyxw/monster-go/configs"
-	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/internal/servers/center/handler"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
@@ -16,9 +15,7 @@ import (
 
 type CenterNet struct {
 	*module.BaseModule
-	//netKernel   *module.NetKernel
-	kernel      module.IModuleKernel
-	nodeManager module.NodeManager
+	kernel module.IModuleKernel
 
 	ID           int32
 	status       int
@@ -32,16 +29,14 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 	info.Port = centerCnf.Port
 
 	centerNet := &CenterNet{
-		ID:          id,
-		nodeManager: module.NewNodeManager(),
+		ID: id,
 		kernel: module.NewNetKernel(maxConnNum, info, handler.NewCenterNet(), new(network.DefaultPackerFactory),
 			module.WithNoWaitStart(true)),
 	}
 
 	centerNet.BaseModule = module.NewBaseModule(centerNet)
 
-	servers.NetPointManager = centerNet.kernel.GetNPManager()
-	servers.NodeManager = centerNet.nodeManager
+	network.NetPointManager = centerNet.kernel.GetNPManager()
 
 	return centerNet
 }
@@ -56,7 +51,6 @@ func (c *CenterNet) DoRegister() {
 }
 
 func (c *CenterNet) DoRun() {
-	c.nodeManager.Start()
 	c.kernel.DoRun()
 
 	c.status = server.CN_RunStep_StartServer

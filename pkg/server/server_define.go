@@ -1,5 +1,12 @@
 package server
 
+//var (
+//	NodeManager     module.NodeManager
+//	NetPointManager network.INPManager
+//	ConnectorKernel *module.ConnectorKernel
+//	ClientManager   module.ClientManager
+//)
+
 type Info struct {
 	ServerName string
 	Ip         string

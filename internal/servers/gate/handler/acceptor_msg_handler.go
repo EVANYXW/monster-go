@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/network"
@@ -77,7 +76,7 @@ func (m *AcceptorMsgHandler) Gt_GtA_Handshake(message *network.Packet) {
 	logger.Info("acceptor OnNetMessage", zap.Uint32("ServerID", localMsg.ServerId))
 
 	// 回一个握手消息
-	if servers.NetPointManager.OnHandshake(message.NetPoint) {
+	if network.NetPointManager.OnHandshake(message.NetPoint) {
 		logger.Info("acceptor OnNetMessage OnHandshake done", zap.Uint32("ServerID", localMsg.ServerId))
 		msgId := uint64(xsf_pb.SMSGID_GtA_Gt_Handshake)
 		msg, _ := rpc.GetMessage(msgId)

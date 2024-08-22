@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
@@ -229,8 +228,8 @@ func (m *centerConnectorMsgHandler) OnHandshakeTicker() {
 }
 
 func (m *centerConnectorMsgHandler) SendMessage(msgId uint64, message interface{}) {
-	pack, _ := servers.ConnectorKernel.Client.Pack(message)
-	servers.ConnectorKernel.NetPoint.SetSignal(pack)
+	pack, _ := module.ConnKernel.Client.Pack(message)
+	module.ConnKernel.NetPoint.SetSignal(pack)
 }
 
 func (m *centerConnectorMsgHandler) C_Cc_Handshake(message *network.Packet) {
@@ -238,7 +237,7 @@ func (m *centerConnectorMsgHandler) C_Cc_Handshake(message *network.Packet) {
 	msg, _ := rpc.GetMessage(messageID)
 	localMsg := msg.(*xsf_pb.C_Cc_Handshake)
 	rpc.Import(message.Msg.Data, localMsg)
-	servers.ConnectorKernel.SetID(localMsg.ServerId)
+	module.ConnKernel.SetID(localMsg.ServerId)
 
 	server.ID = localMsg.NewId
 	server.UpdateSID()
