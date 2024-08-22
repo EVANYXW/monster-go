@@ -29,18 +29,20 @@ type INetHandler interface {
 	//DoClose()
 	//OnStartClose()
 	OnOk()
+	OnServerOk()
+	OnNPAdd(np *network.NetPoint)
+
 	OnNetError(np *network.NetPoint, acceptor *network.Acceptor)
 	OnNetConnected(np *network.NetPoint)
 	OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor)
-	OnServerOk()
-	OnNPAdd(np *network.NetPoint)
 }
 
-// 网络事件处理器
+// INetEventHandler 网络事件处理器
 type INetEventHandler interface {
 	OnRpcNetAccept(args []interface{})
 	OnRpcNetConnected(args []interface{})
 	OnRpcNetError(args []interface{})
+	OnRpcNetClose(args []interface{})
 	OnRpcNetData(args []interface{})
 	OnRpcNetMessage(args []interface{})
 }

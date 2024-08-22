@@ -62,7 +62,7 @@ func (l *Login) Update() {
 func New(id int32) *Login {
 	l := &Login{
 		ID:              id,
-		ConnectorKernel: module.NewConnectorKernel("", 10001, handler.NewLoginHandler(), new(network.DefaultPackerFactory), module.WithCNoWaitStart(true)),
+		ConnectorKernel: module.NewConnectorKernel("", 30000, handler.NewLoginHandler(), new(network.DefaultPackerFactory), module.WithCNoWaitStart(true)),
 	}
 	module.NewBaseModule(l)
 	return l

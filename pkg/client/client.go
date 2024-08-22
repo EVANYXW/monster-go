@@ -1,6 +1,7 @@
 package client
 
 import (
+	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
@@ -88,7 +89,9 @@ func (c *Client) Run(rpcAcceptor *rpc.Acceptor) {
 	c.Impl = c
 	c.Reset()
 	c.running.Store(true)
-	go c.Connect()
+	async.Go(func() {
+		c.Connect()
+	})
 }
 
 func (c *Client) OnMessage(data *network.Message, conn *network.NetPoint) {

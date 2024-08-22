@@ -58,7 +58,7 @@ func (c *ClientNet) DoWaitStart() {
 }
 
 func (c *ClientNet) DoRelease() {
-	c.kernel.DoRegister()
+	c.kernel.DoRelease()
 }
 
 func (c *ClientNet) OnOk() {
@@ -90,10 +90,6 @@ func (c *ClientNet) GetID() int32 {
 }
 
 func (c *ClientNet) DoRegister() {
-	c.kernel.DoRegister()
-}
-
-func (c *ClientNet) Release() {
 	c.kernel.DoRegister()
 }
 

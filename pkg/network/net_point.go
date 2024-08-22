@@ -54,11 +54,11 @@ type NetPoint struct {
 
 func NewNetPoint(conn *net.TCPConn, packerFactory PackerFactory) (*NetPoint, error) {
 	return &NetPoint{
-		Conn:   conn,
-		closed: -1,
-		verify: 0,
-		//msgParser: packerFactory.CreatePacker(),
-		msgParser:   NewDefaultPacker(),
+		Conn:      conn,
+		closed:    -1,
+		verify:    0,
+		msgParser: packerFactory.CreatePacker(),
+		//msgParser:   NewDefaultPacker(),
 		Stopped:     make(chan bool, 1),
 		signal:      make(chan interface{}, 100),
 		lastSignal:  make(chan interface{}, 1),
@@ -184,17 +184,17 @@ OUTLABEL:
 		select {
 		case <-np.Stopped:
 			// fixMe 如何gate的client 设置了新的rpcAcceptor并且run起来会有2个chan在跑
-			np.RpcAcceptor.Go(rpc.RPC_NET_ERROR, np, &Acceptor{})
+			np.RpcAcceptor.Go(rpc.RPC_NET_CLOSE, np)
 			break OUTLABEL
 		default:
 			//message, err := c.msgParser.TestRead(c)
 			data, err := np.msgParser.Read(np)
 			if err != nil {
 				if err != io.EOF && err.Error() != "EOF readLen:0" {
-					np.RpcAcceptor.Go(rpc.RPC_NET_ERROR, np, &Acceptor{})
+					np.RpcAcceptor.Go(rpc.RPC_NET_ERROR, np)
 					logger.Debug("read message RPC_NET_ERROR: %v", zap.Error(err), zap.Uint32("server_id", np.ID))
 				}
-				np.RpcAcceptor.Go(rpc.RPC_NET_ERROR, np, &Acceptor{})
+				np.RpcAcceptor.Go(rpc.RPC_NET_CLOSE, np)
 				break OUTLABEL
 			}
 

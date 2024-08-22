@@ -161,6 +161,10 @@ func (c *ConnectorKernel) OnRpcNetError(args []interface{}) {
 	np.Close()
 }
 
+func (c *ConnectorKernel) OnRpcNetClose(args []interface{}) {
+
+}
+
 func (c *ConnectorKernel) OnRpcNetData(args []interface{}) {
 
 }

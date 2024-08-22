@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
+	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
@@ -74,13 +75,17 @@ func (m *centerNetMsgHandler) OnNetConnected(np *network.NetPoint) {
 }
 
 func (m *centerNetMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
-	np.Connect()
-	conn := np.Conn.(*net.TCPConn)
-	acceptor.RemoveConn(conn, np)
+	async.Go(func() {
+		np.Connect()
+	})
+	//conn := np.Conn.(*net.TCPConn)
+	//acceptor.RemoveConn(conn, np)
 }
 
 func (m *centerNetMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
 	m.OnNPDel(np)
+	conn := np.Conn.(*net.TCPConn)
+	acceptor.RemoveConn(conn, np)
 }
 
 func (m *centerNetMsgHandler) OnServerOk() {

@@ -80,6 +80,7 @@ func (n *NetKernel) DoRegister() {
 	n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
 	n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
 	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
+	n.RpcAcceptor.Regist(rpc.RPC_NET_CLOSE, n.OnRpcNetClose)
 
 	if n.msgHandler != nil {
 		n.msgHandler.MsgRegister(n.processor)
@@ -90,7 +91,7 @@ func (n *NetKernel) start(options ...network.Options) {
 	async.Go(func() {
 		n.NetAcceptor.Connect(options...)
 		n.Status = server.Net_RunStep_Done
-		//n.RpcAcceptor.Run()
+		n.RpcAcceptor.Run()
 		n.NetAcceptor.Run() // 会阻塞
 	})
 	n.msgHandler.Start()
@@ -189,18 +190,23 @@ func (n *NetKernel) OnRpcNetConnected(args []interface{}) {
 }
 
 func (n *NetKernel) OnRpcNetError(args []interface{}) {
-	fmt.Println("OnRpcNetError !!!")
-	np := args[0].(*network.NetPoint)
-	acc := args[1].(*network.Acceptor)
-	//async.Go(func() {
-	//	np.Stopped <- true //CloseChan
-	//})
-	//close(np.Stopped) // CloseChan
+	//fixMe OnRpcNetError 还没做其他处理!!!
+	fmt.Println("OnRpcNetError 还没做其他处理!!!")
+	//np := args[0].(*network.NetPoint)
+	//acc := args[1].(*network.Acceptor)
 
-	//n.Owner.OnNetError(np)
+	//n.NPManager.Del(np)
+	//n.msgHandler.OnNetError(np, n.NetAcceptor)
+	//fmt.Println("NetKernel OnRpcNetError np close")
+	//np.Close()
+}
+
+func (n *NetKernel) OnRpcNetClose(args []interface{}) {
+	fmt.Println("OnRpcNetClose !!!")
+	np := args[0].(*network.NetPoint)
 
 	n.NPManager.Del(np)
-	n.msgHandler.OnNetError(np, acc)
+	n.msgHandler.OnNetError(np, n.NetAcceptor)
 	fmt.Println("NetKernel OnRpcNetError np close")
 	np.Close()
 }
