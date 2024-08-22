@@ -9,10 +9,12 @@ import (
 	"sync"
 )
 
+var ConnRpcAcceptor *rpc.Acceptor
+
 type ConnectorKernel struct {
 	*client.Client
 
-	RpcAcceptor *rpc.Acceptor
+	//RpcAcceptor *rpc.Acceptor
 	ID          uint32
 	SID         server.ServerID
 	wg          sync.WaitGroup
@@ -36,19 +38,19 @@ func WithCNoWaitStart(noWaitStart bool) ckernelOption {
 	}
 }
 
-func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler, packerFactory network.PackerFactory, options ...ckernelOption) *ConnectorKernel {
-	rpcAcceptor := rpc.NewAcceptor(10000)
+func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler,
+	packerFactory network.PackerFactory, options ...ckernelOption) *ConnectorKernel {
+	//rpcAcceptor := rpc.NewAcceptor(10000)
 	processor := network.NewProcessor()
 	connector := &ConnectorKernel{
-		//handlers:    make(network.HandlerMap, xsf_pb.SMSGID_Server_Max),
-		processor:   processor,
-		Client:      client.NewClient(fmt.Sprintf("%s:%d", ip, port), processor, packerFactory),
-		RpcAcceptor: rpcAcceptor,
+		processor: processor,
+		Client:    client.NewClient(fmt.Sprintf("%s:%d", ip, port), processor, packerFactory),
+		//RpcAcceptor: rpcAcceptor,
 		NoWaitStart: false,
 		msgHandler:  msgHandler,
 	}
 	connector.Client.OnMessageCb = connector.MessageHandler
-	//connector.Client.SetNetEventRPC(rpcAcceptor)
+
 	for _, fn := range options {
 		fn(connector)
 	}
@@ -67,8 +69,8 @@ func (c *ConnectorKernel) Init() bool {
 }
 
 func (c *ConnectorKernel) DoRegister() {
-	c.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, c.OnRpcNetConnected)
-	c.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, c.OnRpcNetError)
+	//c.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, c.OnRpcNetConnected)
+	//c.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, c.OnRpcNetError)
 
 	if c.msgHandler != nil {
 		c.msgHandler.MsgRegister(c.processor)
@@ -76,8 +78,8 @@ func (c *ConnectorKernel) DoRegister() {
 }
 
 func (c *ConnectorKernel) DoRun() {
-	c.RpcAcceptor.Run()
-	c.Client.Run(c.RpcAcceptor)
+	//c.RpcAcceptor.Run()
+	c.Client.Run(ConnRpcAcceptor)
 	c.runStatus = ModuleRunStatus_Running
 	c.msgHandler.Start()
 }

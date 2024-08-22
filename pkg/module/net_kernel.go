@@ -16,6 +16,8 @@ const (
 	Outer
 )
 
+var NetRpcAcceptor *rpc.Acceptor
+
 type kernelOption func(kernel *NetKernel)
 
 func WithNoWaitStart(noWaitStart bool) kernelOption {
@@ -36,8 +38,8 @@ type NetKernel struct {
 	msgHandler  MsgHandler
 	processor   *network.Processor
 	NetAcceptor *network.Acceptor
-	RpcAcceptor *rpc.Acceptor
-	Status      int
+	//RpcAcceptor *rpc.Acceptor
+	Status int
 	//handlers    network.HandlerMap
 	closeChan   chan struct{}
 	port        uint32
@@ -47,14 +49,14 @@ type NetKernel struct {
 }
 
 func NewNetKernel(maxConnNum uint32, info server.Info, msgHandler MsgHandler, packerFactory network.PackerFactory, options ...kernelOption) *NetKernel {
-	rpcAcceptor := rpc.NewAcceptor(10000)
+	//rpcAcceptor := rpc.NewAcceptor(10000)
 	processor := network.NewProcessor()
-	nodePointManager := network.NewNormal(maxConnNum, rpcAcceptor, processor, packerFactory)
+	nodePointManager := network.NewNormal(maxConnNum, NetRpcAcceptor, processor, packerFactory)
 
 	kernel := &NetKernel{
 		NPManager:   nodePointManager,
 		NetAcceptor: network.NewAcceptor(maxConnNum, info, nodePointManager),
-		RpcAcceptor: rpcAcceptor,
+		//RpcAcceptor: rpcAcceptor,
 		processor:   processor,
 		closeChan:   make(chan struct{}),
 		NoWaitStart: false,
@@ -77,9 +79,9 @@ func (n *NetKernel) Init() bool {
 }
 
 func (n *NetKernel) DoRegister() {
-	n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
-	n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
-	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
+	//n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
+	//n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
+	//n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
 
 	if n.msgHandler != nil {
 		n.msgHandler.MsgRegister(n.processor)

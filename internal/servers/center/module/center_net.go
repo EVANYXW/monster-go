@@ -43,6 +43,8 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 	servers.NetPointManager = centerNet.kernel.GetNPManager()
 	servers.NodeManager = centerNet.nodeManager
 
+	// fixMe NetRpcAcceptor
+	module.NetRpcAcceptor = centerNet.BaseModule.RpcAcceptor
 	return centerNet
 }
 
@@ -52,6 +54,10 @@ func (c *CenterNet) Init() bool {
 }
 
 func (c *CenterNet) DoRegister() {
+	var eventHandler module.INetEventHandler
+	eventHandler = c.kernel.(module.INetEventHandler)
+	c.BaseModule.RegistNetEventRpc(eventHandler)
+
 	c.kernel.DoRegister()
 }
 

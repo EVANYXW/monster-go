@@ -4,6 +4,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/output"
+	"github.com/evanyxw/monster-go/pkg/rpc"
 	"go.uber.org/zap"
 	"sync"
 	"time"
@@ -19,6 +20,7 @@ type BaseModule struct {
 	wg          sync.WaitGroup
 	ID          int32
 	NoWaitStart bool
+	RpcAcceptor *rpc.Acceptor
 }
 
 func NewBaseModule(owner IModule) *BaseModule {
@@ -34,6 +36,7 @@ func NewBaseModule(owner IModule) *BaseModule {
 		ID:          owner.GetID(),
 		name:        ModuleId2Name(int(owner.GetID())),
 		NoWaitStart: noWaitStart,
+		RpcAcceptor: rpc.NewAcceptor(10000),
 	}
 
 	AddModule(b)
@@ -48,6 +51,18 @@ func (m *BaseModule) Init() {
 	}
 
 	m.owner.Init()
+}
+
+func (m *BaseModule) RegistNetEventRpc(handler INetEventHandler) {
+	if m.RpcAcceptor == nil {
+		//xsf_log.Panic("RegisterNetEventRpc invalid ChanRPCServer")
+	}
+
+	m.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, handler.OnRpcNetAccept)
+	m.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, handler.OnRpcNetError)
+	m.RpcAcceptor.Regist(rpc.RPC_NET_DATA, handler.OnRpcNetData)
+	m.RpcAcceptor.Regist(rpc.RPC_NET_MESSAGE, handler.OnRpcNetMessage)
+	m.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, handler.OnRpcNetConnected)
 }
 
 func (m *BaseModule) DoRegister() {
@@ -140,6 +155,7 @@ func (m *BaseModule) Run() {
 		m.owner.DoRun()
 	}
 
+	m.RpcAcceptor.Run()
 	async.Go(func() {
 		for {
 			select {

@@ -19,8 +19,8 @@ type Client struct {
 	//msgParser   *BufferPacker
 	msgParser     network.Packer
 	packerFactory network.PackerFactory
-	//rpcAcceptor   *rpc.Acceptor
-	processor *network.Processor
+	rpcAcceptor   *rpc.Acceptor
+	processor     *network.Processor
 
 	//closed          int32
 	//ChMsg   chan *Message
@@ -58,9 +58,9 @@ func (c *Client) Dial() (*net.TCPConn, error) {
 	return conn, nil
 }
 
-//func (c *Client) SetNetEventRPC(rpc *rpc.Acceptor) {
-//	c.rpcAcceptor = rpc
-//}
+func (c *Client) SetNetEventRPC(rpc *rpc.Acceptor) {
+	c.rpcAcceptor = rpc
+}
 
 func (c *Client) Run(rpcAcceptor *rpc.Acceptor) {
 	conn, err := c.Dial()

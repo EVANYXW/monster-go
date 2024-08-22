@@ -27,13 +27,22 @@ func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *
 
 	c.BaseModule = module.NewBaseModule(c)
 	servers.ConnectorKernel = c.kernel.(*module.ConnectorKernel)
-
+	// fixMe RpcAcceptor
+	module.ConnRpcAcceptor = c.BaseModule.RpcAcceptor
 	return c
 }
 
 func (c *CenterConnector) Init() bool {
 	c.kernel.Init()
 	return true
+}
+
+func (c *CenterConnector) DoRegister() {
+	var eventHandler module.INetEventHandler
+	eventHandler = c.kernel.(module.INetEventHandler)
+	c.BaseModule.RegistNetEventRpc(eventHandler)
+
+	c.kernel.DoRegister()
 }
 
 func (c *CenterConnector) DoRun() {
@@ -72,8 +81,4 @@ func (c *CenterConnector) GetKernel() module.IModuleKernel {
 
 func (c *CenterConnector) Update() {
 
-}
-
-func (c *CenterConnector) DoRegister() {
-	c.kernel.DoRegister()
 }
