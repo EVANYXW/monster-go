@@ -8,7 +8,6 @@ import (
 )
 
 type CenterConnector struct {
-	*module.BaseModule
 	kernel module.IModuleKernel
 	ID     int32
 }
@@ -24,7 +23,7 @@ func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *
 		new(network.DefaultPackerFactory),
 		module.WithCNoWaitStart(true))
 
-	c.BaseModule = module.NewBaseModule(c)
+	module.NewBaseModule(c)
 	module.ConnKernel = c.kernel.(*module.ConnectorKernel)
 
 	return c

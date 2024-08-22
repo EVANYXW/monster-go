@@ -8,7 +8,6 @@ import (
 )
 
 type LoginManager struct {
-	*module.BaseModule
 	kernel module.IModuleKernel
 	ID     int32
 }
@@ -22,8 +21,8 @@ func NewLoginManager(id int32) *LoginManager {
 		),
 	}
 
-	baseModule := module.NewBaseModule(l)
-	l.BaseModule = baseModule
+	module.NewBaseModule(l)
+
 	return l
 }
 

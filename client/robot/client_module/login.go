@@ -15,7 +15,6 @@ import (
 var _ module.IModule = &Login{}
 
 type Login struct {
-	*module.BaseModule
 	ID int32
 	*module.ConnectorKernel
 }

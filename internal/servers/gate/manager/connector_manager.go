@@ -13,7 +13,6 @@ type ep uint8
 type id uint8
 
 type ConnectorManager struct {
-	*module.BaseModule
 	kernel      module.IModuleKernel
 	collections []map[uint32]*module.ConnectorKernel
 	ID          int32

@@ -11,7 +11,6 @@ import (
 // 客户端消息接受体
 
 type ClientNet struct {
-	*module.BaseModule
 	kernel module.IModuleKernel
 	//nodeManager  module.NodeManager
 	curStartNode *configs.ServerNode
@@ -29,9 +28,7 @@ func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, inf
 		//nodeManager: module.NewNodeManager(),
 	}
 	c.kernel = module.NewNetKernel(maxConnNum, info, msgHandler, packerFactory, module.WithNetType(netType))
-	baseModule := module.NewBaseModule(c)
-
-	c.BaseModule = baseModule
+	module.NewBaseModule(c)
 
 	network.NetPointManager = c.kernel.GetNPManager()
 

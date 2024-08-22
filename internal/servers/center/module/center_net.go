@@ -14,7 +14,6 @@ import (
 )
 
 type CenterNet struct {
-	*module.BaseModule
 	kernel module.IModuleKernel
 
 	ID           int32
@@ -34,7 +33,7 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 			module.WithNoWaitStart(true)),
 	}
 
-	centerNet.BaseModule = module.NewBaseModule(centerNet)
+	module.NewBaseModule(centerNet)
 
 	network.NetPointManager = centerNet.kernel.GetNPManager()
 
