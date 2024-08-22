@@ -37,9 +37,7 @@ func (c *CenterConnector) Init() bool {
 }
 
 func (c *CenterConnector) DoRun() {
-	//c.DoRegister()
 	c.kernel.DoRun()
-	//c.OnHandshake() // handler
 }
 
 func (c *CenterConnector) DoWaitStart() {

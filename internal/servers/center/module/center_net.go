@@ -56,7 +56,6 @@ func (c *CenterNet) DoRegister() {
 }
 
 func (c *CenterNet) DoRun() {
-	//c.DoRegister()
 	c.nodeManager.Start()
 	c.kernel.DoRun()
 
