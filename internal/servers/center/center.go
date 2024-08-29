@@ -22,19 +22,3 @@ func New(info server.Info) engine.Kernel {
 
 	return w
 }
-
-// Run 外部通知开启Module
-//func (w *Center) Run() {
-//	module.Run()
-//
-//}
-//
-//// Destroy 注销服务
-//func (w *Center) Destroy() {
-//	module.Close()
-//}
-//
-//// OnSystemSignal 监听退出信道
-//func (w *Center) OnSystemSignal(signal os.Signal) bool {
-//	return engine.BaseSystemSignal(signal, "Center")
-//}

@@ -4,6 +4,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/output"
+	"github.com/evanyxw/monster-go/pkg/rpc"
 	"go.uber.org/zap"
 	"sync"
 	"time"
@@ -19,9 +20,10 @@ type BaseModule struct {
 	wg          sync.WaitGroup
 	ID          int32
 	NoWaitStart bool
+	RpcAcceptor *rpc.Acceptor
 }
 
-func NewBaseModule(owner IModule) *BaseModule {
+func NewBaseModule(id int32, owner IModule) *BaseModule {
 	noWaitStart := false
 	if owner.GetKernel() != nil {
 		noWaitStart = owner.GetKernel().GetNoWaitStart()
@@ -31,9 +33,10 @@ func NewBaseModule(owner IModule) *BaseModule {
 		owner:       owner,
 		okSig:       make(chan bool),
 		closeSig:    make(chan bool),
-		ID:          owner.GetID(),
-		name:        ModuleId2Name(int(owner.GetID())),
+		ID:          id,
+		name:        ModuleId2Name(int(id)),
 		NoWaitStart: noWaitStart,
+		RpcAcceptor: rpc.NewAcceptor(1000),
 	}
 
 	AddModule(b)
@@ -141,6 +144,7 @@ func (m *BaseModule) Run() {
 	}
 
 	async.Go(func() {
+	OUTLABEL:
 		for {
 			select {
 			case <-m.closeSig:
@@ -148,10 +152,17 @@ func (m *BaseModule) Run() {
 			case <-m.okSig:
 				m.onOK()
 				m.runStatus = ModuleRunStatus_Running
+			case callMsg, ok := <-m.RpcAcceptor.ChanCall:
+				if !ok {
+					break OUTLABEL
+				}
+				if callMsg == nil {
+					continue
+				}
+				m.RpcAcceptor.Execute(callMsg)
 			default:
 
 			}
-
 			switch m.runStatus {
 			case ModuleRunStatus_WaitStart:
 			case ModuleRunStatus_Start:

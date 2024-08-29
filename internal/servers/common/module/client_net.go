@@ -11,25 +11,18 @@ import (
 // 客户端消息接受体
 
 type ClientNet struct {
-	kernel module.IModuleKernel
-	//nodeManager  module.NodeManager
+	kernel       module.IModuleKernel
 	curStartNode *configs.ServerNode
-
-	ID         int32
-	startIndex int
-
-	netType module.NetType
+	startIndex   int
+	netType      module.NetType
 }
 
 func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, info server.Info, netType module.NetType,
 	packerFactory network.PackerFactory) *ClientNet {
 	c := &ClientNet{
-		ID: id,
-		//nodeManager: module.NewNodeManager(),
+		kernel: module.NewNetKernel(maxConnNum, info, msgHandler, packerFactory, module.WithNetType(netType)),
 	}
-	c.kernel = module.NewNetKernel(maxConnNum, info, msgHandler, packerFactory, module.WithNetType(netType))
-	module.NewBaseModule(c)
-
+	module.NewBaseModule(id, c)
 	network.NetPointManager = c.kernel.GetNPManager()
 
 	return c
@@ -42,10 +35,7 @@ func (c *ClientNet) Init() bool {
 
 // DoRun BaseModule 调用
 func (c *ClientNet) DoRun() {
-	//c.DoRegister()
-	//c.nodeManager.Start()
 	c.kernel.DoRun()
-
 	c.startIndex = 0
 }
 
@@ -79,10 +69,6 @@ func (c *ClientNet) GetKernel() module.IModuleKernel {
 
 func (c *ClientNet) Update() {
 
-}
-
-func (c *ClientNet) GetID() int32 {
-	return c.ID
 }
 
 func (c *ClientNet) DoRegister() {

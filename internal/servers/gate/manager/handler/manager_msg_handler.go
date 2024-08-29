@@ -64,6 +64,7 @@ func (m *managerMsgHandler) MsgRegister(processor *network.Processor) {
 	fmt.Println("GtA_Gt_Handshake MsgRegister laile")
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_GtA_Gt_Handshake), m.GtA_Gt_Handshake)
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_GtA_Gt_ClientMessage), m.GtA_Gt_ClientMessage)
+	processor.RegisterMsg(uint16(xsf_pb.SMSGID_GtA_Gt_ClientDisconnect), m.GtA_Gt_ClientDisconnect)
 }
 
 func (m *managerMsgHandler) SendHandshake(ck *module.ConnectorKernel) {
@@ -111,4 +112,17 @@ func (m *managerMsgHandler) GtA_Gt_ClientMessage(message *network.Packet) {
 			clt.SetSignal(clientMessage.GetClientMessage())
 		}
 	}
+}
+
+func (m *managerMsgHandler) GtA_Gt_ClientDisconnect(message *network.Packet) {
+	clientDisconnect := &xsf_pb.GtA_Gt_ClientDisconnect{}
+	rpc.Import(message.Msg.Data, clientDisconnect)
+	fmt.Println("GtA_Gt_ClientDisconnect")
+
+	clt := module.ClientManager.GetClient(clientDisconnect.ClientId)
+	if clt != nil && clt.GetID() > 0 {
+		//GoDisconnect(int32(localMsg.PB.Reason), true)
+		clt.GoDisconnect(message.Msg.RawID)
+	}
+
 }

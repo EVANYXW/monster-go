@@ -20,12 +20,6 @@ type ConnectorKernel struct {
 	NoWaitStart bool
 	msgHandler  MsgHandler
 	processor   *network.Processor
-	//handlers    network.HandlerMap
-	//forceClose atomic.Bool
-	//Addr string
-	//Helper IConnectorHelper
-	//conn *net.Conn
-	//hbTimer *xsf_timer.Timer
 }
 
 type ckernelOption func(kernel *ConnectorKernel)
@@ -40,7 +34,6 @@ func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler, packerFac
 	rpcAcceptor := rpc.NewAcceptor(10000)
 	processor := network.NewProcessor()
 	connector := &ConnectorKernel{
-		//handlers:    make(network.HandlerMap, xsf_pb.SMSGID_Server_Max),
 		processor:   processor,
 		Client:      client.NewClient(fmt.Sprintf("%s:%d", ip, port), processor, packerFactory),
 		RpcAcceptor: rpcAcceptor,
@@ -147,18 +140,16 @@ func (c *ConnectorKernel) OnRpcNetConnected(args []interface{}) {
 }
 
 func (c *ConnectorKernel) OnRpcNetError(args []interface{}) {
-	np := args[0].(*network.NetPoint)
-	acc := args[1].(*network.Acceptor)
-	//async.Go(func() {
-	//	np.Stopped <- true // CloseChan
-	//})
-	//close(np.Stopped) // CloseChan
-	// connector manager 就传的nil
-	if c.msgHandler != nil {
-		c.msgHandler.OnNetError(np, acc)
-	}
-	fmt.Println("ConnectorKernel OnRpcNetError np close")
-	np.Close()
+	//np := args[0].(*network.NetPoint)
+	//
+	//if c.msgHandler != nil {
+	//	c.msgHandler.OnNetError(np, nil)
+	//}
+	//fmt.Println("ConnectorKernel OnRpcNetError np close")
+	//np.Close()
+
+	//fixMe OnRpcNetError 还没做其他处理!!!
+	fmt.Println("OnRpcNetError 还没做其他处理!!!")
 }
 
 func (c *ConnectorKernel) OnRpcNetClose(args []interface{}) {

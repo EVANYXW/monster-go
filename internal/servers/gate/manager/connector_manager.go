@@ -15,22 +15,16 @@ type id uint8
 type ConnectorManager struct {
 	kernel      module.IModuleKernel
 	collections []map[uint32]*module.ConnectorKernel
-	ID          int32
 }
 
 func NewConnectorManager(id int32) *ConnectorManager {
-	c := &ConnectorManager{
-		ID: id,
-	}
+	c := &ConnectorManager{}
 	msgHandler := handler.NewManager()
-	c.kernel = module.NewKernel(msgHandler, network.NetPointManager.GetRpcAcceptor(), network.NetPointManager.GetProcessor())
-	module.NewBaseModule(c)
+	c.kernel = module.NewKernel(msgHandler, network.NetPointManager.GetRpcAcceptor(),
+		network.NetPointManager.GetProcessor())
+	module.NewBaseModule(id, c)
 
 	return c
-}
-
-func (c ConnectorManager) GetID() int32 {
-	return c.ID
 }
 
 func (c *ConnectorManager) Init() bool {

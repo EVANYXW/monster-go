@@ -29,7 +29,6 @@ type IModuleFlow interface {
 // IModule 定义
 type IModule interface {
 	IModuleFlow
-	GetID() int32
 	GetKernel() IModuleKernel
 }
 
@@ -49,6 +48,7 @@ type Client interface {
 	GetID() uint32
 	GetLastHeartbeat() *uint64
 	Close()
+	GoDisconnect(id uint32)
 }
 
 type IClientManager interface {
@@ -81,6 +81,8 @@ const (
 	ModuleID_GateAcceptor
 	ModuleID_ConnectorManager
 	ModuleID_LoginManager
+	ModuleID_LoginConfig
+	ModuleID_Redis
 
 	ModuleID_Notice
 	ModuleID_Pprof

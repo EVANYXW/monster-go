@@ -211,7 +211,7 @@ func (n *NetKernel) OnRpcNetClose(args []interface{}) {
 	n.NPManager.Del(np)
 	n.msgHandler.OnNetError(np, n.NetAcceptor)
 	fmt.Println("NetKernel OnRpcNetError np close")
-	np.Close()
+	//np.Close()
 }
 
 func (n *NetKernel) OnRpcNetData(args []interface{}) {

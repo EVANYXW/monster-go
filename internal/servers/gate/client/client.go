@@ -1,6 +1,7 @@
 package client
 
 import (
+	"fmt"
 	"github.com/evanyxw/monster-go/internal/servers/gate/manager"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/logger"
@@ -10,7 +11,6 @@ import (
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
 	"go.uber.org/zap"
-	"net"
 	"sync/atomic"
 	"time"
 )
@@ -42,6 +42,11 @@ func (c *Client) Close() {
 	c.lastHeartbeat = 0
 }
 
+func (c *Client) GoDisconnect(id uint32) {
+	fmt.Println("login 让我踢掉你～")
+	c.Close()
+}
+
 func (c *Client) Init() {
 	c.processor = network.NewProcessor()
 
@@ -51,7 +56,6 @@ func (c *Client) Init() {
 	c.processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_Gt_Heartbeat), c.Clt_Gt_Heartbeat)
 
 	//c.rpcAcceptor = rpc.NewAcceptor(100)
-	//c.rpcAcceptor.Regist(rpc.RPC_NET_ERROR, c.OnRpcNetError)
 	//c.netPoint.SetNetEventRPC(c.rpcAcceptor)
 	c.netPoint.SetProcessor(c.processor)
 
@@ -70,7 +74,9 @@ func (c *Client) OnNetMessage(pack *network.Packet) {
 	case server.EP_Manager:
 		connector := c.GetConnector(ep)
 		if connector != nil {
-			connector.SendMessage(&xsf_pb.Clt_L_Login{}, network.WithRaID(c.ID.Load()))
+			message, _ := rpc.GetMessage(pack.Msg.ID)
+			rpc.Import(pack.Msg.Data, message)
+			connector.SendMessage(message, network.WithRaID(c.ID.Load()))
 
 			// 写入ClientID
 			//binary.LittleEndian.PutUint32(data[6:], c.ID.Get())
@@ -132,14 +138,6 @@ func (c *Client) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor
 
 func (c *Client) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
 
-}
-
-func (c *Client) OnRpcNetError(args []interface{}) {
-	np := args[0].(*network.NetPoint)
-	acc := args[1].(*network.Acceptor)
-	conn := np.Conn.(*net.TCPConn)
-	acc.RemoveConn(conn, np)
-	np.RpcAcceptor.Close()
 }
 
 func (c *Client) OnServerOk() {

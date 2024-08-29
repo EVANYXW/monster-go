@@ -16,7 +16,7 @@ type IAcceptor interface {
 	//RegistClientMessage(msgID uint16, rpc *xsf_rpc.Acceptor)
 
 	// 断开一个客户端连接
-	//DisconnectClient(id uint32, reason uint32)
+	DisconnectClient(packet *network.Packet, reason uint32)
 
 	// 发送消息到网关
 	//SendMessage2Agent(agentID uint32, msg xsf_net.IMessage)
@@ -35,11 +35,22 @@ type acceptor struct {
 	ID int64
 }
 
-func NewAcceptor() *acceptor {
+func NewGate() *acceptor {
 	return &acceptor{}
 }
 
-func (m *acceptor) SendMessage2Client(packet *network.Packet, msg proto.Message) {
+func (a *acceptor) DisconnectClient(packet *network.Packet, reason uint32) {
+	message, _ := rpc.GetMessage(uint64(xsf_pb.SMSGID_GtA_Gt_ClientDisconnect))
+	localMsg := message.(*xsf_pb.GtA_Gt_ClientDisconnect)
+	localMsg.ClientId = packet.Msg.RawID
+	localMsg.Reason = reason
+	//var CID server.ClientID
+	//server.ID2Cid(packet.Msg.RawID, &CID)
+
+	a.SendMessage2Agent(packet.NetPoint.ID, localMsg)
+}
+
+func (a *acceptor) SendMessage2Client(packet *network.Packet, msg proto.Message) {
 	message, _ := rpc.GetMessage(uint64(xsf_pb.SMSGID_GtA_Gt_ClientMessage))
 	localMsg := message.(*xsf_pb.GtA_Gt_ClientMessage)
 
@@ -54,10 +65,10 @@ func (m *acceptor) SendMessage2Client(packet *network.Packet, msg proto.Message)
 	//var CID server.ClientID
 	//server.ID2Cid(packet.Msg.RawID, &CID)
 	//m.SendMessage2Agent(uint32(CID.Gate), uint64(xsf_pb.SMSGID_GtA_Gt_ClientMessage), localMsg)
-	m.SendMessage2Agent(packet.NetPoint.ID, uint64(xsf_pb.SMSGID_GtA_Gt_ClientMessage), localMsg)
+	a.SendMessage2Agent(packet.NetPoint.ID, localMsg)
 }
 
-func (m *acceptor) SendMessage2Agent(serverId uint32, msgId uint64, message proto.Message) {
+func (a *acceptor) SendMessage2Agent(serverId uint32, message proto.Message) {
 	manager := module.GetManager(module.ModuleID_SM)
 	np := manager.Get(serverId)
 	if np != nil {

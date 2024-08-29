@@ -19,7 +19,7 @@ func NewKernel(msgHandler MsgHandler, rpcAcceptor *rpc.Acceptor, processor *netw
 		processor:   processor,
 		rpcAcceptor: rpcAcceptor,
 	}
-	kernel.Init()
+	//kernel.Init()
 	return kernel
 }
 

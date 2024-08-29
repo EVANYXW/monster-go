@@ -9,20 +9,19 @@ import (
 
 type LoginManager struct {
 	kernel module.IModuleKernel
-	ID     int32
 }
 
 func NewLoginManager(id int32) *LoginManager {
+	h := handler.NewLoginMsgHandler()
 	l := &LoginManager{
-		ID: id,
-		kernel: module.NewKernel(handler.NewLoginMsgHandler(),
+		kernel: module.NewKernel(h,
 			network.NetPointManager.GetRpcAcceptor(),
 			network.NetPointManager.GetProcessor(),
 		),
 	}
 
-	module.NewBaseModule(l)
-
+	baseModule := module.NewBaseModule(id, l)
+	h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
 	return l
 }
 
@@ -57,10 +56,6 @@ func (l *LoginManager) GetKernel() module.IModuleKernel {
 
 func (l *LoginManager) Update() {
 
-}
-
-func (l *LoginManager) GetID() int32 {
-	return l.ID
 }
 
 func (l *LoginManager) DoRegister() {

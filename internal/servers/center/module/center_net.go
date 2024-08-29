@@ -14,9 +14,7 @@ import (
 )
 
 type CenterNet struct {
-	kernel module.IModuleKernel
-
-	ID           int32
+	kernel       module.IModuleKernel
 	status       int
 	startIndex   int
 	curStartNode *configs.ServerNode
@@ -28,15 +26,12 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 	info.Port = centerCnf.Port
 
 	centerNet := &CenterNet{
-		ID: id,
 		kernel: module.NewNetKernel(maxConnNum, info, handler.NewCenterNet(), new(network.DefaultPackerFactory),
 			module.WithNoWaitStart(true)),
 	}
 
-	module.NewBaseModule(centerNet)
-
+	module.NewBaseModule(id, centerNet)
 	network.NetPointManager = centerNet.kernel.GetNPManager()
-
 	return centerNet
 }
 
@@ -121,10 +116,6 @@ func (c *CenterNet) OnCloseCheck() int {
 
 func (c *CenterNet) Update() {
 
-}
-
-func (c *CenterNet) GetID() int32 {
-	return c.ID
 }
 
 func (c *CenterNet) GetKernel() module.IModuleKernel {

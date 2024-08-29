@@ -3,18 +3,29 @@ package handler
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/internal/servers/gate/acceptor"
+	"github.com/evanyxw/monster-go/internal/servers/login/client"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
+	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
+	"github.com/evanyxw/monster-go/pkg/rpc"
 )
 
 type loginMsgHandler struct {
-	acceptor acceptor.IAcceptor
+	gateAcceptor  acceptor.IAcceptor
+	clientManager *client.Manager
+	owner         *module.BaseModule
 }
 
 func NewLoginMsgHandler() *loginMsgHandler {
 	return &loginMsgHandler{
-		acceptor: acceptor.NewAcceptor(),
+		gateAcceptor:  acceptor.NewGate(),
+		clientManager: client.NewClientManager(),
 	}
+}
+
+func (m *loginMsgHandler) Init(owner *module.BaseModule) {
+	m.owner = owner
+	m.clientManager.Init(m.owner.RpcAcceptor)
 }
 
 func (m *loginMsgHandler) Start() {
@@ -23,6 +34,10 @@ func (m *loginMsgHandler) Start() {
 
 func (m *loginMsgHandler) OnNetMessage(pack *network.Packet) {
 
+}
+
+func (m *loginMsgHandler) MsgRegister(processor *network.Processor) {
+	processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_L_Login), m.Clt_L_Login)
 }
 
 func (m *loginMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
@@ -49,14 +64,30 @@ func (m *loginMsgHandler) OnNPAdd(np *network.NetPoint) {
 
 }
 
-func (m *loginMsgHandler) MsgRegister(processor *network.Processor) {
-	processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_L_Login), m.Clt_L_Login)
-}
-
 func (m *loginMsgHandler) Clt_L_Login(message *network.Packet) {
 	fmt.Println("我收到登录消息啦～")
+	msg := &xsf_pb.Clt_L_Login{}
+	rpc.Import(message.Msg.Data, msg)
 
-	pb := &xsf_pb.L_Clt_LoginResult{}
-	pb.Result = uint32(xsf_pb.LoginResult_LoginParamError)
-	m.acceptor.SendMessage2Client(message, pb)
+	isOK := true
+	switch msg.LoginType {
+	case uint32(xsf_pb.LoginType_PHXH):
+		isOK = len(msg.LoginDatas) == int(xsf_pb.PHXHLoginData_PHXHLD_Max)
+	default:
+		isOK = false
+	}
+
+	if !isOK {
+		sendMsg := &xsf_pb.L_Clt_LoginResult{}
+		sendMsg.Result = uint32(xsf_pb.LoginResult_LoginParamError)
+		m.gateAcceptor.SendMessage2Client(message, sendMsg)
+
+		m.gateAcceptor.DisconnectClient(message, uint32(xsf_pb.DisconnectReason_LoginError))
+		return
+	}
+
+	clt := m.clientManager.NewClient(message.Msg.RawID, msg.LoginType, msg.LoginDatas)
+	if clt != nil {
+		clt.Start()
+	}
 }

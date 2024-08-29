@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <db name="login">
+        <collection name="account">
+            <request id="10000" name="GET_ALL_ACCOUNT" desc="查找所有账号数据" op="FindAll" page_count="10000" />
+            <request id="10001" name="GET_MAX_ACTOR_ID" desc="查找最大角色id" op="FindOneSort" sort="-actor_id" />
+            <request id="10002" name="GET_ACCOUNT" desc="查找账号" op="FindOne" >
+                <filter name="id" type="string" />
+            </request>
+
+            <request id="10003" name="NEW_ACCOUNT" desc="新建账号" op="Insert" >
+                <data name="id" type="string" />
+                <data name="actor_id" type="uint32" />
+                <data name="time" type="uint32" />
+                <data name="game_id" type="uint32" />
+            </request>
+        </collection>
+    </db>
+    
+    <db name="game">
+        <collection name="actor">
+            <request id="20000" name="GET_ACTOR_BASE" desc="获取玩家基础数据" op="FindOne" >
+                <filter name="actor_id" type="uint32" />
+            </request>
+            <request id="20001" name="UPDATE_ACTOR_BASE" desc="更新玩家数据" op="UpdateOne" data_not_format="true" >
+                <filter name="actor_id" type="uint32" />
+                <data name="actor_base" type="map[string]interface{}" />
+            </request>
+            <request id="20002" name="GET_ALL_ACTORS" desc="查找所有玩家数据" op="FindAll" page_count="10000" />
+        </collection>
+
+        <collection name="item">
+            <request id="30000" name="GET_ACTOR_ITEM" desc="获取玩家物品数据" op="FindOne" >
+                <filter name="actor_id" type="uint32" />
+            </request>
+            <request id="30001" name="UPDATE_ACTOR_ITEM" desc="更新玩家物品数据" op="UpdateOne" >
+                <filter name="actor_id" type="uint32" />
+                <data name="actor_id" type="uint32" />
+                <data name="data" type="[]byte" />
+                <data name="update_time" type="uint32" />
+            </request>
+        </collection>
+
+        <collection name="character">
+            <request id="40000" name="GET_ACTOR_CHARACTER" desc="获取玩家角色数据" op="FindOne" >
+                <filter name="actor_id" type="uint32" />
+            </request>
+            <request id="40001" name="UPDATE_ACTOR_CHARACTER" desc="更新玩家角色数据" op="UpdateOne" >
+                <filter name="actor_id" type="uint32" />
+                <data name="actor_id" type="uint32" />
+                <data name="data" type="[]byte" />
+                <data name="update_time" type="uint32" />
+            </request>
+        </collection>
+        <collection name="logic">
+            <request id="50000" name="GET_ACTOR_LOGIC" desc="获取玩家逻辑数据" op="FindOne" >
+                <filter name="actor_id" type="uint32" />
+            </request>
+            <request id="50001" name="UPDATE_ACTOR_LOGIC" desc="更新玩家逻辑数据" op="UpdateOne" >
+                <filter name="actor_id" type="uint32" />
+                <data name="actor_id" type="uint32" />
+                <data name="data" type="[]byte" />
+                <data name="update_time" type="uint32" />
+            </request>
+        </collection>
+        <collection name="task">
+            <request id="60000" name="GET_ACTOR_TASK" desc="获取玩家任务数据" op="FindOne" >
+                <filter name="actor_id" type="uint32" />
+            </request>
+            <request id="60001" name="UPDATE_ACTOR_TASK" desc="更新玩家任务数据" op="UpdateOne" >
+                <filter name="actor_id" type="uint32" />
+                <data name="actor_id" type="uint32" />
+                <data name="data" type="[]byte" />
+                <data name="update_time" type="uint32" />
+            </request>
+        </collection>
+
+        <collection name="pvp">
+            <request id="70000" name="GET_ACTOR_PVP" desc="获取玩家PVP数据" op="FindOne" >
+                <filter name="actor_id" type="uint32" />
+            </request>
+            <request id="70001" name="UPDATE_ACTOR_PVP" desc="更新玩家PVP数据" op="UpdateOne" >
+                <filter name="actor_id" type="uint32" />
+                <data name="actor_id" type="uint32" />
+                <data name="data" type="[]byte" />
+                <data name="update_time" type="uint32" />
+            </request>
+            <request id="70002" name="GET_ALL_ACTORS_PVP" desc="查找玩家PVP数据" op="FindAll" page_count="5000" />
+        </collection>
+
+        <collection name="level">
+            <request id="80000" name="GET_ACTOR_LEVEL" desc="获取玩家关卡数据" op="FindOne" >
+                <filter name="actor_id" type="uint32" />
+            </request>
+            <request id="80001" name="UPDATE_ACTOR_LEVEL" desc="更新玩家关卡数据" op="UpdateOne" >
+                <filter name="actor_id" type="uint32" />
+                <data name="actor_id" type="uint32" />
+                <data name="data" type="[]byte" />
+                <data name="update_time" type="uint32" />
+            </request>
+        </collection>
+        <collection name="purchase">
+            <request id="90000" name="GET_ACTOR_PURCHASE" desc="获取玩家现金购买数据" op="FindOne" >
+                <filter name="actor_id" type="uint32" />
+            </request>
+            <request id="90001" name="UPDATE_ACTOR_PURCHASE" desc="更新玩家购买数据" op="UpdateOne" >
+                <filter name="actor_id" type="uint32" />
+                <data name="actor_id" type="uint32" />
+                <data name="data" type="[]byte" />
+                <data name="update_time" type="uint32" />
+            </request>
+        </collection>
+        <collection name="config">
+            <request id="91000" name="GET_SERVER_DATA" desc="获取服务器数据" op="FindOne" >
+                <filter name="id" type="uint32" />
+            </request>
+            <request id="91001" name="SET_SERVER_DATA" desc="设置服务器数据" op="UpdateOne" >
+                <filter name="id" type="uint32" />
+                <data name="id" type="uint32" />
+                <data name="start_time" type="uint32" />
+            </request>
+        </collection>
+    </db>
+
+    <db name="mail">
+        <collection name="mails">
+            <request id="100000" name="GET_ALL_MAIL" desc="查找某个玩家的所有邮件" op="FindAll" page_count="100" >
+                <filter name="actor_id" type="uint32" />
+                <filter name="send_time" type="map[string]interface{}" />
+            </request>
+
+            <request id="100001" name="NEW_MAIL" desc="新建一封邮件" op="Insert" >
+                <data name="id" type="uint64" />
+                <data name="actor_id" type="uint32" />
+                <data name="send_time" type="uint32" />
+                <data name="status" type="uint32" />
+                <data name="mail_id" type="uint32" />
+                <data name="mail_data" type="[]byte" />
+                <data name="title" type="string" />
+                <data name="body" type="string" />
+            </request>
+
+            <request id="100002" name="UPDATE_MAIL_STATUS" desc="更新一封邮件状态" op="UpdateOne" >
+                <filter name="id" type="uint64" />
+                <data name="status" type="uint32" />
+            </request>
+
+            <request id="100003" name="DELETE_MAIL" desc="删除一封邮件" op="DeleteOne" >
+                <filter name="id" type="uint64" />
+            </request>
+        </collection>
+    </db>
+
+    <db name="purchase">
+        <collection name="p_error">
+            <request id="200000" name="NEW_PURCHASE_ERROR" desc="新建一个购买错误记录" op="Insert" >
+                <data name="actor_id" type="uint32" />
+                <data name="error_code" type="uint32" />
+                <data name="store_code" type="uint32" />
+                <data name="error_msg" type="string" />
+                <data name="product_id" type="string" />
+                <data name="is_offline" type="bool" />
+            </request>
+        </collection>
+    </db>
+</root>

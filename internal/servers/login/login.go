@@ -19,6 +19,8 @@ type login struct {
 	*centerModule.CenterConnector
 	*commonModule.ClientNet
 	*loginModule.LoginManager
+	*loginModule.LoginConfig
+	*commonModule.RedisClient
 }
 
 func New(info server.Info) engine.Kernel {
@@ -35,9 +37,10 @@ func New(info server.Info) engine.Kernel {
 			info,
 			module.Inner,
 			new(network.ClientPackerFactory),
-			//new(network.DefaultPackerFactory),
 		),
 		loginModule.NewLoginManager(module.ModuleID_LoginManager),
+		loginModule.NewLoginConfig(module.ModuleID_LoginConfig),
+		commonModule.NewRedisClient(module.ModuleID_Redis),
 	}
 
 	return w

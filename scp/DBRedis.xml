@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <request id="10000" name="GET_INIT_FLAG" desc="获取初始化标记" op="GET" key="init_flag">
+        <out name="flag" type="uint32" />
+    </request>
+
+    <request id="10001" name="SET_INIT_FLAG" desc="设置初始化标记" op="SET" key="init_flag">
+        <in name="flag" type="uint32" />
+    </request>
+    
+
+    <request id="20000" name="GET_ACCOUNT_INFO" desc="获取账号信息" op="HGETALL" fmt_key="account:%v">
+    </request>
+
+    <request id="20001" name="SET_ACCOUNT_INFO" desc="设置账号信息" op="HMSET" fmt_key="account:%v">
+        <in name="account" type="*AccountInfo"/>
+    </request>
+
+    <request id="20002" name="BATCH_SET_ACCOUNT_INFO" desc="批量设置账号信息" op="HMSETBATCH" fmt_key="account:%v">
+        <in name="account" type="map[string]interface{}"/>
+    </request>
+</root>

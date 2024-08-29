@@ -15,12 +15,7 @@ import (
 var _ module.IModule = &Login{}
 
 type Login struct {
-	ID int32
 	*module.ConnectorKernel
-}
-
-func (l *Login) GetID() int32 {
-	return l.ID
 }
 
 func (l *Login) GetKernel() module.IModuleKernel {
@@ -60,10 +55,9 @@ func (l *Login) Update() {
 
 func New(id int32) *Login {
 	l := &Login{
-		ID:              id,
 		ConnectorKernel: module.NewConnectorKernel("", 30000, handler.NewLoginHandler(), new(network.DefaultPackerFactory), module.WithCNoWaitStart(true)),
 	}
-	module.NewBaseModule(l)
+	module.NewBaseModule(id, l)
 	return l
 }
 
@@ -76,5 +70,10 @@ func (l *Login) Login() {
 	messageID := uint64(xsf_pb.MSGID_Clt_L_Login)
 	msg, _ := rpc.GetMessage(messageID)
 	localMsg := msg.(*xsf_pb.Clt_L_Login)
+	localMsg.LoginType = uint32(xsf_pb.LoginType_PHXH)
+	localMsg.LoginDatas = []string{
+		"yxw",
+		"123456",
+	}
 	l.SendMessage(localMsg)
 }

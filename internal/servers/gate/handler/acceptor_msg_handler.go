@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
+	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
@@ -11,7 +12,7 @@ import (
 )
 
 /***
-其他服务器连接 gate 就要用该acceptor
+其他服务器被gate连接 就要用该acceptor
 */
 
 type AcceptorMsgHandler struct {
@@ -40,13 +41,14 @@ func (m *AcceptorMsgHandler) OnNetConnected(np *network.NetPoint) {
 }
 
 func (m *AcceptorMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
-	np.Connect()
-	conn := np.Conn.(*net.TCPConn)
-	acceptor.RemoveConn(conn, np)
+	async.Go(func() {
+		np.Connect()
+	})
 }
 
 func (m *AcceptorMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
-
+	conn := np.Conn.(*net.TCPConn)
+	acceptor.RemoveConn(conn, np)
 }
 
 func (m *AcceptorMsgHandler) OnServerOk() {

@@ -31,7 +31,7 @@ func New(info server.Info) engine.Kernel {
 		commonModule.NewClientNet(
 			module.ModuleID_Client,
 			5000,
-			gateHandler.New(),
+			gateHandler.NewMsg(),
 			info,
 			module.Outer,
 			new(network.DefaultPackerFactory),

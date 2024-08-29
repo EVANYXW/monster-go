@@ -14,7 +14,7 @@ type GateMsgHandler struct {
 	ClientManager module.IClientManager
 }
 
-func New() *GateMsgHandler {
+func NewMsg() *GateMsgHandler {
 	module.ClientManager = client.NewClientManager()
 	return &GateMsgHandler{
 		ClientManager: module.ClientManager,
@@ -63,7 +63,7 @@ func (m *GateMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.
 func (m *GateMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
 	conn := np.Conn.(*net.TCPConn)
 	acceptor.RemoveConn(conn, np)
-	//np.RpcAcceptor.Close()
+	// 连接发生问题后,没有主动去关闭 client.Close()、心跳没有回会断掉
 }
 
 func (m *GateMsgHandler) OnServerOk() {

@@ -9,22 +9,19 @@ import (
 
 type CenterConnector struct {
 	kernel module.IModuleKernel
-	ID     int32
 }
 
 func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *CenterConnector {
+	centerCnf := configs.Get().Center
 	c := &CenterConnector{
-		ID: id,
+		kernel: module.NewConnectorKernel(centerCnf.Ip, centerCnf.Port,
+			handler.NewCenterConnector(serverInfoHandler),
+			new(network.DefaultPackerFactory),
+			module.WithCNoWaitStart(true)),
 	}
 
-	centerCnf := configs.Get().Center
-	c.kernel = module.NewConnectorKernel(centerCnf.Ip, centerCnf.Port,
-		handler.NewCenterConnector(serverInfoHandler),
-		new(network.DefaultPackerFactory),
-		module.WithCNoWaitStart(true))
-
-	module.NewBaseModule(c)
 	module.ConnKernel = c.kernel.(*module.ConnectorKernel)
+	module.NewBaseModule(id, c)
 
 	return c
 }
@@ -44,10 +41,6 @@ func (c *CenterConnector) DoWaitStart() {
 
 func (c *CenterConnector) DoRelease() {
 	c.kernel.DoRelease()
-}
-
-func (c *CenterConnector) GetID() int32 {
-	return c.ID
 }
 
 func (c *CenterConnector) OnOk() {
