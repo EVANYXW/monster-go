@@ -15,6 +15,11 @@ import (
 	"time"
 )
 
+const (
+	rpc_SET_SERVER_ID = "18099"
+	rpc_DISCONNECT    = "DISCONNECT"
+)
+
 type Client struct {
 	processor     *network.Processor
 	netPoint      *network.NetPoint
@@ -24,11 +29,13 @@ type Client struct {
 
 	CID         server.ClientID
 	isHandshake atomic.Bool
+	server_ids  []uint32
 }
 
 func NewClient(np *network.NetPoint) *Client {
 	return &Client{
-		netPoint: np,
+		netPoint:   np,
+		server_ids: make([]uint32, server.EP_Max),
 	}
 }
 
@@ -54,16 +61,27 @@ func (c *Client) Init() {
 
 	c.processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_Gt_Handshake), c.Clt_Gt_Handshake)
 	c.processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_Gt_Heartbeat), c.Clt_Gt_Heartbeat)
+	//c.processor.RegisterMsg(uint16(18099), c.setServerID)
 
 	//c.rpcAcceptor = rpc.NewAcceptor(100)
 	//c.netPoint.SetNetEventRPC(c.rpcAcceptor)
 	c.netPoint.SetProcessor(c.processor)
+
+	c.server_ids[server.EP_Mail] = module.MailID.Load()
+	c.server_ids[server.EP_Manager] = module.ManagerID.Load()
 
 	//c.rpcAcceptor.Run()
 }
 
 func (c *Client) OnNetMessage(pack *network.Packet) {
 	ep := rpc.GetClientDestEP(pack.Msg.ID)
+
+	if pack.Msg.ID == uint64(xsf_pb.MSGID_Clt_G_Relogin) {
+		// 短线重连rawId是game服务器的id
+		//xsf_log.Debug("client relogin, set server id", xsf_log.Uint32("server", rawID))
+		c.server_ids[ep] = pack.Msg.RawID
+	}
+
 	switch ep {
 	case server.EP_Game: // 发往游戏服
 		fallthrough
@@ -76,6 +94,7 @@ func (c *Client) OnNetMessage(pack *network.Packet) {
 		if connector != nil {
 			message, _ := rpc.GetMessage(pack.Msg.ID)
 			rpc.Import(pack.Msg.Data, message)
+			// fixMe login 没开报错
 			connector.SendMessage(message, network.WithRaID(c.ID.Load()))
 
 			// 写入ClientID
@@ -104,15 +123,29 @@ func (c *Client) GetConnector(ep int) *module.ConnectorKernel {
 		logger.Error("GetConnector of module.GetConnectorManager is error!")
 		return nil
 	}
-	iConnector := connectorManager.GetConnector(uint32(ep), 0)
+
+	var iConnector module.IModuleKernel
+	if ep == server.EP_Login {
+		iConnector = connectorManager.GetConnector(uint32(ep), 0)
+	} else {
+		iConnector = connectorManager.GetConnector(uint32(ep), c.server_ids[ep])
+	}
+
 	if iConnector == nil {
 		logger.Error("GetConnector of module.IModuleKernel is error!")
 		return nil
 	}
+
 	connector, ok := iConnector.(*module.ConnectorKernel)
 	if !ok {
 		logger.Error("GetConnector of interface to module.IModuleKernel is error!")
 		return nil
+	}
+
+	if ep == server.EP_Login {
+		if connector.ID != c.server_ids[ep] {
+			c.server_ids[ep] = connector.ID
+		}
 	}
 
 	//if ep == server.EP_Login {
@@ -126,6 +159,34 @@ func (c *Client) GetConnector(ep int) *module.ConnectorKernel {
 	//}
 
 	return connector
+}
+
+func (c *Client) SetServerID(args []interface{}) {
+	ep := args[0].(uint32)
+	serverID := args[1].(uint32)
+
+	c.server_ids[ep] = serverID
+}
+
+func (c *Client) GetServerIds() []uint32 {
+	return c.server_ids
+}
+
+func (c *Client) GetExistConnector(ep uint32) *module.ConnectorKernel {
+	managerModule := module.GetConnectorManager()
+	connectorManager, ok := managerModule.(*manager.ConnectorManager)
+	if !ok {
+		logger.Error("GetConnector of module.GetConnectorManager is error!")
+		return nil
+	}
+
+	if c.server_ids[ep] == 0 {
+		return nil
+	} else {
+		iGetConnector := connectorManager.GetConnector(ep, c.server_ids[ep])
+		connectorKernel := iGetConnector.(*module.ConnectorKernel)
+		return connectorKernel
+	}
 }
 
 func (c *Client) OnNetConnected(np *network.NetPoint) {

@@ -49,11 +49,17 @@ type Client interface {
 	GetLastHeartbeat() *uint64
 	Close()
 	GoDisconnect(id uint32)
+	SetServerID(args []interface{})
+	GetServerIds() []uint32
 }
 
-type IClientManager interface {
+type IGtClientManager interface {
 	NewClient(np *network.NetPoint) (Client, bool)
 	GetClient(id uint32) Client
+}
+
+type IGtAClientManager interface {
+	CloseClient(id uint32)
 }
 
 const (

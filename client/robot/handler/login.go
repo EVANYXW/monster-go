@@ -92,12 +92,13 @@ func (m *loginMsgHandler) SendMessage(msgId uint64, message proto.Message) {
 }
 
 func (m *loginMsgHandler) Gt_Clt_Handshake(message *network.Packet) {
-	fmt.Println("GtA_Gt_Handshake laile")
+	fmt.Println("收到消息：GtA_Gt_Handshake")
 	logger.Info("GtA_Gt_Handshake 收到")
 	m.OnHandshakeTicker(message.NetPoint)
 }
 
 func (m *loginMsgHandler) L_Clt_LoginResult(message *network.Packet) {
+	fmt.Println("收到消息：L_Clt_LoginResult")
 	resMsg := &xsf_pb.L_Clt_LoginResult{}
 	rpc.Import(message.Msg.Data, resMsg)
 

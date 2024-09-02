@@ -17,9 +17,11 @@ type loginMsgHandler struct {
 }
 
 func NewLoginMsgHandler() *loginMsgHandler {
+	clientManager := client.NewClientManager()
+	module.GtAClientManager = clientManager
 	return &loginMsgHandler{
 		gateAcceptor:  acceptor.NewGate(),
-		clientManager: client.NewClientManager(),
+		clientManager: clientManager,
 	}
 }
 

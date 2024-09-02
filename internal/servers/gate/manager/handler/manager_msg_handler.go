@@ -65,6 +65,7 @@ func (m *managerMsgHandler) MsgRegister(processor *network.Processor) {
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_GtA_Gt_Handshake), m.GtA_Gt_Handshake)
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_GtA_Gt_ClientMessage), m.GtA_Gt_ClientMessage)
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_GtA_Gt_ClientDisconnect), m.GtA_Gt_ClientDisconnect)
+	processor.RegisterMsg(uint16(xsf_pb.SMSGID_GtA_Gt_SetServerID), m.GtA_Gt_SetServerID)
 }
 
 func (m *managerMsgHandler) SendHandshake(ck *module.ConnectorKernel) {
@@ -125,4 +126,18 @@ func (m *managerMsgHandler) GtA_Gt_ClientDisconnect(message *network.Packet) {
 		clt.GoDisconnect(message.Msg.RawID)
 	}
 
+}
+
+func (m *managerMsgHandler) GtA_Gt_SetServerID(message *network.Packet) {
+	msg := &xsf_pb.GtA_Gt_SetServerID{}
+	rpc.Import(message.Msg.Data, msg)
+
+	clt := module.ClientManager.GetClient(msg.ClientId)
+	if clt != nil && clt.GetID() > 0 {
+		args := []interface{}{
+			msg.Ep,
+			msg.ServerId,
+		}
+		clt.SetServerID(args)
+	}
 }

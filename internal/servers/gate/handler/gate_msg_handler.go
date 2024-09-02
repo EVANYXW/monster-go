@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/internal/servers/gate/client"
+	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
@@ -11,7 +12,7 @@ import (
 )
 
 type GateMsgHandler struct {
-	ClientManager module.IClientManager
+	ClientManager module.IGtClientManager
 }
 
 func NewMsg() *GateMsgHandler {
@@ -25,10 +26,6 @@ func (m *GateMsgHandler) Start() {
 
 }
 
-//func (m *GateMsgHandler) GetIsHandle() bool {
-//	return m.isHandle
-//}
-
 func (m *GateMsgHandler) OnNetMessage(pack *network.Packet) {
 
 }
@@ -40,7 +37,6 @@ func (m *GateMsgHandler) OnNetConnected(np *network.NetPoint) {
 func (m *GateMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	newClient, isNew := m.ClientManager.NewClient(np)
 	if newClient != nil {
-
 		if isNew {
 
 		} else {
@@ -50,7 +46,12 @@ func (m *GateMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.
 			np.Connect()
 		})
 		lastHeartbeat := newClient.GetLastHeartbeat()
+
 		network.ServerHeartbeat(time.Duration(6), time.Duration(30), lastHeartbeat, func() {
+			conn := np.Conn.(*net.TCPConn)
+			clt := newClient.(*client.Client)
+			m.ClientClose(clt)
+			acceptor.RemoveConn(conn, np)
 			newClient.Close()
 		})
 	} else {
@@ -79,4 +80,16 @@ func (m *GateMsgHandler) OnNPAdd(np *network.NetPoint) {
 }
 
 func (m *GateMsgHandler) MsgRegister(processor *network.Processor) {
+}
+
+func (m *GateMsgHandler) ClientClose(client *client.Client) {
+	for i := 0; i < len(client.GetServerIds()); i++ {
+		connector := client.GetExistConnector(uint32(i))
+		if connector != nil {
+			//xsf_log.Infof("ClientKernel OnRpcNetError send Gt_GtA_ClientClose, i=%v, Client id=%v", i, client.ID.Get())
+			msg := &xsf_pb.Gt_GtA_ClientClose{}
+			msg.ClientId = client.ID.Load()
+			connector.SendMessage(msg, network.WithRaID(client.ID.Load()))
+		}
+	}
 }

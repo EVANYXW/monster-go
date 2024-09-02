@@ -13,9 +13,10 @@ import (
 )
 
 var (
-	NodeManager   INodeManager
-	ConnKernel    *ConnectorKernel
-	ClientManager IClientManager
+	NodeManager      INodeManager
+	ConnKernel       *ConnectorKernel
+	ClientManager    IGtClientManager
+	GtAClientManager IGtAClientManager
 )
 
 type INodeManager interface {

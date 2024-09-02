@@ -15,12 +15,14 @@ type id uint8
 type ConnectorManager struct {
 	kernel      module.IModuleKernel
 	collections []map[uint32]*module.ConnectorKernel
+	handler     module.GateAcceptorHandler
 }
 
 func NewConnectorManager(id int32) *ConnectorManager {
 	c := &ConnectorManager{}
-	msgHandler := handler.NewManager()
-	c.kernel = module.NewKernel(msgHandler, network.NetPointManager.GetRpcAcceptor(),
+	hdler := handler.NewManager()
+	c.handler = hdler
+	c.kernel = module.NewKernel(hdler, network.NetPointManager.GetRpcAcceptor(),
 		network.NetPointManager.GetProcessor())
 	module.NewBaseModule(id, c)
 
@@ -99,7 +101,8 @@ func (c ConnectorManager) GetConnector(ep uint32, id uint32) module.IModuleKerne
 }
 
 func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *module.ConnectorKernel {
-	msgHandler := handler.NewManager()
+	//msgHandler := handler.NewManager()
+	msgHandler := c.handler.(module.MsgHandler)
 	ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.ClientPackerFactory))
 	//ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.DefaultPackerFactory))
 	ck.SetID(id)
@@ -112,7 +115,7 @@ func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *m
 	//})
 	// fixMe 这里会不会没有运行好，在发送Handshake
 	time.Sleep(time.Duration(3) * time.Second)
-	msgHandler.SendHandshake(ck)
+	c.handler.SendHandshake(ck)
 
 	return ck
 }

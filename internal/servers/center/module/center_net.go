@@ -46,7 +46,6 @@ func (c *CenterNet) DoRegister() {
 
 func (c *CenterNet) DoRun() {
 	c.kernel.DoRun()
-
 	c.status = server.CN_RunStep_StartServer
 	c.startIndex = 0
 }

@@ -8,13 +8,17 @@ import (
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"go.uber.org/zap"
+	"sync/atomic"
 )
 
 type gateServerInfoHandler struct {
+	mailID    atomic.Uint32
+	managerID atomic.Uint32
 }
 
 func NewGateServerInfoHandler() *gateServerInfoHandler {
-	return &gateServerInfoHandler{}
+	g := &gateServerInfoHandler{}
+	return g
 }
 
 func (h *gateServerInfoHandler) OnServerNew(Info *network.ServerInfo) {
@@ -25,6 +29,14 @@ func (h *gateServerInfoHandler) OnServerNew(Info *network.ServerInfo) {
 func (h *gateServerInfoHandler) OnServerLost(id uint32) {
 
 }
+
+//func GetManagerID() uint32 {
+//	return serverInfoHandler.managerID.Load()
+//}
+//
+//func GetMailID() uint32 {
+//	return serverInfoHandler.managerID.Load()
+//}
 
 // OnServerOk 服务器已准备好
 func (h *gateServerInfoHandler) OnServerOk(info *network.ServerInfo) {
@@ -46,12 +58,13 @@ func (h *gateServerInfoHandler) OnServerOk(info *network.ServerInfo) {
 		}
 	}
 
-	// todo
-	//if SID.Type == network.EP_Mail {
-	//	si.mailID.Set(Info.ID)
-	//} else if SID.Type == xsf_util.EP_Manager {
-	//	si.managerID.Set(Info.ID)
-	//}
+	if SID.Type == server.EP_Mail {
+		//h.mailID.Store(info.ID)
+		module.MailID.Store(info.ID)
+	} else if SID.Type == server.EP_Manager {
+		module.ManagerID.Store(info.ID)
+		//h.managerID.Store(info.ID)
+	}
 }
 
 // OnServerOpenComplete

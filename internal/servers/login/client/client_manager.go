@@ -19,12 +19,14 @@ type Manager struct {
 
 	accountCreate uint64
 	clientCreate  uint64
+	clientDelete  uint64
 }
 
 func NewClientManager() *Manager {
 	r := &Manager{
 		accounts:       make(map[string]*account),
 		login_accounts: make(map[uint32]*account),
+		clients:        make(map[uint32]*client),
 	}
 	r.CreateStatus()
 	manager = r
@@ -96,4 +98,34 @@ func (m *Manager) CreateStatus() {
 
 func (m *Manager) GetStatus(status uint8) ILoginStatus {
 	return m.status[status]
+}
+
+func (m *Manager) CloseClient(clientID uint32) {
+	//clientID := args[0].(uint32)
+	//client, ok := lm.clients[clientID]
+	//account, ok2 := lm.login_accounts[clientID]
+	//
+	//if ok2 {
+	//	account.GoDeleteClient(clientID)
+	//	delete(lm.login_accounts, clientID)
+	//}
+	//
+	//if ok {
+	//	delete(lm.clients, clientID)
+	//	client.End()
+	//	lm.clientDelete++
+	//}
+
+	client, ok := m.clients[clientID]
+	if ok {
+		delete(m.clients, clientID)
+		client.Close()
+		m.clientDelete++
+	}
+
+	account, ok := m.login_accounts[clientID]
+	if ok {
+		account.GoDeleteClient(clientID)
+		delete(m.login_accounts, clientID)
+	}
 }

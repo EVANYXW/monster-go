@@ -140,3 +140,7 @@ func (a *account) onGMLogin(args []interface{}) {
 	//client := args[0].(*gmClient)
 	//a.clientLogin(client)
 }
+
+func (a *account) GoDeleteClient(id uint32) {
+	a.acceptor.Go(rpc_account_delete, id)
+}

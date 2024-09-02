@@ -3,11 +3,21 @@ package module
 import (
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/golang/protobuf/proto"
+	"sync/atomic"
+)
+
+var (
+	MailID    atomic.Uint32
+	ManagerID atomic.Uint32
 )
 
 type ClientHandler interface {
 	OnHandshakeTicker(netPoint *network.NetPoint)
 	SendMessage(message proto.Message, options ...network.PackerOptions)
+}
+
+type GateAcceptorHandler interface {
+	SendHandshake(ck *ConnectorKernel)
 }
 
 type MsgHandler interface {

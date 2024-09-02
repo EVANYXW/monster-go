@@ -10,6 +10,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
+	"sync/atomic"
 )
 
 type Gate struct {
@@ -18,6 +19,15 @@ type Gate struct {
 	*commonModule.ClientNet       // 用户端网络模块
 	*manager.ConnectorManager     // 其他服务器链接管理器
 }
+
+type gateServerInfo struct {
+	mailID    atomic.Uint32
+	managerID atomic.Uint32
+}
+
+var (
+	GerverInfoHandler *gateServerInfo
+)
 
 func New(info server.Info) engine.Kernel {
 	w := &Gate{

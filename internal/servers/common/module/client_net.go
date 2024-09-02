@@ -9,11 +9,9 @@ import (
 )
 
 // 客户端消息接受体
-
 type ClientNet struct {
 	kernel       module.IModuleKernel
 	curStartNode *configs.ServerNode
-	startIndex   int
 	netType      module.NetType
 }
 
@@ -36,7 +34,6 @@ func (c *ClientNet) Init() bool {
 // DoRun BaseModule 调用
 func (c *ClientNet) DoRun() {
 	c.kernel.DoRun()
-	c.startIndex = 0
 }
 
 func (c *ClientNet) DoWaitStart() {
