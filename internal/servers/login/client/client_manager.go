@@ -17,9 +17,10 @@ type Manager struct {
 	accounts       map[string]*account
 	login_accounts map[uint32]*account
 
-	accountCreate uint64
-	clientCreate  uint64
-	clientDelete  uint64
+	accountCreate    uint64
+	clientCreate     uint64
+	clientDelete     uint64
+	accountCheckTime uint32
 }
 
 func NewClientManager() *Manager {
@@ -127,5 +128,28 @@ func (m *Manager) CloseClient(clientID uint32) {
 	if ok {
 		account.GoDeleteClient(clientID)
 		delete(m.login_accounts, clientID)
+	}
+}
+
+func (m *Manager) OnUpdate() {
+	current := uint32(time.Now().Unix())
+	if current > m.accountCheckTime+60 {
+		m.accountCheckTime = current
+
+		lifeMap := make(map[string]*account)
+
+		for id, a := range m.accounts {
+			if a.data_status.Load() == account_data_error {
+				a.End()
+			} else {
+				if current > a.last_active+120 {
+					a.End()
+				} else {
+					lifeMap[id] = a
+				}
+			}
+		}
+
+		m.accounts = lifeMap
 	}
 }

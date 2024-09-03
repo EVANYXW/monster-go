@@ -4,7 +4,9 @@
 package client
 
 import (
+	"fmt"
 	"github.com/evanyxw/monster-go/internal/db"
+	"github.com/evanyxw/monster-go/internal/redis"
 	"math/rand"
 
 	//common_db "github.com/evanyxw/monster-go/internal/db"
@@ -39,7 +41,7 @@ func (a *account) Init(id string) {
 	a.ai = new(db.AccountInfo)
 	a.ai.Id = id
 
-	//a.acceptor.Regist(xsf_redis.RPC_NAME_RESULT, a.onRedisResult)
+	a.acceptor.Regist(redis.RPC_NAME_RESULT, a.onRedisResult)
 	//a.acceptor.Regist(xsf_mongo.RPC_NAME_RESULT, a.onMongoResult)
 
 	a.acceptor.Regist(rpc_account_delete, a.onDelete)
@@ -114,7 +116,7 @@ func (a *account) clientLogin(client loginClient) {
 }
 
 func (a *account) onRedisResult(args []interface{}) {
-
+	fmt.Println(args)
 }
 
 func (a *account) onMongoResult(args []interface{}) {

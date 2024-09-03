@@ -62,6 +62,10 @@ func (m *loginMsgHandler) OnOk() {
 
 }
 
+func (m *loginMsgHandler) OnUpdate() {
+	m.clientManager.OnUpdate()
+}
+
 func (m *loginMsgHandler) OnNPAdd(np *network.NetPoint) {
 
 }

@@ -15,7 +15,7 @@ func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *
 	centerCnf := configs.Get().Center
 	c := &CenterConnector{
 		kernel: module.NewConnectorKernel(centerCnf.Ip, centerCnf.Port,
-			handler.NewCenterConnector(serverInfoHandler),
+			handler.NewCenterConnectorMsg(serverInfoHandler),
 			new(network.DefaultPackerFactory),
 			module.WithCNoWaitStart(true)),
 	}

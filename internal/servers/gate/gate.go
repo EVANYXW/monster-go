@@ -25,10 +25,6 @@ type gateServerInfo struct {
 	managerID atomic.Uint32
 }
 
-var (
-	GerverInfoHandler *gateServerInfo
-)
-
 func New(info server.Info) engine.Kernel {
 	w := &Gate{
 		engine.NewEngine(servers.Gate),
@@ -41,7 +37,7 @@ func New(info server.Info) engine.Kernel {
 		commonModule.NewClientNet(
 			module.ModuleID_Client,
 			5000,
-			gateHandler.NewMsg(),
+			gateHandler.NewGateMsg(),
 			info,
 			module.Outer,
 			new(network.DefaultPackerFactory),

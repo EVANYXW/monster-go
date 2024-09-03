@@ -1,7 +1,6 @@
 package module
 
 import (
-	"fmt"
 	"github.com/evanyxw/monster-go/internal/servers/login/handler"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
@@ -56,7 +55,7 @@ func (l *LoginManager) GetKernel() module.IModuleKernel {
 }
 
 func (l *LoginManager) Update() {
-	fmt.Println(111111111)
+	l.kernel.Update()
 }
 
 func (l *LoginManager) DoRegister() {

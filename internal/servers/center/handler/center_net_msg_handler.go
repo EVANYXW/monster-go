@@ -17,7 +17,7 @@ type centerNetMsgHandler struct {
 	owner module.IModule
 }
 
-func NewCenterNet() *centerNetMsgHandler {
+func NewCenterNetMsg() *centerNetMsgHandler {
 	return &centerNetMsgHandler{}
 }
 
@@ -92,6 +92,10 @@ func (m *centerNetMsgHandler) OnServerOk() {
 }
 
 func (m *centerNetMsgHandler) OnOk() {
+
+}
+
+func (m *centerNetMsgHandler) OnUpdate() {
 
 }
 

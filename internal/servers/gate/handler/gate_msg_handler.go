@@ -15,7 +15,7 @@ type GateMsgHandler struct {
 	ClientManager module.IGtClientManager
 }
 
-func NewMsg() *GateMsgHandler {
+func NewGateMsg() *GateMsgHandler {
 	module.ClientManager = client.NewClientManager()
 	return &GateMsgHandler{
 		ClientManager: module.ClientManager,
@@ -72,6 +72,10 @@ func (m *GateMsgHandler) OnServerOk() {
 }
 
 func (m *GateMsgHandler) OnOk() {
+
+}
+
+func (m *GateMsgHandler) OnUpdate() {
 
 }
 

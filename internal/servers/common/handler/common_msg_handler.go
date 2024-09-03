@@ -49,6 +49,10 @@ func (m *commonMsgHandler) OnOk() {
 
 }
 
+func (m *commonMsgHandler) OnUpdate() {
+
+}
+
 func (m *commonMsgHandler) OnNPAdd(np *network.NetPoint) {
 
 }

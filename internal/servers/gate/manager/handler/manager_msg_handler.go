@@ -18,7 +18,7 @@ import (
 type managerMsgHandler struct {
 }
 
-func NewManager() *managerMsgHandler {
+func NewManagerMsg() *managerMsgHandler {
 	return &managerMsgHandler{}
 }
 
@@ -35,7 +35,15 @@ func (m *managerMsgHandler) OnNetMessage(pack *network.Packet) {
 }
 
 func (m *managerMsgHandler) OnNetConnected(np *network.NetPoint) {
+	fmt.Println("Gate ManagerMsgHandler OnNetConnected..............")
+	messageID := uint64(xsf_pb.SMSGID_Gt_GtA_Handshake)
+	msg, _ := rpc.GetMessage(messageID)
+	localMsg := msg.(*xsf_pb.Gt_GtA_Handshake)
+	localMsg.ServerId = server.ID
+	//pack, _ := servers.ConnectorKernel.Client.Pack(messageID, localMsg)
+	//servers.ConnectorKernel.NetPoint.SetSignal(pack)
 
+	np.SendMessage(localMsg)
 }
 
 func (m *managerMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
@@ -53,6 +61,10 @@ func (m *managerMsgHandler) OnServerOk() {
 }
 
 func (m *managerMsgHandler) OnOk() {
+
+}
+
+func (m *managerMsgHandler) OnUpdate() {
 
 }
 

@@ -6,7 +6,6 @@ import (
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"math/rand"
-	"time"
 )
 
 type ep uint8
@@ -20,7 +19,7 @@ type ConnectorManager struct {
 
 func NewConnectorManager(id int32) *ConnectorManager {
 	c := &ConnectorManager{}
-	hdler := handler.NewManager()
+	hdler := handler.NewManagerMsg()
 	c.handler = hdler
 	c.kernel = module.NewKernel(hdler, network.NetPointManager.GetRpcAcceptor(),
 		network.NetPointManager.GetProcessor())
@@ -110,12 +109,10 @@ func (c *ConnectorManager) CreateConnector(id uint32, ip string, port uint32) *m
 	c.collections[ck.SID.Type][id] = ck
 
 	ck.DoRegister()
-	//async.Go(func() {
 	ck.DoRun()
-	//})
-	// fixMe 这里会不会没有运行好，在发送Handshake
-	time.Sleep(time.Duration(3) * time.Second)
-	c.handler.SendHandshake(ck)
+	//// fixMe 这里会不会没有运行好，在发送Handshake
+	//time.Sleep(time.Duration(3) * time.Second)
+	//c.handler.SendHandshake(ck)
 
 	return ck
 }

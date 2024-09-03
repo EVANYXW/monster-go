@@ -26,7 +26,11 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 	info.Port = centerCnf.Port
 
 	centerNet := &CenterNet{
-		kernel: module.NewNetKernel(maxConnNum, info, handler.NewCenterNet(), new(network.DefaultPackerFactory),
+		kernel: module.NewNetKernel(
+			maxConnNum,
+			info,
+			handler.NewCenterNetMsg(),
+			new(network.DefaultPackerFactory),
 			module.WithNoWaitStart(true)),
 	}
 

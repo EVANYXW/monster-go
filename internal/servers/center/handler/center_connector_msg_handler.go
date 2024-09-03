@@ -20,7 +20,7 @@ type centerConnectorMsgHandler struct {
 	serverInfoHandler module.IServerInfoHandler
 }
 
-func NewCenterConnector(serverInfoHandler module.IServerInfoHandler) *centerConnectorMsgHandler {
+func NewCenterConnectorMsg(serverInfoHandler module.IServerInfoHandler) *centerConnectorMsgHandler {
 	return &centerConnectorMsgHandler{
 		nodes:             make(map[uint32]*network.ServerInfo),
 		serverInfoHandler: serverInfoHandler,
@@ -83,6 +83,10 @@ func (m *centerConnectorMsgHandler) OnOk() {
 	sendMsg := msg.(*xsf_pb.Cc_C_ServerOk)
 	sendMsg.ServerId = server.ID
 	m.SendMessage(messageID, sendMsg)
+}
+
+func (m *centerConnectorMsgHandler) OnUpdate() {
+
 }
 
 func (m *centerConnectorMsgHandler) OnNodeOk(id uint32) {

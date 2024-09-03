@@ -39,6 +39,7 @@ type INetHandler interface {
 	//DoClose()
 	//OnStartClose()
 	OnOk()
+	OnUpdate()
 	OnServerOk()
 	OnNPAdd(np *network.NetPoint)
 

@@ -30,7 +30,8 @@ func WithCNoWaitStart(noWaitStart bool) ckernelOption {
 	}
 }
 
-func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler, packerFactory network.PackerFactory, options ...ckernelOption) *ConnectorKernel {
+func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler, packerFactory network.PackerFactory,
+	options ...ckernelOption) *ConnectorKernel {
 	rpcAcceptor := rpc.NewAcceptor(10000)
 	processor := network.NewProcessor()
 	connector := &ConnectorKernel{
@@ -41,7 +42,7 @@ func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler, packerFac
 		msgHandler:  msgHandler,
 	}
 	connector.Client.OnMessageCb = connector.MessageHandler
-	//connector.Client.SetNetEventRPC(rpcAcceptor)
+
 	for _, fn := range options {
 		fn(connector)
 	}

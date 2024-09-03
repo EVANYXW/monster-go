@@ -209,6 +209,10 @@ func (c *Client) OnOk() {
 
 }
 
+func (c *Client) OnUpdate() {
+
+}
+
 func (c *Client) OnNPAdd(np *network.NetPoint) {
 
 }

@@ -65,6 +65,10 @@ func (m *AcceptorMsgHandler) OnNPAdd(np *network.NetPoint) {
 
 }
 
+func (m *AcceptorMsgHandler) OnUpdate() {
+
+}
+
 func (m *AcceptorMsgHandler) MsgRegister(processor *network.Processor) {
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_Gt_GtA_Handshake), m.Gt_GtA_Handshake)
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_Gt_GtA_Heartbeat), m.Gt_GtA_Heartbeat)

@@ -34,7 +34,7 @@ func (rc *redisCmd_HGETALL) do() {
 	var outValue map[string]string
 	err = rc.conn.Do(rc.ctx, radix.Cmd(&outValue, "HGETALL", rc.key))
 	if err == nil {
-		//rc.rpc.Go(RPC_NAME_RESULT, rc.rid, REDIS_RES_OK, &outValue)
+		rc.rpc.Go(RPC_NAME_RESULT, rc.rid, REDIS_RES_OK, &outValue)
 		return
 	}
 
