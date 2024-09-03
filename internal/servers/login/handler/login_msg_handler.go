@@ -30,6 +30,11 @@ func (m *loginMsgHandler) Init(owner *module.BaseModule) {
 	m.clientManager.Init(m.owner.RpcAcceptor)
 }
 
+func (m *loginMsgHandler) OnInit(baseModule *module.BaseModule) {
+	m.owner = baseModule
+	m.clientManager.Init(m.owner.RpcAcceptor)
+}
+
 func (m *loginMsgHandler) Start() {
 
 }

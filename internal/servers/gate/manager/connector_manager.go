@@ -28,7 +28,7 @@ func NewConnectorManager(id int32) *ConnectorManager {
 	return c
 }
 
-func (c *ConnectorManager) Init() bool {
+func (c *ConnectorManager) Init(baseModule *module.BaseModule) bool {
 	//c.collections = make([]connectCollection, xsf_util.EP_Max)
 	c.collections = []map[uint32]*module.ConnectorKernel{}
 	for i := 0; i < server.EP_Max; i++ {

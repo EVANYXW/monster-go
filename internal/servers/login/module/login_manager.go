@@ -20,13 +20,13 @@ func NewLoginManager(id int32) *LoginManager {
 		),
 	}
 
-	baseModule := module.NewBaseModule(id, l)
-	h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
+	module.NewBaseModule(id, l)
+	//h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
 	return l
 }
 
-func (l *LoginManager) Init() bool {
-	l.kernel.Init()
+func (l *LoginManager) Init(baseModule *module.BaseModule) bool {
+	l.kernel.Init(baseModule)
 	return true
 }
 

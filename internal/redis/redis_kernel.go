@@ -38,7 +38,8 @@ func NewRedisKernel(msgHandler module.MsgHandler, rds []SCDBInfo) *RedisKernel {
 	return rk
 }
 
-func (rk *RedisKernel) Init() bool {
+func (rk *RedisKernel) Init(baseModule *module.BaseModule) bool {
+	rk.msgHandler.OnInit(baseModule)
 	return true
 }
 

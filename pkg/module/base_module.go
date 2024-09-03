@@ -50,7 +50,7 @@ func (m *BaseModule) Init() {
 		m.runStatus = ModuleRunStatus_WaitStart
 	}
 
-	m.owner.Init()
+	m.owner.Init(m)
 }
 
 func (m *BaseModule) DoRegister() {

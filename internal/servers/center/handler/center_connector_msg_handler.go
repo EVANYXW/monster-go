@@ -27,6 +27,10 @@ func NewCenterConnectorMsg(serverInfoHandler module.IServerInfoHandler) *centerC
 	}
 }
 
+func (m *centerConnectorMsgHandler) OnInit(baseModule *module.BaseModule) {
+
+}
+
 func (m *centerConnectorMsgHandler) Start() {
 
 }

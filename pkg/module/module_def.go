@@ -15,7 +15,7 @@ type IServerInfoHandler interface {
 
 // IModuleFlow Module流程
 type IModuleFlow interface {
-	Init() bool
+	Init(baseModule *BaseModule) bool
 	DoRegister()
 	DoRun()
 	DoWaitStart()

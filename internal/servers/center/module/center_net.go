@@ -39,8 +39,8 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 	return centerNet
 }
 
-func (c *CenterNet) Init() bool {
-	c.kernel.Init()
+func (c *CenterNet) Init(baseModule *module.BaseModule) bool {
+	c.kernel.Init(baseModule)
 	return true
 }
 

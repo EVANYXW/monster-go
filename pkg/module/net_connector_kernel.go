@@ -55,7 +55,7 @@ func (c *ConnectorKernel) SetID(id uint32) {
 	server.ID2Sid(id, &c.SID)
 }
 
-func (c *ConnectorKernel) Init() bool {
+func (c *ConnectorKernel) Init(baseModule *BaseModule) bool {
 	c.runStatus = ModuleRunStatus_Start
 	return true
 }

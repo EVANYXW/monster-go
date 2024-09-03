@@ -26,8 +26,8 @@ func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *
 	return c
 }
 
-func (c *CenterConnector) Init() bool {
-	c.kernel.Init()
+func (c *CenterConnector) Init(baseModule *module.BaseModule) bool {
+	c.kernel.Init(baseModule)
 	return true
 }
 

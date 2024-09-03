@@ -44,7 +44,8 @@ func New(msgHandler module.MsgHandler) *SchemaKernel {
 	return s
 }
 
-func (s *SchemaKernel) Init() bool {
+func (s *SchemaKernel) Init(baseModule *module.BaseModule) bool {
+	s.msgHandler.OnInit(baseModule)
 	return true
 }
 

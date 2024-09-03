@@ -23,7 +23,8 @@ func NewKernel(msgHandler MsgHandler, rpcAcceptor *rpc.Acceptor, processor *netw
 	return kernel
 }
 
-func (n *Kernel) Init() bool {
+func (n *Kernel) Init(baseModule *BaseModule) bool {
+	n.msgHandler.OnInit(baseModule)
 	return true
 }
 
@@ -62,7 +63,7 @@ func (n *Kernel) DoRelease() {
 }
 
 func (n *Kernel) Update() {
-
+	n.msgHandler.OnUpdate()
 }
 
 func (n *Kernel) OnOk() {

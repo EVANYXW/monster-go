@@ -23,6 +23,7 @@ type GateAcceptorHandler interface {
 type MsgHandler interface {
 	INetHandler
 
+	OnInit(baseModule *BaseModule)
 	Start()
 	OnNetMessage(pack *network.Packet)
 	MsgRegister(processor *network.Processor)

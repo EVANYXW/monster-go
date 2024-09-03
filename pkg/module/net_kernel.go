@@ -69,11 +69,11 @@ func NewNetKernel(maxConnNum uint32, info server.Info, msgHandler MsgHandler, pa
 	}
 
 	kernel.NetAcceptor.MessageHandler = kernel.MessageHandler
-	kernel.Init()
+	//kernel.Init() // 是不是多余
 	return kernel
 }
 
-func (n *NetKernel) Init() bool {
+func (n *NetKernel) Init(baseModule *BaseModule) bool {
 	AddManager(ModuleID_SM, n.NPManager)
 	return true
 }

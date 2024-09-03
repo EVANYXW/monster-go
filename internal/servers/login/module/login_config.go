@@ -18,13 +18,13 @@ func NewLoginConfig(id int32) *LoginConfig {
 		kernel: config.New(h),
 	}
 
-	baseModule := module.NewBaseModule(id, l)
-	h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
+	module.NewBaseModule(id, l)
+	//h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
 	return l
 }
 
-func (l *LoginConfig) Init() bool {
-	l.kernel.Init()
+func (l *LoginConfig) Init(baseModule *module.BaseModule) bool {
+	l.kernel.Init(baseModule)
 	return true
 }
 

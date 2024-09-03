@@ -31,13 +31,13 @@ func NewRedisClient(id int32) *RedisClient {
 	r := &RedisClient{
 		kernel: redis.NewRedisKernel(h, redisInfo),
 	}
-	baseModule := module.NewBaseModule(id, r)
-	h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
+	module.NewBaseModule(id, r)
+	//h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
 	return r
 }
 
-func (r *RedisClient) Init() bool {
-	r.kernel.Init()
+func (r *RedisClient) Init(baseModule *module.BaseModule) bool {
+	r.kernel.Init(baseModule)
 	return true
 }
 

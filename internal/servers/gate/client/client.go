@@ -39,6 +39,10 @@ func NewClient(np *network.NetPoint) *Client {
 	}
 }
 
+func (c *Client) OnInit(baseModule *module.BaseModule) {
+
+}
+
 func (c *Client) Start() {
 
 }

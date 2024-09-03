@@ -26,8 +26,8 @@ func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, inf
 	return c
 }
 
-func (c *ClientNet) Init() bool {
-	c.kernel.Init()
+func (c *ClientNet) Init(baseModule *module.BaseModule) bool {
+	c.kernel.Init(baseModule)
 	return true
 }
 
