@@ -18,14 +18,13 @@ const (
 )
 
 var (
-	zapLog        *zap.Logger
-	sugar         *zap.SugaredLogger
-	OutputConsole = true
-	filePath      = ""
-	serverName    = ""
+	zapLog     *zap.Logger
+	sugar      *zap.SugaredLogger
+	filePath   = ""
+	serverName = ""
 )
 
-func NewLogger(opts ...Option) {
+func NewLogger(opts ...Option) (*zap.Logger, error) {
 	opt := &option{level: DefaultLevel, fields: make(map[string]string)}
 	for _, f := range opts {
 		f(opt)
@@ -121,6 +120,8 @@ func NewLogger(opts ...Option) {
 	}
 
 	sugar = zapLog.Sugar()
+
+	return zapLog, nil
 }
 
 func NewJSONLogger(opts ...Option) (*zap.Logger, error) {
@@ -129,10 +130,25 @@ func NewJSONLogger(opts ...Option) (*zap.Logger, error) {
 		f(opt)
 	}
 
-	timeLayout := DefaultTimeLayout
-	if opt.timeLayout != "" {
-		timeLayout = opt.timeLayout
-	}
+	//timeLayout := DefaultTimeLayout
+	//if opt.timeLayout != "" {
+	//	timeLayout = opt.timeLayout
+	//}
+
+	var (
+		/*自定义时间格式*/
+		customTimeEncoder = func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
+			enc.AppendString(t.Format("2006-01-02 15:04:05.000"))
+		}
+		/*自定义日志级别显示*/
+		customLevelEncoder = func(level zapcore.Level, enc zapcore.PrimitiveArrayEncoder) {
+			enc.AppendString(level.CapitalString())
+		}
+		/*自定义代码路径、行号输出*/
+		customCallerEncoder = func(caller zapcore.EntryCaller, enc zapcore.PrimitiveArrayEncoder) {
+			enc.AppendString("[" + caller.TrimmedPath() + "]")
+		}
+	)
 
 	// similar to zap.NewProductionEncoderConfig()
 	encoderConfig := zapcore.EncoderConfig{
@@ -140,15 +156,21 @@ func NewJSONLogger(opts ...Option) (*zap.Logger, error) {
 		LevelKey:      "level",
 		NameKey:       "logger", // used by logger.Named(key); optional; useless
 		CallerKey:     "caller",
-		MessageKey:    "msg",
+		MessageKey:    "message",
 		StacktraceKey: "stacktrace", // use by zap.AddStacktrace; optional; useless
-		LineEnding:    zapcore.DefaultLineEnding,
-		EncodeLevel:   zapcore.LowercaseLevelEncoder, // 小写编码器
-		EncodeTime: func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
-			enc.AppendString(t.Format(timeLayout))
-		},
+
 		EncodeDuration: zapcore.MillisDurationEncoder,
-		EncodeCaller:   zapcore.ShortCallerEncoder, // 全路径编码器
+		//EncodeCaller:   zapcore.ShortCallerEncoder, // 全路径编码器
+		//EncodeTime: func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
+		//	enc.AppendString(t.Format(timeLayout))
+		//},
+		//EncodeLevel:   zapcore.LowercaseLevelEncoder, // 小写编码器
+		//LineEnding:    zapcore.DefaultLineEnding,
+		EncodeTime:       customTimeEncoder,
+		EncodeCaller:     customCallerEncoder, // 全路径编码器
+		EncodeLevel:      customLevelEncoder,
+		LineEnding:       "\n",
+		ConsoleSeparator: " ",
 	}
 
 	jsonEncoder := zapcore.NewJSONEncoder(encoderConfig)
@@ -169,13 +191,15 @@ func NewJSONLogger(opts ...Option) (*zap.Logger, error) {
 	core := zapcore.NewTee()
 
 	if !opt.disableConsole {
+		//Dev环境,日志级别使用带颜色的标识
+		encoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 		core = zapcore.NewTee(
-			zapcore.NewCore(jsonEncoder,
+			zapcore.NewCore(zapcore.NewConsoleEncoder(encoderConfig),
 				zapcore.NewMultiWriteSyncer(stdout),
 				lowPriority,
 			),
-			zapcore.NewCore(jsonEncoder,
-				zapcore.NewMultiWriteSyncer(stderr),
+			zapcore.NewCore(zapcore.NewConsoleEncoder(encoderConfig),
+				zapcore.NewMultiWriteSyncer(stdout),
 				highPriority,
 			),
 		)
@@ -200,6 +224,8 @@ func NewJSONLogger(opts ...Option) (*zap.Logger, error) {
 	for key, value := range opt.fields {
 		zapLog = zapLog.WithOptions(zap.Fields(zapcore.Field{Key: key, Type: zapcore.StringType, String: value}))
 	}
+
+	sugar = zapLog.Sugar()
 
 	return zapLog, nil
 }
@@ -240,30 +266,30 @@ func Fatal(message string, fields ...zapcore.Field) {
 	zapLog.Fatal(message, fields...)
 }
 
-//func Debugf(template string, args ...interface{}) {
-//	sugar.Debugf(template, args...)
-//}
-//
-//func Infof(template string, args ...interface{}) {
-//	sugar.Infof(template, args...)
-//}
-//
-//func Warnf(template string, args ...interface{}) {
-//	sugar.Warnf(template, args...)
-//}
-//
-//func Errorf(template string, args ...interface{}) {
-//	sugar.Errorf(template, args...)
-//}
-//
-//func DPanicf(template string, args ...interface{}) {
-//	sugar.DPanicf(template, args...)
-//}
-//
-//func Panicf(template string, args ...interface{}) {
-//	sugar.Panicf(template, args...)
-//}
-//
-//func Fatalf(template string, args ...interface{}) {
-//	sugar.Fatalf(template, args...)
-//}
+func Debugf(template string, args ...interface{}) {
+	sugar.Debugf(template, args...)
+}
+
+func Infof(template string, args ...interface{}) {
+	sugar.Infof(template, args...)
+}
+
+func Warnf(template string, args ...interface{}) {
+	sugar.Warnf(template, args...)
+}
+
+func Errorf(template string, args ...interface{}) {
+	sugar.Errorf(template, args...)
+}
+
+func DPanicf(template string, args ...interface{}) {
+	sugar.DPanicf(template, args...)
+}
+
+func Panicf(template string, args ...interface{}) {
+	sugar.Panicf(template, args...)
+}
+
+func Fatalf(template string, args ...interface{}) {
+	sugar.Fatalf(template, args...)
+}

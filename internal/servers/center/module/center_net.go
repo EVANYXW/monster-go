@@ -36,6 +36,7 @@ func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
 
 	module.NewBaseModule(id, centerNet)
 	network.NetPointManager = centerNet.kernel.GetNPManager()
+
 	return centerNet
 }
 

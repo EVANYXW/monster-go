@@ -37,22 +37,21 @@ func init() {
 // ServerCmd server 服务的cmd方法、
 var ServerCmd = &cobra.Command{
 	Use:   "run",
-	Short: "Run game server",
+	Short: "run game server",
 	Run: func(cmd *cobra.Command, args []string) {
-
-		env.Init(envStr)
-		configs.Init()
-
 		if serverName == "" {
 			log.Fatal("Please specify a server name")
 		}
 
-		logger.NewLogger(
-			logger.WithDisableConsole(),
+		env.Init(envStr)
+		configs.Init()
+
+		_, _ = logger.NewJSONLogger(
 			logger.WithField("domain", fmt.Sprintf("%s[%s]", configs.ProjectName, env.Active().Value())),
 			logger.WithTimeLayout(timeutil.CSTLayout),
 			logger.WithFileP(configs.LogFile, serverName),
 		)
+		//zap_log.NewLogger()
 
 		Run(serverName)
 	},

@@ -42,10 +42,6 @@ func (m *centerConnectorMsgHandler) MsgRegister(processor *network.Processor) {
 	processor.RegisterMsg(uint16(xsf_pb.SMSGID_C_Cc_ServerLost), m.C_Cc_ServerLost)
 }
 
-//func (m *centerConnectorMsgHandler) GetIsHandle() bool {
-//	return m.isHandle
-//}
-
 func (m *centerConnectorMsgHandler) OnNetMessage(pack *network.Packet) {
 	// isHandle 为 true 消息会来这里处理
 }

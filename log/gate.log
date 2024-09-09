@@ -1,0 +1,14 @@
+{"level":"INFO","time":"2024-09-05 12:17:03.292","caller":"[logger/logger.go:246]","message":"SID:","domain":"gate[fat]","ID":1,"type":4,"index":0}
+{"level":"INFO","time":"2024-09-05 12:17:03.329","caller":"[logger/logger.go:246]","message":"【 gate 】Starting server...","domain":"gate[fat]"}
+{"level":"INFO","time":"2024-09-05 12:19:10.983","caller":"[logger/logger.go:246]","message":"SID:","domain":"gate[fat]","ID":1,"type":4,"index":0}
+{"level":"INFO","time":"2024-09-05 12:19:11.020","caller":"[logger/logger.go:246]","message":"【 gate 】Starting server...","domain":"gate[fat]"}
+{"level":"ERROR","time":"2024-09-05 12:19:11.021","caller":"[logger/logger.go:254]","message":"找不到[gate]的服务","domain":"gate[fat]"}
+{"level":"INFO","time":"2024-09-05 12:20:38.807","caller":"[logger/logger.go:246]","message":"SID:","domain":"gate[fat]","ID":1,"type":4,"index":0}
+{"level":"INFO","time":"2024-09-05 12:20:38.834","caller":"[logger/logger.go:246]","message":"【 gate 】Starting server...","domain":"gate[fat]"}
+{"level":"ERROR","time":"2024-09-05 12:20:38.834","caller":"[logger/logger.go:254]","message":"找不到[gate]的服务,请通过 engine.Register 进行注册","domain":"gate[fat]"}
+{"level":"INFO","time":"2024-09-05 12:24:29.243","caller":"[logger/logger.go:246]","message":"SID:","domain":"gate[fat]","ID":1,"type":4,"index":0}
+{"level":"INFO","time":"2024-09-05 12:24:29.273","caller":"[logger/logger.go:246]","message":"【 gate 】Starting server...","domain":"gate[fat]"}
+{"level":"ERROR","time":"2024-09-05 12:24:29.273","caller":"[logger/logger.go:254]","message":"找不到[gate]的服务,请通过 engine.Register 进行注册","domain":"gate[fat]"}
+{"level":"INFO","time":"2024-09-05 12:24:56.675","caller":"[logger/logger.go:246]","message":"SID:","domain":"gate[fat]","ID":1,"type":4,"index":0}
+{"level":"INFO","time":"2024-09-05 12:24:56.706","caller":"[logger/logger.go:246]","message":"【 gate 】Starting server...","domain":"gate[fat]"}
+{"level":"ERROR","time":"2024-09-05 12:25:26.884","caller":"[logger/logger.go:254]","message":"找不到[gate]的服务,请通过 engine.Register 进行注册","domain":"gate[fat]"}

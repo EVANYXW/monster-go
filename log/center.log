@@ -1,0 +1,18 @@
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-09-04 18:23:02.189","caller":"[logger/logger.go:247]","message":"SID:","domain":"center[fat]","ID":1,"type":2,"index":1}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-09-04 18:23:02.935","caller":"[logger/logger.go:247]","message":"【 center 】Starting server...","domain":"center[fat]"}
+{"level":"\u001b[33mWARN\u001b[0m","time":"2024-09-04 18:23:03.628","caller":"[logger/logger.go:251]","message":"hello~","domain":"center[fat]"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-09-04 18:23:08.755","caller":"[logger/logger.go:247]","message":"新建立网络模块：:8023","domain":"center[fat]"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-09-04 18:23:09.263","caller":"[logger/logger.go:247]","message":"================== all server module ok ==================","domain":"center[fat]"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-09-04 18:23:10.259","caller":"[logger/logger.go:247]","message":"===> module start ok","domain":"center[fat]","name":"Center 网络模块","count":1,"total":1}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-09-04 18:23:15.721","caller":"[logger/logger.go:247]","message":"【 center 】 收到信号准备退出","domain":"center[fat]","signal":"interrupt"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-09-04 18:23:15.820","caller":"[logger/logger.go:247]","message":"【 center 】Stopping server...","domain":"center[fat]"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-09-04 18:23:15.820","caller":"[logger/logger.go:247]","message":"【 center 】server is stoped","domain":"center[fat]"}
+{"level":"INFO","time":"2024-09-04 18:25:09.104","caller":"[logger/logger.go:246]","message":"SID:","domain":"center[fat]","ID":1,"type":2,"index":1}
+{"level":"INFO","time":"2024-09-04 18:25:09.153","caller":"[logger/logger.go:246]","message":"【 center 】Starting server...","domain":"center[fat]"}
+{"level":"WARN","time":"2024-09-04 18:25:09.154","caller":"[logger/logger.go:250]","message":"hello~","domain":"center[fat]"}
+{"level":"INFO","time":"2024-09-04 18:25:09.154","caller":"[logger/logger.go:246]","message":"新建立网络模块：:8023","domain":"center[fat]"}
+{"level":"INFO","time":"2024-09-04 18:25:09.657","caller":"[logger/logger.go:246]","message":"================== all server module ok ==================","domain":"center[fat]"}
+{"level":"INFO","time":"2024-09-04 18:25:10.656","caller":"[logger/logger.go:246]","message":"===> module start ok","domain":"center[fat]","name":"Center 网络模块","count":1,"total":1}
+{"level":"INFO","time":"2024-09-04 18:25:18.314","caller":"[logger/logger.go:246]","message":"【 center 】 收到信号准备退出","domain":"center[fat]","signal":"interrupt"}
+{"level":"INFO","time":"2024-09-04 18:25:18.321","caller":"[logger/logger.go:246]","message":"【 center 】Stopping server...","domain":"center[fat]"}
+{"level":"INFO","time":"2024-09-04 18:25:18.322","caller":"[logger/logger.go:246]","message":"【 center 】server is stoped","domain":"center[fat]"}

@@ -96,6 +96,7 @@ func Run(serverName string) {
 	var server engine.Kernel
 	instance := engine.MakeInstance(serverName)
 	if instance == nil {
+		logger.Error(fmt.Sprintf("找不到[%v]的服务,请通过 engine.Register 进行注册", serverName))
 		panic("Unable to find corresponding service")
 	}
 	server = instance(serverInfo)
@@ -108,7 +109,6 @@ func Run(serverName string) {
 		close()
 	}()
 
-	logger.Info(fmt.Sprintf("【 %s 】server is started", serverName))
 	sugar.WaitSignal(server.OnSystemSignal)
 }
 
@@ -126,7 +126,7 @@ func registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service
 	return tcpEtcdServe
 }
 
-// initLog init log
+// initLog init log  etcd 在用
 func initLog() {
 	logs.NewLogger(
 		logs.WithFilePath(fmt.Sprintf("log/%s.log", serverName)),
