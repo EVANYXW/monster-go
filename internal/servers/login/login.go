@@ -9,6 +9,7 @@ import (
 	loginModule "github.com/evanyxw/monster-go/internal/servers/login/module"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
+	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
 )
@@ -23,9 +24,9 @@ type login struct {
 	*commonModule.RedisClient
 }
 
-func New(info server.Info) engine.Kernel {
+func New(info server.Info) engine.IServerKernel {
 	w := &login{
-		engine.NewEngine(servers.Login),
+		engine.NewEngine(servers.Login, engine.WithOutput(&output.Config{Name: "login", Addr: "", Url: "http://"})),
 		centerModule.NewCenterConnector(
 			module.ModuleID_CenterConnector,
 			handler.NewServerInfoHandler(),
@@ -34,7 +35,6 @@ func New(info server.Info) engine.Kernel {
 			module.ModuleID_GateAcceptor,
 			10000,
 			accHandler.NewAcceptor(),
-			info,
 			module.Inner,
 			new(network.ClientPackerFactory),
 		),

@@ -47,14 +47,14 @@ type NetKernel struct {
 	packer      network.Packer
 }
 
-func NewNetKernel(maxConnNum uint32, info server.Info, msgHandler MsgHandler, packerFactory network.PackerFactory, options ...kernelOption) *NetKernel {
+func NewNetKernel(maxConnNum uint32, msgHandler MsgHandler, packerFactory network.PackerFactory, options ...kernelOption) *NetKernel {
 	rpcAcceptor := rpc.NewAcceptor(10000)
 	processor := network.NewProcessor()
 	nodePointManager := network.NewNormal(maxConnNum, rpcAcceptor, processor, packerFactory)
 
 	kernel := &NetKernel{
 		NPManager:   nodePointManager,
-		NetAcceptor: network.NewAcceptor(maxConnNum, info, nodePointManager),
+		NetAcceptor: network.NewAcceptor(nodePointManager),
 		RpcAcceptor: rpcAcceptor,
 		processor:   processor,
 		closeChan:   make(chan struct{}),

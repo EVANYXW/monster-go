@@ -102,7 +102,7 @@ func (m *BaseModule) setStartOK(id int32) {
 		if module != nil && module.ID == id {
 			modules[i].isStartOk.Swap(true)
 			startOkCount.Add(1)
-			output.Oput.SetModuleNum(total, int(startOkCount.Load()))
+			output.Oput.SetModuleNum(total, int(startOkCount.Load()), id)
 			logger.Info("===> module start ok", zap.String("name", m.name), zap.Int("count", int(startOkCount.Load())), zap.Int("total", total))
 		}
 	}

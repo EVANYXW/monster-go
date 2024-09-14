@@ -12,13 +12,12 @@ import (
 type ClientNet struct {
 	kernel       module.IModuleKernel
 	curStartNode *configs.ServerNode
-	netType      module.NetType
 }
 
-func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, info server.Info, netType module.NetType,
+func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, netType module.NetType,
 	packerFactory network.PackerFactory) *ClientNet {
 	c := &ClientNet{
-		kernel: module.NewNetKernel(maxConnNum, info, msgHandler, packerFactory, module.WithNetType(netType)),
+		kernel: module.NewNetKernel(maxConnNum, msgHandler, packerFactory, module.WithNetType(netType)),
 	}
 	module.NewBaseModule(id, c)
 	network.NetPointManager = c.kernel.GetNPManager()

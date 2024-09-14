@@ -6,6 +6,7 @@ import (
 	"github.com/evanyxw/monster-go/internal/servers/center"
 	"github.com/evanyxw/monster-go/internal/servers/gate"
 	"github.com/evanyxw/monster-go/internal/servers/login"
+	cmdapk "github.com/evanyxw/monster-go/pkg/cmd"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
 	"github.com/evanyxw/monster-go/pkg/timeutil"
@@ -53,6 +54,6 @@ var ServerCmd = &cobra.Command{
 		)
 		//zap_log.NewLogger()
 
-		Run(serverName)
+		cmdapk.Run(serverName)
 	},
 }

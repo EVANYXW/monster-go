@@ -6,11 +6,18 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"strconv"
 	"strings"
 	"time"
 )
 
 var Oput *Output
+
+type Config struct {
+	Name string
+	Addr string
+	Url  string
+}
 
 type Data struct {
 	ConnNum     int32
@@ -30,6 +37,7 @@ type Output struct {
 	GoCount     int32
 	ModuleNum   int
 	OkModuleNum int
+	okModule    []int32
 }
 
 // 定义颜色结构体
@@ -57,6 +65,7 @@ var tamplate = `+--------------------------------------------------+
 |   Server Name: {{Name}}
 |   Total Module Num: {{ModuleNum}}
 |   OK Module Num: {{OkModuleNum}}
+|   OK Module: {{okModule}}
 |   Server Addr: {{Addr}}
 |
 |   Player Num: {{PlayerNum}}
@@ -64,6 +73,16 @@ var tamplate = `+--------------------------------------------------+
 |   Num Goroutine: {{RunGoNum}}
 |   Pprof: {{Pprof}}
 +--------------------------------------------------+`
+
+func joinInts(ints []int32) string {
+	// 将 []int32 转换为 []string
+	strInts := make([]string, len(ints))
+	for i, v := range ints {
+		strInts[i] = strconv.Itoa(int(v))
+	}
+	// 使用 strings.Join 拼接为逗号分隔的字符串
+	return strings.Join(strInts, ",")
+}
 
 func init() {
 	clear = make(map[string]func()) //Initialize it
@@ -79,13 +98,13 @@ func init() {
 	})
 }
 
-func NewOutput(name, addr, rpc, url string) *Output {
+func NewOutput(config *Config) *Output {
 	Oput = &Output{
-		ServerName: name,
-		Address:    addr,
+		ServerName: config.Name,
+		Address:    config.Addr,
 		//RpcAddress: rpc,
-		Chan: make(chan Data, 1),
-		Url:  url,
+		Chan: make(chan Data, 100),
+		Url:  config.Url,
 	}
 
 	return Oput
@@ -100,7 +119,7 @@ func (s *Output) SetConnNum(num int32) {
 		GoCount: -1,
 		ConnNum: num,
 	}
-	s.Chan <- data
+	s.SetData(data)
 }
 
 func (s *Output) SetGoNum(num int32) {
@@ -108,22 +127,28 @@ func (s *Output) SetGoNum(num int32) {
 		GoCount: num,
 		ConnNum: -1,
 	}
-	s.Chan <- data
+	s.SetData(data)
 }
 
-func (s *Output) SetModuleNum(total int, okNum int) {
+func (s *Output) SetModuleNum(total int, okNum int, okModuleId int32) {
+	s.okModule = append(s.okModule, okModuleId)
 	data := Data{
 		ModuleNum:   total,
 		OkModuleNum: okNum,
 	}
-	s.Chan <- data
+	s.SetData(data)
 }
 
 func (s *Output) SetData(data Data) {
-	s.Chan <- data
+	go func() {
+		s.Chan <- data
+	}()
 }
 
 func (s *Output) SetServerAddr(addr string) {
+	if s == nil {
+		return
+	}
 	s.Address = addr
 	s.Clear()
 	s.Print()
@@ -194,6 +219,7 @@ func (s *Output) Print() {
 	str = strings.Replace(str, "{{GoNum}}", cast.ToString(s.GoCount), -1)
 	str = strings.Replace(str, "{{ModuleNum}}", cast.ToString(s.ModuleNum), -1)
 	str = strings.Replace(str, "{{OkModuleNum}}", cast.ToString(s.OkModuleNum), -1)
+	str = strings.Replace(str, "{{okModule}}", cast.ToString(joinInts(s.okModule)), -1)
 	str = strings.Replace(str, "{{RunGoNum}}", cast.ToString(runtime.NumGoroutine()), -1)
 
 	if s.Url != "" {

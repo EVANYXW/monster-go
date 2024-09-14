@@ -24,14 +24,14 @@ import (
 //	}
 //
 
-// Kernel
-type Kernel interface {
+// IServerKernel Server内核
+type IServerKernel interface {
 	Run()
 	Destroy()
 	OnSystemSignal(signal os.Signal) bool
 }
 
-type KernelFun func(info server.Info) Kernel
+type KernelFun func(info server.Info) IServerKernel
 
 var serverEngines = make(map[string]KernelFun)
 

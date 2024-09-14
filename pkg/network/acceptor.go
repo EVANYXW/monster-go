@@ -41,15 +41,16 @@ type Acceptor struct {
 	//Owner     module.NetKernel
 }
 
-func NewAcceptor(maxConnNum uint32, info server.Info, nodePointManager INPManager) *Acceptor {
+func NewAcceptor(nodePointManager INPManager) *Acceptor {
+	info := server.GetServerInfo()
 	s := &Acceptor{
 		Addr:       fmt.Sprintf("%s:%d", info.Ip, info.Port),
-		maxConnNum: maxConnNum,
+		maxConnNum: nodePointManager.GetMaxConnNum(),
 		//connBuffSize: buffSize,
 		connMap:     make(map[net.Conn]interface{}, 0),
 		closeChan:   make(chan struct{}),
 		alertNotify: alert.NotifyHandler(),
-		Info:        info,
+		Info:        *info,
 		NPManager:   nodePointManager,
 	}
 

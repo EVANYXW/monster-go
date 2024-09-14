@@ -16,6 +16,7 @@ type INPManager interface {
 	Get(id uint32) *NetPoint
 	GetProcessor() *Processor
 	GetRpcAcceptor() *rpc.Acceptor
+	GetMaxConnNum() uint32
 	//Release()
 	OnUpdate()
 	OnHandshake(np *NetPoint) bool

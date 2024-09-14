@@ -58,6 +58,10 @@ func (mn *NPManagerNormal) Get(index uint32) *NetPoint {
 	return mn.nps[index]
 }
 
+func (mn *NPManagerNormal) GetMaxConnNum() uint32 {
+	return mn.maxCount
+}
+
 func (mn *NPManagerNormal) Add(np *NetPoint) bool {
 	// 只有服务之间的握手加入了
 	if np.SID.ID == 0 {
