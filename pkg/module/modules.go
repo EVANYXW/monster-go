@@ -2,6 +2,7 @@ package module
 
 import (
 	"github.com/evanyxw/monster-go/pkg/async"
+	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"sync/atomic"
 )
@@ -123,6 +124,7 @@ func Run() {
 		check()
 	})
 
+	logger.Info("modules Init...")
 	for _, moduleNode := range modules {
 		if moduleNode.module == nil {
 			continue
@@ -131,6 +133,7 @@ func Run() {
 		moduleNode.module.Init()
 	}
 
+	logger.Info("modules DoRegister...")
 	for _, moduleNode := range modules {
 		if moduleNode.module == nil {
 			continue
@@ -138,6 +141,8 @@ func Run() {
 		moduleNode.module.DoRegister()
 	}
 
+
+	logger.Info("modules Run...")
 	for _, moduleNode := range modules {
 		if moduleNode.module == nil {
 			continue

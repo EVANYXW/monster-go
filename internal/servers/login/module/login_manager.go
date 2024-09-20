@@ -11,7 +11,7 @@ type LoginManager struct {
 	kernel module.IModuleKernel
 }
 
-func NewLoginManager(id int32) *LoginManager {
+func NewLoginManager() *LoginManager {
 	h := handler.NewLoginMsgHandler()
 	l := &LoginManager{
 		kernel: module.NewKernel(h,
@@ -20,7 +20,7 @@ func NewLoginManager(id int32) *LoginManager {
 		),
 	}
 
-	module.NewBaseModule(id, l)
+	//module.NewBaseModule(id, l)
 	//h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
 	return l
 }

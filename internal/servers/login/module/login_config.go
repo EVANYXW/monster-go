@@ -12,13 +12,13 @@ type LoginConfig struct {
 	kernel module.IModuleKernel
 }
 
-func NewLoginConfig(id int32) *LoginConfig {
+func NewLoginConfig() *LoginConfig {
 	h := handler.NewCommonMsgHandler()
 	l := &LoginConfig{
 		kernel: config.New(h),
 	}
 
-	module.NewBaseModule(id, l)
+	//module.NewBaseModule(id, l)
 	//h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
 	return l
 }

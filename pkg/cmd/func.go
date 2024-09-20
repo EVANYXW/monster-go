@@ -2,11 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"log"
+
 	//"github.com/evanyxw/monster-go/internal/mysql"
 	//"github.com/evanyxw/monster-go/internal/redis"
 	//"github.com/evanyxw/monster-go/internal/rpc/client"
 	"github.com/evanyxw/monster-go/pkg/async"
-	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/etcdv3"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/logs"
@@ -78,31 +79,22 @@ func Init(serverInfo server.Info) {
 }
 
 func Run(serverName string) {
-	//allConfig := configs.Get()
-	serverInfo := server.Info{
-		ServerName: serverName,
-		//Ip:         allConfig.Center.Ip,
-		//Port:       allConfig.Center.Port,
-		//Address:    allConfig.Center.Address,
-		//RpcAddr:    allConfig.Rpc.Address,
-		Env: env.Active().Value(),
-	}
-
+	//serverInfo := server.Info{
+	//	ServerName: serverName,
+	//	Env: env.Active().Value(),
+	//}
 	//Init(allConfig, serverInfo)
-	Init(serverInfo)
-
-	logger.Info(fmt.Sprintf("【 %s 】Starting server...", serverName))
+	//Init(serverInfo)
 
 	var serverKernel engine.IServerKernel
 	instance := engine.MakeInstance(serverName)
 	if instance == nil {
-		logger.Error(fmt.Sprintf("找不到[%v]的服务,请通过 engine.Register 进行注册", serverName))
-		panic("Unable to find corresponding service")
+		log.Fatalf(fmt.Sprintf("找不到[%v]的服务,请通过 engine.Register 进行注册", serverName))
 	}
 
-	server.SetServerInfo(&serverInfo)
-	serverKernel = instance(serverInfo)
+	//server.SetServerInfo(&serverInfo)
 
+	serverKernel = instance()
 	//内部服务启动
 	serverKernel.Run()
 	defer func() {

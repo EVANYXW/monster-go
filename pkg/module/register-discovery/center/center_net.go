@@ -1,10 +1,10 @@
-package module
+package center
 
 import (
 	"github.com/evanyxw/monster-go/configs"
-	"github.com/evanyxw/monster-go/internal/servers/center/handler"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/handler"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"go.uber.org/zap"
@@ -20,7 +20,7 @@ type CenterNet struct {
 	curStartNode *configs.ServerNode
 }
 
-func NewCenterNet(id int32, maxConnNum uint32) *CenterNet {
+func NewCenterNet(maxConnNum uint32) *CenterNet {
 	centerCnf := configs.Get().Center
 	server.SetInfoIP(centerCnf.Ip)
 	server.SetInfoPort(centerCnf.Port)

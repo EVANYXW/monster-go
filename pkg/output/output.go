@@ -68,7 +68,7 @@ var tamplate = `+--------------------------------------------------+
 |   OK Module: {{okModule}}
 |   Server Addr: {{Addr}}
 |
-|   Player Num: {{PlayerNum}}
+|   Conn Num: {{PlayerNum}}
 |   Go Num: {{GoNum}}
 |   Num Goroutine: {{RunGoNum}}
 |   Pprof: {{Pprof}}

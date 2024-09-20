@@ -2,46 +2,49 @@ package login
 
 import (
 	"github.com/evanyxw/monster-go/internal/servers"
-	centerModule "github.com/evanyxw/monster-go/internal/servers/center/module"
-	"github.com/evanyxw/monster-go/internal/servers/common/handler"
 	commonModule "github.com/evanyxw/monster-go/internal/servers/common/module"
 	accHandler "github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	loginModule "github.com/evanyxw/monster-go/internal/servers/login/module"
 	"github.com/evanyxw/monster-go/pkg/module"
+	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery/center"
+	centerHandler "github.com/evanyxw/monster-go/pkg/module/register-discovery/center/handler"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/output"
-	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
 )
 
 type login struct {
 	*engine.BaseEngine
 
-	*centerModule.CenterConnector
-	*commonModule.ClientNet
-	*loginModule.LoginManager
-	*loginModule.LoginConfig
-	*commonModule.RedisClient
+	//*centerModule.CenterConnector
+	//*commonModule.ClientNet
+	//*loginModule.LoginManager
+	//*loginModule.LoginConfig
+	//*commonModule.RedisClient
 }
 
-func New(info server.Info) engine.IServerKernel {
-	w := &login{
-		engine.NewEngine(servers.Login, engine.WithOutput(&output.Config{Name: "login", Addr: "", Url: "http://"})),
-		centerModule.NewCenterConnector(
-			module.ModuleID_CenterConnector,
-			handler.NewServerInfoHandler(),
-		),
-		commonModule.NewClientNet(
-			module.ModuleID_GateAcceptor,
-			10000,
-			accHandler.NewAcceptor(),
-			module.Inner,
-			new(network.ClientPackerFactory),
-		),
-		loginModule.NewLoginManager(module.ModuleID_LoginManager),
-		loginModule.NewLoginConfig(module.ModuleID_LoginConfig),
-		commonModule.NewRedisClient(module.ModuleID_Redis),
-	}
+func New() engine.IServerKernel {
+	baseEngine := engine.NewServer(
+		servers.Login,
+		register_discovery.NewFactor(),
+	).WithOutput(&output.Config{
+		Name: servers.Login,
+		Addr: "",
+		Url:  "http://",
+	}).
+		WithModule(module.ModuleID_CenterConnector, register_discovery.NewCenterConnector(
+			centerHandler.NewServerInfoHandler(),
+		)).WithModule(module.ModuleID_GateAcceptor, commonModule.NewClientNet(
+		10000,
+		accHandler.NewAcceptor(),
+		module.Inner,
+		new(network.ClientPackerFactory),
+	)).
+		WithModule(module.ModuleID_LoginManager, loginModule.NewLoginManager()).
+		WithModule(module.ModuleID_LoginConfig, loginModule.NewLoginConfig()).
+		WithModule(module.ModuleID_Redis, commonModule.NewRedisClient())
 
-	return w
+	return &login{
+		baseEngine,
+	}
 }

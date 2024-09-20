@@ -1,19 +1,15 @@
 package cmd
 
 import (
-	"fmt"
 	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/internal/servers/center"
 	"github.com/evanyxw/monster-go/internal/servers/gate"
 	"github.com/evanyxw/monster-go/internal/servers/login"
 	cmdapk "github.com/evanyxw/monster-go/pkg/cmd"
-	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
-	"github.com/evanyxw/monster-go/pkg/timeutil"
 	"log"
 	_ "net/http/pprof" // for side effects only
 
-	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/spf13/cobra"
 )
@@ -44,14 +40,13 @@ var ServerCmd = &cobra.Command{
 			log.Fatal("Please specify a server name")
 		}
 
-		env.Init(envStr)
-		configs.Init()
+		env.SetActive(envStr)
 
-		_, _ = logger.NewJSONLogger(
-			logger.WithField("domain", fmt.Sprintf("%s[%s]", configs.ProjectName, env.Active().Value())),
-			logger.WithTimeLayout(timeutil.CSTLayout),
-			logger.WithFileP(configs.LogFile, serverName),
-		)
+		//_, _ = logger.NewJSONLogger(
+		//	logger.WithField("domain", fmt.Sprintf("%s[%s]", configs.ProjectName, env.Active().Value())),
+		//	logger.WithTimeLayout(timeutil.CSTLayout),
+		//	logger.WithFileP(configs.LogFile, serverName),
+		//)
 		//zap_log.NewLogger()
 
 		cmdapk.Run(serverName)

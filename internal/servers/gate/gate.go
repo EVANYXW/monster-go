@@ -2,23 +2,20 @@ package gate
 
 import (
 	"github.com/evanyxw/monster-go/internal/servers"
-	centerModule "github.com/evanyxw/monster-go/internal/servers/center/module"
 	commonModule "github.com/evanyxw/monster-go/internal/servers/common/module"
 	gateHandler "github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	"github.com/evanyxw/monster-go/internal/servers/gate/manager"
 	"github.com/evanyxw/monster-go/pkg/module"
+	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery/center"
+	centerHandler "github.com/evanyxw/monster-go/pkg/module/register-discovery/center/handler"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/output"
-	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
 	"sync/atomic"
 )
 
 type Gate struct {
 	*engine.BaseEngine
-	*centerModule.CenterConnector // 中心服务器连接器
-	*commonModule.ClientNet       // 用户端网络模块
-	*manager.ConnectorManager     // 其他服务器链接管理器
 }
 
 type gateServerInfo struct {
@@ -26,24 +23,24 @@ type gateServerInfo struct {
 	managerID atomic.Uint32
 }
 
-func New(info server.Info) engine.IServerKernel {
-	w := &Gate{
-		engine.NewEngine(servers.Gate, engine.WithOutput(&output.Config{Name: "agent", Addr: "", Url: "http://"})),
-		// center 服务连接器
-		centerModule.NewCenterConnector(
-			module.ModuleID_CenterConnector,
-			gateHandler.NewGateServerInfoHandler(),
-		),
-		// 网关客户端tcp服务端口
-		commonModule.NewClientNet(
-			module.ModuleID_Client,
-			5000,
-			gateHandler.NewGateMsg(),
-			module.Outer,
-			new(network.DefaultPackerFactory),
-		),
-		// 其他内部服务的连接器
-		manager.NewConnectorManager(module.ModuleID_ConnectorManager),
+func New() engine.IServerKernel {
+	baseEngine := engine.NewServer(
+		servers.Gate,
+		register_discovery.NewFactor(register_discovery.WithServerConnectorManager()),
+	).WithOutput(&output.Config{
+		Name: servers.Gate,
+		Addr: "",
+		Url:  "http://",
+	}).WithModule(module.ModuleID_CenterConnector, register_discovery.NewCenterConnector(
+		centerHandler.NewGateServerInfoHandler(),
+	)).WithModule(module.ModuleID_Client, commonModule.NewClientNet(
+		5000,
+		gateHandler.NewGateMsg(),
+		module.Outer,
+		new(network.DefaultPackerFactory),
+	)).WithModule(module.ModuleID_ConnectorManager, manager.NewConnectorManager())
+
+	return &Gate{
+		baseEngine,
 	}
-	return w
 }

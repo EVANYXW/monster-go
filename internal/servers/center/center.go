@@ -2,27 +2,32 @@ package center
 
 import (
 	"github.com/evanyxw/monster-go/internal/servers"
-	centerModule "github.com/evanyxw/monster-go/internal/servers/center/module"
 	"github.com/evanyxw/monster-go/pkg/module"
+	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery/center"
 	"github.com/evanyxw/monster-go/pkg/output"
-	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
 )
 
 type Center struct {
 	*engine.BaseEngine
 
-	*centerModule.CenterNet
+	//*centerModule.CenterNet
 }
 
-func New(info server.Info) engine.IServerKernel {
+func New() engine.IServerKernel {
+	baseEngine := engine.NewServer(
+		servers.Center,
+		register_discovery.NewFactor(),
+	).
+		WithOutput(&output.Config{
+			Name: servers.Center,
+			Addr: "",
+			Url:  "http://",
+		}).
+		WithModule(module.ModuleID_SM, register_discovery.NewCenterNet(10000))
+
 	w := &Center{
-		engine.NewEngine(
-			servers.Center,
-			engine.WithOutput(&output.Config{Name: "center", Addr: "", Url: "http://"}),
-			//engine.WithModule(module.ModuleID_SM, centerModule.NewCenterNet(module.ModuleID_SM, 10000)),
-		),
-		centerModule.NewCenterNet(module.ModuleID_SM, 10000),
+		baseEngine,
 	}
 
 	return w

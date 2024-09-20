@@ -1,9 +1,9 @@
-package module
+package center
 
 import (
 	"github.com/evanyxw/monster-go/configs"
-	"github.com/evanyxw/monster-go/internal/servers/center/handler"
 	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/handler"
 	"github.com/evanyxw/monster-go/pkg/network"
 )
 
@@ -11,7 +11,7 @@ type CenterConnector struct {
 	kernel module.IModuleKernel
 }
 
-func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *CenterConnector {
+func NewCenterConnector(serverInfoHandler module.IServerInfoHandler) *CenterConnector {
 	centerCnf := configs.Get().Center
 	c := &CenterConnector{
 		kernel: module.NewConnectorKernel(centerCnf.Ip, centerCnf.Port,
@@ -21,7 +21,7 @@ func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *
 	}
 
 	module.ConnKernel = c.kernel.(*module.ConnectorKernel)
-	module.NewBaseModule(id, c)
+	//module.NewBaseModule(id, c)
 
 	return c
 }

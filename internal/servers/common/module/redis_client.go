@@ -14,7 +14,7 @@ type RedisClient struct {
 	kernel module.IModuleKernel
 }
 
-func NewRedisClient(id int32) *RedisClient {
+func NewRedisClient() *RedisClient {
 	var redisInfo []redis.SCDBInfo
 	redisInfo = []redis.SCDBInfo{
 		{
@@ -31,7 +31,7 @@ func NewRedisClient(id int32) *RedisClient {
 	r := &RedisClient{
 		kernel: redis.NewRedisKernel(h, redisInfo),
 	}
-	module.NewBaseModule(id, r)
+	//module.NewBaseModule(id, r)
 	//h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
 	return r
 }

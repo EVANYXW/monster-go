@@ -17,13 +17,13 @@ type ConnectorManager struct {
 	handler     module.GateAcceptorHandler
 }
 
-func NewConnectorManager(id int32) *ConnectorManager {
+func NewConnectorManager() *ConnectorManager {
 	c := &ConnectorManager{}
 	hdler := handler.NewManagerMsg()
 	c.handler = hdler
 	c.kernel = module.NewKernel(hdler, network.NetPointManager.GetRpcAcceptor(),
 		network.NetPointManager.GetProcessor())
-	module.NewBaseModule(id, c)
+	//module.NewBaseModule(id, c)
 
 	return c
 }

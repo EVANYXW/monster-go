@@ -14,12 +14,12 @@ type ClientNet struct {
 	curStartNode *configs.ServerNode
 }
 
-func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, netType module.NetType,
+func NewClientNet(maxConnNum uint32, msgHandler module.MsgHandler, netType module.NetType,
 	packerFactory network.PackerFactory) *ClientNet {
 	c := &ClientNet{
 		kernel: module.NewNetKernel(maxConnNum, msgHandler, packerFactory, module.WithNetType(netType)),
 	}
-	module.NewBaseModule(id, c)
+	//module.NewBaseModule(id, c)
 	network.NetPointManager = c.kernel.GetNPManager()
 
 	return c
