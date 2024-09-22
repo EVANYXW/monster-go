@@ -24,7 +24,7 @@ func New() engine.IServerKernel {
 			Addr: "",
 			Url:  "http://",
 		}).
-		WithModule(module.ModuleID_SM, register_discovery.NewCenterNet(10000))
+		WithModule(register_discovery.NewCenterNet(module.ModuleID_SM, 10000))
 
 	w := &Center{
 		baseEngine,

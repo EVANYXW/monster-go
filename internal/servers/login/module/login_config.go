@@ -10,11 +10,13 @@ import (
 
 type LoginConfig struct {
 	kernel module.IModuleKernel
+	id     int32
 }
 
-func NewLoginConfig() *LoginConfig {
+func NewLoginConfig(id int32) *LoginConfig {
 	h := handler.NewCommonMsgHandler()
 	l := &LoginConfig{
+		id:     id,
 		kernel: config.New(h),
 	}
 
@@ -46,6 +48,10 @@ func (l *LoginConfig) OnStartCheck() int {
 
 func (l *LoginConfig) OnCloseCheck() int {
 	return l.kernel.OnCloseCheck()
+}
+
+func (l *LoginConfig) GetID() int32 {
+	return l.id
 }
 
 func (l *LoginConfig) GetKernel() module.IModuleKernel {

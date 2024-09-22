@@ -4,8 +4,10 @@
 package center
 
 import (
+	"github.com/evanyxw/monster-go/pkg/module"
 	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery"
 	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/handler"
+	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/manager"
 )
 
 type Factor struct {
@@ -18,18 +20,28 @@ func NewFactor(opts ...Options) *Factor {
 		fun(opt)
 	}
 
-	return &Factor{}
-}
-
-func (c *Factor) CreateConnector() register_discovery.Connector {
-	if c.isConnectorServer {
-		return NewCenterConnector(handler.NewGateServerInfoHandler())
+	return &Factor{
+		options: *opt,
 	}
-	return NewCenterConnector(handler.NewServerInfoHandler())
 }
 
-func (c *Factor) CreateNet() register_discovery.Connector {
-	return NewCenterNet(10000)
+func (f *Factor) IsConnectorServer() bool {
+	return f.options.isConnectorServer
+}
+
+func (f *Factor) CreateConnector() register_discovery.Connector {
+	if f.isConnectorServer {
+		return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewGateServerInfoHandler())
+	}
+	return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewServerInfoHandler())
+}
+
+func (f *Factor) CreateConnectorManager() register_discovery.Connector {
+	return manager.NewConnectorManager(module.ModuleID_ConnectorManager)
+}
+
+func (f *Factor) CreateNet() register_discovery.Connector {
+	return NewCenterNet(module.ModuleID_SM, 10000)
 }
 
 type options struct {

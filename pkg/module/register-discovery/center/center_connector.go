@@ -9,11 +9,13 @@ import (
 
 type CenterConnector struct {
 	kernel module.IModuleKernel
+	id     int32
 }
 
-func NewCenterConnector(serverInfoHandler module.IServerInfoHandler) *CenterConnector {
+func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *CenterConnector {
 	centerCnf := configs.Get().Center
 	c := &CenterConnector{
+		id: id,
 		kernel: module.NewConnectorKernel(centerCnf.Ip, centerCnf.Port,
 			handler.NewCenterConnectorMsg(serverInfoHandler),
 			new(network.DefaultPackerFactory),
@@ -53,6 +55,10 @@ func (c *CenterConnector) OnStartCheck() int {
 
 func (c *CenterConnector) OnCloseCheck() int {
 	return c.kernel.OnCloseCheck()
+}
+
+func (c *CenterConnector) GetID() int32 {
+	return c.id
 }
 
 func (c *CenterConnector) GetKernel() module.IModuleKernel {

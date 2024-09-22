@@ -11,6 +11,8 @@ type Connector interface {
 
 type ConnectorFactory interface {
 	CreateConnector() Connector
+	IsConnectorServer() bool
+	CreateConnectorManager() Connector
 }
 
 type NetFactory interface {

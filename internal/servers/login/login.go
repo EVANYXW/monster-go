@@ -32,17 +32,19 @@ func New() engine.IServerKernel {
 		Addr: "",
 		Url:  "http://",
 	}).
-		WithModule(module.ModuleID_CenterConnector, register_discovery.NewCenterConnector(
+		WithModule(register_discovery.NewCenterConnector(
+			module.ModuleID_CenterConnector,
 			centerHandler.NewServerInfoHandler(),
-		)).WithModule(module.ModuleID_GateAcceptor, commonModule.NewClientNet(
+		)).WithModule(commonModule.NewClientNet(
+		module.ModuleID_GateAcceptor,
 		10000,
 		accHandler.NewAcceptor(),
 		module.Inner,
 		new(network.ClientPackerFactory),
 	)).
-		WithModule(module.ModuleID_LoginManager, loginModule.NewLoginManager()).
-		WithModule(module.ModuleID_LoginConfig, loginModule.NewLoginConfig()).
-		WithModule(module.ModuleID_Redis, commonModule.NewRedisClient())
+		WithModule(loginModule.NewLoginManager(module.ModuleID_LoginManager)).
+		WithModule(loginModule.NewLoginConfig(module.ModuleID_LoginConfig)).
+		WithModule(commonModule.NewRedisClient(module.ModuleID_Redis))
 
 	return &login{
 		baseEngine,

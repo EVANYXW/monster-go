@@ -18,14 +18,16 @@ type CenterNet struct {
 	status       int
 	startIndex   int
 	curStartNode *configs.ServerNode
+	id           int32
 }
 
-func NewCenterNet(maxConnNum uint32) *CenterNet {
+func NewCenterNet(id int32, maxConnNum uint32) *CenterNet {
 	centerCnf := configs.Get().Center
 	server.SetInfoIP(centerCnf.Ip)
 	server.SetInfoPort(centerCnf.Port)
 
 	centerNet := &CenterNet{
+		id: id,
 		kernel: module.NewNetKernel(
 			maxConnNum,
 			handler.NewCenterNetMsg(),
@@ -119,6 +121,10 @@ func (c *CenterNet) OnCloseCheck() int {
 
 func (c *CenterNet) Update() {
 
+}
+
+func (c *CenterNet) GetID() int32 {
+	return c.id
 }
 
 func (c *CenterNet) GetKernel() module.IModuleKernel {

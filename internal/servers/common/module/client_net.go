@@ -12,11 +12,13 @@ import (
 type ClientNet struct {
 	kernel       module.IModuleKernel
 	curStartNode *configs.ServerNode
+	id           int32
 }
 
-func NewClientNet(maxConnNum uint32, msgHandler module.MsgHandler, netType module.NetType,
+func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, netType module.NetType,
 	packerFactory network.PackerFactory) *ClientNet {
 	c := &ClientNet{
+		id:     id,
 		kernel: module.NewNetKernel(maxConnNum, msgHandler, packerFactory, module.WithNetType(netType)),
 	}
 	//module.NewBaseModule(id, c)
@@ -57,6 +59,10 @@ func (c *ClientNet) OnStartCheck() int {
 
 func (c *ClientNet) OnCloseCheck() int {
 	return c.kernel.OnCloseCheck()
+}
+
+func (c *ClientNet) GetID() int32 {
+	return c.id
 }
 
 func (c *ClientNet) GetKernel() module.IModuleKernel {

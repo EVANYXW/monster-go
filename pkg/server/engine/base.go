@@ -46,9 +46,9 @@ func WithOutput(config *output.Config) Options {
 	}
 }
 
-func WithModule(id int32, m module.IModule) Options {
+func WithModule(m module.IModule) Options {
 	return func(opt *option) {
-		opt.modules[id] = m
+		opt.modules[m.GetID()] = m
 	}
 }
 
@@ -76,7 +76,7 @@ func newServer(name string, registerDiscovery module.IModule, options ...Options
 	}
 
 	// 装载注册发现模块
-	opt.modules[module.ModuleID_SM] = registerDiscovery
+	//opt.modules[module.ModuleID_SM] = registerDiscovery
 
 	b := &BaseEngine{
 		serverName: name,
@@ -113,8 +113,8 @@ func NewCenterServer(name string, factor register_discovery.NetFactory, options 
 	return newServer(name, rd, options...)
 }
 
-func (b *BaseEngine) WithModule(id int32, m module.IModule) *BaseEngine {
-	module.NewBaseModule(id, m)
+func (b *BaseEngine) WithModule(m module.IModule) *BaseEngine {
+	module.NewBaseModule(m.GetID(), m)
 	return b
 }
 

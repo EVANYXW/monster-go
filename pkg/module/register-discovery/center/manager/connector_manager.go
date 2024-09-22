@@ -1,8 +1,8 @@
 package manager
 
 import (
-	"github.com/evanyxw/monster-go/internal/servers/gate/manager/handler"
 	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/manager/handler"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"math/rand"

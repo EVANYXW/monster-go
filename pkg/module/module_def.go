@@ -30,6 +30,7 @@ type IModuleFlow interface {
 type IModule interface {
 	IModuleFlow
 	GetKernel() IModuleKernel
+	GetID() int32
 }
 
 // IModuleKernel 模块内核定义、继承该接口将成为 Module
@@ -83,8 +84,10 @@ const (
 	ModuleID_Schema = iota
 	ModuleID_SM     // 通知类型
 	ModuleID_CenterConnector
+
 	ModuleID_Client
 	ModuleID_GateAcceptor
+
 	ModuleID_ConnectorManager
 	ModuleID_LoginManager
 	ModuleID_LoginConfig
