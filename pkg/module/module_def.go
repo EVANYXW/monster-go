@@ -30,6 +30,7 @@ type IModuleFlow interface {
 type IModule interface {
 	IModuleFlow
 	GetKernel() IModuleKernel
+	GetID() int32
 }
 
 // IModuleKernel 模块内核定义、继承该接口将成为 Module

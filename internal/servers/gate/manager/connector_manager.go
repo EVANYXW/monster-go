@@ -15,12 +15,14 @@ type ConnectorManager struct {
 	kernel      module.IModuleKernel
 	collections []map[uint32]*module.ConnectorKernel
 	handler     module.GateAcceptorHandler
+	id          int32
 }
 
 func NewConnectorManager(id int32) *ConnectorManager {
 	c := &ConnectorManager{}
 	hdler := handler.NewManagerMsg()
 	c.handler = hdler
+	c.id = id
 	c.kernel = module.NewKernel(hdler, network.NetPointManager.GetRpcAcceptor(),
 		network.NetPointManager.GetProcessor())
 	module.NewBaseModule(id, c)
@@ -72,6 +74,10 @@ func (c ConnectorManager) OnCloseCheck() int {
 
 func (c ConnectorManager) Update() {
 
+}
+
+func (c *ConnectorManager) GetID() int32 {
+	return c.id
 }
 
 func (c ConnectorManager) GetKernel() module.IModuleKernel {

@@ -9,11 +9,13 @@ import (
 
 type LoginManager struct {
 	kernel module.IModuleKernel
+	id     int32
 }
 
 func NewLoginManager(id int32) *LoginManager {
 	h := handler.NewLoginMsgHandler()
 	l := &LoginManager{
+		id: id,
 		kernel: module.NewKernel(h,
 			network.NetPointManager.GetRpcAcceptor(),
 			network.NetPointManager.GetProcessor(),
@@ -48,6 +50,10 @@ func (l *LoginManager) OnStartCheck() int {
 
 func (l *LoginManager) OnCloseCheck() int {
 	return l.kernel.OnCloseCheck()
+}
+
+func (l *LoginManager) GetID() int32 {
+	return l.id
 }
 
 func (l *LoginManager) GetKernel() module.IModuleKernel {

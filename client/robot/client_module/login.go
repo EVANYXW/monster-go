@@ -16,6 +16,11 @@ var _ module.IModule = &Login{}
 
 type Login struct {
 	*module.ConnectorKernel
+	id int32
+}
+
+func (l *Login) GetID() int32 {
+	return l.id
 }
 
 func (l *Login) GetKernel() module.IModuleKernel {
@@ -55,6 +60,7 @@ func (l *Login) Update() {
 
 func New(id int32) *Login {
 	l := &Login{
+		id: id,
 		ConnectorKernel: module.NewConnectorKernel("", 30000,
 			handler.NewLoginHandler(),
 			new(network.DefaultPackerFactory),

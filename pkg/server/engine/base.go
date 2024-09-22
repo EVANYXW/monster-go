@@ -58,6 +58,16 @@ func WithModules(modules map[int32]module.IModule) Options {
 	}
 }
 
+func (b *BaseEngine) WithModule(m module.IModule) *BaseEngine {
+	module.NewBaseModule(m.GetID(), m)
+	return b
+}
+
+func (b *BaseEngine) WithOutput(config *output.Config) *BaseEngine {
+	b.output = output.NewOutput(config)
+	return b
+}
+
 // initLog init log  etcd 在用
 func initLog(serverName string) {
 	logs.NewLogger(

@@ -12,6 +12,7 @@ import (
 
 type RedisClient struct {
 	kernel module.IModuleKernel
+	id     int32
 }
 
 func NewRedisClient(id int32) *RedisClient {
@@ -29,6 +30,7 @@ func NewRedisClient(id int32) *RedisClient {
 	}
 	h := handler.NewCommonMsgHandler()
 	r := &RedisClient{
+		id:     id,
 		kernel: redis.NewRedisKernel(h, redisInfo),
 	}
 	module.NewBaseModule(id, r)
@@ -64,6 +66,10 @@ func (r *RedisClient) OnStartCheck() int {
 
 func (r *RedisClient) OnCloseCheck() int {
 	return r.kernel.OnCloseCheck()
+}
+
+func (r *RedisClient) GetID() int32 {
+	return r.id
 }
 
 func (r *RedisClient) GetKernel() module.IModuleKernel {

@@ -10,14 +10,20 @@ import (
 type Center struct {
 	*engine.BaseEngine
 
-	*centerModule.CenterNet
+	//*centerModule.CenterNet
 }
 
 func New() engine.IServerKernel {
-	w := &Center{
-		engine.NewServer(servers.Center),
-		centerModule.NewCenterNet(module.ModuleID_SM, 10000),
-	}
+	//w := &Center{
+	//	engine.NewServer(servers.Center),
+	//	centerModule.NewCenterNet(module.ModuleID_SM, 10000),
+	//}
+	baseEngine := engine.NewServer(
+		servers.Center,
+	).WithModule(centerModule.NewCenterNet(module.ModuleID_SM, 10000))
 
+	w := &Center{
+		baseEngine,
+	}
 	return w
 }
