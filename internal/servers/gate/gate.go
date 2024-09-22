@@ -8,7 +8,6 @@ import (
 	"github.com/evanyxw/monster-go/internal/servers/gate/manager"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
-	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
 	"sync/atomic"
 )
@@ -25,9 +24,9 @@ type gateServerInfo struct {
 	managerID atomic.Uint32
 }
 
-func New(info server.Info) engine.Kernel {
+func New() engine.IServerKernel {
 	w := &Gate{
-		engine.NewEngine(servers.Gate),
+		engine.NewServer(servers.Gate),
 		// center 服务连接器
 		centerModule.NewCenterConnector(
 			module.ModuleID_CenterConnector,
@@ -38,7 +37,6 @@ func New(info server.Info) engine.Kernel {
 			module.ModuleID_Client,
 			5000,
 			gateHandler.NewGateMsg(),
-			info,
 			module.Outer,
 			new(network.DefaultPackerFactory),
 		),

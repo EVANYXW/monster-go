@@ -3,7 +3,6 @@ package engine
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/server"
 	"go.uber.org/zap"
 	"os"
 	"syscall"
@@ -24,14 +23,14 @@ import (
 //	}
 //
 
-// Kernel
-type Kernel interface {
+// IServerKernel Server内核
+type IServerKernel interface {
 	Run()
 	Destroy()
 	OnSystemSignal(signal os.Signal) bool
 }
 
-type KernelFun func(info server.Info) Kernel
+type KernelFun func() IServerKernel
 
 var serverEngines = make(map[string]KernelFun)
 

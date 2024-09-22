@@ -1,6 +1,7 @@
 package env
 
 import (
+	"flag"
 	"fmt"
 	"strings"
 )
@@ -11,6 +12,7 @@ var (
 	fat    Environment = &environment{value: "fat"}
 	uat    Environment = &environment{value: "uat"}
 	pro    Environment = &environment{value: "pro"}
+	docker Environment = &environment{value: "docker"}
 )
 
 var _ Environment = (*environment)(nil)
@@ -22,6 +24,7 @@ type Environment interface {
 	IsFat() bool
 	IsUat() bool
 	IsPro() bool
+	IsDocker() bool
 	t()
 }
 
@@ -49,12 +52,13 @@ func (e *environment) IsPro() bool {
 	return e.value == "pro"
 }
 
+func (e *environment) IsDocker() bool {
+	return e.value == "docker"
+}
+
 func (e *environment) t() {}
 
-func Init(env string) {
-	//env := flag.String("env", "", "请输入运行环境:\n dev:开发环境\n fat:测试环境\n uat:预上线环境\n pro:正式环境\n")
-	//flag.Parse()
-
+func SetActive(env string) {
 	switch strings.ToLower(strings.TrimSpace(env)) {
 	case "dev":
 		active = dev
@@ -64,10 +68,20 @@ func Init(env string) {
 		active = uat
 	case "pro":
 		active = pro
+	case "docker":
+		active = docker
 	default:
-		active = fat
+		active = dev
 		fmt.Println("Warning: '-env' cannot be found, or it is illegal. The default 'fat' will be used.")
 	}
+}
+
+func init() {
+	env := flag.String("env", "", "请输入运行环境:\n dev:开发环境\n fat:测试环境\n uat:预上线环境\n pro:正式环境\n")
+	flag.Parse()
+
+	SetActive(*env)
+
 }
 
 // Active 当前配置的env

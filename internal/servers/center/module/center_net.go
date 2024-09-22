@@ -20,15 +20,14 @@ type CenterNet struct {
 	curStartNode *configs.ServerNode
 }
 
-func NewCenterNet(id int32, maxConnNum uint32, info server.Info) *CenterNet {
+func NewCenterNet(id int32, maxConnNum uint32) *CenterNet {
 	centerCnf := configs.Get().Center
-	info.Ip = centerCnf.Ip
-	info.Port = centerCnf.Port
+	server.SetInfoIP(centerCnf.Ip)
+	server.SetInfoPort(centerCnf.Port)
 
 	centerNet := &CenterNet{
 		kernel: module.NewNetKernel(
 			maxConnNum,
-			info,
 			handler.NewCenterNetMsg(),
 			new(network.DefaultPackerFactory),
 			module.WithNoWaitStart(true)),

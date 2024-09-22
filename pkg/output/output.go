@@ -12,6 +12,12 @@ import (
 
 var Oput *Output
 
+type Config struct {
+	Name string
+	Addr string
+	Url  string
+}
+
 type Data struct {
 	ConnNum     int32
 	GoCount     int32
@@ -79,13 +85,13 @@ func init() {
 	})
 }
 
-func NewOutput(name, addr, rpc, url string) *Output {
+func NewOutput(config *Config) *Output {
 	Oput = &Output{
-		ServerName: name,
-		Address:    addr,
+		ServerName: config.Name,
+		Address:    config.Addr,
 		//RpcAddress: rpc,
-		Chan: make(chan Data, 1),
-		Url:  url,
+		Chan: make(chan Data, 100),
+		Url:  config.Url,
 	}
 
 	return Oput

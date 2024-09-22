@@ -7,6 +7,10 @@ package server
 //	ClientManager   module.ClientManager
 //)
 
+var (
+	info *Info
+)
+
 type Info struct {
 	ServerName string
 	Ip         string
@@ -31,3 +35,19 @@ const (
 	CN_RunStep_HandshakeDone
 	CN_RunStep_Done
 )
+
+func SetServerInfo(i *Info) {
+	info = i
+}
+
+func SetInfoIP(ip string) {
+	info.Ip = ip
+}
+
+func SetInfoPort(port uint32) {
+	info.Port = port
+}
+
+func GetServerInfo() *Info {
+	return info
+}
