@@ -1,8 +1,8 @@
 package manager
 
 import (
-	"github.com/evanyxw/monster-go/internal/servers/gate/manager/handler"
 	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/manager/handler"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"math/rand"
@@ -19,13 +19,14 @@ type ConnectorManager struct {
 }
 
 func NewConnectorManager(id int32) *ConnectorManager {
-	c := &ConnectorManager{}
+	c := &ConnectorManager{
+		id: id,
+	}
 	hdler := handler.NewManagerMsg()
 	c.handler = hdler
-	c.id = id
 	c.kernel = module.NewKernel(hdler, network.NetPointManager.GetRpcAcceptor(),
 		network.NetPointManager.GetProcessor())
-	module.NewBaseModule(id, c)
+	//module.NewBaseModule(id, c)
 
 	return c
 }

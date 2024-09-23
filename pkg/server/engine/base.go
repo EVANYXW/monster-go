@@ -3,15 +3,21 @@ package engine
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/configs"
+	commonModule "github.com/evanyxw/monster-go/internal/servers/common/module"
+	"github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/logs"
 	"github.com/evanyxw/monster-go/pkg/module"
+	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery"
+	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/manager"
+	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/evanyxw/monster-go/pkg/timeutil"
 	"go.uber.org/zap"
+	"log"
 	"os"
 )
 
@@ -47,6 +53,7 @@ func WithOutput(config *output.Config) Options {
 func WithModule(m module.IModule) Options {
 	return func(opt *option) {
 		//opt.modules[m.GetID()] = m
+		module.NewBaseModule(m.GetID(), m)
 	}
 }
 
@@ -64,7 +71,12 @@ func (b *BaseEngine) WithModule(m module.IModule) *BaseEngine {
 }
 
 func (b *BaseEngine) WithOutput(config *output.Config) *BaseEngine {
+	//b.output = output.NewOutput(config)
+	b.isOutput = true
 	b.output = output.NewOutput(config)
+	async.Go(func() {
+		b.output.Run()
+	})
 	return b
 }
 
@@ -129,13 +141,13 @@ func Init() {
 		//		pprofs(pprofUrl)
 		//	})
 		//}
-		async.Go(func() {
-			output.NewOutput(&output.Config{
-				Name: server.GetServerInfo().ServerName,
-				Addr: server.GetServerInfo().Address,
-				Url:  "",
-			}).Run()
-		})
+		//async.Go(func() {
+		//	output.NewOutput(&output.Config{
+		//		Name: server.GetServerInfo().ServerName,
+		//		Addr: server.GetServerInfo().Address,
+		//		Url:  "",
+		//	}).Run()
+		//})
 
 		//async.Go(func() {
 		//	output.NewOutput(serverInfo.ServerName, serverInfo.Address,
@@ -144,7 +156,7 @@ func Init() {
 	}
 }
 
-func newServer(name string, options ...Options) *BaseEngine {
+func ServerInit(name string) {
 	server.SetServerInfo(&server.Info{
 		ServerName: name,
 		Env:        env.Active().Value(),
@@ -152,6 +164,10 @@ func newServer(name string, options ...Options) *BaseEngine {
 
 	configs.Init()
 	Init()
+}
+
+func newServer(name string, options ...Options) *BaseEngine {
+
 	opt := &option{
 		modules: make(map[int32]module.IModule),
 	}
@@ -170,21 +186,69 @@ func newServer(name string, options ...Options) *BaseEngine {
 
 	if opt.isOutput {
 		b.output = output.NewOutput(opt.output)
+		async.Go(func() {
+			b.output.Run()
+		})
 	}
 
-	for id, m := range opt.modules {
-		module.NewBaseModule(id, m)
-	}
+	//for id, m := range opt.modules {
+	//	module.NewBaseModule(id, m)
+	//}
 
 	return b
 }
 
-func NewServer(name string, options ...Options) *BaseEngine {
-	//if factor == nil {
-	//	log.Fatal("Please provide a factor!")
-	//}
-	//
-	//rd := factor.CreateConnector()
+func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, options ...Options) *BaseEngine {
+	if factor == nil {
+		log.Fatal("Please provide a factor!")
+	}
+
+	ServerInit(name)
+
+	rd := factor.CreateConnector()
+	options = append(options, WithModule(rd), WithModule(commonModule.NewClientNet(
+		module.ModuleID_Client,
+		5000,
+		handler.NewGateMsg(),
+		module.Outer,
+		new(network.DefaultPackerFactory),
+	)))
+
+	if factor.IsConnectorServer() {
+		options = append(options, WithModule(manager.NewConnectorManager(module.ModuleID_ConnectorManager)))
+	}
+
+	return newServer(name, options...)
+}
+
+func NewTcpServer(name string, msgHandler module.MsgHandler, factor register_discovery.ConnectorFactory, options ...Options) *BaseEngine {
+	if factor == nil {
+		log.Fatal("Please provide a factor!")
+	}
+
+	ServerInit(name)
+
+	rd := factor.CreateConnector()
+	options = append(options, WithModule(rd), WithModule(commonModule.NewClientNet(
+		module.ModuleID_GateAcceptor,
+		10000,
+		msgHandler,
+		module.Inner,
+		new(network.ClientPackerFactory),
+	)))
+
+	return newServer(name, options...)
+}
+
+func NewCenterServer(name string, factor register_discovery.NetFactory, options ...Options) *BaseEngine {
+	if factor == nil {
+		log.Fatal("Please provide a factor!")
+	}
+
+	ServerInit(name)
+	rd := factor.CreateNet()
+	options = append(options, WithModule(rd))
+
 	return newServer(name, options...)
 }
 

@@ -30,14 +30,6 @@ func (h *gateServerInfoHandler) OnServerLost(id uint32) {
 
 }
 
-//func GetManagerID() uint32 {
-//	return serverInfoHandler.managerID.Load()
-//}
-//
-//func GetMailID() uint32 {
-//	return serverInfoHandler.managerID.Load()
-//}
-
 // OnServerOk 服务器已准备好
 func (h *gateServerInfoHandler) OnServerOk(info *network.ServerInfo) {
 	logger.Info("siHandler OnServerOk", zap.Uint("id", uint(server.ID)))

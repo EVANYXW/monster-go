@@ -2,8 +2,8 @@ package center
 
 import (
 	"github.com/evanyxw/monster-go/internal/servers"
-	centerModule "github.com/evanyxw/monster-go/internal/servers/center/module"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center"
+	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
 )
 
@@ -18,9 +18,24 @@ func New() engine.IServerKernel {
 	//	engine.NewServer(servers.Center),
 	//	centerModule.NewCenterNet(module.ModuleID_SM, 10000),
 	//}
-	baseEngine := engine.NewServer(
+
+	//baseEngine := engine.NewServer(
+	//	servers.Center,
+	//).WithModule(centerModule.NewCenterNet(module.ModuleID_SM, 10000))
+	//
+	//w := &Center{
+	//	baseEngine,
+	//}
+	//return w
+	baseEngine := engine.NewCenterServer(
 		servers.Center,
-	).WithModule(centerModule.NewCenterNet(module.ModuleID_SM, 10000))
+		center.NewFactor(),
+	).WithOutput(&output.Config{
+		Name: servers.Center,
+		Addr: "",
+		Url:  "http://",
+	})
+	//.WithModule(centerModule.NewCenterNet(module.ModuleID_SM, 10000))
 
 	w := &Center{
 		baseEngine,

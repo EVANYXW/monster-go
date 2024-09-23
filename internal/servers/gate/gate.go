@@ -2,12 +2,7 @@ package gate
 
 import (
 	"github.com/evanyxw/monster-go/internal/servers"
-	centerModule "github.com/evanyxw/monster-go/internal/servers/center/module"
-	commonModule "github.com/evanyxw/monster-go/internal/servers/common/module"
-	gateHandler "github.com/evanyxw/monster-go/internal/servers/gate/handler"
-	"github.com/evanyxw/monster-go/internal/servers/gate/manager"
-	"github.com/evanyxw/monster-go/pkg/module"
-	"github.com/evanyxw/monster-go/pkg/network"
+	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center"
 	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
 	"sync/atomic"
@@ -45,22 +40,28 @@ func New() engine.IServerKernel {
 	//	manager.NewConnectorManager(module.ModuleID_ConnectorManager),
 	//}
 	//return w
-	baseEngine := engine.NewServer(
+
+	//	WithModule(centerModule.NewCenterConnector(
+	//	module.ModuleID_CenterConnector,
+	//	gateHandler.NewGateServerInfoHandler(),
+	//)).
+	//WithModule(commonModule.NewClientNet(
+	//	module.ModuleID_Client,
+	//	5000,
+	//	gateHandler.NewGateMsg(),
+	//	module.Outer,
+	//	new(network.DefaultPackerFactory),
+	//)).
+	//WithModule(manager2.NewConnectorManager(module.ModuleID_ConnectorManager))
+
+	baseEngine := engine.NewGateTcpServer(
 		servers.Gate,
+		center.NewFactor(center.WithServerConnectorManager()),
 	).WithOutput(&output.Config{
 		Name: servers.Gate,
 		Addr: "",
 		Url:  "http://",
-	}).WithModule(centerModule.NewCenterConnector(
-		module.ModuleID_CenterConnector,
-		gateHandler.NewGateServerInfoHandler(),
-	)).WithModule(commonModule.NewClientNet(
-		module.ModuleID_Client,
-		5000,
-		gateHandler.NewGateMsg(),
-		module.Outer,
-		new(network.DefaultPackerFactory),
-	)).WithModule(manager.NewConnectorManager(module.ModuleID_ConnectorManager))
+	})
 
 	return &Gate{
 		baseEngine,

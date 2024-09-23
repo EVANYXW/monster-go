@@ -22,7 +22,7 @@ func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, net
 		id:     id,
 		kernel: module.NewNetKernel(maxConnNum, msgHandler, packerFactory, module.WithNetType(netType)),
 	}
-	module.NewBaseModule(id, c)
+	//module.NewBaseModule(id, c) // todo
 	network.NetPointManager = c.kernel.GetNPManager()
 
 	return c
