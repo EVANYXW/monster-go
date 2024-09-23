@@ -2,7 +2,7 @@ package module
 
 import (
 	"github.com/evanyxw/monster-go/internal/redis"
-	"github.com/evanyxw/monster-go/internal/servers/common/handler"
+	"github.com/evanyxw/monster-go/pkg/common/handler"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"

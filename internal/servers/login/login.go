@@ -2,9 +2,9 @@ package login
 
 import (
 	"github.com/evanyxw/monster-go/internal/servers"
-	commonModule "github.com/evanyxw/monster-go/internal/servers/common/module"
 	accHandler "github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	loginModule "github.com/evanyxw/monster-go/internal/servers/login/module"
+	commonModule "github.com/evanyxw/monster-go/pkg/common/module"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center"
 	"github.com/evanyxw/monster-go/pkg/output"

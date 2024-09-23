@@ -3,9 +3,9 @@ package engine
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/configs"
-	commonModule "github.com/evanyxw/monster-go/internal/servers/common/module"
 	"github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	"github.com/evanyxw/monster-go/pkg/async"
+	commonModule "github.com/evanyxw/monster-go/pkg/common/module"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/logs"
