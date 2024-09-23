@@ -2,16 +2,17 @@ package rsa
 
 import (
 	"bytes"
+	"fmt"
 	"crypto"
-	"crypto/rand"
 	"crypto/rsa"
+	"crypto/rand"
 	"crypto/x509"
-	"encoding/base64"
 	"encoding/pem"
+	"encoding/base64"
 	"errors"
 )
 
-// 签名
+//签名
 func Sign(plant []byte, private []byte) (string, error) {
 	block, _ := pem.Decode([]byte(private))
 	if block == nil {
@@ -34,7 +35,7 @@ func Sign(plant []byte, private []byte) (string, error) {
 	return sign, err
 }
 
-// 签名
+//签名
 func Sign256(plant []byte, private []byte) (string, error) {
 	block, _ := pem.Decode([]byte(private))
 	if block == nil {
@@ -57,7 +58,7 @@ func Sign256(plant []byte, private []byte) (string, error) {
 	return sign, err
 }
 
-// 验证签名
+//验证签名
 func Verify(sign string, plant []byte, public []byte) (bool, error) {
 	block, _ := pem.Decode([]byte(public))
 	if block == nil {
@@ -78,12 +79,14 @@ func Verify(sign string, plant []byte, public []byte) (bool, error) {
 	}
 	err = rsa.VerifyPKCS1v15(puk.(*rsa.PublicKey), hash, hashed, bsign)
 	if err != nil {
+		fmt.Println("err:", err)
 		return false, err
 	}
 	return true, nil
 }
 
-// 解密
+
+//解密
 func RsaDecode(data string, private []byte) ([]byte, error) {
 	block, _ := pem.Decode(private)
 	if block == nil {
@@ -111,6 +114,7 @@ func RsaDecode(data string, private []byte) ([]byte, error) {
 	return buffer.Bytes(), nil
 }
 
+
 func RsaEncrypt(orgidata, publickey []byte) (string, error) {
 	block, _ := pem.Decode(publickey)
 	if block == nil {
@@ -124,10 +128,11 @@ func RsaEncrypt(orgidata, publickey []byte) (string, error) {
 
 	d, err := rsa.EncryptPKCS1v15(rand.Reader, pub, orgidata) //加密
 	if err != nil {
-		return "", err
+		return "",err
 	}
-	return base64.StdEncoding.EncodeToString(d), nil
+	return base64.StdEncoding.EncodeToString(d),nil
 }
+
 
 func RsaEncryptBlock(src, publicKeyByte []byte) (string, error) {
 	block, _ := pem.Decode(publicKeyByte)
@@ -154,6 +159,7 @@ func RsaEncryptBlock(src, publicKeyByte []byte) (string, error) {
 	}
 	return base64.StdEncoding.EncodeToString(buffer.Bytes()), nil
 }
+
 
 func RsaDecryptBlock(data string, privateKeyBytes []byte) (bytesDecrypt []byte, err error) {
 	src, err := base64.StdEncoding.DecodeString(data)

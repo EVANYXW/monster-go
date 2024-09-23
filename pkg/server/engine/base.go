@@ -204,7 +204,6 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 	}
 
 	ServerInit(name)
-
 	rd := factor.CreateConnector()
 	options = append(options, WithModule(rd), WithModule(commonModule.NewClientNet(
 		module.ModuleID_Client,
@@ -228,14 +227,39 @@ func NewTcpServer(name string, msgHandler module.MsgHandler, factor register_dis
 
 	ServerInit(name)
 
+	// 注册与发现
 	rd := factor.CreateConnector()
-	options = append(options, WithModule(rd), WithModule(commonModule.NewClientNet(
+	// 网络模块
+	clientNet := commonModule.NewClientNet(
 		module.ModuleID_GateAcceptor,
 		10000,
 		msgHandler,
 		module.Inner,
 		new(network.ClientPackerFactory),
-	)))
+	)
+	options = append(options, WithModule(rd), WithModule(clientNet))
+
+	return newServer(name, options...)
+}
+
+func NewGrpcServer(name string, msgHandler module.MsgHandler, factor register_discovery.ConnectorFactory, options ...Options) *BaseEngine {
+	if factor == nil {
+		log.Fatal("Please provide a factor!")
+	}
+
+	ServerInit(name)
+
+	// 注册与发现
+	rd := factor.CreateConnector()
+	// 网络模块
+	clientNet := commonModule.NewClientNet(
+		module.ModuleID_GateAcceptor,
+		10000,
+		msgHandler,
+		module.Inner,
+		new(network.ClientPackerFactory),
+	)
+	options = append(options, WithModule(rd), WithModule(clientNet))
 
 	return newServer(name, options...)
 }

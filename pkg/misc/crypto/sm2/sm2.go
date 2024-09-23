@@ -27,7 +27,7 @@ import (
 	"encoding/asn1"
 	"encoding/binary"
 	"errors"
-	"github.com/evanyxw/monster-go/pkg/misc/crypto/sm3"
+	"github.com/evanyxw/basic/misc/crypto/sm3"
 	"io"
 	"math/big"
 )
