@@ -21,6 +21,13 @@ import (
 	"os"
 )
 
+type clientType int
+
+const (
+	grpcClientType clientType = iota
+	httpClientType
+)
+
 type BaseEngine struct {
 	serverName string
 	isPprof    bool
@@ -31,10 +38,11 @@ type BaseEngine struct {
 type Options func(opt *option)
 
 type option struct {
-	isPprof  bool
-	isOutput bool
-	output   *output.Config
-	modules  map[int32]module.IModule
+	isPprof    bool
+	isOutput   bool
+	output     *output.Config
+	modules    map[int32]module.IModule
+	clientType clientType
 }
 
 func WithPprof() Options {
@@ -62,6 +70,12 @@ func WithModules(modules map[int32]module.IModule) Options {
 		for id, m := range opt.modules {
 			opt.modules[id] = m
 		}
+	}
+}
+
+func WithGrpcClient() Options {
+	return func(opt *option) {
+		opt.clientType = grpcClientType
 	}
 }
 

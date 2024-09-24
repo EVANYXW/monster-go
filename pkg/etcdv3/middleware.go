@@ -1,4 +1,4 @@
-package middleware
+package etcdv3
 
 import (
 	"context"
@@ -44,7 +44,6 @@ func UnaryServerInterceptor(ctx context.Context, req interface{}, info *grpc.Una
 	return resp, err
 }
 
-// interceptor 客户端拦截器
 func Interceptor(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
 	start := time.Now()
 	md, ok := metadata.FromIncomingContext(ctx)

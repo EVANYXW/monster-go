@@ -10,7 +10,6 @@ package etcdv3
 import (
 	"context"
 	"fmt"
-	"github.com/evanyxw/monster-go/pkg/middleware"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/balancer/roundrobin"
 	"google.golang.org/grpc/credentials/insecure"
@@ -29,7 +28,7 @@ func NewRpcConn(ctx context.Context, etcd *Etcd, service string, opts []grpc.Dia
 	connServiceMx.RUnlock()
 	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	opts = append(opts, grpc.WithDefaultServiceConfig(fmt.Sprintf(`{"LoadBalancingPolicy": "%s"}`, roundrobin.Name)))
-	opts = append(opts, grpc.WithUnaryInterceptor(middleware.Interceptor))
+	opts = append(opts, grpc.WithUnaryInterceptor(Interceptor))
 	rs := NewResolver(etcd, service)
 	opts = append(opts, grpc.WithResolvers(rs))
 	conn, err := grpc.DialContext(ctx, rs.Scheme()+"://authority/"+service, opts...)
