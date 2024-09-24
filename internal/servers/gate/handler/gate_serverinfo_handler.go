@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
-	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/manager"
+	"github.com/evanyxw/monster-go/pkg/module/connector"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"go.uber.org/zap"
@@ -47,7 +47,7 @@ func (h *gateServerInfoHandler) OnServerOk(info *network.ServerInfo) {
 
 	if SID.Type == server.EP_Login || SID.Type == server.EP_Game || SID.Type == server.EP_Mail || SID.Type == server.EP_World {
 		owner := module.GetModule(module.ModuleID_ConnectorManager).GetOwner()
-		connectorManager := owner.(*manager.ConnectorManager)
+		connectorManager := owner.(*connector.Manager)
 
 		fmt.Println("ports:", server.Ports)
 		conn := connectorManager.CreateConnector(info.ID, info.IP, info.Ports[server.EP_Gate])

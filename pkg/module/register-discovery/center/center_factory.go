@@ -5,9 +5,9 @@ package center
 
 import (
 	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/connector"
 	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery"
 	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/handler"
-	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/manager"
 )
 
 type Factor struct {
@@ -37,7 +37,7 @@ func (f *Factor) CreateConnector() register_discovery.Connector {
 }
 
 func (f *Factor) CreateConnectorManager() register_discovery.Connector {
-	return manager.NewConnectorManager(module.ModuleID_ConnectorManager)
+	return connector.NewManager(module.ModuleID_ConnectorManager)
 }
 
 func (f *Factor) CreateNet() register_discovery.Connector {

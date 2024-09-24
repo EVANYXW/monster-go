@@ -10,8 +10,8 @@ import (
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/logs"
 	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/connector"
 	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery"
-	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/manager"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -228,7 +228,7 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 	)))
 
 	if factor.IsConnectorServer() {
-		options = append(options, WithModule(manager.NewConnectorManager(module.ModuleID_ConnectorManager)))
+		options = append(options, WithModule(connector.NewManager(module.ModuleID_ConnectorManager)))
 	}
 
 	return newServer(name, options...)
