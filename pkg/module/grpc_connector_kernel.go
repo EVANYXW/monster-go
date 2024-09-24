@@ -2,43 +2,47 @@ package module
 
 import (
 	"fmt"
-	"github.com/evanyxw/monster-go/pkg/client"
+	"github.com/evanyxw/monster-go/pkg/grpc"
 	"github.com/evanyxw/monster-go/pkg/network"
-	"github.com/evanyxw/monster-go/pkg/rpc"
+	"go.uber.org/zap"
+
+	//"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"sync"
 )
 
 type GrpcConnectorKernel struct {
-	*client.Client
+	//*client.Client
+	*grpc.Connector
 
-	RpcAcceptor *rpc.Acceptor
+	//RpcAcceptor *rpc.Acceptor
 	ID          uint32
 	SID         server.ServerID
 	wg          sync.WaitGroup
 	runStatus   int
 	NoWaitStart bool
 	msgHandler  MsgHandler
-	processor   *network.Processor
+	//processor   *network.Processor
 }
 
-func NewGrpcConnectorKernel(ip string, port uint32, msgHandler MsgHandler, packerFactory network.PackerFactory,
-	options ...ckernelOption) *GrpcConnectorKernel {
-	rpcAcceptor := rpc.NewAcceptor(10000)
-	processor := network.NewProcessor()
+func NewGrpcConnectorKernel(serverName string, logger *zap.Logger) *GrpcConnectorKernel {
+	//opt := &ckOptions{}
+	//rpcAcceptor := rpc.NewAcceptor(10000)
+	//processor := network.NewProcessor()
 	connector := &GrpcConnectorKernel{
-		processor:   processor,
-		Client:      client.NewClient(fmt.Sprintf("%s:%d", ip, port), processor, packerFactory),
-		RpcAcceptor: rpcAcceptor,
+		//processor:   processor,
+		//Client: client.NewClient(fmt.Sprintf("%s:%d", ip, port), processor, packerFactory),
+		//RpcAcceptor: rpcAcceptor,
+		Connector:   grpc.NewServerConnector(serverName, logger),
 		NoWaitStart: false,
-		msgHandler:  msgHandler,
+		//msgHandler:  msgHandler,
 	}
-	connector.Client.OnMessageCb = connector.MessageHandler
+	//connector.Client.OnMessageCb = connector.MessageHandler
 
-	for _, fn := range options {
-		fn(connector)
-	}
-
+	//for _, fn := range options {
+	//	fn(opt)
+	//}
+	//connector.NoWaitStart = opt.NoWaitStart
 	return connector
 }
 
@@ -53,19 +57,14 @@ func (c *GrpcConnectorKernel) Init(baseModule *BaseModule) bool {
 }
 
 func (c *GrpcConnectorKernel) DoRegister() {
-	c.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, c.OnRpcNetConnected)
-	c.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, c.OnRpcNetError)
 
-	if c.msgHandler != nil {
-		c.msgHandler.MsgRegister(c.processor)
-	}
 }
 
 func (c *GrpcConnectorKernel) DoRun() {
-	c.RpcAcceptor.Run()
-	c.Client.Run(c.RpcAcceptor)
-	c.runStatus = ModuleRunStatus_Running
-	c.msgHandler.Start()
+	//c.RpcAcceptor.Run()
+	//c.Client.Run(c.RpcAcceptor)
+	//c.runStatus = ModuleRunStatus_Running
+	//c.msgHandler.Start()
 }
 
 func (c *GrpcConnectorKernel) DoWaitStart() {
@@ -73,7 +72,7 @@ func (c *GrpcConnectorKernel) DoWaitStart() {
 }
 
 func (c *GrpcConnectorKernel) DoRelease() {
-	c.Client.OnClose()
+	//c.Client.OnClose()
 }
 
 func (c *GrpcConnectorKernel) Update() {
@@ -81,7 +80,7 @@ func (c *GrpcConnectorKernel) Update() {
 }
 
 func (c *GrpcConnectorKernel) OnOk() {
-	c.msgHandler.OnOk()
+	//c.msgHandler.OnOk()
 }
 
 func (c *GrpcConnectorKernel) OnStartClose() {
@@ -116,11 +115,11 @@ func (c *GrpcConnectorKernel) GetStatus() int {
 }
 
 func (c *GrpcConnectorKernel) RegisterMsg(msgId uint16, handlerFunc network.HandlerFunc) {
-	c.processor.RegisterMsg(msgId, handlerFunc)
+	//c.processor.RegisterMsg(msgId, handlerFunc)
 }
 
 func (c *GrpcConnectorKernel) MessageHandler(packet *network.Packet) {
-	c.processor.MessageHandler(packet)
+	//c.processor.MessageHandler(packet)
 }
 
 func (c *GrpcConnectorKernel) OnRpcNetAccept(args []interface{}) {
@@ -133,14 +132,6 @@ func (c *GrpcConnectorKernel) OnRpcNetConnected(args []interface{}) {
 }
 
 func (c *GrpcConnectorKernel) OnRpcNetError(args []interface{}) {
-	//np := args[0].(*network.NetPoint)
-	//
-	//if c.msgHandler != nil {
-	//	c.msgHandler.OnNetError(np, nil)
-	//}
-	//fmt.Println("GrpcConnectorKernel OnRpcNetError np close")
-	//np.Close()
-
 	//fixMe OnRpcNetError 还没做其他处理!!!
 	fmt.Println("OnRpcNetError 还没做其他处理!!!")
 }
