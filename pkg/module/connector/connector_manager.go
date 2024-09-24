@@ -13,7 +13,7 @@ type id uint8
 
 type Manager struct {
 	kernel      module.IModuleKernel
-	collections []map[uint32]*module.ConnectorKernel
+	collections []map[uint32]module.IModuleKernel
 	handler     module.GateAcceptorHandler
 	id          int32
 }
@@ -32,9 +32,9 @@ func NewManager(id int32) *Manager {
 
 func (c *Manager) Init(baseModule *module.BaseModule) bool {
 	//c.collections = make([]connectCollection, xsf_util.EP_Max)
-	c.collections = []map[uint32]*module.ConnectorKernel{}
+	c.collections = []map[uint32]module.IModuleKernel{}
 	for i := 0; i < server.EP_Max; i++ {
-		c.collections = append(c.collections, make(map[uint32]*module.ConnectorKernel))
+		c.collections = append(c.collections, make(map[uint32]module.IModuleKernel))
 	}
 	//c.kernel.Init()
 	return true
@@ -116,9 +116,6 @@ func (c *Manager) CreateConnector(id uint32, ip string, port uint32) *module.Con
 
 	ck.DoRegister()
 	ck.DoRun()
-	//// fixMe 这里会不会没有运行好，在发送Handshake
-	//time.Sleep(time.Duration(3) * time.Second)
-	//c.handler.SendHandshake(ck)
 
 	return ck
 }
