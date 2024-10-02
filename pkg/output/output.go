@@ -24,6 +24,7 @@ type Data struct {
 	GoCount     int32
 	ModuleNum   int
 	OkModuleNum int
+	ModuleId    int32
 }
 
 type Output struct {
@@ -131,18 +132,17 @@ func (s *Output) SetGoNum(num int32) {
 }
 
 func (s *Output) SetModuleNum(total int, okNum int, okModuleId int32) {
-	s.okModule = append(s.okModule, okModuleId)
+
 	data := Data{
 		ModuleNum:   total,
 		OkModuleNum: okNum,
+		ModuleId:    okModuleId,
 	}
 	s.SetData(data)
 }
 
 func (s *Output) SetData(data Data) {
-	go func() {
-		s.Chan <- data
-	}()
+	s.Chan <- data
 }
 
 func (s *Output) SetServerAddr(addr string) {
@@ -169,6 +169,7 @@ func (s *Output) run() {
 			if data.ModuleNum > 0 {
 				s.ModuleNum = data.ModuleNum
 				s.OkModuleNum = data.OkModuleNum
+				s.okModule = append(s.okModule, data.ModuleId)
 			}
 
 			s.Clear()

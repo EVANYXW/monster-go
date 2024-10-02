@@ -36,8 +36,8 @@ func (f *Factor) CreateConnector() register_discovery.Connector {
 	return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewServerInfoHandler())
 }
 
-func (f *Factor) CreateConnectorManager() register_discovery.Connector {
-	return connector.NewManager(module.ModuleID_ConnectorManager)
+func (f *Factor) CreateConnectorManager(managerFactory connector.ManagerFactory) register_discovery.Connector {
+	return connector.NewManager(module.ModuleID_ConnectorManager, managerFactory)
 }
 
 func (f *Factor) CreateNet() register_discovery.Connector {

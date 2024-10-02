@@ -26,7 +26,7 @@ type IModuleFlow interface {
 	Update()
 }
 
-// IModule 定义
+// IModule Module
 type IModule interface {
 	IModuleFlow
 	GetKernel() IModuleKernel
@@ -54,11 +54,13 @@ type Client interface {
 	GetServerIds() []uint32
 }
 
+// IGtClientManager  gate的client管理器
 type IGtClientManager interface {
 	NewClient(np *network.NetPoint) (Client, bool)
 	GetClient(id uint32) Client
 }
 
+// IGtAClientManager gate消息接受管理器
 type IGtAClientManager interface {
 	CloseClient(id uint32)
 }

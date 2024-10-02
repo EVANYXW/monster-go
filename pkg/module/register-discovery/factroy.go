@@ -3,7 +3,10 @@
 // @Desc
 package register_discovery
 
-import "github.com/evanyxw/monster-go/pkg/module"
+import (
+	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/connector"
+)
 
 type Connector interface {
 	module.IModule
@@ -12,7 +15,7 @@ type Connector interface {
 type ConnectorFactory interface {
 	CreateConnector() Connector
 	IsConnectorServer() bool
-	CreateConnectorManager() Connector
+	CreateConnectorManager(managerFactory connector.ManagerFactory) Connector
 }
 
 type NetFactory interface {

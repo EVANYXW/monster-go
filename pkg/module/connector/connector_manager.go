@@ -2,8 +2,6 @@ package connector
 
 import (
 	"github.com/evanyxw/monster-go/pkg/module"
-	"github.com/evanyxw/monster-go/pkg/module/connector/handler"
-	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"math/rand"
 )
@@ -16,18 +14,20 @@ type Manager struct {
 	collections []map[uint32]module.IModuleKernel
 	handler     module.GateAcceptorHandler
 	id          int32
+	factory     ManagerFactory
 }
 
-func NewManager(id int32) *Manager {
-	c := &Manager{
-		id: id,
-	}
-	hdler := handler.NewManagerMsg()
-	c.handler = hdler
-	c.kernel = module.NewKernel(hdler, network.NetPointManager.GetRpcAcceptor(),
-		network.NetPointManager.GetProcessor())
-
-	return c
+func NewManager(id int32, factory ManagerFactory) *Manager {
+	//c := &Manager{
+	//	id: id,
+	//}
+	//hdler := handler.NewManagerMsg()
+	//c.handler = hdler
+	//c.kernel = module.NewKernel(hdler, network.NetPointManager.GetRpcAcceptor(),
+	//	network.NetPointManager.GetProcessor())
+	//
+	//return c
+	return factory.Create(id)
 }
 
 func (c *Manager) Init(baseModule *module.BaseModule) bool {
@@ -106,12 +106,13 @@ func (c Manager) GetConnector(ep uint32, id uint32) module.IModuleKernel {
 }
 
 func (c *Manager) CreateConnector(id uint32, ip string, port uint32) *module.ConnectorKernel {
-	//msgHandler := handler.NewManager()
-	msgHandler := c.handler.(module.MsgHandler)
-	ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.ClientPackerFactory))
-	//ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.DefaultPackerFactory))
-	ck.SetID(id)
+	////msgHandler := handler.NewManager()
+	//msgHandler := c.handler.(module.MsgHandler)
+	//ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.ClientPackerFactory))
+	////ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.DefaultPackerFactory))
+	//ck.SetID(id)
 
+	ck := c.factory.CreateConnector(c.handler, id, ip, port)
 	c.collections[ck.SID.Type][id] = ck
 
 	ck.DoRegister()

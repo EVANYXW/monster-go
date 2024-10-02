@@ -47,6 +47,7 @@ func (h *gateServerInfoHandler) OnServerOk(info *network.ServerInfo) {
 
 	if SID.Type == server.EP_Login || SID.Type == server.EP_Game || SID.Type == server.EP_Mail || SID.Type == server.EP_World {
 		owner := module.GetModule(module.ModuleID_ConnectorManager).GetOwner()
+		//connectorManager := owner.(*connector.Manager)
 		connectorManager := owner.(*connector.Manager)
 
 		fmt.Println("ports:", server.Ports)

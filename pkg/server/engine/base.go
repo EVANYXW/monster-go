@@ -228,7 +228,8 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 	)))
 
 	if factor.IsConnectorServer() {
-		options = append(options, WithModule(connector.NewManager(module.ModuleID_ConnectorManager)))
+		options = append(options, WithModule(factor.CreateConnectorManager(&connector.TcpManagerFactory{})))
+		//options = append(options, WithModule(connector.NewManager(module.ModuleID_ConnectorManager)))
 	}
 
 	return newServer(name, options...)

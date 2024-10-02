@@ -20,25 +20,8 @@ type GateAcceptorHandler interface {
 	SendHandshake(ck *ConnectorKernel)
 }
 
-type MsgHandler interface {
-	INetHandler
-
-	OnInit(baseModule *BaseModule)
-	Start()
-	OnNetMessage(pack *network.Packet)
-	MsgRegister(processor *network.Processor)
-}
-
 // INetHandler kernel 需要实现
 type INetHandler interface {
-	//Start()
-	//DoRegist(nk *NetKernel)
-	//OnNetData(np *network.NetPoint, msgID uint16, rawID uint32, data []byte)
-	//OnNetMessage(np *network.NetPoint, msgID uint16, rawID uint32, message xsf_net.IMessage)
-	//OnStartCheck() int
-	//OnCloseCheck() int
-	//DoClose()
-	//OnStartClose()
 	OnOk()
 	OnUpdate()
 	OnServerOk()
@@ -47,6 +30,15 @@ type INetHandler interface {
 	OnNetError(np *network.NetPoint, acceptor *network.Acceptor)
 	OnNetConnected(np *network.NetPoint)
 	OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor)
+}
+
+type MsgHandler interface {
+	INetHandler
+
+	OnInit(baseModule *BaseModule)
+	Start()
+	OnNetMessage(pack *network.Packet)
+	MsgRegister(processor *network.Processor)
 }
 
 // INetEventHandler 网络事件处理器
