@@ -16,15 +16,14 @@ type GrpcNet struct {
 	id           int32
 }
 
-func NewGrpcNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, netType module.NetType,
-	packerFactory network.PackerFactory) *ClientNet {
+func NewGrpcNet(id int32, serverName string, msgHandler module.MsgHandler) *ClientNet {
 	c := &ClientNet{
-		id:     id,
-		kernel: module.NewNetKernel(maxConnNum, msgHandler, packerFactory, module.WithNetType(netType)),
+		id:      id,
+		netType: module.Inner,
+		kernel:  module.NewGrpcNetKernel(serverName, msgHandler),
 	}
 
-	network.NetPointManager = c.kernel.GetNPManager()
-
+	//network.NetPointManager = c.kernel.GetNPManager()
 	return c
 }
 

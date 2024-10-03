@@ -15,6 +15,7 @@ import (
 	"go.uber.org/zap"
 	"io"
 	"net"
+	"runtime"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -168,7 +169,14 @@ func (np *NetPoint) HandleRead() {
 	defer func() {
 		if err := recover(); err != nil {
 			if err, ok := err.(error); ok {
-				logger.Error("Recovered error", zap.Error(err))
+				_, file, line, ok := runtime.Caller(1) // 参数1表示获取调用者的信息，而不是当前函数的信息
+				if !ok {
+					file = "???"
+					line = 0
+				}
+
+				errMsg := fmt.Sprintf(" error message:%s, file:%s, line: %d", err.Error(), file, line)
+				logger.Error("Recovered error", zap.String("error", errMsg))
 			} else {
 				logger.Error("Recovered value is not an error")
 			}

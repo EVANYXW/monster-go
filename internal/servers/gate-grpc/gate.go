@@ -19,9 +19,10 @@ type gateServerInfo struct {
 
 func New() engine.IServerKernel {
 
-	baseEngine := engine.NewGateTcpServer(
+	baseEngine := engine.NewGrpcServer(
 		servers.Gate,
 		center.NewFactor(center.WithServerConnectorManager()),
+		[]engine.GrpcServer{},
 	).WithOutput(&output.Config{
 		Name: servers.Gate,
 		Addr: "",

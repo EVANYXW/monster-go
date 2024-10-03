@@ -25,6 +25,7 @@ type option struct {
 	maxPort     int
 	interceptor []grpc.UnaryServerInterceptor
 	isTracer    bool
+	addr        string
 }
 
 type Connector struct {

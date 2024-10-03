@@ -109,7 +109,11 @@ var moduleMap = map[int]string{
 	ModuleID_SM:               "Center 网络模块",
 	ModuleID_CenterConnector:  "Center 的连接器",
 	ModuleID_Client:           "Client 客户端",
+	ModuleID_GateAcceptor:     "GateAcceptor",
 	ModuleID_ConnectorManager: "Gate 的多链接管理器",
+	ModuleID_LoginManager:     "LoginManager",
+	ModuleID_LoginConfig:      "LoginConfig",
+	ModuleID_Redis:            "Redis",
 }
 
 func ModuleId2Name(id int) string {
@@ -117,4 +121,8 @@ func ModuleId2Name(id int) string {
 		return val
 	}
 	return ""
+}
+
+func GetModuleMap() map[int]string {
+	return moduleMap
 }

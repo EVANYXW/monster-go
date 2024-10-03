@@ -5,6 +5,7 @@ import (
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	"github.com/evanyxw/monster-go/pkg/async"
+	handler2 "github.com/evanyxw/monster-go/pkg/common/handler"
 	commonModule "github.com/evanyxw/monster-go/pkg/common/module"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/logger"
@@ -87,7 +88,7 @@ func (b *BaseEngine) WithModule(m module.IModule) *BaseEngine {
 func (b *BaseEngine) WithOutput(config *output.Config) *BaseEngine {
 	//b.output = output.NewOutput(config)
 	b.isOutput = true
-	b.output = output.NewOutput(config)
+	b.output = output.NewOutput(config, module.GetModuleMap())
 	async.Go(func() {
 		b.output.Run()
 	})
@@ -199,7 +200,7 @@ func newServer(name string, options ...Options) *BaseEngine {
 	}
 
 	if opt.isOutput {
-		b.output = output.NewOutput(opt.output)
+		b.output = output.NewOutput(opt.output, module.GetModuleMap())
 		async.Go(func() {
 			b.output.Run()
 		})
@@ -257,7 +258,7 @@ func NewTcpServer(name string, msgHandler module.MsgHandler, factor register_dis
 	return newServer(name, options...)
 }
 
-func NewGrpcServer(name string, msgHandler module.MsgHandler, factor register_discovery.ConnectorFactory, options ...Options) *BaseEngine {
+func NewGrpcServer(name string, factor register_discovery.ConnectorFactory, grpcServers []GrpcServer, options ...Options) *BaseEngine {
 	if factor == nil {
 		log.Fatal("Please provide a factor!")
 	}
@@ -267,13 +268,16 @@ func NewGrpcServer(name string, msgHandler module.MsgHandler, factor register_di
 	// 注册与发现
 	rd := factor.CreateConnector()
 	// 网络模块
-	clientNet := commonModule.NewClientNet(
+	clientNet := commonModule.NewGrpcNet(
 		module.ModuleID_GateAcceptor,
-		10000,
-		msgHandler,
-		module.Inner,
-		new(network.ClientPackerFactory),
+		"servername",
+		handler2.NewCommonMsgHandler(),
 	)
+
+	for _, s := range grpcServers {
+		s.TransportRegister()(module.GrpcServer)
+	}
+
 	options = append(options, WithModule(rd), WithModule(clientNet))
 
 	return newServer(name, options...)

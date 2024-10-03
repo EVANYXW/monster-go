@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"github.com/evanyxw/monster-go/client/robot"
 	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/pkg/grpc"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/timeutil"
 	"time"
 )
 
-func main() {
+func tcpClient() {
 	logger.NewLogger(
 		logger.WithDisableConsole(),
 		logger.WithField("domain", fmt.Sprintf("%s[%s]", "client", "dev")),
@@ -22,4 +23,14 @@ func main() {
 	module.Run()
 	c.Start()
 	time.Sleep(10 * time.Hour)
+}
+
+func grpcClient() {
+	connector := grpc.NewServerConnector("client", nil)
+	connector.Dial("login", ":3000")
+
+}
+
+func main() {
+	tcpClient()
 }

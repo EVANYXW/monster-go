@@ -4,7 +4,6 @@
 package grpc
 
 import (
-	"fmt"
 	"github.com/evanyxw/monster-go/pkg/etcdv3"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -28,41 +27,55 @@ type Server struct {
 	minPort     int
 	maxPort     int
 	isTracer    bool
-	ip          string
-	port        int
+	addr        string
+	mdw         []grpc.UnaryServerInterceptor
 }
 
-func NewServer(service string, ip string, port int, options ...GrpcOptions) *Server {
-	op := &option{
+func WithAddr(addr string) GrpcOptions {
+	return func(options *option) {
+		options.addr = addr
+	}
+}
+
+func NewServer(service string) *Server {
+	//op := &option{
+	//	minPort: _minPort,
+	//	maxPort: _maxPort,
+	//}
+	//for _, fn := range options {
+	//	fn(op)
+	//}
+
+	s := &Server{
+		name: service,
+		//Log:      op.Log,
+		//minPort:  op.minPort,
+		//maxPort:  op.maxPort,
+		//isTracer: op.isTracer,
+		//mdw:      op.interceptor,
+	}
+
+	//s.Connect()
+	return s
+}
+
+func (s *Server) Connect(options ...GrpcOptions) {
+	opt := &option{
 		minPort: _minPort,
 		maxPort: _maxPort,
 	}
 	for _, fn := range options {
-		fn(op)
+		fn(opt)
 	}
 
-	s := &Server{
-		name:     service,
-		Log:      op.Log,
-		minPort:  op.minPort,
-		maxPort:  op.maxPort,
-		isTracer: op.isTracer,
-		ip:       ip,
-		port:     port,
-	}
+	s.addr = opt.addr
+	s.Log = opt.Log
+	s.minPort = opt.minPort
+	s.maxPort = opt.maxPort
+	s.isTracer = opt.isTracer
+	s.mdw = opt.interceptor
 
-	s.init(op.interceptor...)
-	return s
-}
-
-func (s *Server) SetPort(minPort, maxPort int) {
-	s.minPort = minPort
-	s.maxPort = maxPort
-}
-
-func (s *Server) init(mdw ...grpc.UnaryServerInterceptor) {
-	s.serviceAddr = fmt.Sprintf("%s:%d", s.ip, s.port)
-	//s.tcpEtcd = s.registerEtcd(s.etcdClient, s.name, s.serviceAddr)
+	//s.tcpEtcd = s.registerEtcd(s.etcdClient, s.name, s.addr)
 
 	defer func() {
 		if err := recover(); err != nil {
@@ -72,7 +85,7 @@ func (s *Server) init(mdw ...grpc.UnaryServerInterceptor) {
 		}
 	}()
 
-	listen, err := net.Listen("tcp", s.serviceAddr)
+	listen, err := net.Listen("tcp", s.addr)
 	if err != nil {
 		panic(err)
 	}
@@ -87,8 +100,12 @@ func (s *Server) init(mdw ...grpc.UnaryServerInterceptor) {
 		//interceptors = append(interceptors, grpc_opentracing.UnaryServerInterceptor()) // tracer 追踪中间件
 	}
 
-	interceptors = append(interceptors, mdw...)
+	interceptors = append(interceptors, s.mdw...)
 
 	s.Server = grpc.NewServer()
 	s.listener = listen
+}
+
+func (s *Server) Run() {
+	s.Server.Serve(s.listener)
 }

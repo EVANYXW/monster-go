@@ -4,6 +4,7 @@ import (
 	"github.com/evanyxw/monster-go/internal/servers"
 	"github.com/evanyxw/monster-go/internal/servers/center"
 	"github.com/evanyxw/monster-go/internal/servers/gate"
+	gate_grpc "github.com/evanyxw/monster-go/internal/servers/gate-grpc"
 	"github.com/evanyxw/monster-go/internal/servers/login"
 	cmdapk "github.com/evanyxw/monster-go/pkg/cmd"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
@@ -24,6 +25,7 @@ func init() {
 	engine.Register(servers.Gate, gate.New)
 	engine.Register(servers.Center, center.New)
 	engine.Register(servers.Login, login.New)
+	engine.Register(servers.GateGrpc, gate_grpc.New)
 
 	// 启动服务参数
 	ServerCmd.Flags().StringVar(&envStr, "env", "", "env")

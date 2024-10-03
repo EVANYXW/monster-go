@@ -6,7 +6,6 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -25,6 +24,7 @@ type Data struct {
 	ModuleNum   int
 	OkModuleNum int
 	ModuleId    int32
+	allModule   []int32
 }
 
 type Output struct {
@@ -39,6 +39,8 @@ type Output struct {
 	ModuleNum   int
 	OkModuleNum int
 	okModule    []int32
+	moduleMap   map[int]string
+	allModule   []int32
 }
 
 // 定义颜色结构体
@@ -65,6 +67,7 @@ var clear map[string]func() //create a map for storing clear func
 var tamplate = `+--------------------------------------------------+
 |   Server Name: {{Name}}
 |   Total Module Num: {{ModuleNum}}
+|   Modules: {{Modules}}
 |   OK Module Num: {{OkModuleNum}}
 |   OK Module: {{okModule}}
 |   Server Addr: {{Addr}}
@@ -75,15 +78,28 @@ var tamplate = `+--------------------------------------------------+
 |   Pprof: {{Pprof}}
 +--------------------------------------------------+`
 
-func joinInts(ints []int32) string {
+func joinInts(ints []int32, moduleMap map[int]string) string {
 	// 将 []int32 转换为 []string
 	strInts := make([]string, len(ints))
 	for i, v := range ints {
-		strInts[i] = strconv.Itoa(int(v))
+		//strInts[i] = strconv.Itoa(int(v))
+		if name, ok := moduleMap[int(v)]; ok {
+			strInts[i] = name
+		}
 	}
 	// 使用 strings.Join 拼接为逗号分隔的字符串
 	return strings.Join(strInts, ",")
 }
+
+//func joinInts(ints []int32) string {
+//	// 将 []int32 转换为 []string
+//	strInts := make([]string, len(ints))
+//	for i, v := range ints {
+//		strInts[i] = strconv.Itoa(int(v))
+//	}
+//	// 使用 strings.Join 拼接为逗号分隔的字符串
+//	return strings.Join(strInts, ",")
+//}
 
 func init() {
 	clear = make(map[string]func()) //Initialize it
@@ -99,13 +115,14 @@ func init() {
 	})
 }
 
-func NewOutput(config *Config) *Output {
+func NewOutput(config *Config, moduleMap map[int]string) *Output {
 	Oput = &Output{
 		ServerName: config.Name,
 		Address:    config.Addr,
 		//RpcAddress: rpc,
-		Chan: make(chan Data, 100),
-		Url:  config.Url,
+		Chan:      make(chan Data, 100),
+		Url:       config.Url,
+		moduleMap: moduleMap,
 	}
 
 	return Oput
@@ -127,6 +144,13 @@ func (s *Output) SetGoNum(num int32) {
 	data := Data{
 		GoCount: num,
 		ConnNum: -1,
+	}
+	s.SetData(data)
+}
+
+func (s *Output) SetAllModules(modules []int32) {
+	data := Data{
+		allModule: modules,
 	}
 	s.SetData(data)
 }
@@ -170,6 +194,10 @@ func (s *Output) run() {
 				s.ModuleNum = data.ModuleNum
 				s.OkModuleNum = data.OkModuleNum
 				s.okModule = append(s.okModule, data.ModuleId)
+			}
+
+			if len(data.allModule) > 0 {
+				s.allModule = data.allModule
 			}
 
 			s.Clear()
@@ -219,8 +247,9 @@ func (s *Output) Print() {
 	str = strings.Replace(str, "{{PlayerNum}}", cast.ToString(s.ConnNum), -1)
 	str = strings.Replace(str, "{{GoNum}}", cast.ToString(s.GoCount), -1)
 	str = strings.Replace(str, "{{ModuleNum}}", cast.ToString(s.ModuleNum), -1)
+	str = strings.Replace(str, "{{Modules}}", cast.ToString(joinInts(s.allModule, s.moduleMap)), -1)
 	str = strings.Replace(str, "{{OkModuleNum}}", cast.ToString(s.OkModuleNum), -1)
-	str = strings.Replace(str, "{{okModule}}", cast.ToString(joinInts(s.okModule)), -1)
+	str = strings.Replace(str, "{{okModule}}", cast.ToString(joinInts(s.okModule, s.moduleMap)), -1)
 	str = strings.Replace(str, "{{RunGoNum}}", cast.ToString(runtime.NumGoroutine()), -1)
 
 	if s.Url != "" {

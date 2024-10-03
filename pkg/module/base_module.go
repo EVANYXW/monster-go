@@ -143,6 +143,15 @@ func (m *BaseModule) Run() {
 		m.owner.DoRun()
 	}
 
+	var allModules []int32
+	for _, v := range modules {
+		if v.module == nil {
+			continue
+		}
+		allModules = append(allModules, v.module.GetID())
+	}
+
+	output.Oput.SetAllModules(allModules)
 	async.Go(func() {
 	OUTLABEL:
 		for {

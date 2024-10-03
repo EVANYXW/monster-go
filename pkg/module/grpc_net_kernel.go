@@ -3,8 +3,11 @@ package module
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/pkg/async"
+	"github.com/evanyxw/monster-go/pkg/grpc"
 	"github.com/evanyxw/monster-go/pkg/network"
+	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/rpc"
+	"github.com/evanyxw/monster-go/pkg/server"
 )
 
 type GrpcNetKernel struct {
@@ -13,15 +16,25 @@ type GrpcNetKernel struct {
 	Status      int
 	closeChan   chan struct{}
 	port        uint32
+	netType     NetType
+	server      *grpc.Server
+	NoWaitStart bool
 }
 
-func NewGrpcNetKernel() *GrpcNetKernel {
+var (
+	GrpcServer *grpc.Server
+)
 
+func NewGrpcNetKernel(serverName string, msgHandler MsgHandler) *GrpcNetKernel {
+	rpcAcceptor := rpc.NewAcceptor(10000)
 	kernel := &GrpcNetKernel{
-		//RpcAcceptor: rpcAcceptor,
-		closeChan: make(chan struct{}),
+		RpcAcceptor: rpcAcceptor,
+		closeChan:   make(chan struct{}),
+		server:      grpc.NewServer(serverName),
+		NoWaitStart: false,
+		msgHandler:  msgHandler,
 	}
-
+	GrpcServer = kernel.server
 	//kernel.Init() // 是不是多余
 	return kernel
 }
@@ -42,32 +55,35 @@ func (n *GrpcNetKernel) DoRegister() {
 	}
 
 }
-func (n *GrpcNetKernel) start(options ...network.Options) {
+func (n *GrpcNetKernel) start(options ...grpc.GrpcOptions) {
 	async.Go(func() {
 		//n.NetAcceptor.Connect(options...)
-		//n.Status = server.Net_RunStep_Done
+		n.Status = server.Net_RunStep_Done
+		n.server.Connect(options...)
+		n.server.Run()
 		//n.RpcAcceptor.Run()
 		//n.NetAcceptor.Run() // 会阻塞
 	})
+	// todo: m.msgHandler 需要判断然后
 	n.msgHandler.Start()
 }
 
 func (n *GrpcNetKernel) DoRun() {
 	//n.nodeManager.Start()
-	//n.Status = server.Net_RunStep_Start
-	//if n.NoWaitStart {
-	//	n.start()
-	//}
+	n.Status = server.Net_RunStep_Start
+	if n.NoWaitStart {
+		n.start()
+	}
 }
 
 func (n *GrpcNetKernel) DoWaitStart() {
-	//port := server.Ports[server.EP_Client]
+	port := server.Ports[server.EP_Client]
 	//if n.netType == Inner {
 	//	port = server.Ports[server.EP_Gate]
 	//}
-	//addr := fmt.Sprintf(":%d", port)
-	//output.Oput.SetServerAddr(addr)
-	//n.start(network.WithAddr(addr))
+	addr := fmt.Sprintf(":%d", port)
+	output.Oput.SetServerAddr(addr)
+	n.start(grpc.WithAddr(addr))
 	//async.Go(func() {
 	//	n.NetAcceptor.Connect(network.WithAddr(addr))
 	//	n.NetAcceptor.Run()
@@ -107,8 +123,7 @@ func (n *GrpcNetKernel) OnCloseCheck() int {
 }
 
 func (n *GrpcNetKernel) GetNoWaitStart() bool {
-	//return n.NoWaitStart
-	return true
+	return n.NoWaitStart
 }
 
 //func (n *GrpcNetKernel) RegisterMsg(msgId uint16, handlerFunc network.HandlerFunc) {

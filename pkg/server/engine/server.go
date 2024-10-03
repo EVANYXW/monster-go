@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"go.uber.org/zap"
+	"google.golang.org/grpc"
 	"os"
 	"syscall"
 )
@@ -22,6 +23,10 @@ import (
 //		return v.Interface()
 //	}
 //
+
+type GrpcServer interface {
+	TransportRegister() func(grpc.ServiceRegistrar) error
+}
 
 // IServerKernel Server内核
 type IServerKernel interface {
