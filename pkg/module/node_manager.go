@@ -49,7 +49,7 @@ func (nm *nodeManager) Start() {
 	for i := 0; i < server.EP_Max; i++ {
 		nm.nodesIndex[i] = 1
 	}
-	serverCnf := configs.Get()
+	serverCnf := configs.All()
 	nm.innerPort = uint32(serverCnf.InnerPort)
 	nm.outPort = uint32(serverCnf.OutPort)
 	nm.nodes = make(map[uint32]*network.ServerInfo)

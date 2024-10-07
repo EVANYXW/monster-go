@@ -1,10 +1,3 @@
-/**
- * @api post etcdservice.
- *
- * User: yunshengzhu
- * Date: 2019-07-31
- * Time: 15:45
- */
 package etcdv3
 
 import (

@@ -33,7 +33,11 @@ type Config struct {
 	InnerPort int32
 	OutPort   int32
 	PprofPort int64 `toml:"pprofPort"`
-
+	Server    struct {
+		Name    string
+		MinPort int `toml:"minport"`
+		MaxPort int `toml:"maxport"`
+	}
 	MySQL struct {
 		Read struct {
 			Addr string `toml:"addr"`
@@ -96,9 +100,9 @@ type Config struct {
 	} `toml:"rpc"`
 
 	Etcd struct {
-		Address   []string `toml:"address"`
-		Namespace string   `toml:"namespace"`
-		Secret    string   `toml:"secret"`
+		Addr []string `toml:"addr"`
+		User string   `toml:"user"`
+		Pass string   `toml:"pass"`
 	}
 
 	ServerList []ServerNode
@@ -118,8 +122,8 @@ var (
 	//proConfigs []byte
 )
 
-// Get 获取config
-func Get() Config {
+// All 获取config
+func All() Config {
 	return *config
 }
 

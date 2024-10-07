@@ -1,10 +1,3 @@
-/**
- * @api post etcdv3.
- *
- * User: yunshengzhu
- * Date: 2020/5/20
- * Time: 4:01 下午
- */
 package etcdv3
 
 import (
@@ -14,7 +7,7 @@ import (
 	"fmt"
 	"github.com/evanyxw/monster-go/pkg/utils"
 	"go.etcd.io/etcd/api/v3/mvccpb"
-	"go.etcd.io/etcd/client/v3"
+	clientv3 "go.etcd.io/etcd/client/v3"
 	"log"
 	"strings"
 	"time"
@@ -129,14 +122,13 @@ func (c *Config) Get(key string) (ConfigData, error) {
 	return configVal, nil
 }
 
-func LoadConfig(etcd *Etcd, baseKey, key string, fn func([]byte)) error {
+func LoadConfig(etcd *Etcd, key string, fn func([]byte)) error {
 	p := make([]string, 0)
 	p = append(p, BasePath)
 	p = append(p, ConfigPath)
 	p = append(p, etcd.namespace)
 	p = append(p, key)
 	key = strings.Join(p, "/")
-
 	resp, err := etcd.client.Get(context.Background(), key, clientv3.WithPrefix())
 	if err != nil {
 		panic(err.Error() + "    " + key)

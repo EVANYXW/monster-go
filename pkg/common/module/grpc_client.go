@@ -7,7 +7,7 @@ import (
 )
 
 type GrpcClient struct {
-	kernel module.IModuleKernel
+	kernel module.IKernel
 	id     int32
 }
 
@@ -58,7 +58,7 @@ func (c *GrpcClient) GetID() int32 {
 	return c.id
 }
 
-func (c *GrpcClient) GetKernel() module.IModuleKernel {
+func (c *GrpcClient) GetKernel() module.IKernel {
 	return c.kernel
 }
 

@@ -23,7 +23,7 @@ func (l *Login) GetID() int32 {
 	return l.id
 }
 
-func (l *Login) GetKernel() module.IModuleKernel {
+func (l *Login) GetKernel() module.IKernel {
 	return l.ConnectorKernel
 }
 

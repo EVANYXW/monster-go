@@ -8,7 +8,7 @@ import (
 )
 
 type LoginManager struct {
-	kernel module.IModuleKernel
+	kernel module.IKernel
 	id     int32
 }
 
@@ -56,7 +56,7 @@ func (l *LoginManager) GetID() int32 {
 	return l.id
 }
 
-func (l *LoginManager) GetKernel() module.IModuleKernel {
+func (l *LoginManager) GetKernel() module.IKernel {
 	return l.kernel
 }
 

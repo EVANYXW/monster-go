@@ -12,10 +12,18 @@ type Connector interface {
 	module.IModule
 }
 
+type Type int
+
+const (
+	TypeCenter Type = iota
+	TypeEtcd
+)
+
 type ConnectorFactory interface {
-	CreateConnector() Connector
+	CreateConnector(servername string) Connector
 	IsConnectorServer() bool
 	CreateConnectorManager(managerFactory connector.ManagerFactory) Connector
+	GetType() Type
 }
 
 type NetFactory interface {

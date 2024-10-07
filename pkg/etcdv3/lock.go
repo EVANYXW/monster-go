@@ -1,17 +1,9 @@
-/**
- * @api post etcdservice.
- *
- * User: yunshengzhu
- * Date: 2019-07-31
- * Time: 14:36
- */
 package etcdv3
 
 import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/evanyxw/monster-go/pkg/logs"
 	"go.etcd.io/etcd/client/v3"
 	"strings"
 	"time"
@@ -78,7 +70,7 @@ func (em *EtcdMutex) Lock() error {
 			}
 		}
 		count++
-		logs.Log.Debugf("第%d次获取锁失败，准备sleep", count)
+		//logs.Log.Debugf("第%d次获取锁失败，准备sleep", count)
 		time.Sleep(time.Millisecond * 50)
 	}
 }

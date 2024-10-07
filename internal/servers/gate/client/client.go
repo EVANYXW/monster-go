@@ -86,6 +86,17 @@ func (c *Client) OnNetMessage(pack *network.Packet) {
 		c.server_ids[ep] = pack.Msg.RawID
 	}
 
+	//client, err := club.NewClubServiceClient()
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//
+	//create, err := client.ClubCreate(context.Background(), &pb.ClubCreate_Req{})
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//fmt.Println(create)
+
 	switch ep {
 	case server.EP_Game: // 发往游戏服
 		fallthrough
@@ -128,7 +139,7 @@ func (c *Client) GetConnector(ep int) *module.ConnectorKernel {
 		return nil
 	}
 
-	var iConnector module.IModuleKernel
+	var iConnector module.IKernel
 	if ep == server.EP_Login {
 		iConnector = connectorManager.GetConnector(uint32(ep), 0)
 	} else {

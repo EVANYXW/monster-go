@@ -10,17 +10,18 @@ import (
 
 // GrpcNet Grpc 网络
 type GrpcNet struct {
-	kernel       module.IModuleKernel
+	kernel       module.IKernel
 	curStartNode *configs.ServerNode
 	netType      module.NetType
 	id           int32
+	grpcservers  []server.GrpcServer
 }
 
-func NewGrpcNet(id int32, serverName string, msgHandler module.MsgHandler) *ClientNet {
+func NewGrpcNet(id int32, serverName string, grpcservers []server.GrpcServer) *ClientNet {
 	c := &ClientNet{
 		id:      id,
 		netType: module.Inner,
-		kernel:  module.NewGrpcNetKernel(serverName, msgHandler),
+		kernel:  module.NewGrpcNetKernel(serverName, grpcservers),
 	}
 
 	//network.NetPointManager = c.kernel.GetNPManager()
@@ -65,7 +66,7 @@ func (c *GrpcNet) GetID() int32 {
 	return c.id
 }
 
-func (c *GrpcNet) GetKernel() module.IModuleKernel {
+func (c *GrpcNet) GetKernel() module.IKernel {
 	return c.kernel
 }
 

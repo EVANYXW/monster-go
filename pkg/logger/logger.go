@@ -238,6 +238,10 @@ func Release() {
 	zapLog.Sync()
 }
 
+func With(fields ...zap.Field) *zap.Logger {
+	return zapLog.With(fields...)
+}
+
 func Debug(message string, fields ...zapcore.Field) {
 	zapLog.Debug(message, fields...)
 }

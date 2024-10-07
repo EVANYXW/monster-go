@@ -14,7 +14,7 @@ import (
 )
 
 type CenterNet struct {
-	kernel       module.IModuleKernel
+	kernel       module.IKernel
 	status       int
 	startIndex   int
 	curStartNode *configs.ServerNode
@@ -22,7 +22,7 @@ type CenterNet struct {
 }
 
 func NewCenterNet(id int32, maxConnNum uint32) *CenterNet {
-	centerCnf := configs.Get().Center
+	centerCnf := configs.All().Center
 	server.SetInfoIP(centerCnf.Ip)
 	server.SetInfoPort(centerCnf.Port)
 
@@ -69,12 +69,12 @@ func (c *CenterNet) OnOk() {
 }
 
 func (c *CenterNet) OnStartCheck() int {
-	serverCnf := configs.Get()
+	serverCnf := configs.All()
 	if !serverCnf.AutoStart {
 		return module.ModuleRunCode_Ok
 	}
 
-	serverList := configs.Get().ServerList
+	serverList := configs.All().ServerList
 	switch c.status {
 	case server.CN_RunStep_StartServer:
 		c.curStartNode = &(serverList[c.startIndex])
@@ -127,6 +127,6 @@ func (c *CenterNet) GetID() int32 {
 	return c.id
 }
 
-func (c *CenterNet) GetKernel() module.IModuleKernel {
+func (c *CenterNet) GetKernel() module.IKernel {
 	return c.kernel
 }

@@ -10,8 +10,8 @@ type ep uint8
 type id uint8
 
 type Manager struct {
-	kernel      module.IModuleKernel
-	collections []map[uint32]module.IModuleKernel
+	kernel      module.IKernel
+	collections []map[uint32]module.IKernel
 	handler     module.GateAcceptorHandler
 	id          int32
 	factory     ManagerFactory
@@ -32,9 +32,9 @@ func NewManager(id int32, factory ManagerFactory) *Manager {
 
 func (c *Manager) Init(baseModule *module.BaseModule) bool {
 	//c.collections = make([]connectCollection, xsf_util.EP_Max)
-	c.collections = []map[uint32]module.IModuleKernel{}
+	c.collections = []map[uint32]module.IKernel{}
 	for i := 0; i < server.EP_Max; i++ {
-		c.collections = append(c.collections, make(map[uint32]module.IModuleKernel))
+		c.collections = append(c.collections, make(map[uint32]module.IKernel))
 	}
 	//c.kernel.Init()
 	return true
@@ -80,11 +80,11 @@ func (c *Manager) GetID() int32 {
 	return c.id
 }
 
-func (c Manager) GetKernel() module.IModuleKernel {
+func (c Manager) GetKernel() module.IKernel {
 	return nil
 }
 
-func (c Manager) GetConnector(ep uint32, id uint32) module.IModuleKernel {
+func (c Manager) GetConnector(ep uint32, id uint32) module.IKernel {
 	eps := c.collections[ep]
 	if id == 0 {
 		len := len(eps)

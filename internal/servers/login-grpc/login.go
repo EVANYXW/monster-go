@@ -1,9 +1,10 @@
-package gate_grpc
+package login_grpc
 
 import (
 	"github.com/evanyxw/monster-go/internal/servers"
-	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center"
+	"github.com/evanyxw/monster-go/internal/servers/login-grpc/loginser"
 	"github.com/evanyxw/monster-go/pkg/output"
+	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
 	"sync/atomic"
 )
@@ -18,13 +19,24 @@ type gateServerInfo struct {
 }
 
 func New() engine.IServerKernel {
+	//baseEngine := engine.NewGrpcServer(
+	//	servers.LoginGrpc,
+	//	[]server.GrpcServer{
+	//		loginser.NewLogin(),
+	//	},
+	//).WithOutput(&output.Config{
+	//	Name: servers.LoginGrpc,
+	//	Addr: "",
+	//	Url:  "http://",
+	//})
 
 	baseEngine := engine.NewGrpcServer(
-		servers.Gate,
-		center.NewFactor(center.WithServerConnectorManager()),
-		[]engine.GrpcServer{},
+		servers.LoginGrpc,
+		[]server.GrpcServer{
+			loginser.NewLogin(),
+		},
 	).WithOutput(&output.Config{
-		Name: servers.Gate,
+		Name: servers.LoginGrpc,
 		Addr: "",
 		Url:  "http://",
 	})

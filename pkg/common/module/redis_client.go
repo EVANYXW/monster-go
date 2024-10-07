@@ -11,7 +11,7 @@ import (
 // 客户端消息接受体
 
 type RedisClient struct {
-	kernel module.IModuleKernel
+	kernel module.IKernel
 	id     int32
 }
 
@@ -72,7 +72,7 @@ func (r *RedisClient) GetID() int32 {
 	return r.id
 }
 
-func (r *RedisClient) GetKernel() module.IModuleKernel {
+func (r *RedisClient) GetKernel() module.IKernel {
 	return r.kernel
 }
 

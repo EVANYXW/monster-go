@@ -1,10 +1,3 @@
-/**
- * @api post etcdv3.
- *
- * User: yunshengzhu
- * Date: 2021/12/25
- * Time: 下午5:41
- */
 package etcdv3
 
 import (

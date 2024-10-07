@@ -91,7 +91,7 @@ func dbConnect(user, pass, addr, dbName string) (*gorm.DB, error) {
 
 	db.Set("gorm:table_options", "CHARSET=utf8mb4")
 
-	cfg := configs.Get().MySQL.Base
+	cfg := configs.All().MySQL.Base
 
 	sqlDB, err := db.DB()
 	if err != nil {
@@ -114,7 +114,7 @@ func dbConnect(user, pass, addr, dbName string) (*gorm.DB, error) {
 }
 
 func New() (Repo, error) {
-	cfg := configs.Get().MySQL
+	cfg := configs.All().MySQL
 	dbr, err := dbConnect(cfg.Read.User, cfg.Read.Pass, cfg.Read.Addr, cfg.Read.Name)
 
 	if err != nil {

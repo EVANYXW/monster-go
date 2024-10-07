@@ -8,12 +8,12 @@ import (
 )
 
 type CenterConnector struct {
-	kernel module.IModuleKernel
+	kernel module.IKernel
 	id     int32
 }
 
 func NewCenterConnector(id int32, serverInfoHandler module.IServerInfoHandler) *CenterConnector {
-	centerCnf := configs.Get().Center
+	centerCnf := configs.All().Center
 	c := &CenterConnector{
 		id: id,
 		kernel: module.NewConnectorKernel(centerCnf.Ip, centerCnf.Port,
@@ -61,7 +61,7 @@ func (c *CenterConnector) GetID() int32 {
 	return c.id
 }
 
-func (c *CenterConnector) GetKernel() module.IModuleKernel {
+func (c *CenterConnector) GetKernel() module.IKernel {
 	return c.kernel
 }
 

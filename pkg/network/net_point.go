@@ -409,7 +409,7 @@ func (np *NetPoint) OnHandshakeTicker(netPoint *NetPoint) {
 
 	np.lastHeartbeat = uint32(time.Now().Unix())
 	async.Go(func() {
-		cnf := configs.Get()
+		cnf := configs.All()
 		timer := time.NewTimer(time.Duration(cnf.HtCheck))
 		heartbeatTimeout := uint64(time.Duration(cnf.HtTimeout))
 		defer func() {
@@ -438,7 +438,7 @@ func (np *NetPoint) OnHandshakeTicker2(netPoint *NetPoint) {
 	np.lastHeartbeat = uint32(time.Now().Unix())
 	// fixMe 性能比较差，吃CPU
 	async.Go(func() {
-		cnf := configs.Get()
+		cnf := configs.All()
 		ticker := time.NewTicker(time.Duration(cnf.HtCheck))
 		heartbeatTimeout := uint64(time.Duration(cnf.HtTimeout))
 		defer ticker.Stop()

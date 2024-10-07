@@ -1,11 +1,17 @@
 package server
 
+import "google.golang.org/grpc"
+
 //var (
 //	NodeManager     module.NodeManager
 //	NetPointManager network.INPManager
 //	ConnectorKernel *module.ConnectorKernel
 //	ClientManager   module.ClientManager
 //)
+
+type GrpcServer interface {
+	TransportRegister() func(grpc.ServiceRegistrar) error
+}
 
 var (
 	info *Info

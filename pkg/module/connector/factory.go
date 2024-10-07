@@ -9,7 +9,7 @@ import (
 
 type IManager interface {
 	CreateConnector(id uint32, ip string, port uint32) *module.ConnectorKernel
-	GetConnector(ep uint32, id uint32) module.IModuleKernel
+	GetConnector(ep uint32, id uint32) module.IKernel
 }
 
 type ManagerFactory interface {

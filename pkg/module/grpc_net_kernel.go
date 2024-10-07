@@ -2,8 +2,10 @@ package module
 
 import (
 	"fmt"
+	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/pkg/async"
-	"github.com/evanyxw/monster-go/pkg/grpc"
+	"github.com/evanyxw/monster-go/pkg/grpcpool"
+	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/rpc"
@@ -11,31 +13,36 @@ import (
 )
 
 type GrpcNetKernel struct {
-	msgHandler  MsgHandler
+	//msgHandler  MsgHandler
 	RpcAcceptor *rpc.Acceptor
 	Status      int
 	closeChan   chan struct{}
 	port        uint32
 	netType     NetType
-	server      *grpc.Server
+	server      *grpcpool.Server
 	NoWaitStart bool
+	grpcservers []server.GrpcServer
 }
 
 var (
-	GrpcServer *grpc.Server
+	GrpcServer *grpcpool.Server
 )
 
-func NewGrpcNetKernel(serverName string, msgHandler MsgHandler) *GrpcNetKernel {
+func NewGrpcNetKernel(serverName string, grpcservers []server.GrpcServer) *GrpcNetKernel {
+	etcdCnf := configs.All().Etcd
+	etcdClient := grpcpool.InitEtcd(etcdCnf.Addr, etcdCnf.User, etcdCnf.Pass)
 	rpcAcceptor := rpc.NewAcceptor(10000)
 	kernel := &GrpcNetKernel{
 		RpcAcceptor: rpcAcceptor,
 		closeChan:   make(chan struct{}),
-		server:      grpc.NewServer(serverName),
-		NoWaitStart: false,
-		msgHandler:  msgHandler,
+		server: grpcpool.NewServer(serverName, etcdClient, grpcpool.WithLogger(logger.GetLogger()),
+			grpcpool.WithPorts(configs.All().Server.MinPort, configs.All().Server.MaxPort)),
+		NoWaitStart: true,
+		grpcservers: grpcservers,
+		//msgHandler:  msgHandler,
 	}
+
 	GrpcServer = kernel.server
-	//kernel.Init() // 是不是多余
 	return kernel
 }
 
@@ -50,22 +57,26 @@ func (n *GrpcNetKernel) DoRegister() {
 	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
 	n.RpcAcceptor.Regist(rpc.RPC_NET_CLOSE, n.OnRpcNetClose)
 
-	if n.msgHandler != nil {
-		//n.msgHandler.MsgRegister(n.processor)
-	}
+	//if n.msgHandler != nil {
+	//	//n.msgHandler.MsgRegister(n.processor)
+	//}
 
 }
-func (n *GrpcNetKernel) start(options ...grpc.GrpcOptions) {
+func (n *GrpcNetKernel) start() {
 	async.Go(func() {
 		//n.NetAcceptor.Connect(options...)
 		n.Status = server.Net_RunStep_Done
-		n.server.Connect(options...)
+		n.server.Connect()
+		output.Oput.SetServerAddr(n.server.GetAddr())
+		for _, s := range n.grpcservers {
+			s.TransportRegister()(n.server)
+		}
 		n.server.Run()
 		//n.RpcAcceptor.Run()
 		//n.NetAcceptor.Run() // 会阻塞
 	})
-	// todo: m.msgHandler 需要判断然后
-	n.msgHandler.Start()
+	//// todo: m.msgHandler 需要判断然后
+	//n.msgHandler.Start()
 }
 
 func (n *GrpcNetKernel) DoRun() {
@@ -77,13 +88,13 @@ func (n *GrpcNetKernel) DoRun() {
 }
 
 func (n *GrpcNetKernel) DoWaitStart() {
-	port := server.Ports[server.EP_Client]
+	//port := server.Ports[server.EP_Client]
 	//if n.netType == Inner {
 	//	port = server.Ports[server.EP_Gate]
 	//}
-	addr := fmt.Sprintf(":%d", port)
-	output.Oput.SetServerAddr(addr)
-	n.start(grpc.WithAddr(addr))
+	//addr := fmt.Sprintf(":%d", 30009)
+	//output.Oput.SetServerAddr(n.server.GetAddr())
+	n.start()
 	//async.Go(func() {
 	//	n.NetAcceptor.Connect(network.WithAddr(addr))
 	//	n.NetAcceptor.Run()
@@ -103,7 +114,7 @@ func (n *GrpcNetKernel) Update() {
 }
 
 func (n *GrpcNetKernel) OnOk() {
-	n.msgHandler.OnOk()
+	//n.msgHandler.OnOk()
 }
 
 func (n *GrpcNetKernel) OnStartClose() {
@@ -151,15 +162,15 @@ func (n *GrpcNetKernel) GetStatus() int {
 }
 
 func (n *GrpcNetKernel) OnRpcNetAccept(args []interface{}) {
-	np := args[0].(*network.NetPoint)
-	acc := args[1].(*network.Acceptor)
-	fmt.Println("OnRpcNetAccept ....")
-	n.msgHandler.OnRpcNetAccept(np, acc)
+	//np := args[0].(*network.NetPoint)
+	//acc := args[1].(*network.Acceptor)
+	//fmt.Println("OnRpcNetAccept ....")
+	//n.msgHandler.OnRpcNetAccept(np, acc)
 }
 
 func (n *GrpcNetKernel) OnRpcNetConnected(args []interface{}) {
-	np := args[0].(*network.NetPoint)
-	n.msgHandler.OnNetConnected(np)
+	//np := args[0].(*network.NetPoint)
+	//n.msgHandler.OnNetConnected(np)
 }
 
 func (n *GrpcNetKernel) OnRpcNetError(args []interface{}) {

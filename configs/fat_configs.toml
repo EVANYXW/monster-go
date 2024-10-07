@@ -5,6 +5,17 @@ htCheck=30
 htTimeout=60
 pprofPort = 6060
 
+[server]
+name = "agent"
+minport=18201
+maxport=18300
+version = "1.0.0"
+
+[etcd]
+addr = ["127.0.0.1:2379"]
+user = ""
+pass = ""
+
 [hashids]
 length = 12
 secret = '6ab6122836cfef95f8db'
@@ -46,10 +57,6 @@ pass = ''
 poolsize = 10
 isCluster = false
 
-[etcd]
-address = ['127.0.0.1:2379']
-namespace='default'
-secret= ''
 
 [center]
 ip = ''

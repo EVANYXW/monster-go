@@ -152,6 +152,9 @@ func (s *Output) SetAllModules(modules []int32) {
 	data := Data{
 		allModule: modules,
 	}
+	if s == nil {
+		return
+	}
 	s.SetData(data)
 }
 

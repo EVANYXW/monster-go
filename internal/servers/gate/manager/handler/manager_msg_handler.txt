@@ -97,7 +97,7 @@ func (m *managerMsgHandler) SendHandshake(ck *module.ConnectorKernel) {
 
 func (m *managerMsgHandler) OnHandshakeTicker(np *network.NetPoint) {
 	async.Go(func() {
-		cnf := configs.Get()
+		cnf := configs.All()
 		ticker := time.NewTicker(time.Second * time.Duration(cnf.HtCheck))
 		defer ticker.Stop()
 

@@ -4,11 +4,6 @@ import (
 	"fmt"
 	"log"
 
-	//"github.com/evanyxw/monster-go/internal/mysql"
-	//"github.com/evanyxw/monster-go/internal/redis"
-	//"github.com/evanyxw/monster-go/internal/rpc/client"
-	"github.com/evanyxw/monster-go/pkg/async"
-	"github.com/evanyxw/monster-go/pkg/etcdv3"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/logs"
 	"github.com/evanyxw/monster-go/pkg/module"
@@ -109,19 +104,20 @@ func Run(serverName string) {
 	sugar.WaitSignal(serverKernel.OnSystemSignal)
 }
 
-func registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service {
-	tcpEtcdServe, err := etcdv3.NewService(etcd, etcdv3.ServiceInfo{Name: serverName, Address: address})
-	if err != nil {
-		panic(err)
-	}
-	async.Go(func() {
-		if err = tcpEtcdServe.Start(); err != nil {
-			fmt.Println(err)
-		}
-	})
-
-	return tcpEtcdServe
-}
+//
+//func registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service {
+//	tcpEtcdServe, err := etcdv3.NewService(etcd, etcdv3.ServiceInfo{Name: serverName, Address: address})
+//	if err != nil {
+//		panic(err)
+//	}
+//	async.Go(func() {
+//		if err = tcpEtcdServe.Start(); err != nil {
+//			fmt.Println(err)
+//		}
+//	})
+//
+//	return tcpEtcdServe
+//}
 
 // initLog init log  etcd 在用
 func initLog(serverName string) {
@@ -137,7 +133,7 @@ func initLog(serverName string) {
 }
 
 //func initEtcd() *etcdv3.Etcd {
-//	config := configs.Get()
+//	config := configs.All()
 //
 //	etcd, err := etcdv3.NewEtcd(config.Etcd.Address, config.Etcd.Namespace, config.Etcd.Secret,
 //		config.Etcd.Namespace, 3, nil)
@@ -150,7 +146,7 @@ func initLog(serverName string) {
 //}
 
 //func newModel() {
-//	redisConfig := configs.Get().Redis
+//	redisConfig := configs.All().Redis
 //
 //	// redis
 //	redis.RedisManagers = redis.NewRedisManager(&redis.RedisConfig{

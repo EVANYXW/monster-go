@@ -2,10 +2,10 @@ package module
 
 import (
 	"fmt"
-	"github.com/evanyxw/monster-go/pkg/grpc"
+	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/pkg/grpcpool"
+	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/network"
-	"go.uber.org/zap"
-
 	//"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"sync"
@@ -13,7 +13,7 @@ import (
 
 type GrpcConnectorKernel struct {
 	//*client.Client
-	*grpc.Connector
+	*grpcpool.Connector
 
 	//RpcAcceptor *rpc.Acceptor
 	ID          uint32
@@ -25,15 +25,17 @@ type GrpcConnectorKernel struct {
 	//processor   *network.Processor
 }
 
-func NewGrpcConnectorKernel(serverName string, logger *zap.Logger) *GrpcConnectorKernel {
+func NewGrpcConnectorKernel(serverName string) *GrpcConnectorKernel {
 	//opt := &ckOptions{}
 	//rpcAcceptor := rpc.NewAcceptor(10000)
 	//processor := network.NewProcessor()
+	etcdCnf := configs.All().Etcd
+	etcdClient := grpcpool.InitEtcd(etcdCnf.Addr, etcdCnf.User, etcdCnf.Pass)
 	connector := &GrpcConnectorKernel{
 		//processor:   processor,
 		//Client: client.NewClient(fmt.Sprintf("%s:%d", ip, port), processor, packerFactory),
 		//RpcAcceptor: rpcAcceptor,
-		Connector:   grpc.NewServerConnector(serverName, logger),
+		Connector:   grpcpool.NewConnector(serverName, etcdClient, logger.GetLogger()),
 		NoWaitStart: false,
 		//msgHandler:  msgHandler,
 	}

@@ -1,10 +1,3 @@
-/**
- * @api post etcdv3.
- *
- * User: yunshengzhu
- * Date: 2020/5/20
- * Time: 4:01 下午
- */
 package etcdv3
 
 import (
@@ -12,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/evanyxw/monster-go/pkg/utils"
-	"go.etcd.io/etcd/client/v3"
+	clientv3 "go.etcd.io/etcd/client/v3"
 	"strings"
 	"time"
 )

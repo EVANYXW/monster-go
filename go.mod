@@ -10,6 +10,7 @@ require (
 	github.com/fsnotify/fsnotify v1.7.0
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/golang/protobuf v1.5.3
+	github.com/google/martian v2.1.0+incompatible
 	github.com/mediocregopher/radix/v4 v4.1.4
 	github.com/olivere/elastic v6.2.37+incompatible
 	github.com/phuhao00/sugar v1.0.1
@@ -38,6 +39,8 @@ require (
 	github.com/fortytw2/leaktest v1.3.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
+	github.com/google/uuid v1.6.0 // indirect
+	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
@@ -48,6 +51,7 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.31.1 // indirect
+	github.com/opentracing/opentracing-go v1.1.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect

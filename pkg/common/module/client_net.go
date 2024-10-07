@@ -10,7 +10,7 @@ import (
 
 // 客户端消息接受体
 type ClientNet struct {
-	kernel       module.IModuleKernel
+	kernel       module.IKernel
 	curStartNode *configs.ServerNode
 	netType      module.NetType
 	id           int32
@@ -66,7 +66,7 @@ func (c *ClientNet) GetID() int32 {
 	return c.id
 }
 
-func (c *ClientNet) GetKernel() module.IModuleKernel {
+func (c *ClientNet) GetKernel() module.IKernel {
 	return c.kernel
 }
 

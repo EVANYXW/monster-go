@@ -13,7 +13,7 @@ import (
 func NotifyHandler() func(msg *AlertMessage) {
 
 	return func(msg *AlertMessage) {
-		cfg := configs.Get().Mail
+		cfg := configs.All().Mail
 		if cfg.Host == "" || cfg.Port == 0 || cfg.User == "" || cfg.Pass == "" || cfg.To == "" {
 			logger.Error("Mail config error")
 			return

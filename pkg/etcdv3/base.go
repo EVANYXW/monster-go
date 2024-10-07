@@ -1,14 +1,8 @@
-/**
- * @api post etcdv3.
- *
- * User: yunshengzhu
- * Date: 2021/12/25
- * Time: 下午8:44
- */
 package etcdv3
 
 import (
 	"go.etcd.io/etcd/client/v3"
+	"go.uber.org/zap"
 	"strings"
 )
 
@@ -24,6 +18,18 @@ type AuthorizedPath struct {
 	Path    string
 	PathEnd string
 	Type    clientv3.PermissionType
+}
+
+type BaseOptionFun func(*baseOptions)
+type baseOptions struct {
+	logger *zap.Logger
+}
+
+// WithLogger zap.Logger
+func WithLogger(logger *zap.Logger) BaseOptionFun {
+	return func(opt *baseOptions) {
+		opt.logger = logger
+	}
 }
 
 func GetAuthPaths(namespace string) []AuthorizedPath {

@@ -5,10 +5,10 @@ const (
 )
 
 const (
-	Logic    = "logic"
-	World    = "world"
-	Center   = "center"
-	Login    = "login"
-	Gate     = "gate"
-	GateGrpc = "gate_grpc"
+	Logic     = "logic"
+	World     = "world"
+	Center    = "center"
+	Login     = "login"
+	Gate      = "gate"
+	LoginGrpc = "login_grpc"
 )

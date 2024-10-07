@@ -1,10 +1,3 @@
-/**
- * @api post grpcpool.
- *
- * User: yunshengzhu
- * Date: 2022/7/12
- * Time: 19:22
- */
 package etcdv3
 
 import (

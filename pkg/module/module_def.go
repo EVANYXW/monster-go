@@ -29,16 +29,14 @@ type IModuleFlow interface {
 // IModule Module
 type IModule interface {
 	IModuleFlow
-	GetKernel() IModuleKernel
+	GetKernel() IKernel
 	GetID() int32
 }
 
-// IModuleKernel 模块内核定义、继承该接口将成为 Module
-type IModuleKernel interface {
+// IKernel 模块内核定义、继承该接口将成为 Module
+type IKernel interface {
 	IModuleFlow
 	GetNoWaitStart() bool
-	OnStartClose()
-	DoClose()
 	GetNPManager() network.INPManager
 	GetStatus() int
 }
@@ -92,6 +90,7 @@ const (
 	ModuleID_LoginManager
 	ModuleID_LoginConfig
 	ModuleID_Redis
+	ModuleID_Etcd
 
 	ModuleID_Notice
 	ModuleID_Pprof
@@ -114,6 +113,7 @@ var moduleMap = map[int]string{
 	ModuleID_LoginManager:     "LoginManager",
 	ModuleID_LoginConfig:      "LoginConfig",
 	ModuleID_Redis:            "Redis",
+	ModuleID_Etcd:             "Etcd",
 }
 
 func ModuleId2Name(id int) string {
