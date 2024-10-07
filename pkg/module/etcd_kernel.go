@@ -179,8 +179,8 @@ func (c *EtcdKernel) OnRpcNetMessage(args []interface{}) {
 
 }
 
-func (c *EtcdKernel) RegisterService(serverName, serviceAddr string) {
-	leaseId, err := registerService(c.etcdClient, serverName, serviceAddr)
+func (c *EtcdKernel) RegisterService(servername, serviceAddr string) {
+	leaseId, err := registerService(c.etcdClient, servername, serviceAddr)
 	if err != nil {
 		c.logger.Error("Failed to register service", zap.Error(err))
 		return
@@ -188,8 +188,8 @@ func (c *EtcdKernel) RegisterService(serverName, serviceAddr string) {
 	c.logger.Info("Registered service leaseId", zap.Int("leaseId", int(leaseId)))
 }
 
-func (c *EtcdKernel) DiscoverServices(serverName string) string {
-	services, err := discoverServices(c.etcdClient, serverName)
+func (c *EtcdKernel) DiscoverServices(servername string) string {
+	services, err := discoverServices(c.etcdClient, servername)
 	if err != nil {
 		c.logger.Error("Failed to discover services", zap.Error(err))
 		return ""

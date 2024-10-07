@@ -28,14 +28,14 @@ var (
 	GrpcServer *grpcpool.Server
 )
 
-func NewGrpcNetKernel(serverName string, grpcservers []server.GrpcServer) *GrpcNetKernel {
+func NewGrpcNetKernel(servername string, grpcservers []server.GrpcServer) *GrpcNetKernel {
 	etcdCnf := configs.All().Etcd
 	etcdClient := grpcpool.InitEtcd(etcdCnf.Addr, etcdCnf.User, etcdCnf.Pass)
 	rpcAcceptor := rpc.NewAcceptor(10000)
 	kernel := &GrpcNetKernel{
 		RpcAcceptor: rpcAcceptor,
 		closeChan:   make(chan struct{}),
-		server: grpcpool.NewServer(serverName, etcdClient, grpcpool.WithLogger(logger.GetLogger()),
+		server: grpcpool.NewServer(servername, etcdClient, grpcpool.WithLogger(logger.GetLogger()),
 			grpcpool.WithPorts(configs.All().Server.MinPort, configs.All().Server.MaxPort)),
 		NoWaitStart: true,
 		grpcservers: grpcservers,

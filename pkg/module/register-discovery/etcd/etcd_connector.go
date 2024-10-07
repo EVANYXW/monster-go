@@ -10,7 +10,7 @@ import (
 type EtcdConnector struct {
 	kernel     module.IKernel
 	id         int32
-	serverName string
+	servername string
 }
 
 func NewEtcdConnector(id int32, servername string) *EtcdConnector {

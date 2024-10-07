@@ -23,7 +23,7 @@ import (
 type Connector struct {
 	*etcdv3.Etcd
 	logger     *zap.Logger
-	serverName string
+	servername string
 	connOnce   sync.Once
 	//connOnceMap sync.Map
 	connMap  map[string]*grpc.ClientConn
@@ -36,7 +36,7 @@ var (
 )
 
 // NewConnector 创建grpc服务器连接器
-func NewConnector(serverName string, e *etcdv3.Etcd, logger *zap.Logger, options ...GrpcOptions) *Connector {
+func NewConnector(servername string, e *etcdv3.Etcd, logger *zap.Logger, options ...GrpcOptions) *Connector {
 	op := &option{}
 	for _, fn := range options {
 		fn(op)
@@ -45,7 +45,7 @@ func NewConnector(serverName string, e *etcdv3.Etcd, logger *zap.Logger, options
 	once.Do(func() {
 		c := &Connector{
 			Etcd:       e,
-			serverName: serverName,
+			servername: servername,
 			logger:     logger,
 			connMap:    make(map[string]*grpc.ClientConn),
 			isTracer:   op.isTracer,
@@ -60,8 +60,8 @@ func Instance() *Connector {
 	return connector
 }
 
-func (c *Connector) DialAddr(serverName string, addr string, opts ...grpc.DialOption) *grpc.ClientConn {
-	if _, ok := c.connMap[serverName]; !ok {
+func (c *Connector) DialAddr(servername string, addr string, opts ...grpc.DialOption) *grpc.ClientConn {
+	if _, ok := c.connMap[servername]; !ok {
 		//ttarget := fmt.Sprintf("router://%s", target)
 		opts = append(opts,
 			grpc.WithInsecure(),
@@ -73,10 +73,10 @@ func (c *Connector) DialAddr(serverName string, addr string, opts ...grpc.DialOp
 		if err != nil {
 			panic(err)
 		}
-		c.connMap[serverName] = conn
+		c.connMap[servername] = conn
 	}
 
-	return c.connMap[serverName]
+	return c.connMap[servername]
 }
 
 func (c *Connector) GetConn() *etcdv3.Etcd {
@@ -134,8 +134,8 @@ func (c *Connector) UnaryServerInterceptor(ctx context.Context, req interface{},
 		logger.With(zap.String("method", info.FullMethod))
 		logger.With(zap.Any("req", req))
 		logger.With(zap.Any("resp", resp))
-		if c.serverName != "" {
-			logger.With(zap.String("serverName", c.serverName))
+		if c.servername != "" {
+			logger.With(zap.String("servername", c.servername))
 		}
 		if err != nil {
 			logger.With(zap.String("err", err.Error()))
@@ -174,8 +174,8 @@ func (c *Connector) Interceptor(ctx context.Context, method string, req, reply i
 		with = logger.With(zap.String("method", method))
 		with = logger.With(zap.Any("req", req))
 
-		if c.serverName != "" {
-			with = logger.With(zap.String("client server:", c.serverName))
+		if c.servername != "" {
+			with = logger.With(zap.String("client server:", c.servername))
 		}
 		with = logger.With(zap.Any("res", reply))
 		if err != nil {

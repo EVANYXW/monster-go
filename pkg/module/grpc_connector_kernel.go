@@ -25,7 +25,7 @@ type GrpcConnectorKernel struct {
 	//processor   *network.Processor
 }
 
-func NewGrpcConnectorKernel(serverName string) *GrpcConnectorKernel {
+func NewGrpcConnectorKernel(servername string) *GrpcConnectorKernel {
 	//opt := &ckOptions{}
 	//rpcAcceptor := rpc.NewAcceptor(10000)
 	//processor := network.NewProcessor()
@@ -35,7 +35,7 @@ func NewGrpcConnectorKernel(serverName string) *GrpcConnectorKernel {
 		//processor:   processor,
 		//Client: client.NewClient(fmt.Sprintf("%s:%d", ip, port), processor, packerFactory),
 		//RpcAcceptor: rpcAcceptor,
-		Connector:   grpcpool.NewConnector(serverName, etcdClient, logger.GetLogger()),
+		Connector:   grpcpool.NewConnector(servername, etcdClient, logger.GetLogger()),
 		NoWaitStart: false,
 		//msgHandler:  msgHandler,
 	}

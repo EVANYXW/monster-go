@@ -21,7 +21,7 @@ var (
 	zapLog     *zap.Logger
 	sugar      *zap.SugaredLogger
 	filePath   = ""
-	serverName = ""
+	servername = ""
 )
 
 func NewLogger(opts ...Option) (*zap.Logger, error) {
@@ -55,7 +55,7 @@ func NewLogger(opts ...Option) (*zap.Logger, error) {
 		Level:         atom,                                      // 日志级别
 		Encoding:      "console",                                 // 输出格式 console 或 json
 		EncoderConfig: encoderConfig,                             // 编码器配置
-		InitialFields: map[string]interface{}{"服务器": serverName}, // 初始化字段，如：添加一个服务器名称
+		InitialFields: map[string]interface{}{"服务器": servername}, // 初始化字段，如：添加一个服务器名称
 		// Sampling: &zap.SamplingConfig{
 		// 	Initial:    10,   // 每条记录中的一条会被记录
 		// 	Thereafter: 1000, // 随后每 1000 条记录中的一条会被记录
@@ -104,7 +104,7 @@ func NewLogger(opts ...Option) (*zap.Logger, error) {
 
 	{
 		var outputFile string
-		outputFile = fmt.Sprintf("%s%s.race.log", filePath, serverName)
+		outputFile = fmt.Sprintf("%s%s.race.log", filePath, servername)
 
 		err := os.Setenv("GORACE", fmt.Sprintf("log_path=%s", outputFile))
 		if err != nil {

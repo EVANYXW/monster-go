@@ -26,8 +26,8 @@ package core
 //
 //	RegisterGRPCService(st, service)
 //
-//	serverName := service.GetServiceName()
-//	fmt.Println(fmt.Sprintf("【 %s rpc 】 server is started", serverName))
+//	servername := service.GetServiceName()
+//	fmt.Println(fmt.Sprintf("【 %s rpc 】 server is started", servername))
 //	go func() {
 //		err = st.Serve(listen)
 //		if err != nil {

@@ -17,11 +17,11 @@ type GrpcNet struct {
 	grpcservers  []server.GrpcServer
 }
 
-func NewGrpcNet(id int32, serverName string, grpcservers []server.GrpcServer) *ClientNet {
+func NewGrpcNet(id int32, servername string, grpcservers []server.GrpcServer) *ClientNet {
 	c := &ClientNet{
 		id:      id,
 		netType: module.Inner,
-		kernel:  module.NewGrpcNetKernel(serverName, grpcservers),
+		kernel:  module.NewGrpcNetKernel(servername, grpcservers),
 	}
 
 	//network.NetPointManager = c.kernel.GetNPManager()

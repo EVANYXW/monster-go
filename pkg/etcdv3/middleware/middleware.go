@@ -51,7 +51,7 @@ func UnaryServerInterceptor(ctx context.Context, req interface{}, info *grpc.Una
 		log = log.WithField("req", req)
 		log = log.WithField("resp", resp)
 		if logs.Log.ServerName != "" {
-			log = log.WithField("serverName", logs.Log.ServerName)
+			log = log.WithField("servername", logs.Log.ServerName)
 		}
 		if err != nil {
 			log = log.WithField("err", err.Error())
@@ -64,7 +64,7 @@ func UnaryServerInterceptor(ctx context.Context, req interface{}, info *grpc.Una
 		//opt.logger.With(zap.Field{Key: "req", Interface: req})
 		//opt.logger.With(zap.Field{Key: "resp", Interface: resp})
 		//if logs.Log.ServerName != "" {
-		//	opt.logger.With(zap.Field{Key: "serverName", String: logs.Log.ServerName})
+		//	opt.logger.With(zap.Field{Key: "servername", String: logs.Log.ServerName})
 		//}
 		//if err != nil {
 		//	opt.logger.With(zap.Field{Key: "err", String: err.Error()})
@@ -107,7 +107,7 @@ func Interceptor(ctx context.Context, method string, req, reply interface{}, cc 
 		log = log.WithField("method", method)
 		log = log.WithField("req", req)
 		if logs.Log.ServerName != "" {
-			log = log.WithField("serverName", logs.Log.ServerName)
+			log = log.WithField("servername", logs.Log.ServerName)
 		}
 		log = log.WithField("resp", reply)
 		if err != nil {
@@ -121,7 +121,7 @@ func Interceptor(ctx context.Context, method string, req, reply interface{}, cc 
 		//opt.logger.With(zap.Field{Key: "req", Interface: req})
 		//
 		//if logs.Log.ServerName != "" {
-		//	opt.logger.With(zap.Field{Key: "serverName", String: logs.Log.ServerName})
+		//	opt.logger.With(zap.Field{Key: "servername", String: logs.Log.ServerName})
 		//}
 		//opt.logger.With(zap.Field{Key: "resp", Interface: reply})
 		//if err != nil {

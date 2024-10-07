@@ -45,7 +45,7 @@ func MakeInstance(name string) KernelFun {
 	return nil
 }
 
-func BaseSystemSignal(signal os.Signal, serverName string) bool {
+func BaseSystemSignal(signal os.Signal, servername string) bool {
 	tag := true
 	switch signal {
 	case syscall.SIGHUP:
@@ -54,7 +54,7 @@ func BaseSystemSignal(signal os.Signal, serverName string) bool {
 	case syscall.SIGPIPE:
 		fmt.Println("SIGPIPE")
 	default:
-		logger.Info(fmt.Sprintf("【 %s 】 收到信号准备退出", serverName),
+		logger.Info(fmt.Sprintf("【 %s 】 收到信号准备退出", servername),
 			zap.String("signal", signal.String()))
 		tag = false
 	}

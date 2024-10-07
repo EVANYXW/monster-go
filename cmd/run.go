@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	serverName string
+	servername string
 	envStr     string
 )
 
@@ -29,7 +29,7 @@ func init() {
 
 	// 启动服务参数
 	ServerCmd.Flags().StringVar(&envStr, "env", "", "env")
-	ServerCmd.Flags().StringVar(&serverName, "server_name", "", "server_name")
+	ServerCmd.Flags().StringVar(&servername, "server_name", "", "server_name")
 
 }
 
@@ -38,7 +38,7 @@ var ServerCmd = &cobra.Command{
 	Use:   "run",
 	Short: "run game server",
 	Run: func(cmd *cobra.Command, args []string) {
-		if serverName == "" {
+		if servername == "" {
 			log.Fatal("Please specify a server name")
 		}
 
@@ -47,10 +47,10 @@ var ServerCmd = &cobra.Command{
 		//_, _ = logger.NewJSONLogger(
 		//	logger.WithField("domain", fmt.Sprintf("%s[%s]", configs.ProjectName, env.Active().Value())),
 		//	logger.WithTimeLayout(timeutil.CSTLayout),
-		//	logger.WithFileP(configs.LogFile, serverName),
+		//	logger.WithFileP(configs.LogFile, servername),
 		//)
 		//zap_log.NewLogger()
 
-		cmdapk.Run(serverName)
+		cmdapk.Run(servername)
 	},
 }

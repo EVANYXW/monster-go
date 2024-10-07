@@ -30,7 +30,7 @@ const (
 )
 
 type BaseEngine struct {
-	serverName string
+	servername string
 	isPprof    bool
 	isOutput   bool
 	output     *output.Output
@@ -95,15 +95,15 @@ func (b *BaseEngine) WithOutput(config *output.Config) *BaseEngine {
 }
 
 // initLog init log  etcd 在用
-func initLog(serverName string) {
+func initLog(servername string) {
 	logs.NewLogger(
-		logs.WithFilePath(fmt.Sprintf("log/%s.log", serverName)),
+		logs.WithFilePath(fmt.Sprintf("log/%s.log", servername)),
 		logs.WithCompress(false),
 		logs.WithPrettyPrint(false),
 		logs.WithFormat("json"),
 		logs.WithLevel(5),
 		logs.WithMaxSize(100),
-		logs.WithServerName(serverName),
+		logs.WithServerName(servername),
 	)
 }
 
@@ -149,7 +149,7 @@ func Init() {
 		//etcdServerArr.add(tcpEtcd)
 		//
 		//// rpc 服务注册etcd
-		//rpcEtcd := registerEtcd(etcd, fmt.Sprintf("%s%s", serverName, servers.Rpc), serverInfo.RpcAddr)
+		//rpcEtcd := registerEtcd(etcd, fmt.Sprintf("%s%s", servername, servers.Rpc), serverInfo.RpcAddr)
 		//etcdServerArr.add(rpcEtcd)
 
 		// 开启pprof
@@ -201,7 +201,7 @@ func newServer(name string, options ...Options) *BaseEngine {
 	//opt.modules[module.ModuleID_SM] = registerDiscovery
 
 	b := &BaseEngine{
-		serverName: name,
+		servername: name,
 		isOutput:   opt.isOutput,
 		isPprof:    opt.isPprof,
 	}
@@ -335,5 +335,5 @@ func (b *BaseEngine) Destroy() {
 }
 
 func (b *BaseEngine) OnSystemSignal(signal os.Signal) bool {
-	return BaseSystemSignal(signal, b.serverName)
+	return BaseSystemSignal(signal, b.servername)
 }

@@ -70,7 +70,7 @@ func WithFileP(logFile, server string) Option {
 	}
 
 	filePath = file
-	serverName = server
+	servername = server
 	return func(opt *option) {
 		opt.file = zapcore.Lock(f)
 	}

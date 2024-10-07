@@ -34,7 +34,7 @@ func UnaryServerInterceptor(ctx context.Context, req interface{}, info *grpc.Una
 		log = log.WithField("req", req)
 		log = log.WithField("resp", resp)
 		if logs.Log.ServerName != "" {
-			log = log.WithField("serverName", logs.Log.ServerName)
+			log = log.WithField("servername", logs.Log.ServerName)
 		}
 		if err != nil {
 			log = log.WithField("err", err.Error())
@@ -72,7 +72,7 @@ func Interceptor(ctx context.Context, method string, req, reply interface{}, cc 
 		log = log.WithField("method", method)
 		log = log.WithField("req", req)
 		if logs.Log.ServerName != "" {
-			log = log.WithField("serverName", logs.Log.ServerName)
+			log = log.WithField("servername", logs.Log.ServerName)
 		}
 		log = log.WithField("resp", reply)
 		if err != nil {

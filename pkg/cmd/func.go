@@ -51,7 +51,7 @@ func Init(serverInfo server.Info) {
 		//etcdServerArr.add(tcpEtcd)
 		//
 		//// rpc 服务注册etcd
-		//rpcEtcd := registerEtcd(etcd, fmt.Sprintf("%s%s", serverName, servers.Rpc), serverInfo.RpcAddr)
+		//rpcEtcd := registerEtcd(etcd, fmt.Sprintf("%s%s", servername, servers.Rpc), serverInfo.RpcAddr)
 		//etcdServerArr.add(rpcEtcd)
 
 		// 开启pprof
@@ -76,18 +76,18 @@ func Init(serverInfo server.Info) {
 	}
 }
 
-func Run(serverName string) {
+func Run(servername string) {
 	//serverInfo := server.Info{
-	//	ServerName: serverName,
+	//	ServerName: servername,
 	//	Env: env.Active().Value(),
 	//}
 	//Init(allConfig, serverInfo)
 	//Init(serverInfo)
 
 	var serverKernel engine.IServerKernel
-	instance := engine.MakeInstance(serverName)
+	instance := engine.MakeInstance(servername)
 	if instance == nil {
-		log.Fatalf(fmt.Sprintf("找不到[%v]的服务,请通过 engine.Register 进行注册", serverName))
+		log.Fatalf(fmt.Sprintf("找不到[%v]的服务,请通过 engine.Register 进行注册", servername))
 	}
 
 	//server.SetServerInfo(&serverInfo)
@@ -98,15 +98,15 @@ func Run(serverName string) {
 	defer func() {
 		//内部服务关闭
 		serverKernel.Destroy()
-		release(serverName)
+		release(servername)
 	}()
 
 	sugar.WaitSignal(serverKernel.OnSystemSignal)
 }
 
 //
-//func registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service {
-//	tcpEtcdServe, err := etcdv3.NewService(etcd, etcdv3.ServiceInfo{Name: serverName, Address: address})
+//func registerEtcd(etcd *etcdv3.Etcd, servername, address string) *etcdv3.Service {
+//	tcpEtcdServe, err := etcdv3.NewService(etcd, etcdv3.ServiceInfo{Name: servername, Address: address})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -120,15 +120,15 @@ func Run(serverName string) {
 //}
 
 // initLog init log  etcd 在用
-func initLog(serverName string) {
+func initLog(servername string) {
 	logs.NewLogger(
-		logs.WithFilePath(fmt.Sprintf("log/%s.log", serverName)),
+		logs.WithFilePath(fmt.Sprintf("log/%s.log", servername)),
 		logs.WithCompress(false),
 		logs.WithPrettyPrint(false),
 		logs.WithFormat("json"),
 		logs.WithLevel(5),
 		logs.WithMaxSize(100),
-		logs.WithServerName(serverName),
+		logs.WithServerName(servername),
 	)
 }
 
@@ -182,8 +182,8 @@ func pprofs(addr string) {
 	http.ListenAndServe(addr, nil)
 }
 
-func release(serverName string) {
-	logger.Info(fmt.Sprintf("【 %s 】Stopping server...", serverName))
+func release(servername string) {
+	logger.Info(fmt.Sprintf("【 %s 】Stopping server...", servername))
 
 	//mysql.DBRepo.DbRClose()
 	//mysql.DBRepo.DbWClose()
@@ -192,6 +192,6 @@ func release(serverName string) {
 	//	etcdServer.Stop()
 	//}
 
-	logger.Info(fmt.Sprintf("【 %s 】server is stoped", serverName))
+	logger.Info(fmt.Sprintf("【 %s 】server is stoped", servername))
 
 }

@@ -149,12 +149,12 @@ func (s *Server) Connect() {
 	s.listener = listen
 }
 
-func (s *Server) registerEtcd(etcd *etcdv3.Etcd, serverName, address string) *etcdv3.Service {
+func (s *Server) registerEtcd(etcd *etcdv3.Etcd, servername, address string) *etcdv3.Service {
 	if s.Log != nil {
-		s.Log.Info(fmt.Sprintf("register server 【%s】:%s", serverName, address))
+		s.Log.Info(fmt.Sprintf("register server 【%s】:%s", servername, address))
 	}
 
-	tcpEtcdServe, err := etcdv3.NewService(etcd, etcdv3.ServiceInfo{Name: serverName, Address: address})
+	tcpEtcdServe, err := etcdv3.NewService(etcd, etcdv3.ServiceInfo{Name: servername, Address: address})
 	if err != nil {
 		panic(err)
 	}
