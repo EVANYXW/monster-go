@@ -26,11 +26,11 @@ func NewFactor(opts ...Options) *Factor {
 }
 
 func (f *Factor) IsConnectorServer() bool {
-	return f.options.isServerConnector
+	return f.options.isConnectorManager
 }
 
 func (f *Factor) CreateConnector(servername string) register_discovery.Connector {
-	if f.isServerConnector {
+	if f.isConnectorManager {
 		return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewGateServerInfoHandler())
 	}
 	return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewServerInfoHandler())
@@ -49,13 +49,13 @@ func (f *Factor) GetType() register_discovery.Type {
 }
 
 type options struct {
-	isServerConnector bool
+	isConnectorManager bool
 }
 
 type Options func(opt *options)
 
-func WithServerConnectorManager() Options {
+func WithConnectorManager() Options {
 	return func(opt *options) {
-		opt.isServerConnector = true
+		opt.isConnectorManager = true
 	}
 }
