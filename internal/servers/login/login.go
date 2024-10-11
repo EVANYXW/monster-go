@@ -73,6 +73,7 @@ func New() engine.IServerKernel {
 		servers.Login,
 		accHandler.NewAcceptor(),
 		center.NewFactor(),
+		//etcd.NewFactor(),
 	).WithOutput(&output.Config{
 		Name: servers.Login,
 		Addr: "",

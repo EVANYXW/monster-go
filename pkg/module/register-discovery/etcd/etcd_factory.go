@@ -15,6 +15,7 @@ type Factor struct {
 
 type options struct {
 	isServerConnector bool
+	isGateway         bool
 }
 
 type Options func(opt *options)
@@ -34,6 +35,10 @@ func (f *Factor) IsConnectorServer() bool {
 	return false
 }
 
+func (f *Factor) SetGateWay() {
+	f.isGateway = true
+}
+
 func (f *Factor) CreateConnector(servername string) register_discovery.Connector {
 	return NewEtcdConnector(module.ModuleID_Etcd, servername)
 }
@@ -43,7 +48,7 @@ func (f *Factor) GetType() register_discovery.Type {
 }
 
 func (f *Factor) CreateConnectorManager(managerFactory connector.ManagerFactory) register_discovery.Connector {
-	return nil
+	return connector.NewManager(module.ModuleID_ConnectorManager, managerFactory)
 }
 
 func (f *Factor) CreateNet() register_discovery.Connector {

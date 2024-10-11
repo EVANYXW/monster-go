@@ -52,10 +52,11 @@ func (c *GrpcNet) OnOk() {
 
 func (c *GrpcNet) OnStartCheck() int {
 	// TCP链接准备好
-	if c.kernel.GetStatus() == server.Net_RunStep_Done {
-		return module.ModuleRunCode_Ok
+	//if c.kernel.GetStatus() == server.Net_RunStep_Done {
+	if server.StatusIsDone(c.kernel.GetStatus()) {
+		return module.ModuleOk()
 	}
-	return module.ModuleRunCode_Wait
+	return module.ModuleWait()
 }
 
 func (c *GrpcNet) OnCloseCheck() int {

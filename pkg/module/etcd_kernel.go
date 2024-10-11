@@ -30,7 +30,9 @@ type EtcdKernel struct {
 }
 
 const (
-	leaseTTL = 5 // 租约的生存时间（秒）
+	serverKey        = "monster-go"
+	serviceKeyPrefix = "monster-go"
+	leaseTTL         = 5 // 租约的生存时间（秒）
 )
 
 func NewEtcdKernel(servername string, etcdClient *clientv3.Client, logger *zap.Logger, options ...ckernelOption) *EtcdKernel {
@@ -85,7 +87,9 @@ func (c *EtcdKernel) DoRun() {
 	}
 	addr := fmt.Sprintf("%s:%d", ip, port)
 	c.RegisterService(c.servername, addr)
+	go c.watchService()
 	server.Ports[server.EP_Client] = uint32(port)
+
 	DoWaitStart()
 	//c.msgHandler.Start()
 }
@@ -209,7 +213,7 @@ func registerService(etcdClient *clientv3.Client, serviceName, serviceAddr strin
 	}
 
 	// 生成唯一的服务名称
-	uniqueServiceName := fmt.Sprintf("%s-%s", serviceName, uuid.New().String())
+	uniqueServiceName := fmt.Sprintf("%s:%s-%s", serverKey, serviceName, uuid.New().String())
 
 	// 将服务地址注册到 etcd，并与租约绑定
 	_, err = etcdClient.Put(ctx, uniqueServiceName, serviceAddr, clientv3.WithLease(resp.ID))
@@ -266,5 +270,36 @@ func keepAlive(etcdClient *clientv3.Client, leaseID clientv3.LeaseID) {
 			return
 		}
 		time.Sleep(leaseTTL / 2 * time.Second) // 每半个TTL时间续租一次
+	}
+}
+
+// watchService 监听服务的变化
+func (c *EtcdKernel) watchService() {
+	//watchChan := c.etcdClient.Watch(context.Background(), serviceKey)
+	watchChan := c.etcdClient.Watch(context.Background(), serviceKeyPrefix, clientv3.WithPrefix())
+	fmt.Println("Watching for changes...")
+	//owner := GetModule(ModuleID_ConnectorManager).GetOwner()
+	//connectorManager := owner.(*connector.Manager)
+	//connectorManager := owner.(connector.ManagerFactory)
+	for watchResp := range watchChan {
+		for _, ev := range watchResp.Events {
+			switch ev.Type {
+			case clientv3.EventTypePut:
+				fmt.Printf("Service updated: %s : %s\n", ev.Kv.Key, ev.Kv.Value)
+				//ip, port, err := net.SplitHostPort(string(ev.Kv.Value))
+				//if err != nil {
+				//	fmt.Println("Error:", err)
+				//	return
+				//}
+				//portInt, _ := strconv.ParseInt(port, 10, 64)
+				//hdler := handler.NewManagerMsg()
+				//conn := connectorManager.CreateConnector(hdler, 0, ip, uint32(portInt))
+				//if conn == nil {
+				//
+				//}
+			case clientv3.EventTypeDelete:
+				fmt.Printf("Service deleted: %s\n", ev.Kv.Key)
+			}
+		}
 	}
 }

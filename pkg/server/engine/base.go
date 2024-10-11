@@ -229,6 +229,7 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 	}
 
 	ServerInit(name)
+	factor.SetGateWay()
 	rd := factor.CreateConnector(name)
 	options = append(options, WithModule(rd), WithModule(commonModule.NewClientNet(
 		module.ModuleID_Client,
@@ -242,6 +243,11 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 	if factor.GetType() == register_discovery.TypeCenter {
 		options = append(options, WithModule(factor.CreateConnectorManager(&connector.TcpManagerFactory{})))
 		//options = append(options, WithModule(connector.NewManager(module.ModuleID_ConnectorManager)))
+	}
+
+	// Etcd 模式的注册发现,需要加载 connector manager
+	if factor.GetType() == register_discovery.TypeEtcd {
+		// 多个etcd的服务器，gateway需要主动连接
 	}
 
 	return newServer(name, options...)

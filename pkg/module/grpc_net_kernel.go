@@ -65,7 +65,8 @@ func (n *GrpcNetKernel) DoRegister() {
 func (n *GrpcNetKernel) start() {
 	async.Go(func() {
 		//n.NetAcceptor.Connect(options...)
-		n.Status = server.Net_RunStep_Done
+		//n.Status = server.Net_RunStep_Done
+		server.StatusDone(&n.Status)
 		n.server.Connect()
 		output.Oput.SetServerAddr(n.server.GetAddr())
 		for _, s := range n.grpcservers {
@@ -81,7 +82,8 @@ func (n *GrpcNetKernel) start() {
 
 func (n *GrpcNetKernel) DoRun() {
 	//n.nodeManager.Start()
-	n.Status = server.Net_RunStep_Start
+	//n.Status = server.Net_RunStep_Start
+	server.StatusStart(&n.Status)
 	if n.NoWaitStart {
 		n.start()
 	}

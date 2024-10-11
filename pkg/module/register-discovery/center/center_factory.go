@@ -26,11 +26,12 @@ func NewFactor(opts ...Options) *Factor {
 }
 
 func (f *Factor) IsConnectorServer() bool {
-	return f.options.isConnectorManager
+	//TODO implement me
+	panic("implement me")
 }
 
 func (f *Factor) CreateConnector(servername string) register_discovery.Connector {
-	if f.isConnectorManager {
+	if f.isGateway {
 		return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewGateServerInfoHandler())
 	}
 	return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewServerInfoHandler())
@@ -38,6 +39,10 @@ func (f *Factor) CreateConnector(servername string) register_discovery.Connector
 
 func (f *Factor) CreateConnectorManager(managerFactory connector.ManagerFactory) register_discovery.Connector {
 	return connector.NewManager(module.ModuleID_ConnectorManager, managerFactory)
+}
+
+func (f *Factor) SetGateWay() {
+	f.isGateway = true
 }
 
 func (f *Factor) CreateNet() register_discovery.Connector {
@@ -50,12 +55,7 @@ func (f *Factor) GetType() register_discovery.Type {
 
 type options struct {
 	isConnectorManager bool
+	isGateway          bool
 }
 
 type Options func(opt *options)
-
-func WithConnectorManager() Options {
-	return func(opt *options) {
-		opt.isConnectorManager = true
-	}
-}

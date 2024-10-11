@@ -69,6 +69,14 @@ const (
 	ModuleRunCode_Error
 )
 
+func ModuleOk() int {
+	return ModuleRunCode_Ok
+}
+
+func ModuleWait() int {
+	return ModuleRunCode_Wait
+}
+
 const (
 	ModuleRunStatus_None = iota
 	ModuleRunStatus_Running

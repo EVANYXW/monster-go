@@ -33,6 +33,18 @@ const (
 	Net_RunStep_Done
 )
 
+func StatusStart(status *int) {
+	*status = Net_RunStep_Start
+}
+
+func StatusDone(status *int) {
+	*status = Net_RunStep_Done
+}
+
+func StatusIsDone(status int) bool {
+	return status == Net_RunStep_Done
+}
+
 // center 启动其他服务器的状态
 const (
 	CN_RunStep_None = iota

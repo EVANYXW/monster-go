@@ -21,9 +21,10 @@ const (
 
 type ConnectorFactory interface {
 	CreateConnector(servername string) Connector
-	IsConnectorServer() bool
+	//IsConnectorServer() bool
 	CreateConnectorManager(managerFactory connector.ManagerFactory) Connector
 	GetType() Type
+	SetGateWay()
 }
 
 type NetFactory interface {

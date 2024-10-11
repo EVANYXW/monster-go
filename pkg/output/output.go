@@ -64,7 +64,7 @@ var colors = map[string]int{
 
 var clear map[string]func() //create a map for storing clear func
 
-var tamplate = `+--------------------------------------------------+
+var tamplate = `+----------------------------------------------------------------------------------+
 |   Server Name: {{Name}}
 |   Total Module Num: {{ModuleNum}}
 |   Modules: {{Modules}}
@@ -76,7 +76,7 @@ var tamplate = `+--------------------------------------------------+
 |   Go Num: {{GoNum}}
 |   Num Goroutine: {{RunGoNum}}
 |   Pprof: {{Pprof}}
-+--------------------------------------------------+`
++----------------------------------------------------------------------------------+`
 
 func joinInts(ints []int32, moduleMap map[int]string) string {
 	// 将 []int32 转换为 []string
@@ -90,16 +90,6 @@ func joinInts(ints []int32, moduleMap map[int]string) string {
 	// 使用 strings.Join 拼接为逗号分隔的字符串
 	return strings.Join(strInts, ",")
 }
-
-//func joinInts(ints []int32) string {
-//	// 将 []int32 转换为 []string
-//	strInts := make([]string, len(ints))
-//	for i, v := range ints {
-//		strInts[i] = strconv.Itoa(int(v))
-//	}
-//	// 使用 strings.Join 拼接为逗号分隔的字符串
-//	return strings.Join(strInts, ",")
-//}
 
 func init() {
 	clear = make(map[string]func()) //Initialize it
@@ -246,7 +236,6 @@ func (s *Output) Print() {
 	str = strings.Replace(str, "{{Name}}", s.ServerName, -1)
 	str = strings.Replace(str, "{{Addr}}", s.Address, -1)
 	str = strings.Replace(str, "{{GateAddress}}", s.GateAddress, -1)
-	//str = strings.Replace(str, "{{RpcAddr}}", s.RpcAddress, -1)
 	str = strings.Replace(str, "{{PlayerNum}}", cast.ToString(s.ConnNum), -1)
 	str = strings.Replace(str, "{{GoNum}}", cast.ToString(s.GoCount), -1)
 	str = strings.Replace(str, "{{ModuleNum}}", cast.ToString(s.ModuleNum), -1)
