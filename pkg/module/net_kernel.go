@@ -3,6 +3,7 @@ package module
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/pkg/async"
+	"github.com/evanyxw/monster-go/pkg/ipPort"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/rpc"
@@ -112,7 +113,11 @@ func (n *NetKernel) DoWaitStart() {
 	if n.netType == Inner {
 		port = server.Ports[server.EP_Gate]
 	}
-	addr := fmt.Sprintf(":%d", port)
+	//addr := fmt.Sprintf("192.168.3.90:%d", port)
+	ip, err := ipPort.ExternalIP()
+	if err != nil {
+	}
+	addr := fmt.Sprintf("%s:%d", ip, port)
 	output.Oput.SetServerAddr(addr)
 	n.start(network.WithAddr(addr))
 	//async.Go(func() {

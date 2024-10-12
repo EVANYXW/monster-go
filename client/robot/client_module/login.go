@@ -61,7 +61,7 @@ func (l *Login) Update() {
 func New(id int32) *Login {
 	l := &Login{
 		id: id,
-		ConnectorKernel: module.NewConnectorKernel("", 30000,
+		ConnectorKernel: module.NewConnectorKernel("192.168.101.2", 30000,
 			handler.NewLoginHandler(),
 			new(network.DefaultPackerFactory),
 			module.WithCNoWaitStart(true),

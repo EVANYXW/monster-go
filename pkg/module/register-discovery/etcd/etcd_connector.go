@@ -13,12 +13,13 @@ type EtcdConnector struct {
 	servername string
 }
 
-func NewEtcdConnector(id int32, servername string) *EtcdConnector {
+func NewEtcdConnector(id int32, servername string, isWatch bool, netType module.NetType) *EtcdConnector {
 	etcdCnf := configs.All().Etcd
 	etcdClient := grpcpool.InitEtcdClient(etcdCnf.Addr, etcdCnf.User, etcdCnf.Pass)
 	c := &EtcdConnector{
-		id:     id,
-		kernel: module.NewEtcdKernel(servername, etcdClient, logger.GetLogger(), module.WithCNoWaitStart(true)),
+		id: id,
+		kernel: module.NewEtcdKernel(servername, isWatch, netType, etcdClient, logger.GetLogger(),
+			module.WithCNoWaitStart(true)),
 	}
 
 	//module.ConnKernel = c.kernel.(*module.ConnectorKernel)

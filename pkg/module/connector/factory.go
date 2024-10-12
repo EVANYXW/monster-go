@@ -4,15 +4,14 @@
 package connector
 
 import (
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/server/tcp_manager"
 )
 
-type IManager interface {
-	CreateConnector(id uint32, ip string, port uint32) *module.ConnectorKernel
-	GetConnector(ep uint32, id uint32) module.IKernel
-}
+//type ManagerFactory interface {
+//	Create(id int32) *Manager
+//	CreateConnector(handler module.GateAcceptorHandler, id uint32, ip string, port uint32) *module.ConnectorKernel
+//}
 
-type ManagerFactory interface {
-	Create(id int32) *Manager
-	CreateConnector(handler module.GateAcceptorHandler, id uint32, ip string, port uint32) *module.ConnectorKernel
+type AbstractFactory interface {
+	CreateManager(id int32) tcp_manager.TcpConnectorManager
 }

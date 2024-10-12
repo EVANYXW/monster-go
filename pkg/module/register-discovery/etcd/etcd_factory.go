@@ -7,6 +7,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/module/connector"
 	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery"
+	"github.com/evanyxw/monster-go/pkg/server/tcp_manager"
 )
 
 type Factor struct {
@@ -39,16 +40,19 @@ func (f *Factor) SetGateWay() {
 	f.isGateway = true
 }
 
-func (f *Factor) CreateConnector(servername string) register_discovery.Connector {
-	return NewEtcdConnector(module.ModuleID_Etcd, servername)
+func (f *Factor) CreateConnector(servername string, isWatch bool, netType module.NetType) register_discovery.Connector {
+	return NewEtcdConnector(module.ModuleID_Etcd, servername, isWatch, netType)
 }
 
 func (f *Factor) GetType() register_discovery.Type {
 	return register_discovery.TypeEtcd
 }
 
-func (f *Factor) CreateConnectorManager(managerFactory connector.ManagerFactory) register_discovery.Connector {
-	return connector.NewManager(module.ModuleID_ConnectorManager, managerFactory)
+func (f *Factor) CreateConnectorManager() tcp_manager.TcpConnectorManager {
+	//return connector.NewManager(module.ModuleID_ConnectorManager, managerFactory)
+	c := connector.CenterManagerFactory{}
+	manager := c.CreateManager(module.ModuleID_ConnectorManager)
+	return manager
 }
 
 func (f *Factor) CreateNet() register_discovery.Connector {

@@ -5,7 +5,6 @@ import (
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
-	"github.com/evanyxw/monster-go/pkg/module/connector"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -86,6 +85,7 @@ func (c *Client) OnNetMessage(pack *network.Packet) {
 		c.server_ids[ep] = pack.Msg.RawID
 	}
 
+	//grpc
 	//client, err := club.NewClubServiceClient()
 	//if err != nil {
 	//	log.Fatal(err)
@@ -133,7 +133,7 @@ func (c *Client) OnNetMessage(pack *network.Packet) {
 
 func (c *Client) GetConnector(ep int) *module.ConnectorKernel {
 	managerModule := module.GetConnectorManager()
-	connectorManager, ok := managerModule.(*connector.Manager)
+	connectorManager, ok := managerModule.(*module.Manager)
 	if !ok {
 		logger.Error("GetConnector of module.GetConnectorManager is error!")
 		return nil
@@ -189,7 +189,7 @@ func (c *Client) GetServerIds() []uint32 {
 
 func (c *Client) GetExistConnector(ep uint32) *module.ConnectorKernel {
 	managerModule := module.GetConnectorManager()
-	connectorManager, ok := managerModule.(*connector.Manager)
+	connectorManager, ok := managerModule.(*module.Manager)
 	if !ok {
 		logger.Error("GetConnector of module.GetConnectorManager is error!")
 		return nil

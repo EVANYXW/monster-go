@@ -11,7 +11,6 @@ import (
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/logs"
 	"github.com/evanyxw/monster-go/pkg/module"
-	"github.com/evanyxw/monster-go/pkg/module/connector"
 	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/output"
@@ -230,7 +229,7 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 
 	ServerInit(name)
 	factor.SetGateWay()
-	rd := factor.CreateConnector(name)
+	rd := factor.CreateConnector(name, true, module.Outer)
 	options = append(options, WithModule(rd), WithModule(commonModule.NewClientNet(
 		module.ModuleID_Client,
 		5000,
@@ -241,13 +240,19 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 
 	// Center 模式的注册发现,需要加装 connector manager
 	if factor.GetType() == register_discovery.TypeCenter {
-		options = append(options, WithModule(factor.CreateConnectorManager(&connector.TcpManagerFactory{})))
+		//options = append(options, WithModule(factor.CreateConnectorManager(&connector.TcpManagerFactory{})))
+		m := factor.CreateConnectorManager()
+		iModule := m.(module.IModule)
+		options = append(options, WithModule(iModule))
 		//options = append(options, WithModule(connector.NewManager(module.ModuleID_ConnectorManager)))
 	}
 
 	// Etcd 模式的注册发现,需要加载 connector manager
 	if factor.GetType() == register_discovery.TypeEtcd {
 		// 多个etcd的服务器，gateway需要主动连接
+		m := factor.CreateConnectorManager()
+		iModule := m.(module.IModule)
+		options = append(options, WithModule(iModule))
 	}
 
 	return newServer(name, options...)
@@ -269,7 +274,7 @@ func NewTcpServer(name string, msgHandler module.MsgHandler, factor register_dis
 	ServerInit(name)
 
 	// 注册与发现
-	rd := factor.CreateConnector(name)
+	rd := factor.CreateConnector(name, false, module.Inner)
 	// 网络模块
 	clientNet := commonModule.NewClientNet(
 		module.ModuleID_GateAcceptor,

@@ -13,6 +13,8 @@ import (
 	"go.uber.org/zap"
 	"log"
 	"math/rand"
+	"net"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -27,6 +29,8 @@ type EtcdKernel struct {
 	etcdClient  *clientv3.Client
 	servername  string
 	logger      *zap.Logger
+	netType     NetType
+	isWatch     bool
 }
 
 const (
@@ -35,7 +39,7 @@ const (
 	leaseTTL         = 5 // 租约的生存时间（秒）
 )
 
-func NewEtcdKernel(servername string, etcdClient *clientv3.Client, logger *zap.Logger, options ...ckernelOption) *EtcdKernel {
+func NewEtcdKernel(servername string, isWatch bool, netType NetType, etcdClient *clientv3.Client, logger *zap.Logger, options ...ckernelOption) *EtcdKernel {
 	opt := &ckOptions{}
 
 	rpcAcceptor := rpc.NewAcceptor(10000)
@@ -45,6 +49,8 @@ func NewEtcdKernel(servername string, etcdClient *clientv3.Client, logger *zap.L
 		etcdClient:  etcdClient,
 		logger:      logger,
 		servername:  servername,
+		netType:     netType, // 默认内网
+		isWatch:     isWatch,
 	}
 
 	for _, fn := range options {
@@ -87,8 +93,15 @@ func (c *EtcdKernel) DoRun() {
 	}
 	addr := fmt.Sprintf("%s:%d", ip, port)
 	c.RegisterService(c.servername, addr)
-	go c.watchService()
-	server.Ports[server.EP_Client] = uint32(port)
+	if c.isWatch {
+		go c.watchService()
+	}
+
+	if c.netType == Outer {
+		server.Ports[server.EP_Client] = uint32(port)
+	} else {
+		server.Ports[server.EP_Gate] = uint32(port)
+	}
 
 	DoWaitStart()
 	//c.msgHandler.Start()
@@ -278,25 +291,25 @@ func (c *EtcdKernel) watchService() {
 	//watchChan := c.etcdClient.Watch(context.Background(), serviceKey)
 	watchChan := c.etcdClient.Watch(context.Background(), serviceKeyPrefix, clientv3.WithPrefix())
 	fmt.Println("Watching for changes...")
-	//owner := GetModule(ModuleID_ConnectorManager).GetOwner()
-	//connectorManager := owner.(*connector.Manager)
-	//connectorManager := owner.(connector.ManagerFactory)
+	owner := GetModule(ModuleID_ConnectorManager).GetOwner()
+	connectorManager := owner.(*Manager)
+	//connectorManager := owner.(tcp_manager.TcpConnectorManager)
 	for watchResp := range watchChan {
 		for _, ev := range watchResp.Events {
 			switch ev.Type {
 			case clientv3.EventTypePut:
 				fmt.Printf("Service updated: %s : %s\n", ev.Kv.Key, ev.Kv.Value)
-				//ip, port, err := net.SplitHostPort(string(ev.Kv.Value))
-				//if err != nil {
-				//	fmt.Println("Error:", err)
-				//	return
-				//}
-				//portInt, _ := strconv.ParseInt(port, 10, 64)
-				//hdler := handler.NewManagerMsg()
-				//conn := connectorManager.CreateConnector(hdler, 0, ip, uint32(portInt))
-				//if conn == nil {
-				//
-				//}
+				ip, port, err := net.SplitHostPort(string(ev.Kv.Value))
+				if err != nil {
+					fmt.Println("Error:", err)
+					return
+				}
+				portInt, _ := strconv.ParseInt(port, 10, 64)
+				time.Sleep(time.Second * 10)
+				conn := connectorManager.CreateConnector(0, ip, uint32(portInt))
+				if conn == nil {
+
+				}
 			case clientv3.EventTypeDelete:
 				fmt.Printf("Service deleted: %s\n", ev.Kv.Key)
 			}

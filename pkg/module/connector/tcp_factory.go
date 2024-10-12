@@ -6,31 +6,38 @@ package connector
 import (
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/module/connector/handler"
-	"github.com/evanyxw/monster-go/pkg/network"
+	"github.com/evanyxw/monster-go/pkg/server/tcp_manager"
 )
 
-// TcpManagerFactory tcp 管理器
-type TcpManagerFactory struct {
+//// TcpManagerFactory tcp 管理器
+//type TcpManagerFactory struct {
+//}
+//
+//func (t *TcpManagerFactory) CreateConnector(handler module.GateAcceptorHandler, id uint32, ip string, port uint32) *module.ConnectorKernel {
+//	//msgHandler := handler.NewManager()
+//	msgHandler := handler.(module.MsgHandler)
+//	ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.ClientPackerFactory))
+//	//ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.DefaultPackerFactory))
+//	ck.SetID(id)
+//	return ck
+//}
+//
+//func (t *TcpManagerFactory) Create(id int32) *Manager {
+//	c := &Manager{
+//		id:      id,
+//		factory: t,
+//	}
+//	hdler := handler.NewManagerMsg()
+//	c.handler = hdler
+//	c.kernel = module.NewKernel(hdler, network.NetPointManager.GetRpcAcceptor(),
+//		network.NetPointManager.GetProcessor())
+//
+//	return c
+//}
+
+type CenterManagerFactory struct {
 }
 
-func (t *TcpManagerFactory) CreateConnector(handler module.GateAcceptorHandler, id uint32, ip string, port uint32) *module.ConnectorKernel {
-	//msgHandler := handler.NewManager()
-	msgHandler := handler.(module.MsgHandler)
-	ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.ClientPackerFactory))
-	//ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.DefaultPackerFactory))
-	ck.SetID(id)
-	return ck
-}
-
-func (t *TcpManagerFactory) Create(id int32) *Manager {
-	c := &Manager{
-		id:      id,
-		factory: t,
-	}
-	hdler := handler.NewManagerMsg()
-	c.handler = hdler
-	c.kernel = module.NewKernel(hdler, network.NetPointManager.GetRpcAcceptor(),
-		network.NetPointManager.GetProcessor())
-
-	return c
+func (c *CenterManagerFactory) CreateManager(id int32) tcp_manager.TcpConnectorManager {
+	return module.NewManager(id, handler.NewManagerMsg())
 }
