@@ -1,12 +1,12 @@
 // Package connector @Author evan_yxw
 // @Date 2024/9/28 14:12:00
 // @Desc
-package connector
+package factory
 
 import (
 	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/connector"
 	"github.com/evanyxw/monster-go/pkg/module/connector/handler"
-	"github.com/evanyxw/monster-go/pkg/server/tcp_manager"
 )
 
 //// TcpManagerFactory tcp 管理器
@@ -38,6 +38,6 @@ import (
 type CenterManagerFactory struct {
 }
 
-func (c *CenterManagerFactory) CreateManager(id int32) tcp_manager.TcpConnectorManager {
+func (c *CenterManagerFactory) CreateManager(id int32) connector.TcpConnectorManager {
 	return module.NewManager(id, handler.NewManagerMsg())
 }

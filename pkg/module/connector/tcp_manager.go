@@ -1,7 +1,7 @@
 // Package tcp_manager @Author evan_yxw
 // @Date 2024/10/12 18:25:00
 // @Desc
-package tcp_manager
+package connector
 
 import "github.com/evanyxw/monster-go/pkg/module"
 

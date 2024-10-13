@@ -5,7 +5,7 @@ package register_discovery
 
 import (
 	"github.com/evanyxw/monster-go/pkg/module"
-	"github.com/evanyxw/monster-go/pkg/server/tcp_manager"
+	"github.com/evanyxw/monster-go/pkg/module/connector"
 )
 
 type Connector interface {
@@ -22,7 +22,7 @@ const (
 type ConnectorFactory interface {
 	CreateConnector(servername string, isWatch bool, netType module.NetType) Connector
 	//IsConnectorServer() bool
-	CreateConnectorManager() tcp_manager.TcpConnectorManager
+	CreateConnectorManager() connector.TcpConnectorManager
 	GetType() Type
 	SetGateWay()
 }

@@ -1,7 +1,7 @@
 // Package connector @Author evan_yxw
 // @Date 2024/9/28 14:12:00
 // @Desc
-package connector
+package factory
 
 //import (
 //	commonHandler "github.com/evanyxw/monster-go/pkg/common/handler"

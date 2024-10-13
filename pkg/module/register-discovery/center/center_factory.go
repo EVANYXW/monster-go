@@ -6,9 +6,9 @@ package center
 import (
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/module/connector"
+	"github.com/evanyxw/monster-go/pkg/module/connector/factory"
 	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery"
 	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/handler"
-	"github.com/evanyxw/monster-go/pkg/server/tcp_manager"
 )
 
 type Factor struct {
@@ -38,9 +38,9 @@ func (f *Factor) CreateConnector(servername string, isWatch bool, netType module
 	return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewServerInfoHandler())
 }
 
-func (f *Factor) CreateConnectorManager() tcp_manager.TcpConnectorManager {
+func (f *Factor) CreateConnectorManager() connector.TcpConnectorManager {
 	//return connector.NewManager(module.ModuleID_ConnectorManager, managerFactory)
-	c := connector.CenterManagerFactory{}
+	c := factory.CenterManagerFactory{}
 	manager := c.CreateManager(module.ModuleID_ConnectorManager)
 	return manager
 }
