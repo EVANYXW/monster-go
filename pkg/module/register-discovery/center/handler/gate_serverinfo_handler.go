@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"github.com/evanyxw/monster-go/pkg/ipPort"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
@@ -41,7 +42,11 @@ func (h *gateServerInfoHandler) OnServerOk(info *network.ServerInfo) {
 		connectorManager := owner.(*module.Manager)
 
 		fmt.Println("ports:", server.Ports)
-		conn := connectorManager.CreateConnector(info.ID, info.IP, info.Ports[server.EP_Gate])
+		// fixMe 这里暂时用ip，要改注册到center的时候用ip
+		ip, _ := ipPort.ExternalIP()
+		ipstr := fmt.Sprintf("%s", ip)
+		//conn := connectorManager.CreateConnector(info.ID, info.IP, info.Ports[server.EP_Gate])
+		conn := connectorManager.CreateConnector(info.ID, ipstr, info.Ports[server.EP_Gate])
 		if conn == nil {
 			logger.Error("siHandler OnServerOk create connector error", zap.Uint("server", uint(SID.ID)),
 				zap.String("type", server.EP2Name(SID.Type)),

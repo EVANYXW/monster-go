@@ -11,6 +11,13 @@ import (
 	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/handler"
 )
 
+type options struct {
+	isConnectorManager bool
+	isGateway          bool
+}
+
+type Options func(opt *options)
+
 type Factor struct {
 	options
 }
@@ -31,7 +38,12 @@ func (f *Factor) IsConnectorServer() bool {
 	panic("implement me")
 }
 
-func (f *Factor) CreateConnector(servername string, isWatch bool, netType module.NetType) register_discovery.Connector {
+func (f *Factor) CreateConnector(options ...register_discovery.Option) register_discovery.Connector {
+	opt := register_discovery.NewOption()
+	for _, fn := range options {
+		fn(opt)
+	}
+
 	if f.isGateway {
 		return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewGateServerInfoHandler())
 	}
@@ -56,10 +68,3 @@ func (f *Factor) CreateNet() register_discovery.Connector {
 func (f *Factor) GetType() register_discovery.Type {
 	return register_discovery.TypeCenter
 }
-
-type options struct {
-	isConnectorManager bool
-	isGateway          bool
-}
-
-type Options func(opt *options)

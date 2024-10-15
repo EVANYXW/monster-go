@@ -229,7 +229,8 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 
 	ServerInit(name)
 	factor.SetGateWay()
-	rd := factor.CreateConnector(name, true, module.Outer)
+	rd := factor.CreateConnector(register_discovery.WithServername(name), register_discovery.WithWatch(),
+		register_discovery.WithNetType(module.Outer))
 	options = append(options, WithModule(rd), WithModule(commonModule.NewClientNet(
 		module.ModuleID_Client,
 		5000,
@@ -274,7 +275,7 @@ func NewTcpServer(name string, msgHandler module.MsgHandler, factor register_dis
 	ServerInit(name)
 
 	// 注册与发现
-	rd := factor.CreateConnector(name, false, module.Inner)
+	rd := factor.CreateConnector(register_discovery.WithServername(name), register_discovery.WithNetType(module.Inner))
 	// 网络模块
 	clientNet := commonModule.NewClientNet(
 		module.ModuleID_GateAcceptor,

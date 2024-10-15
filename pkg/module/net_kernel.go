@@ -80,10 +80,10 @@ func (n *NetKernel) Init(baseModule *BaseModule) bool {
 }
 
 func (n *NetKernel) DoRegister() {
-	n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
-	n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
-	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
-	n.RpcAcceptor.Regist(rpc.RPC_NET_CLOSE, n.OnRpcNetClose)
+	n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)       // 作为tcp服务,netPoint返回有链接
+	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)         // 作为tcp服务,netPoint返回有错误
+	n.RpcAcceptor.Regist(rpc.RPC_NET_CLOSE, n.OnRpcNetClose)         // 作为tcp服务,netPoint返回退出
+	n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected) // 作为client连接第三方的返回
 
 	if n.msgHandler != nil {
 		n.msgHandler.MsgRegister(n.processor)

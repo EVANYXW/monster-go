@@ -90,7 +90,7 @@ func (c *Client) Run(rpcAcceptor *rpc.Acceptor) {
 	c.Reset()
 	c.running.Store(true)
 	async.Go(func() {
-		c.Connect()
+		c.NetPoint.Connect()
 	})
 }
 

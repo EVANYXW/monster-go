@@ -15,6 +15,7 @@ import (
 	"math/rand"
 	"net"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 )
@@ -39,6 +40,10 @@ const (
 	leaseTTL         = 5 // 租约的生存时间（秒）
 )
 
+var (
+	GlobalEtcdKernel *EtcdKernel
+)
+
 func NewEtcdKernel(servername string, isWatch bool, netType NetType, etcdClient *clientv3.Client, logger *zap.Logger, options ...ckernelOption) *EtcdKernel {
 	opt := &ckOptions{}
 
@@ -57,6 +62,7 @@ func NewEtcdKernel(servername string, isWatch bool, netType NetType, etcdClient 
 		fn(opt)
 	}
 	connector.NoWaitStart = opt.NoWaitStart
+	GlobalEtcdKernel = connector
 	return connector
 }
 
@@ -92,10 +98,6 @@ func (c *EtcdKernel) DoRun() {
 		return
 	}
 	addr := fmt.Sprintf("%s:%d", ip, port)
-	c.RegisterService(c.servername, addr)
-	if c.isWatch {
-		go c.watchService()
-	}
 
 	if c.netType == Outer {
 		server.Ports[server.EP_Client] = uint32(port)
@@ -104,6 +106,11 @@ func (c *EtcdKernel) DoRun() {
 	}
 
 	DoWaitStart()
+	// 暂时做一个延时
+	c.RegisterService(c.servername, addr)
+	if c.isWatch {
+		go c.watchService()
+	}
 	//c.msgHandler.Start()
 }
 
@@ -225,8 +232,10 @@ func registerService(etcdClient *clientv3.Client, serviceName, serviceAddr strin
 		return 0, fmt.Errorf("failed to create lease: %v", err)
 	}
 
-	// 生成唯一的服务名称
-	uniqueServiceName := fmt.Sprintf("%s:%s-%s", serverKey, serviceName, uuid.New().String())
+	// 生成唯一的服务名称 monster-go:login:37439:6784dcaf-0be5-4433-a315-9271e69b06df
+	uniqueServiceName := fmt.Sprintf("%s:%s:%d:%s", serverKey, serviceName, server.ID, uuid.New().String())
+
+	//etcdValue := fmt.Sprintf("%s/%d", serviceAddr, server.ID)
 
 	// 将服务地址注册到 etcd，并与租约绑定
 	_, err = etcdClient.Put(ctx, uniqueServiceName, serviceAddr, clientv3.WithLease(resp.ID))
@@ -286,6 +295,28 @@ func keepAlive(etcdClient *clientv3.Client, leaseID clientv3.LeaseID) {
 	}
 }
 
+func (c *EtcdKernel) getServerId(etcdKey string) uint32 {
+	splitArr := strings.Split(etcdKey, ":")
+
+	var serverId uint32
+	if len(splitArr) > 3 {
+		id, _ := strconv.ParseInt(splitArr[2], 10, 64)
+		serverId = uint32(id)
+	}
+
+	return serverId
+}
+
+func (c *EtcdKernel) getIpPort(etcdValue string) (string, uint32) {
+	ip, port, err := net.SplitHostPort(etcdValue)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return "", 0
+	}
+	portInt, _ := strconv.ParseInt(port, 10, 64)
+	return ip, uint32(portInt)
+}
+
 // watchService 监听服务的变化
 func (c *EtcdKernel) watchService() {
 	//watchChan := c.etcdClient.Watch(context.Background(), serviceKey)
@@ -299,19 +330,17 @@ func (c *EtcdKernel) watchService() {
 			switch ev.Type {
 			case clientv3.EventTypePut:
 				fmt.Printf("Service updated: %s : %s\n", ev.Kv.Key, ev.Kv.Value)
-				ip, port, err := net.SplitHostPort(string(ev.Kv.Value))
-				if err != nil {
-					fmt.Println("Error:", err)
-					return
-				}
-				portInt, _ := strconv.ParseInt(port, 10, 64)
-				time.Sleep(time.Second * 10)
-				conn := connectorManager.CreateConnector(0, ip, uint32(portInt))
+				ip, port := c.getIpPort(string(ev.Kv.Value))
+				serverId := c.getServerId(string(ev.Kv.Key))
+				time.Sleep(2 * time.Second)
+				conn := connectorManager.CreateConnector(serverId, ip, port)
 				if conn == nil {
 
 				}
 			case clientv3.EventTypeDelete:
 				fmt.Printf("Service deleted: %s\n", ev.Kv.Key)
+				serverId := c.getServerId(string(ev.Kv.Key))
+				connectorManager.DelConnector(serverId)
 			}
 		}
 	}

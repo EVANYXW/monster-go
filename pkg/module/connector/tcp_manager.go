@@ -8,4 +8,5 @@ import "github.com/evanyxw/monster-go/pkg/module"
 type TcpConnectorManager interface {
 	CreateConnector(id uint32, ip string, port uint32) *module.ConnectorKernel
 	GetConnector(ep uint32, id uint32) module.IKernel
+	DelConnector(id uint32)
 }

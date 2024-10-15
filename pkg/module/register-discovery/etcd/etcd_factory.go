@@ -40,8 +40,12 @@ func (f *Factor) SetGateWay() {
 	f.isGateway = true
 }
 
-func (f *Factor) CreateConnector(servername string, isWatch bool, netType module.NetType) register_discovery.Connector {
-	return NewEtcdConnector(module.ModuleID_Etcd, servername, isWatch, netType)
+func (f *Factor) CreateConnector(options ...register_discovery.Option) register_discovery.Connector {
+	opt := register_discovery.NewOption()
+	for _, fn := range options {
+		fn(opt)
+	}
+	return NewEtcdConnector(module.ModuleID_Etcd, opt.GetServername(), opt.GetIsWatch(), opt.GetNetType())
 }
 
 func (f *Factor) GetType() register_discovery.Type {

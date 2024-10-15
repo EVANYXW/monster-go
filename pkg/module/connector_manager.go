@@ -106,6 +106,16 @@ func (c Manager) GetConnector(ep uint32, id uint32) IKernel {
 	return nil
 }
 
+func (c Manager) DelConnector(id uint32) {
+	var sid server.ServerID
+	server.ID2Sid(id, &sid)
+	if len(c.collections) > int(sid.Type) {
+		if _, ok := c.collections[sid.Type][id]; ok {
+			delete(c.collections[sid.Type], id)
+		}
+	}
+}
+
 func (c *Manager) CreateConnector(id uint32, ip string, port uint32) *ConnectorKernel {
 	//msgHandler := handler.NewManager()
 	msgHandler := c.handler.(MsgHandler)

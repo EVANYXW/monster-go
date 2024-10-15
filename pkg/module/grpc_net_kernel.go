@@ -52,10 +52,10 @@ func (n *GrpcNetKernel) Init(baseModule *BaseModule) bool {
 }
 
 func (n *GrpcNetKernel) DoRegister() {
-	n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
-	n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
-	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
-	n.RpcAcceptor.Regist(rpc.RPC_NET_CLOSE, n.OnRpcNetClose)
+	//n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
+	//n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
+	//n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
+	//n.RpcAcceptor.Regist(rpc.RPC_NET_CLOSE, n.OnRpcNetClose)
 
 	//if n.msgHandler != nil {
 	//	//n.msgHandler.MsgRegister(n.processor)
