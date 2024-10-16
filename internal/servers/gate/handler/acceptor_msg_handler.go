@@ -46,7 +46,7 @@ func (m *AcceptorMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *AcceptorMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
+func (m *AcceptorMsgHandler) OnNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	async.Go(func() {
 		np.Connect()
 	})

@@ -23,7 +23,7 @@ type CallInfo struct {
 
 // RPC接收者
 type Acceptor struct {
-	functions map[string]func([]interface{})
+	functions map[string][]func([]interface{})
 	ChanCall  chan *CallInfo
 	close     chan bool
 	l         int
@@ -32,7 +32,7 @@ type Acceptor struct {
 func NewAcceptor(l int) *Acceptor {
 	a := new(Acceptor)
 	a.l = l
-	a.functions = make(map[string]func([]interface{}))
+	a.functions = make(map[string][]func([]interface{}))
 	a.ChanCall = make(chan *CallInfo, l)
 	return a
 }
@@ -43,7 +43,8 @@ func (a *Acceptor) Regist(id string, f func([]interface{})) {
 		return
 	}
 
-	a.functions[id] = f
+	//a.functions[id] = f
+	a.functions[id] = append(a.functions[id], f)
 }
 
 func (a *Acceptor) Close() {
@@ -98,9 +99,11 @@ func (a *Acceptor) Go(id string, args ...interface{}) {
 		return
 	}
 
-	a.ChanCall <- &CallInfo{
-		f:    f,
-		args: args,
+	for _, h := range f {
+		a.ChanCall <- &CallInfo{
+			f:    h,
+			args: args,
+		}
 	}
 }
 

@@ -38,7 +38,7 @@ func (m *GateMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *GateMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
+func (m *GateMsgHandler) OnNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	newClient, isNew := m.ClientManager.NewClient(np)
 	if newClient != nil {
 		if isNew {

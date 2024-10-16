@@ -201,6 +201,7 @@ OUTLABEL:
 				if err != io.EOF && err.Error() != "EOF readLen:0" {
 					np.RpcAcceptor.Go(rpc.RPC_NET_ERROR, np)
 					logger.Debug("read message RPC_NET_ERROR: %v", zap.Error(err), zap.Uint32("server_id", np.ID))
+					break OUTLABEL
 				}
 				np.RpcAcceptor.Go(rpc.RPC_NET_CLOSE, np)
 				break OUTLABEL

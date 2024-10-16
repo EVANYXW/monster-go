@@ -14,7 +14,7 @@ var (
 )
 
 type SchemaKernel struct {
-	msgHandler module.MsgHandler
+	msgHandler module.Handler
 	DBMongo    *common.CfgDBMongo
 	DBRedis    *common.CfgDBRedis
 	//LuBanTables         *Tables
@@ -36,7 +36,7 @@ func XSFSchema() *SchemaKernel {
 	return kernel
 }
 
-func New(msgHandler module.MsgHandler) *SchemaKernel {
+func New(msgHandler module.Handler) *SchemaKernel {
 	s := &SchemaKernel{
 		msgHandler: msgHandler,
 	}

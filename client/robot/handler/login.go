@@ -39,7 +39,7 @@ func (m *loginMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *loginMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
+func (m *loginMsgHandler) OnNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	np.Connect()
 	conn := np.Conn.(*net.TCPConn)
 	acceptor.RemoveConn(conn, np)
@@ -58,10 +58,6 @@ func (m *loginMsgHandler) OnOk() {
 }
 
 func (m *loginMsgHandler) OnUpdate() {
-
-}
-
-func (m *loginMsgHandler) OnNPAdd(np *network.NetPoint) {
 
 }
 

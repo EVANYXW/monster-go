@@ -204,18 +204,6 @@ func (c *Client) GetExistConnector(ep uint32) *module.ConnectorKernel {
 	}
 }
 
-func (c *Client) OnNetConnected(np *network.NetPoint) {
-
-}
-
-func (c *Client) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
-
-}
-
-func (c *Client) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
-
-}
-
 func (c *Client) OnServerOk() {
 
 }

@@ -1,7 +1,6 @@
 package module
 
 import (
-	"fmt"
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/grpcpool"
@@ -52,14 +51,6 @@ func (n *GrpcNetKernel) Init(baseModule *BaseModule) bool {
 }
 
 func (n *GrpcNetKernel) DoRegister() {
-	//n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
-	//n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
-	//n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
-	//n.RpcAcceptor.Regist(rpc.RPC_NET_CLOSE, n.OnRpcNetClose)
-
-	//if n.msgHandler != nil {
-	//	//n.msgHandler.MsgRegister(n.processor)
-	//}
 
 }
 func (n *GrpcNetKernel) start() {
@@ -139,19 +130,8 @@ func (n *GrpcNetKernel) GetNoWaitStart() bool {
 	return n.NoWaitStart
 }
 
-//func (n *GrpcNetKernel) RegisterMsg(msgId uint16, handlerFunc network.HandlerFunc) {
-//	//n.handlers[msgId] = handlerFunc
-//	n.processor.RegisterMsg(msgId, handlerFunc)
-//}
-
 func (n *GrpcNetKernel) MessageHandler(packet *network.Packet) {
-	//if n.msgHandler != nil && n.msgHandler.GetIsHandle() {
-	//	n.msgHandler.OnNetMessage(packet)
-	//	return
-	//}
 
-	//n.processor.MessageHandler(packet)
-	packet.NetPoint.Processor.MessageHandler(packet)
 }
 
 func (n *GrpcNetKernel) GetNPManager() network.INPManager {
@@ -164,37 +144,19 @@ func (n *GrpcNetKernel) GetStatus() int {
 }
 
 func (n *GrpcNetKernel) OnRpcNetAccept(args []interface{}) {
-	//np := args[0].(*network.NetPoint)
-	//acc := args[1].(*network.Acceptor)
-	//fmt.Println("OnRpcNetAccept ....")
-	//n.msgHandler.OnRpcNetAccept(np, acc)
+
 }
 
 func (n *GrpcNetKernel) OnRpcNetConnected(args []interface{}) {
-	//np := args[0].(*network.NetPoint)
-	//n.msgHandler.OnNetConnected(np)
+
 }
 
 func (n *GrpcNetKernel) OnRpcNetError(args []interface{}) {
-	//fixMe OnRpcNetError 还没做其他处理!!!
-	fmt.Println("OnRpcNetError 还没做其他处理!!!")
-	//np := args[0].(*network.NetPoint)
-	//acc := args[1].(*network.Acceptor)
 
-	//n.NPManager.Del(np)
-	//n.msgHandler.OnNetError(np, n.NetAcceptor)
-	//fmt.Println("GrpcNetKernel OnRpcNetError np close")
-	//np.Close()
 }
 
 func (n *GrpcNetKernel) OnRpcNetClose(args []interface{}) {
-	//fmt.Println("OnRpcNetClose !!!")
-	//np := args[0].(*network.NetPoint)
-	//
-	//n.NPManager.Del(np)
-	//n.msgHandler.OnNetError(np, n.NetAcceptor)
-	//fmt.Println("GrpcNetKernel OnRpcNetError np close")
-	//np.Close()
+
 }
 
 func (n *GrpcNetKernel) OnRpcNetData(args []interface{}) {
@@ -202,6 +164,5 @@ func (n *GrpcNetKernel) OnRpcNetData(args []interface{}) {
 }
 
 func (n *GrpcNetKernel) OnRpcNetMessage(args []interface{}) {
-	//np := args[0].(*network.NetPoint)
-	//message := args[1].(*network.Message)
+
 }

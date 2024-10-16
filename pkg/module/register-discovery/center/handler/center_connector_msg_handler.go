@@ -50,7 +50,7 @@ func (m *centerConnectorMsgHandler) OnNetConnected(np *network.NetPoint) {
 	m.SendHandshake()
 }
 
-func (m *centerConnectorMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
+func (m *centerConnectorMsgHandler) OnNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	np.Connect()
 	conn := np.Conn.(*net.TCPConn)
 	acceptor.RemoveConn(conn, np)
@@ -62,19 +62,6 @@ func (m *centerConnectorMsgHandler) OnNetError(np *network.NetPoint, acceptor *n
 
 func (m *centerConnectorMsgHandler) OnServerOk() {
 
-}
-
-func (m *centerConnectorMsgHandler) OnNPAdd(np *network.NetPoint) {
-	//if m.curStartNode == nil {
-	//	return
-	//}
-
-	// fixMe 恢复
-	//if np.SID.Type == network.Name2EP(c.curStartNode.EPName) {
-	//	logger.Info("centerNetHandler OnNPAdd", zap.Uint16("server", np.SID.ID),
-	//		zap.String("type", network.EP2Name(np.SID.Type)), zap.Uint8("index", np.SID.Index))
-	//	c.status = server.CN_RunStep_HandshakeDone
-	//}
 }
 
 func (m *centerConnectorMsgHandler) OnOk() {

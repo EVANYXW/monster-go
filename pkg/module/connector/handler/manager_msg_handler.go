@@ -30,10 +30,6 @@ func (m *managerMsgHandler) Start() {
 
 }
 
-//func (m *managerMsgHandler) GetIsHandle() bool {
-//	return m.isHandle
-//}
-
 func (m *managerMsgHandler) OnNetMessage(pack *network.Packet) {
 
 }
@@ -50,7 +46,7 @@ func (m *managerMsgHandler) OnNetConnected(np *network.NetPoint) {
 	np.SendMessage(localMsg)
 }
 
-func (m *managerMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
+func (m *managerMsgHandler) OnNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	np.Connect()
 	conn := np.Conn.(*net.TCPConn)
 	acceptor.RemoveConn(conn, np)
@@ -69,10 +65,6 @@ func (m *managerMsgHandler) OnOk() {
 }
 
 func (m *managerMsgHandler) OnUpdate() {
-
-}
-
-func (m *managerMsgHandler) OnNPAdd(np *network.NetPoint) {
 
 }
 

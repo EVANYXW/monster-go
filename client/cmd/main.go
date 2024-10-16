@@ -24,10 +24,6 @@ func tcpClient() {
 	time.Sleep(10 * time.Hour)
 }
 
-func grpcClient() {
-
-}
-
 func main() {
 	tcpClient()
 }

@@ -25,11 +25,6 @@ func NewLoginMsgHandler() *loginMsgHandler {
 	}
 }
 
-func (m *loginMsgHandler) Init(owner *module.BaseModule) {
-	m.owner = owner
-	m.clientManager.Init(m.owner.RpcAcceptor)
-}
-
 func (m *loginMsgHandler) OnInit(baseModule *module.BaseModule) {
 	m.owner = baseModule
 	m.clientManager.Init(m.owner.RpcAcceptor)
@@ -45,18 +40,6 @@ func (m *loginMsgHandler) OnNetMessage(pack *network.Packet) {
 
 func (m *loginMsgHandler) MsgRegister(processor *network.Processor) {
 	processor.RegisterMsg(uint16(xsf_pb.MSGID_Clt_L_Login), m.Clt_L_Login)
-}
-
-func (m *loginMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
-
-}
-
-func (m *loginMsgHandler) OnNetConnected(np *network.NetPoint) {
-
-}
-
-func (m *loginMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
-
 }
 
 func (m *loginMsgHandler) OnServerOk() {

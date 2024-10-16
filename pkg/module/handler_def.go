@@ -20,29 +20,43 @@ type GateAcceptorHandler interface {
 	SendHandshake(ck *ConnectorKernel)
 }
 
-// INetHandler kernel 需要实现
-type INetHandler interface {
-	OnOk()
-	OnUpdate()
-	OnServerOk()
-	OnNPAdd(np *network.NetPoint)
-
+// HandlerNetEvent handler 接收网络事件
+type HandlerNetEvent interface {
 	OnNetError(np *network.NetPoint, acceptor *network.Acceptor)
-	OnNetConnected(np *network.NetPoint)
-	OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor)
+	OnNetAccept(np *network.NetPoint, acceptor *network.Acceptor)
 }
 
-type MsgHandler interface {
-	INetHandler
+type HandlerClientNetEvent interface {
+	OnNetConnected(np *network.NetPoint)
+}
 
-	OnInit(baseModule *BaseModule)
-	Start()
+// MsgHandler 消息handler
+type MsgHandler interface {
+	HandlerEvent
+	HandlerNetEvent
+	HandlerClientNetEvent
+
 	OnNetMessage(pack *network.Packet)
 	MsgRegister(processor *network.Processor)
 }
 
-// INetEventHandler 网络事件处理器
-type INetEventHandler interface {
+type Handler interface {
+	HandlerEvent
+	OnNetMessage(pack *network.Packet)
+	MsgRegister(processor *network.Processor)
+}
+
+// HandlerEvent handler接收事件
+type HandlerEvent interface {
+	OnOk()
+	OnUpdate()
+	OnServerOk()
+	OnInit(baseModule *BaseModule)
+	Start()
+}
+
+// KernelNetEvent kernel网络事件处理器
+type KernelNetEvent interface {
 	OnRpcNetAccept(args []interface{})
 	OnRpcNetConnected(args []interface{})
 	OnRpcNetError(args []interface{})

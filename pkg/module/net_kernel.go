@@ -80,10 +80,10 @@ func (n *NetKernel) Init(baseModule *BaseModule) bool {
 }
 
 func (n *NetKernel) DoRegister() {
-	n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)       // 作为tcp服务,netPoint返回有链接
-	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)         // 作为tcp服务,netPoint返回有错误
-	n.RpcAcceptor.Regist(rpc.RPC_NET_CLOSE, n.OnRpcNetClose)         // 作为tcp服务,netPoint返回退出
-	n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected) // 作为client连接第三方的返回
+	n.RpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept) // 作为tcp服务,netPoint返回有链接
+	n.RpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)   // 作为tcp服务,netPoint返回有错误
+	n.RpcAcceptor.Regist(rpc.RPC_NET_CLOSE, n.OnRpcNetClose)   // 作为tcp服务,netPoint返回退出
+	//n.RpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected) // 作为client连接第三方的返回
 
 	if n.msgHandler != nil {
 		n.msgHandler.MsgRegister(n.processor)
@@ -162,11 +162,6 @@ func (n *NetKernel) GetNoWaitStart() bool {
 	return n.NoWaitStart
 }
 
-//func (n *NetKernel) RegisterMsg(msgId uint16, handlerFunc network.HandlerFunc) {
-//	//n.handlers[msgId] = handlerFunc
-//	n.processor.RegisterMsg(msgId, handlerFunc)
-//}
-
 func (n *NetKernel) MessageHandler(packet *network.Packet) {
 	//if n.msgHandler != nil && n.msgHandler.GetIsHandle() {
 	//	n.msgHandler.OnNetMessage(packet)
@@ -189,17 +184,23 @@ func (n *NetKernel) OnRpcNetAccept(args []interface{}) {
 	np := args[0].(*network.NetPoint)
 	acc := args[1].(*network.Acceptor)
 	fmt.Println("OnRpcNetAccept ....")
-	n.msgHandler.OnRpcNetAccept(np, acc)
+	n.msgHandler.OnNetAccept(np, acc)
 }
 
 func (n *NetKernel) OnRpcNetConnected(args []interface{}) {
 	np := args[0].(*network.NetPoint)
+	fmt.Println("OnRpcNetConnected ....")
 	n.msgHandler.OnNetConnected(np)
 }
 
 func (n *NetKernel) OnRpcNetError(args []interface{}) {
+	np := args[0].(*network.NetPoint)
+
+	n.NPManager.Del(np)
+	n.msgHandler.OnNetError(np, n.NetAcceptor)
+	fmt.Println("NetKernel OnRpcNetError np close")
 	//fixMe OnRpcNetError 还没做其他处理!!!
-	fmt.Println("OnRpcNetError 还没做其他处理!!!")
+	//fmt.Println("OnRpcNetError 还没做其他处理!!!")
 	//np := args[0].(*network.NetPoint)
 	//acc := args[1].(*network.Acceptor)
 
@@ -215,7 +216,7 @@ func (n *NetKernel) OnRpcNetClose(args []interface{}) {
 
 	n.NPManager.Del(np)
 	n.msgHandler.OnNetError(np, n.NetAcceptor)
-	fmt.Println("NetKernel OnRpcNetError np close")
+	fmt.Println("NetKernel OnRpcNetClose np close")
 	//np.Close()
 }
 

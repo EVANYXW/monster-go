@@ -7,12 +7,12 @@ import (
 
 type Kernel struct {
 	NoWaitStart bool
-	msgHandler  MsgHandler
+	msgHandler  Handler
 	processor   *network.Processor
 	rpcAcceptor *rpc.Acceptor
 }
 
-func NewKernel(msgHandler MsgHandler, rpcAcceptor *rpc.Acceptor, processor *network.Processor) *Kernel {
+func NewKernel(msgHandler Handler, rpcAcceptor *rpc.Acceptor, processor *network.Processor) *Kernel {
 	kernel := &Kernel{
 		NoWaitStart: false,
 		msgHandler:  msgHandler,

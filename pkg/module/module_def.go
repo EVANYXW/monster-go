@@ -13,8 +13,8 @@ type IServerInfoHandler interface {
 	OnServerOpenComplete()
 }
 
-// IModuleFlow Module流程
-type IModuleFlow interface {
+// IModuleEvent Module流程
+type IModuleEvent interface {
 	Init(baseModule *BaseModule) bool
 	DoRegister()
 	DoRun()
@@ -28,14 +28,14 @@ type IModuleFlow interface {
 
 // IModule Module
 type IModule interface {
-	IModuleFlow
+	IModuleEvent
 	GetKernel() IKernel
 	GetID() int32
 }
 
 // IKernel 模块内核定义、继承该接口将成为 Module
 type IKernel interface {
-	IModuleFlow
+	IModuleEvent
 	GetNoWaitStart() bool
 	GetNPManager() network.INPManager
 	GetStatus() int

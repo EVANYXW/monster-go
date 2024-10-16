@@ -33,18 +33,6 @@ func (m *commonMsgHandler) MsgRegister(processor *network.Processor) {
 
 }
 
-func (m *commonMsgHandler) OnNetError(np *network.NetPoint, acceptor *network.Acceptor) {
-
-}
-
-func (m *commonMsgHandler) OnNetConnected(np *network.NetPoint) {
-
-}
-
-func (m *commonMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
-
-}
-
 func (m *commonMsgHandler) OnServerOk() {
 
 }

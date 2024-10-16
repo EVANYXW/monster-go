@@ -8,7 +8,7 @@ import (
 )
 
 type RedisKernel struct {
-	msgHandler module.MsgHandler
+	msgHandler module.Handler
 	conns      []*redisConn
 	total      int
 	id         uint32
@@ -19,7 +19,7 @@ var (
 	redisKernl *RedisKernel
 )
 
-func NewRedisKernel(msgHandler module.MsgHandler, rds []SCDBInfo) *RedisKernel {
+func NewRedisKernel(msgHandler module.Handler, rds []SCDBInfo) *RedisKernel {
 	rk := &RedisKernel{
 		msgHandler: msgHandler,
 	}

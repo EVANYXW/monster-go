@@ -77,7 +77,7 @@ func (m *centerNetMsgHandler) OnNetConnected(np *network.NetPoint) {
 
 }
 
-func (m *centerNetMsgHandler) OnRpcNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
+func (m *centerNetMsgHandler) OnNetAccept(np *network.NetPoint, acceptor *network.Acceptor) {
 	async.Go(func() {
 		np.Connect()
 	})

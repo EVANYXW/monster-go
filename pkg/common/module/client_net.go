@@ -85,7 +85,7 @@ func (c *ClientNet) OnNetError(np *network.NetPoint) {
 }
 
 func (c *ClientNet) OnServerOk() {
-
+  
 }
 
 func (c *ClientNet) OnNPAdd(np *network.NetPoint) {

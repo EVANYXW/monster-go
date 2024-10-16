@@ -179,13 +179,6 @@ func (c *EtcdKernel) OnRpcNetConnected(args []interface{}) {
 }
 
 func (c *EtcdKernel) OnRpcNetError(args []interface{}) {
-	//np := args[0].(*network.NetPoint)
-	//
-	//if c.msgHandler != nil {
-	//	c.msgHandler.OnNetError(np, nil)
-	//}
-	//fmt.Println("EtcdKernel OnRpcNetError np close")
-	//np.Close()
 
 	//fixMe OnRpcNetError 还没做其他处理!!!
 	fmt.Println("OnRpcNetError 还没做其他处理!!!")
@@ -234,8 +227,6 @@ func registerService(etcdClient *clientv3.Client, serviceName, serviceAddr strin
 
 	// 生成唯一的服务名称 monster-go:login:37439:6784dcaf-0be5-4433-a315-9271e69b06df
 	uniqueServiceName := fmt.Sprintf("%s:%s:%d:%s", serverKey, serviceName, server.ID, uuid.New().String())
-
-	//etcdValue := fmt.Sprintf("%s/%d", serviceAddr, server.ID)
 
 	// 将服务地址注册到 etcd，并与租约绑定
 	_, err = etcdClient.Put(ctx, uniqueServiceName, serviceAddr, clientv3.WithLease(resp.ID))
