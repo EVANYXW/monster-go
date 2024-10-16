@@ -38,7 +38,7 @@ func NewBaseModule(id int32, owner IModule) *BaseModule {
 		okSig:       make(chan bool),
 		closeSig:    make(chan bool),
 		ID:          id,
-		name:        ModuleId2Name(int(id)),
+		name:        ModuleIdToName(id),
 		NoWaitStart: noWaitStart,
 		RpcAcceptor: rpc.NewAcceptor(1000),
 	}
@@ -180,11 +180,15 @@ func (m *BaseModule) Run() {
 			default:
 
 			}
+
+			// 1.ModuleRunStatus_Start 和 ModuleRunStatus_WaitStart 需要检测module里的onStartCheck 是否ok
+			// 2.如果不ok继续等待,如果ok,状态流转至ModuleRunStatus_WaitOK,进入缓冲等待
+			// 3.缓冲module数量与所有数量一致了,所有module状态流转至 ModuleRunStatus_Running
 			switch m.runStatus {
 			case ModuleRunStatus_WaitStart:
 			case ModuleRunStatus_Start:
 				res := m.onStartCheck()
-				if res == ModuleRunCode_Ok {
+				if res == ModuleOk() {
 					m.runStatus = ModuleRunStatus_WaitOK
 					m.setStartOK(m.ID)
 				}
@@ -197,7 +201,7 @@ func (m *BaseModule) Run() {
 				}
 			case ModuleRunStatus_WaitStop:
 				res := m.onCloseCheck()
-				if res == ModuleRunCode_Ok {
+				if res == ModuleOk() {
 					m.runStatus = ModuleRunStatus_Stop
 					m.setCloseOK()
 				}

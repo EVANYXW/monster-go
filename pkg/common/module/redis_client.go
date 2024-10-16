@@ -14,7 +14,7 @@ type RedisClient struct {
 	id     int32
 }
 
-func NewRedisClient(id int32) *RedisClient {
+func NewRedisClient() *RedisClient {
 	var redisInfo []redis.SCDBInfo
 	redisInfo = []redis.SCDBInfo{
 		{
@@ -28,6 +28,7 @@ func NewRedisClient(id int32) *RedisClient {
 		},
 	}
 	//h := handler.NewCommonMsgHandler()
+	id := module.GetModuleId(module.ModuleRedis)
 	r := &RedisClient{
 		id:     id,
 		kernel: redis.NewRedisKernel(redisInfo),
@@ -60,7 +61,7 @@ func (r *RedisClient) OnOk() {
 }
 
 func (r *RedisClient) OnStartCheck() int {
-	return module.ModuleRunCode_Ok
+	return module.ModuleOk()
 }
 
 func (r *RedisClient) OnCloseCheck() int {

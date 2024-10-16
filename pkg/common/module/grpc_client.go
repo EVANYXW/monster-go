@@ -45,9 +45,9 @@ func (c *GrpcClient) OnOk() {
 func (c *GrpcClient) OnStartCheck() int {
 	// TCP链接准备好
 	if c.kernel.GetStatus() == server.Net_RunStep_Done {
-		return module.ModuleRunCode_Ok
+		return module.ModuleOk()
 	}
-	return module.ModuleRunCode_Wait
+	return module.ModuleWait()
 }
 
 func (c *GrpcClient) OnCloseCheck() int {

@@ -17,7 +17,7 @@ func tcpClient() {
 		logger.WithTimeLayout(timeutil.CSTLayout),
 		logger.WithFileP(configs.LogFile, "client"),
 	)
-	module.Init(module.ModuleID_Max)
+	module.Init()
 	c := robot.NewRobot()
 	module.Run()
 	c.Start()

@@ -106,9 +106,9 @@ func (c *ConnectorKernel) DoClose() {
 
 func (c *ConnectorKernel) OnStartCheck() int {
 	if c.runStatus == ModuleRunStatus_Running {
-		return ModuleRunCode_Ok
+		return ModuleOk()
 	}
-	return ModuleRunCode_Wait
+	return ModuleWait()
 }
 
 func (c *ConnectorKernel) GetNoWaitStart() bool {

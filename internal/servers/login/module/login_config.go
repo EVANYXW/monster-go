@@ -12,8 +12,9 @@ type LoginConfig struct {
 	id     int32
 }
 
-func NewLoginConfig(id int32) *LoginConfig {
+func NewLoginConfig() *LoginConfig {
 	//h := handler.NewCommonMsgHandler()
+	id := module.GetModuleId(module.ModuleLoginConfig)
 	l := &LoginConfig{
 		id:     id,
 		kernel: config.New(),
@@ -38,11 +39,11 @@ func (l *LoginConfig) DoWaitStart() {
 }
 
 func (l *LoginConfig) OnOk() {
-
+	l.kernel.OnOk()
 }
 
 func (l *LoginConfig) OnStartCheck() int {
-	return module.ModuleRunCode_Ok
+	return module.ModuleOk()
 }
 
 func (l *LoginConfig) OnCloseCheck() int {
@@ -72,12 +73,4 @@ func (l *LoginConfig) DoRelease() {
 func (l *LoginConfig) OnNetError(np *network.NetPoint) {
 	logger.Debug("center onNetError")
 	//l.nodeManager.OnNodeLost(np.ID, np.SID.Type)
-}
-
-func (l *LoginConfig) OnServerOk() {
-
-}
-
-func (l *LoginConfig) OnNPAdd(np *network.NetPoint) {
-
 }

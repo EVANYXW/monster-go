@@ -2,20 +2,9 @@ package server
 
 import "google.golang.org/grpc"
 
-//var (
-//	NodeManager     module.NodeManager
-//	NetPointManager network.INPManager
-//	ConnectorKernel *module.ConnectorKernel
-//	ClientManager   module.ClientManager
-//)
-
 type GrpcServer interface {
 	TransportRegister() func(grpc.ServiceRegistrar) error
 }
-
-var (
-	info *Info
-)
 
 type Info struct {
 	ServerName string
@@ -26,11 +15,23 @@ type Info struct {
 	RpcAddr    string
 }
 
+// center 启动其他服务器的状态
+const (
+	CN_RunStep_None = iota
+	CN_RunStep_StartServer
+	CN_RunStep_WaitHandshake
+	CN_RunStep_HandshakeDone
+	CN_RunStep_Done
+)
+
 // 为服务网络节点的状态，为了表示已经准备好可以其他服务器来链接
 const (
-	Net_RunStep_None = iota
-	Net_RunStep_Start
+	Net_RunStep_Start = iota + 1
 	Net_RunStep_Done
+)
+
+var (
+	info *Info
 )
 
 func StatusStart(status *int) {
@@ -44,15 +45,6 @@ func StatusDone(status *int) {
 func StatusIsDone(status int) bool {
 	return status == Net_RunStep_Done
 }
-
-// center 启动其他服务器的状态
-const (
-	CN_RunStep_None = iota
-	CN_RunStep_StartServer
-	CN_RunStep_WaitHandshake
-	CN_RunStep_HandshakeDone
-	CN_RunStep_Done
-)
 
 func SetServerInfo(i *Info) {
 	info = i

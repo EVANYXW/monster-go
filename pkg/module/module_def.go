@@ -78,8 +78,7 @@ func ModuleWait() int {
 }
 
 const (
-	ModuleRunStatus_None = iota
-	ModuleRunStatus_Running
+	ModuleRunStatus_Running = iota + 1
 	ModuleRunStatus_WaitStart
 	ModuleRunStatus_Start
 
@@ -89,16 +88,17 @@ const (
 )
 
 const (
-	ModuleID_Schema = iota
-	ModuleID_SM     // 通知类型
+	ModuleID_SM = iota + 1 // 通知类型
 	ModuleID_CenterConnector
 	ModuleID_Client
 	ModuleID_GateAcceptor
 	ModuleID_ConnectorManager
+	ModuleID_Etcd
+
+	// 外部模块
 	ModuleID_LoginManager
 	ModuleID_LoginConfig
 	ModuleID_Redis
-	ModuleID_Etcd
 
 	ModuleID_Notice
 	ModuleID_Pprof
@@ -112,25 +112,47 @@ const (
 	ModuleID_Max
 )
 
-var moduleMap = map[int]string{
-	ModuleID_SM:               "CenterServer",
-	ModuleID_CenterConnector:  "CenterConnector",
-	ModuleID_Client:           "Client",
-	ModuleID_GateAcceptor:     "GateAcceptor",
-	ModuleID_ConnectorManager: "GateConnectorManager",
-	ModuleID_LoginManager:     "LoginManager",
-	ModuleID_LoginConfig:      "LoginConfig",
-	ModuleID_Redis:            "Redis",
-	ModuleID_Etcd:             "Etcd",
+const (
+	ModuleCenterServer         = "CenterServer"
+	ModuleCenterConnector      = "CenterConnector"
+	ModuleClient               = "Client"
+	ModuleGateAcceptor         = "GateAcceptor"
+	ModuleGateConnectorManager = "GateConnectorManager"
+	ModuleLoginManager         = "LoginManager"
+	ModuleLoginConfig          = "LoginConfig"
+	ModuleRedis                = "Redis"
+	ModuleEtcd                 = "Etcd"
+)
+
+var moduleMap = map[int32]string{
+	ModuleID_SM:               ModuleCenterServer,
+	ModuleID_CenterConnector:  ModuleCenterConnector,
+	ModuleID_Client:           ModuleClient,
+	ModuleID_GateAcceptor:     ModuleGateAcceptor,
+	ModuleID_ConnectorManager: ModuleGateConnectorManager,
+	ModuleID_LoginManager:     ModuleLoginManager,
+	ModuleID_LoginConfig:      ModuleLoginConfig,
+	ModuleID_Redis:            ModuleRedis,
+	ModuleID_Etcd:             ModuleEtcd,
 }
 
-func ModuleId2Name(id int) string {
+func GetModuleId(name string) int32 {
+	for id, moduleName := range moduleMap {
+		if name == moduleName {
+			return id
+		}
+	}
+	moduleMap[int32(len(moduleMap))] = name
+	return int32(len(moduleMap))
+}
+
+func ModuleIdToName(id int32) string {
 	if val, ok := moduleMap[id]; ok {
 		return val
 	}
-	return ""
+	return "未知"
 }
 
-func GetModuleMap() map[int]string {
+func GetModuleMap() map[int32]string {
 	return moduleMap
 }

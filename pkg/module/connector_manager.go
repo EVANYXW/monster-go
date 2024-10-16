@@ -66,11 +66,11 @@ func (c *Manager) OnOk() {
 }
 
 func (c Manager) OnStartCheck() int {
-	return ModuleRunCode_Ok
+	return ModuleOk()
 }
 
 func (c Manager) OnCloseCheck() int {
-	return ModuleRunCode_Ok
+	return ModuleOk()
 }
 
 func (c Manager) Update() {

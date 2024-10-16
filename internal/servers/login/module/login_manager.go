@@ -11,10 +11,10 @@ type LoginManager struct {
 	id     int32
 }
 
-func NewLoginManager(id int32) *LoginManager {
+func NewLoginManager() *LoginManager {
 	h := handler.NewLoginMsgHandler()
 	l := &LoginManager{
-		id: id,
+		id: module.GetModuleId(module.ModuleLoginManager),
 		kernel: module.NewKernel(
 			network.NetPointManager.GetRpcAcceptor(),
 			network.NetPointManager.GetProcessor(),
@@ -41,11 +41,11 @@ func (l *LoginManager) DoWaitStart() {
 }
 
 func (l *LoginManager) OnOk() {
-
+	l.kernel.OnOk()
 }
 
 func (l *LoginManager) OnStartCheck() int {
-	return module.ModuleRunCode_Ok
+	return module.ModuleOk()
 }
 
 func (l *LoginManager) OnCloseCheck() int {

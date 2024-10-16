@@ -5,7 +5,6 @@ import (
 	accHandler "github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	loginModule "github.com/evanyxw/monster-go/internal/servers/login/module"
 	commonModule "github.com/evanyxw/monster-go/pkg/common/module"
-	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/module/register-discovery/etcd"
 	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
@@ -79,9 +78,9 @@ func New() engine.IServerKernel {
 		Addr: "",
 		Url:  "http://",
 	}).
-		WithModule(loginModule.NewLoginManager(module.ModuleID_LoginManager)).
-		WithModule(loginModule.NewLoginConfig(module.ModuleID_LoginConfig)).
-		WithModule(commonModule.NewRedisClient(module.ModuleID_Redis))
+		WithModule(loginModule.NewLoginManager()).
+		WithModule(loginModule.NewLoginConfig()).
+		WithModule(commonModule.NewRedisClient())
 
 	return &login{
 		baseEngine,

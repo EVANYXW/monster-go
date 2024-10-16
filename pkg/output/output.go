@@ -39,7 +39,7 @@ type Output struct {
 	ModuleNum   int
 	OkModuleNum int
 	okModule    []int32
-	moduleMap   map[int]string
+	moduleMap   map[int32]string
 	allModule   []int32
 }
 
@@ -78,13 +78,15 @@ var tamplate = `+---------------------------------------------------------------
 |   Pprof: {{Pprof}}
 +----------------------------------------------------------------------------------+`
 
-func joinInts(ints []int32, moduleMap map[int]string) string {
+func joinInts(ints []int32, moduleMap map[int32]string) string {
 	// 将 []int32 转换为 []string
 	strInts := make([]string, len(ints))
 	for i, v := range ints {
 		//strInts[i] = strconv.Itoa(int(v))
-		if name, ok := moduleMap[int(v)]; ok {
+		if name, ok := moduleMap[v]; ok {
 			strInts[i] = name
+		} else {
+			strInts[i] = "未知"
 		}
 	}
 	// 使用 strings.Join 拼接为逗号分隔的字符串
@@ -105,7 +107,7 @@ func init() {
 	})
 }
 
-func NewOutput(config *Config, moduleMap map[int]string) *Output {
+func NewOutput(config *Config, moduleMap map[int32]string) *Output {
 	Oput = &Output{
 		ServerName: config.Name,
 		Address:    config.Addr,

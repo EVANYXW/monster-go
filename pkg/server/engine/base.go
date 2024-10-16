@@ -124,7 +124,7 @@ func Init() {
 
 		server.UpdateID()
 
-		module.Init(module.ModuleID_Max)
+		module.Init()
 
 		initLog(server.GetServerInfo().ServerName) // 主要etcd 包里在用
 
@@ -229,15 +229,23 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 
 	ServerInit(name)
 	factor.SetGateWay()
-	rd := factor.CreateConnector(register_discovery.WithServername(name), register_discovery.WithWatch(),
+
+	// 注册与发现模块,支持内部的center和etcd两种模式
+	registerDiscovery := factor.CreateConnector(
+		register_discovery.WithServername(name),
+		register_discovery.WithWatch(),
 		register_discovery.WithNetType(module.Outer))
-	options = append(options, WithModule(rd), WithModule(commonModule.NewClientNet(
+
+	// 创建tcp网络模块
+	tcpNet := commonModule.NewClientNet(
 		module.ModuleID_Client,
 		5000,
 		handler.NewGateMsg(),
 		module.Outer,
 		new(network.DefaultPackerFactory),
-	)))
+	)
+
+	options = append(options, WithModule(registerDiscovery), WithModule(tcpNet))
 
 	// Center 模式的注册发现,需要加装 connector manager
 	if factor.GetType() == register_discovery.TypeCenter {
@@ -274,9 +282,10 @@ func NewTcpServer(name string, msgHandler module.MsgHandler, factor register_dis
 
 	ServerInit(name)
 
-	// 注册与发现
-	rd := factor.CreateConnector(register_discovery.WithServername(name), register_discovery.WithNetType(module.Inner))
-	// 网络模块
+	// // 注册与发现模块,支持内部的center和etcd两种模式
+	registerDiscovery := factor.CreateConnector(register_discovery.WithServername(name), register_discovery.WithNetType(module.Inner))
+
+	// 创建tcp网络模块
 	clientNet := commonModule.NewClientNet(
 		module.ModuleID_GateAcceptor,
 		10000,
@@ -284,7 +293,7 @@ func NewTcpServer(name string, msgHandler module.MsgHandler, factor register_dis
 		module.Inner,
 		new(network.ClientPackerFactory),
 	)
-	options = append(options, WithModule(rd), WithModule(clientNet))
+	options = append(options, WithModule(registerDiscovery), WithModule(clientNet))
 
 	return newServer(name, options...)
 }

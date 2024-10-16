@@ -14,6 +14,7 @@ type PackerFactory interface {
 	CreatePacker() Packer
 }
 
+// DefaultPackerFactory 默认的包处理
 type DefaultPackerFactory struct {
 }
 
@@ -21,6 +22,7 @@ func (f *DefaultPackerFactory) CreatePacker() Packer {
 	return NewDefaultPacker()
 }
 
+// ClientPackerFactory client 包处理,包体里会携带client_id
 type ClientPackerFactory struct {
 }
 

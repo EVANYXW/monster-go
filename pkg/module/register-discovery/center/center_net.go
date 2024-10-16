@@ -71,7 +71,7 @@ func (c *CenterNet) OnOk() {
 func (c *CenterNet) OnStartCheck() int {
 	serverCnf := configs.All()
 	if !serverCnf.AutoStart {
-		return module.ModuleRunCode_Ok
+		return module.ModuleOk()
 	}
 
 	serverList := configs.All().ServerList
@@ -106,13 +106,13 @@ func (c *CenterNet) OnStartCheck() int {
 	case server.CN_RunStep_HandshakeDone:
 		c.startIndex++
 		if c.startIndex >= len(serverList) {
-			return module.ModuleRunCode_Ok
+			return module.ModuleOk()
 		} else {
 			c.status = server.CN_RunStep_StartServer
 		}
 	}
 
-	return module.ModuleRunCode_Wait
+	return module.ModuleWait()
 }
 
 func (c *CenterNet) OnCloseCheck() int {

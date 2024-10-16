@@ -26,24 +26,53 @@ func GetModuleById(id int32) moduleNode {
 	return modules[id]
 }
 
-func Init(moduleMax int) {
-	ModuleMax = moduleMax
+func Init() {
 	modules = make([]moduleNode, ModuleMax)
 }
 
+//func Init(moduleMax int) {
+//	ModuleMax = moduleMax
+//	modules = make([]moduleNode, ModuleMax)
+//}
+
+//	func AddModule(m *BaseModule) {
+//		if modules == nil {
+//			modules = make([]moduleNode, ModuleMax)
+//		}
+//
+//		if modules[m.GetID()].module != nil {
+//			//xsf_log.Panic(fmt.Sprintf("AddModule not nil, id=%d, name=%s", m.ID, m.Name))
+//			return
+//		}
+//
+//		modules[m.GetID()].module = m
+//		//fmt.Println("modules", modules)
+//		//xsf_log.Info("AddModule", xsf_log.String("name", m.Name), xsf_log.Int("id", m.ID))
+//	}
 func AddModule(m *BaseModule) {
+	// Ensure the modules slice is initialized
 	if modules == nil {
-		modules = make([]moduleNode, ModuleMax)
+		modules = []moduleNode{}
 	}
 
-	if modules[m.GetID()].module != nil {
-		//xsf_log.Panic(fmt.Sprintf("AddModule not nil, id=%d, name=%s", m.ID, m.Name))
+	moduleID := m.GetID()
+
+	// Expand the modules slice if the moduleID exceeds current capacity
+	if moduleID >= int32(len(modules)) {
+		// Increase the size of the slice to accommodate new module
+		newModules := make([]moduleNode, moduleID+1)
+		copy(newModules, modules) // Copy existing modules to the new slice
+		modules = newModules
+	}
+
+	// Check if the module at the specified ID is already set
+	if modules[moduleID].module != nil {
+		// Log a warning about the existing module
 		return
 	}
 
-	modules[m.GetID()].module = m
-	//fmt.Println("modules", modules)
-	//xsf_log.Info("AddModule", xsf_log.String("name", m.Name), xsf_log.Int("id", m.ID))
+	// Add the new module to the slice
+	modules[moduleID].module = m
 }
 
 func AddManager(id int, m network.INPManager) {

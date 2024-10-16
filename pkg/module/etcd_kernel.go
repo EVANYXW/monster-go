@@ -140,9 +140,9 @@ func (c *EtcdKernel) DoClose() {
 
 func (c *EtcdKernel) OnStartCheck() int {
 	if c.runStatus == ModuleRunStatus_Running {
-		return ModuleRunCode_Ok
+		return ModuleOk()
 	}
-	return ModuleRunCode_Wait
+	return ModuleWait()
 }
 
 func (c *EtcdKernel) GetNoWaitStart() bool {
