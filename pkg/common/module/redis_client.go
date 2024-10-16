@@ -2,7 +2,6 @@ package module
 
 import (
 	"github.com/evanyxw/monster-go/internal/redis"
-	"github.com/evanyxw/monster-go/pkg/common/handler"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
@@ -28,17 +27,17 @@ func NewRedisClient(id int32) *RedisClient {
 			Count: 1,
 		},
 	}
-	h := handler.NewCommonMsgHandler()
+	//h := handler.NewCommonMsgHandler()
 	r := &RedisClient{
 		id:     id,
-		kernel: redis.NewRedisKernel(h, redisInfo),
+		kernel: redis.NewRedisKernel(redisInfo),
 	}
-	module.NewBaseModule(id, r)
+	//module.NewBaseModule(id, r)
 	//h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
 	return r
 }
 
-func (r *RedisClient) Init(baseModule *module.BaseModule) bool {
+func (r *RedisClient) Init(baseModule module.IBaseModule) bool {
 	r.kernel.Init(baseModule)
 	return true
 }

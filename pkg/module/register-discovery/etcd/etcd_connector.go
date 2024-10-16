@@ -27,7 +27,7 @@ func NewEtcdConnector(id int32, servername string, isWatch bool, netType module.
 	return c
 }
 
-func (c *EtcdConnector) Init(baseModule *module.BaseModule) bool {
+func (c *EtcdConnector) Init(baseModule module.IBaseModule) bool {
 	c.kernel.Init(baseModule)
 	return true
 }

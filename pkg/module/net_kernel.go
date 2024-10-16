@@ -74,7 +74,7 @@ func NewNetKernel(maxConnNum uint32, msgHandler MsgHandler, packerFactory networ
 	return kernel
 }
 
-func (n *NetKernel) Init(baseModule *BaseModule) bool {
+func (n *NetKernel) Init(baseModule IBaseModule) bool {
 	AddManager(ModuleID_SM, n.NPManager)
 	return true
 }

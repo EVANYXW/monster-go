@@ -59,7 +59,7 @@ func (c *ConnectorKernel) SetID(id uint32) {
 	server.ID2Sid(id, &c.SID)
 }
 
-func (c *ConnectorKernel) Init(baseModule *BaseModule) bool {
+func (c *ConnectorKernel) Init(baseModule IBaseModule) bool {
 	c.runStatus = ModuleRunStatus_Start
 	return true
 }

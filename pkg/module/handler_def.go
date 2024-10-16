@@ -51,7 +51,7 @@ type HandlerEvent interface {
 	OnOk()
 	OnUpdate()
 	OnServerOk()
-	OnInit(baseModule *BaseModule)
+	OnInit(baseModule IBaseModule)
 	Start()
 }
 

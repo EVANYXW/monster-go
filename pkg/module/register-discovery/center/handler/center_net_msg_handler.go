@@ -21,7 +21,7 @@ func NewCenterNetMsg() *centerNetMsgHandler {
 	return &centerNetMsgHandler{}
 }
 
-func (m *centerNetMsgHandler) OnInit(baseModule *module.BaseModule) {
+func (m *centerNetMsgHandler) OnInit(baseModule module.IBaseModule) {
 
 }
 

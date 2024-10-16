@@ -21,17 +21,17 @@ func NewManager(id int32, msgHandler MsgHandler) *Manager {
 	c := &Manager{
 		id: id,
 	}
-	hdler := msgHandler
+	//hdler := msgHandler
 	gateAcceptorHandler := msgHandler.(GateAcceptorHandler)
 	c.handler = gateAcceptorHandler
-	c.kernel = NewKernel(hdler, network.NetPointManager.GetRpcAcceptor(),
+	c.kernel = NewKernel(network.NetPointManager.GetRpcAcceptor(),
 		network.NetPointManager.GetProcessor())
 
 	return c
 	//return factory.Create(id)
 }
 
-func (c *Manager) Init(baseModule *BaseModule) bool {
+func (c *Manager) Init(baseModule IBaseModule) bool {
 	//c.collections = make([]connectCollection, xsf_util.EP_Max)
 	c.collections = []map[uint32]IKernel{}
 	for i := 0; i < server.EP_Max; i++ {
@@ -42,7 +42,7 @@ func (c *Manager) Init(baseModule *BaseModule) bool {
 }
 
 func (c Manager) DoRegister() {
-	//c.kernel.DoRegist()
+	c.kernel.DoRegister()
 }
 
 func (c Manager) DoRun() {

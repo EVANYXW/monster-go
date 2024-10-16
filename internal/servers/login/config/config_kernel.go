@@ -14,9 +14,9 @@ var (
 )
 
 type SchemaKernel struct {
-	msgHandler module.Handler
-	DBMongo    *common.CfgDBMongo
-	DBRedis    *common.CfgDBRedis
+	//msgHandler module.Handler
+	DBMongo *common.CfgDBMongo
+	DBRedis *common.CfgDBRedis
 	//LuBanTables         *Tables
 	//MaxActorLevel       int32
 	//Global              *DataGlobalConfig
@@ -36,16 +36,16 @@ func XSFSchema() *SchemaKernel {
 	return kernel
 }
 
-func New(msgHandler module.Handler) *SchemaKernel {
+func New() *SchemaKernel {
 	s := &SchemaKernel{
-		msgHandler: msgHandler,
+		//msgHandler: msgHandler,
 	}
 	kernel = s
 	return s
 }
 
-func (s *SchemaKernel) Init(baseModule *module.BaseModule) bool {
-	s.msgHandler.OnInit(baseModule)
+func (s *SchemaKernel) Init(baseModule module.IBaseModule) bool {
+	//s.msgHandler.OnInit(baseModule)
 	return true
 }
 
@@ -62,7 +62,7 @@ func (s *SchemaKernel) GetStatus() int {
 }
 
 func (s *SchemaKernel) DoRun() {
-	s.msgHandler.Start()
+	//s.msgHandler.Start()
 	s.DBMongo = new(common.CfgDBMongo)
 	if err := s.DBMongo.Load(); err != nil {
 		//xsf_log.Panicf("SchemaKernel Start load CfgDBMongo error, error=%v", err)
@@ -89,7 +89,7 @@ func (s *SchemaKernel) Update() {
 }
 
 func (s *SchemaKernel) OnOk() {
-	s.msgHandler.OnOk()
+	//s.msgHandler.OnOk()
 }
 
 func (s *SchemaKernel) OnStartClose() {

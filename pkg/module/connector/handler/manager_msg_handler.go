@@ -22,7 +22,7 @@ func NewManagerMsg() *managerMsgHandler {
 	return &managerMsgHandler{}
 }
 
-func (m *managerMsgHandler) OnInit(baseModule *module.BaseModule) {
+func (m *managerMsgHandler) OnInit(baseModule module.IBaseModule) {
 
 }
 

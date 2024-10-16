@@ -1,44 +1,52 @@
 package module
 
 import (
+	"fmt"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 )
 
 type Kernel struct {
-	NoWaitStart bool
-	msgHandler  Handler
-	processor   *network.Processor
-	rpcAcceptor *rpc.Acceptor
+	NoWaitStart    bool
+	handler        Handler
+	msgHandlerImpl MsgHandler
+	processor      *network.Processor
+	rpcAcceptor    *rpc.Acceptor
 }
 
-func NewKernel(msgHandler Handler, rpcAcceptor *rpc.Acceptor, processor *network.Processor) *Kernel {
+func NewKernel(rpcAcceptor *rpc.Acceptor, processor *network.Processor, opts ...Option) *Kernel {
+	opt := &options{}
+	for _, f := range opts {
+		f(opt)
+	}
+
 	kernel := &Kernel{
-		NoWaitStart: false,
-		msgHandler:  msgHandler,
-		processor:   processor,
-		rpcAcceptor: rpcAcceptor,
+		NoWaitStart:    false,
+		handler:        opt.handler,
+		msgHandlerImpl: opt.msgHandlerImpl,
+		processor:      processor,
+		rpcAcceptor:    rpcAcceptor,
 	}
 	//kernel.Init()
 	return kernel
 }
 
-func (n *Kernel) Init(baseModule *BaseModule) bool {
-	n.msgHandler.OnInit(baseModule)
+func (n *Kernel) Init(baseModule IBaseModule) bool {
+	n.handler.OnInit(baseModule)
 	return true
 }
 
 func (n *Kernel) DoRegister() {
-	//n.msgHandler.MsgRegister(n.processor)
+	//n.handler.MsgRegister(n.processor)
 	// fixMe login 服务器在register的时候会重复注册，导致报错
-	//if n.rpcAcceptor != nil {
-	//	n.rpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
-	//	n.rpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
-	//	n.rpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
-	//}
+	if n.rpcAcceptor != nil && n.msgHandlerImpl != nil {
+		n.rpcAcceptor.Regist(rpc.RPC_NET_ACCEPT, n.OnRpcNetAccept)
+		n.rpcAcceptor.Regist(rpc.RPC_NET_CONNECTED, n.OnRpcNetConnected)
+		n.rpcAcceptor.Regist(rpc.RPC_NET_ERROR, n.OnRpcNetError)
+	}
 
-	if n.msgHandler != nil {
-		n.msgHandler.MsgRegister(n.processor)
+	if n.handler != nil {
+		n.handler.MsgRegister(n.processor)
 	}
 }
 
@@ -51,7 +59,7 @@ func (n *Kernel) GetStatus() int {
 }
 
 func (n *Kernel) DoRun() {
-	n.msgHandler.Start()
+	n.handler.Start()
 }
 
 func (n *Kernel) DoWaitStart() {
@@ -63,11 +71,11 @@ func (n *Kernel) DoRelease() {
 }
 
 func (n *Kernel) Update() {
-	n.msgHandler.OnUpdate()
+	n.handler.OnUpdate()
 }
 
 func (n *Kernel) OnOk() {
-	n.msgHandler.OnOk()
+	n.handler.OnOk()
 }
 
 func (n *Kernel) OnStartClose() {
@@ -95,15 +103,29 @@ func (n *Kernel) MessageHandler(packet *network.Packet) {
 }
 
 func (n *Kernel) OnRpcNetAccept(args []interface{}) {
-
+	if n.msgHandlerImpl != nil {
+		np := args[0].(*network.NetPoint)
+		acc := args[1].(*network.Acceptor)
+		fmt.Println("OnRpcNetAccept ....")
+		n.msgHandlerImpl.OnNetAccept(np, acc)
+	}
 }
 
 func (n *Kernel) OnRpcNetConnected(args []interface{}) {
-
+	if n.msgHandlerImpl != nil {
+		np := args[0].(*network.NetPoint)
+		fmt.Println("OnRpcNetConnected ....")
+		n.msgHandlerImpl.OnNetConnected(np)
+	}
 }
 
 func (n *Kernel) OnRpcNetError(args []interface{}) {
-
+	if n.msgHandlerImpl != nil {
+		np := args[0].(*network.NetPoint)
+		acc := args[1].(*network.Acceptor)
+		n.msgHandlerImpl.OnNetError(np, acc)
+		fmt.Println("NetKernel OnRpcNetError np close")
+	}
 }
 
 func (n *Kernel) OnRpcNetData(args []interface{}) {

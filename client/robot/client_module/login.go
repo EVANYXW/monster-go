@@ -27,7 +27,7 @@ func (l *Login) GetKernel() module.IKernel {
 	return l.ConnectorKernel
 }
 
-func (l *Login) Init(baseModule *module.BaseModule) bool {
+func (l *Login) Init(baseModule module.IBaseModule) bool {
 	return true
 }
 

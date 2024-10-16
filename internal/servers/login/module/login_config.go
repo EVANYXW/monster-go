@@ -2,7 +2,6 @@ package module
 
 import (
 	"github.com/evanyxw/monster-go/internal/servers/login/config"
-	"github.com/evanyxw/monster-go/pkg/common/handler"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/network"
@@ -14,18 +13,18 @@ type LoginConfig struct {
 }
 
 func NewLoginConfig(id int32) *LoginConfig {
-	h := handler.NewCommonMsgHandler()
+	//h := handler.NewCommonMsgHandler()
 	l := &LoginConfig{
 		id:     id,
-		kernel: config.New(h),
+		kernel: config.New(),
 	}
 
-	module.NewBaseModule(id, l)
+	//module.NewBaseModule(id, l)
 	//h.Init(baseModule) //fixMe 这个看能否改为kernel 里去调用
 	return l
 }
 
-func (l *LoginConfig) Init(baseModule *module.BaseModule) bool {
+func (l *LoginConfig) Init(baseModule module.IBaseModule) bool {
 	l.kernel.Init(baseModule)
 	return true
 }

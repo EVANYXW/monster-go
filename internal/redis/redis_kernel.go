@@ -8,10 +8,10 @@ import (
 )
 
 type RedisKernel struct {
-	msgHandler module.Handler
-	conns      []*redisConn
-	total      int
-	id         uint32
+	//msgHandler module.Handler
+	conns []*redisConn
+	total int
+	id    uint32
 }
 
 var (
@@ -19,9 +19,9 @@ var (
 	redisKernl *RedisKernel
 )
 
-func NewRedisKernel(msgHandler module.Handler, rds []SCDBInfo) *RedisKernel {
+func NewRedisKernel(rds []SCDBInfo) *RedisKernel {
 	rk := &RedisKernel{
-		msgHandler: msgHandler,
+		//msgHandler: msgHandler,
 	}
 	rk.total = len(rds)
 	rk.conns = make([]*redisConn, rk.total)
@@ -38,8 +38,8 @@ func NewRedisKernel(msgHandler module.Handler, rds []SCDBInfo) *RedisKernel {
 	return rk
 }
 
-func (rk *RedisKernel) Init(baseModule *module.BaseModule) bool {
-	rk.msgHandler.OnInit(baseModule)
+func (rk *RedisKernel) Init(baseModule module.IBaseModule) bool {
+	//rk.msgHandler.OnInit(baseModule)
 	return true
 }
 

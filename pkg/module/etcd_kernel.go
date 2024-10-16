@@ -71,7 +71,7 @@ func (c *EtcdKernel) SetID(id uint32) {
 	server.ID2Sid(id, &c.SID)
 }
 
-func (c *EtcdKernel) Init(baseModule *BaseModule) bool {
+func (c *EtcdKernel) Init(baseModule IBaseModule) bool {
 	c.runStatus = ModuleRunStatus_Start
 	return true
 }

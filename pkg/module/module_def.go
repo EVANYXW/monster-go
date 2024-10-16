@@ -15,7 +15,7 @@ type IServerInfoHandler interface {
 
 // IModuleEvent Module流程
 type IModuleEvent interface {
-	Init(baseModule *BaseModule) bool
+	Init(baseModule IBaseModule) bool
 	DoRegister()
 	DoRun()
 	DoWaitStart()
@@ -113,11 +113,11 @@ const (
 )
 
 var moduleMap = map[int]string{
-	ModuleID_SM:               "Center 网络模块",
-	ModuleID_CenterConnector:  "Center 的连接器",
-	ModuleID_Client:           "Client 客户端",
+	ModuleID_SM:               "CenterServer",
+	ModuleID_CenterConnector:  "CenterConnector",
+	ModuleID_Client:           "Client",
 	ModuleID_GateAcceptor:     "GateAcceptor",
-	ModuleID_ConnectorManager: "Gate 的多链接管理器",
+	ModuleID_ConnectorManager: "GateConnectorManager",
 	ModuleID_LoginManager:     "LoginManager",
 	ModuleID_LoginConfig:      "LoginConfig",
 	ModuleID_Redis:            "Redis",

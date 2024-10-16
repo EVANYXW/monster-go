@@ -45,7 +45,7 @@ func NewGrpcNetKernel(servername string, grpcservers []server.GrpcServer) *GrpcN
 	return kernel
 }
 
-func (n *GrpcNetKernel) Init(baseModule *BaseModule) bool {
+func (n *GrpcNetKernel) Init(baseModule IBaseModule) bool {
 	//AddManager(ModuleID_SM, n.NPManager)
 	return true
 }

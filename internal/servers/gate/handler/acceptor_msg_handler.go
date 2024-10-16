@@ -26,7 +26,7 @@ func NewAcceptor() *AcceptorMsgHandler {
 	return &AcceptorMsgHandler{}
 }
 
-func (m *AcceptorMsgHandler) OnInit(baseModule *module.BaseModule) {
+func (m *AcceptorMsgHandler) OnInit(baseModule module.IBaseModule) {
 
 }
 

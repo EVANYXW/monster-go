@@ -10,6 +10,10 @@ import (
 	"time"
 )
 
+type IBaseModule interface {
+	GetRpcAcceptor() *rpc.Acceptor
+}
+
 type BaseModule struct {
 	owner       IModule
 	name        string
@@ -119,6 +123,10 @@ func (m *BaseModule) setCloseOK() {
 
 func (m *BaseModule) release() {
 	m.owner.DoRelease()
+}
+
+func (m *BaseModule) GetRpcAcceptor() *rpc.Acceptor {
+	return m.RpcAcceptor
 }
 
 func check() {

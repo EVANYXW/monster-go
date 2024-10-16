@@ -25,8 +25,9 @@ func NewLoginMsgHandler() *loginMsgHandler {
 	}
 }
 
-func (m *loginMsgHandler) OnInit(baseModule *module.BaseModule) {
-	m.owner = baseModule
+func (m *loginMsgHandler) OnInit(baseModule module.IBaseModule) {
+	baseM := baseModule.(*module.BaseModule)
+	m.owner = baseM
 	m.clientManager.Init(m.owner.RpcAcceptor)
 }
 

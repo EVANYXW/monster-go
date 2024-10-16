@@ -17,8 +17,9 @@ func (m *commonMsgHandler) Init(owner *module.BaseModule) {
 	m.owner = owner
 }
 
-func (m *commonMsgHandler) OnInit(baseModule *module.BaseModule) {
-	m.owner = baseModule
+func (m *commonMsgHandler) OnInit(baseModule module.IBaseModule) {
+	baseM := baseModule.(*module.BaseModule)
+	m.owner = baseM
 }
 
 func (m *commonMsgHandler) Start() {

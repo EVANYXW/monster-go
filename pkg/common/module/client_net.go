@@ -28,7 +28,7 @@ func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, net
 	return c
 }
 
-func (c *ClientNet) Init(baseModule *module.BaseModule) bool {
+func (c *ClientNet) Init(baseModule module.IBaseModule) bool {
 	c.kernel.Init(baseModule)
 	return true
 }
@@ -85,7 +85,7 @@ func (c *ClientNet) OnNetError(np *network.NetPoint) {
 }
 
 func (c *ClientNet) OnServerOk() {
-  
+
 }
 
 func (c *ClientNet) OnNPAdd(np *network.NetPoint) {

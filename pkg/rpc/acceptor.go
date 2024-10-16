@@ -38,12 +38,12 @@ func NewAcceptor(l int) *Acceptor {
 }
 
 func (a *Acceptor) Regist(id string, f func([]interface{})) {
-	if _, ok := a.functions[id]; ok {
-		logger.Error(fmt.Sprintf("function id %v: already registered", id))
-		return
-	}
-
+	//if _, ok := a.functions[id]; ok {
+	//	logger.Error(fmt.Sprintf("function id %v: already registered", id))
+	//	return
+	//}
 	//a.functions[id] = f
+
 	a.functions[id] = append(a.functions[id], f)
 }
 

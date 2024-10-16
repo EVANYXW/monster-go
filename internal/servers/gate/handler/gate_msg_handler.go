@@ -22,7 +22,7 @@ func NewGateMsg() *GateMsgHandler {
 	}
 }
 
-func (m *GateMsgHandler) OnInit(baseModule *module.BaseModule) {
+func (m *GateMsgHandler) OnInit(baseModule module.IBaseModule) {
 
 }
 

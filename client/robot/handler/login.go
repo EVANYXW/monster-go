@@ -23,7 +23,7 @@ func NewLoginHandler() *loginMsgHandler {
 	return &loginMsgHandler{}
 }
 
-func (m *loginMsgHandler) OnInit(baseModule *module.BaseModule) {
+func (m *loginMsgHandler) OnInit(baseModule module.IBaseModule) {
 
 }
 
