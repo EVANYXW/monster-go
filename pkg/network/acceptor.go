@@ -104,10 +104,16 @@ func (s *Acceptor) addConn(conn *net.TCPConn) *NetPoint {
 	//point.RpcAcceptor.Run() // 这个应该只Run一个
 
 	if output.Oput != nil {
+		logger.Error("我来写入数量了")
+		logger.Info("链接数:", zap.Int("conn", len(s.connMap)))
+		//output.Oput.SetGoNum(async.GetGoCount())
+		//output.Oput.SetConnNum(int32(len(s.connMap)))
 		output.Oput.SetData(output.Data{
 			ConnNum: int32(len(s.connMap)),
 			GoCount: async.GetGoCount(),
 		})
+	} else {
+		logger.Errorf("output is not ready!")
 	}
 	return point
 }

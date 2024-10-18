@@ -63,19 +63,18 @@ func (c *Client) Dial() (*net.TCPConn, error) {
 //	c.rpcAcceptor = rpc
 //}
 
-func (c *Client) Run(rpcAcceptor *rpc.Acceptor) {
+func (c *Client) Run(rpcAcceptor *rpc.Acceptor) error {
 	conn, err := c.Dial()
 	if err != nil {
-		//c.logger.ErrorF("%v", err)
 		logger.Error("Client Run is error:", zap.Error(err))
-		return
+		return err
 	}
 
 	tcpConn, err := network.NewNetPoint(conn, c.packerFactory)
 
 	if err != nil {
 		logger.Error(err.Error())
-		return
+		return err
 	}
 	c.NetPoint = tcpConn
 
@@ -92,6 +91,8 @@ func (c *Client) Run(rpcAcceptor *rpc.Acceptor) {
 	async.Go(func() {
 		c.NetPoint.Connect()
 	})
+
+	return nil
 }
 
 func (c *Client) OnMessage(data *network.Message, conn *network.NetPoint) {

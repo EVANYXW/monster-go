@@ -12,7 +12,6 @@ import (
 )
 
 type GrpcNetKernel struct {
-	//msgHandler  MsgHandler
 	RpcAcceptor *rpc.Acceptor
 	Status      int
 	closeChan   chan struct{}
@@ -38,7 +37,6 @@ func NewGrpcNetKernel(servername string, grpcservers []server.GrpcServer) *GrpcN
 			grpcpool.WithPorts(configs.All().Server.MinPort, configs.All().Server.MaxPort)),
 		NoWaitStart: true,
 		grpcservers: grpcservers,
-		//msgHandler:  msgHandler,
 	}
 
 	GrpcServer = kernel.server
@@ -46,60 +44,38 @@ func NewGrpcNetKernel(servername string, grpcservers []server.GrpcServer) *GrpcN
 }
 
 func (n *GrpcNetKernel) Init(baseModule IBaseModule) bool {
-	//AddManager(ModuleID_SM, n.NPManager)
 	return true
 }
 
 func (n *GrpcNetKernel) DoRegister() {
 
 }
+
 func (n *GrpcNetKernel) start() {
 	async.Go(func() {
-		//n.NetAcceptor.Connect(options...)
-		//n.Status = server.Net_RunStep_Done
-		server.StatusDone(&n.Status)
+		server.NetStatusDone(&n.Status)
 		n.server.Connect()
 		output.Oput.SetServerAddr(n.server.GetAddr())
 		for _, s := range n.grpcservers {
 			s.TransportRegister()(n.server)
 		}
 		n.server.Run()
-		//n.RpcAcceptor.Run()
-		//n.NetAcceptor.Run() // 会阻塞
 	})
-	//// todo: m.msgHandler 需要判断然后
-	//n.msgHandler.Start()
 }
 
 func (n *GrpcNetKernel) DoRun() {
-	//n.nodeManager.Start()
-	//n.Status = server.Net_RunStep_Start
-	server.StatusStart(&n.Status)
+	server.NetStatusStart(&n.Status)
 	if n.NoWaitStart {
 		n.start()
 	}
 }
 
 func (n *GrpcNetKernel) DoWaitStart() {
-	//port := server.Ports[server.EP_Client]
-	//if n.netType == Inner {
-	//	port = server.Ports[server.EP_Gate]
-	//}
-	//addr := fmt.Sprintf(":%d", 30009)
-	//output.Oput.SetServerAddr(n.server.GetAddr())
 	n.start()
-	//async.Go(func() {
-	//	n.NetAcceptor.Connect(network.WithAddr(addr))
-	//	n.NetAcceptor.Run()
-	//	n.status = server.CN_RunStep_Done
-	//})
-	//n.msgHandler.Start()
-
-	//n.NetAcceptor.DoStart()
 }
 
 func (n *GrpcNetKernel) DoRelease() {
-	//n.NetAcceptor.OnClose()
+
 }
 
 func (n *GrpcNetKernel) Update() {
@@ -107,7 +83,6 @@ func (n *GrpcNetKernel) Update() {
 }
 
 func (n *GrpcNetKernel) OnOk() {
-	//n.msgHandler.OnOk()
 }
 
 func (n *GrpcNetKernel) OnStartClose() {
@@ -119,11 +94,11 @@ func (n *GrpcNetKernel) DoClose() {
 }
 
 func (n *GrpcNetKernel) OnStartCheck() int {
-	return 0
+	return ModuleOk()
 }
 
 func (n *GrpcNetKernel) OnCloseCheck() int {
-	return 0
+	return ModuleOk()
 }
 
 func (n *GrpcNetKernel) GetNoWaitStart() bool {

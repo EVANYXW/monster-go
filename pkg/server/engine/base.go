@@ -245,7 +245,8 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 		new(network.DefaultPackerFactory),
 	)
 
-	options = append(options, WithModule(registerDiscovery), WithModule(tcpNet))
+	//options = append(options, WithModule(registerDiscovery), WithModule(tcpNet))
+	options = append(options, WithModule(tcpNet))
 
 	// Center 模式的注册发现,需要加装 connector manager
 	if factor.GetType() == register_discovery.TypeCenter {
@@ -264,6 +265,7 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 		options = append(options, WithModule(iModule))
 	}
 
+	options = append(options, WithModule(registerDiscovery))
 	return newServer(name, options...)
 }
 
@@ -283,7 +285,10 @@ func NewTcpServer(name string, msgHandler module.MsgHandler, factor register_dis
 	ServerInit(name)
 
 	// // 注册与发现模块,支持内部的center和etcd两种模式
-	registerDiscovery := factor.CreateConnector(register_discovery.WithServername(name), register_discovery.WithNetType(module.Inner))
+	registerDiscovery := factor.CreateConnector(
+		register_discovery.WithServername(name),
+		register_discovery.WithNetType(module.Inner),
+	)
 
 	// 创建tcp网络模块
 	clientNet := commonModule.NewClientNet(

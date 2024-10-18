@@ -32,7 +32,8 @@ func oputAsyncGoUpdate() {
 	if output.Oput == nil {
 		return
 	}
-	output.Oput.SetGoNum(GetGoCount())
+	output.Oput.SetMetrics(GetGoCount(), -1)
+
 }
 
 func printStack() {

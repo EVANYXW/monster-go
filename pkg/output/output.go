@@ -2,12 +2,12 @@ package output
 
 import (
 	"fmt"
+	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/spf13/cast"
 	"os"
 	"os/exec"
 	"runtime"
 	"strings"
-	"time"
 )
 
 var Oput *Output
@@ -116,37 +116,33 @@ func NewOutput(config *Config, moduleMap map[int32]string) *Output {
 		Url:       config.Url,
 		moduleMap: moduleMap,
 	}
-
+	logger.Info("NewOutput....")
 	return Oput
 }
 
 func (s *Output) Run() {
+	fmt.Println("Output Running....")
 	Oput.run()
 }
 
-func (s *Output) SetConnNum(num int32) {
+// 统一的 Set 方法
+func (s *Output) SetMetrics(goCount, connNum int32) {
 	data := Data{
-		GoCount: -1,
-		ConnNum: num,
-	}
-	s.SetData(data)
-}
-
-func (s *Output) SetGoNum(num int32) {
-	data := Data{
-		GoCount: num,
-		ConnNum: -1,
+		GoCount: goCount,
+		ConnNum: connNum,
 	}
 	s.SetData(data)
 }
 
 func (s *Output) SetAllModules(modules []int32) {
-	data := Data{
-		allModule: modules,
-	}
 	if s == nil {
 		return
 	}
+
+	data := Data{
+		allModule: modules,
+	}
+
 	s.SetData(data)
 }
 
@@ -161,6 +157,9 @@ func (s *Output) SetModuleNum(total int, okNum int, okModuleId int32) {
 }
 
 func (s *Output) SetData(data Data) {
+	if data.ConnNum > 0 {
+		logger.Info("我确实收到了大于1的数量")
+	}
 	s.Chan <- data
 }
 
@@ -198,7 +197,6 @@ func (s *Output) run() {
 			s.Clear()
 			s.Print()
 		}
-		time.Sleep(500 * time.Millisecond)
 	}
 }
 

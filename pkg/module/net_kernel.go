@@ -40,7 +40,6 @@ type NetKernel struct {
 	NetAcceptor *network.Acceptor
 	RpcAcceptor *rpc.Acceptor
 	Status      int
-	//handlers    network.HandlerMap
 	closeChan   chan struct{}
 	port        uint32
 	netMaxCount uint32
@@ -70,7 +69,6 @@ func NewNetKernel(maxConnNum uint32, msgHandler MsgHandler, packerFactory networ
 	}
 
 	kernel.NetAcceptor.MessageHandler = kernel.MessageHandler
-	//kernel.Init() // 是不是多余
 	return kernel
 }
 
@@ -94,10 +92,17 @@ func (n *NetKernel) start(options ...network.Options) {
 	async.Go(func() {
 		n.NetAcceptor.Connect(options...)
 		n.Status = server.Net_RunStep_Done
+		if GlobalEtcdKernel != nil {
+			GlobalEtcdKernel.RegisterService()
+		}
 		n.RpcAcceptor.Run()
 		n.NetAcceptor.Run() // 会阻塞
 	})
-	n.msgHandler.Start()
+
+	if n.msgHandler != nil {
+		n.msgHandler.Start()
+	}
+
 }
 
 func (n *NetKernel) DoRun() {
@@ -151,11 +156,14 @@ func (n *NetKernel) DoClose() {
 }
 
 func (n *NetKernel) OnStartCheck() int {
-	return 0
+	if n.Status == server.Net_RunStep_Done {
+		return ModuleOk()
+	}
+	return ModuleWait()
 }
 
 func (n *NetKernel) OnCloseCheck() int {
-	return 0
+	return ModuleOk()
 }
 
 func (n *NetKernel) GetNoWaitStart() bool {
@@ -181,6 +189,9 @@ func (n *NetKernel) GetStatus() int {
 }
 
 func (n *NetKernel) OnRpcNetAccept(args []interface{}) {
+	if n.msgHandler == nil {
+		return
+	}
 	np := args[0].(*network.NetPoint)
 	acc := args[1].(*network.Acceptor)
 	fmt.Println("OnRpcNetAccept ....")
@@ -188,14 +199,17 @@ func (n *NetKernel) OnRpcNetAccept(args []interface{}) {
 }
 
 func (n *NetKernel) OnRpcNetConnected(args []interface{}) {
+	if n.msgHandler == nil {
+		return
+	}
 	np := args[0].(*network.NetPoint)
 	fmt.Println("OnRpcNetConnected ....")
 	n.msgHandler.OnNetConnected(np)
 }
 
 func (n *NetKernel) OnRpcNetError(args []interface{}) {
-	np := args[0].(*network.NetPoint)
 
+	np := args[0].(*network.NetPoint)
 	n.NPManager.Del(np)
 	n.msgHandler.OnNetError(np, n.NetAcceptor)
 	fmt.Println("NetKernel OnRpcNetError np close")
@@ -211,6 +225,10 @@ func (n *NetKernel) OnRpcNetError(args []interface{}) {
 }
 
 func (n *NetKernel) OnRpcNetClose(args []interface{}) {
+	if n.msgHandler == nil {
+		return
+	}
+
 	fmt.Println("OnRpcNetClose !!!")
 	np := args[0].(*network.NetPoint)
 

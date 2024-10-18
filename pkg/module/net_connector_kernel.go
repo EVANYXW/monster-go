@@ -75,7 +75,10 @@ func (c *ConnectorKernel) DoRegister() {
 
 func (c *ConnectorKernel) DoRun() {
 	c.RpcAcceptor.Run()
-	c.Client.Run(c.RpcAcceptor)
+	err := c.Client.Run(c.RpcAcceptor)
+	if err != nil {
+		return
+	}
 	c.runStatus = ModuleRunStatus_Running
 	c.msgHandler.Start()
 }
@@ -97,11 +100,11 @@ func (c *ConnectorKernel) OnOk() {
 }
 
 func (c *ConnectorKernel) OnStartClose() {
-
+	c.Close()
 }
 
 func (c *ConnectorKernel) DoClose() {
-
+	c.DoRelease()
 }
 
 func (c *ConnectorKernel) OnStartCheck() int {
@@ -116,7 +119,7 @@ func (c *ConnectorKernel) GetNoWaitStart() bool {
 }
 
 func (c *ConnectorKernel) OnCloseCheck() int {
-	return 0
+	return ModuleOk()
 }
 
 func (c *ConnectorKernel) GetNPManager() network.INPManager {
@@ -140,21 +143,20 @@ func (c *ConnectorKernel) OnRpcNetAccept(args []interface{}) {
 }
 
 func (c *ConnectorKernel) OnRpcNetConnected(args []interface{}) {
+	if c.msgHandler == nil {
+		return
+	}
 	np := args[0].(*network.NetPoint)
 	c.msgHandler.OnNetConnected(np)
 }
 
 func (c *ConnectorKernel) OnRpcNetError(args []interface{}) {
-	//np := args[0].(*network.NetPoint)
-	//
-	//if c.msgHandler != nil {
-	//	c.msgHandler.OnNetError(np, nil)
-	//}
-	//fmt.Println("ConnectorKernel OnRpcNetError np close")
-	//np.Close()
-
-	//fixMe OnRpcNetError 还没做其他处理!!!
-	fmt.Println("OnRpcNetError 还没做其他处理!!!")
+	if c.msgHandler == nil {
+		return
+	}
+	np := args[0].(*network.NetPoint)
+	acc := args[1].(*network.Acceptor)
+	c.msgHandler.OnNetError(np, acc)
 }
 
 func (c *ConnectorKernel) OnRpcNetClose(args []interface{}) {

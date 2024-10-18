@@ -34,10 +34,6 @@ func (m *AcceptorMsgHandler) Start() {
 
 }
 
-//func (m *AcceptorMsgHandler) GetIsHandle() bool {
-//	return m.isHandle
-//}
-
 func (m *AcceptorMsgHandler) OnNetMessage(pack *network.Packet) {
 
 }

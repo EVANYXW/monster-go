@@ -63,6 +63,7 @@ type IGtAClientManager interface {
 	CloseClient(id uint32)
 }
 
+// module是否ok的状态
 const (
 	ModuleRunCode_Ok = iota
 	ModuleRunCode_Wait

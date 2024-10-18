@@ -87,11 +87,11 @@ func (n *Kernel) DoClose() {
 }
 
 func (n *Kernel) OnStartCheck() int {
-	return 0
+	return ModuleOk()
 }
 
 func (n *Kernel) OnCloseCheck() int {
-	return 0
+	return ModuleOk()
 }
 
 func (n *Kernel) GetNoWaitStart() bool {
