@@ -1,29 +1,31 @@
-package module
+package kernel
 
 import (
 	"fmt"
+	handler2 "github.com/evanyxw/monster-go/pkg/handler"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 )
 
 type Kernel struct {
 	NoWaitStart    bool
-	handler        Handler
-	msgHandlerImpl MsgHandler
+	handler        handler2.Handler
+	msgHandlerImpl handler2.MsgHandler
 	processor      *network.Processor
 	rpcAcceptor    *rpc.Acceptor
 }
 
 func NewKernel(rpcAcceptor *rpc.Acceptor, processor *network.Processor, opts ...Option) *Kernel {
-	opt := &options{}
+	opt := NewOption()
 	for _, f := range opts {
 		f(opt)
 	}
 
 	kernel := &Kernel{
 		NoWaitStart:    false,
-		handler:        opt.handler,
-		msgHandlerImpl: opt.msgHandlerImpl,
+		handler:        opt.GetHandler(),
+		msgHandlerImpl: opt.GetHandlerImpl(),
 		processor:      processor,
 		rpcAcceptor:    rpcAcceptor,
 	}
@@ -31,7 +33,7 @@ func NewKernel(rpcAcceptor *rpc.Acceptor, processor *network.Processor, opts ...
 	return kernel
 }
 
-func (n *Kernel) Init(baseModule IBaseModule) bool {
+func (n *Kernel) Init(baseModule module_def.IBaseModule) bool {
 	n.handler.OnInit(baseModule)
 	return true
 }
@@ -87,11 +89,11 @@ func (n *Kernel) DoClose() {
 }
 
 func (n *Kernel) OnStartCheck() int {
-	return ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (n *Kernel) OnCloseCheck() int {
-	return ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (n *Kernel) GetNoWaitStart() bool {

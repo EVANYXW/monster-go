@@ -5,7 +5,7 @@ package acceptor
 
 import (
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/golang/protobuf/proto"
@@ -69,7 +69,7 @@ func (a *acceptor) SendMessage2Client(packet *network.Packet, msg proto.Message)
 }
 
 func (a *acceptor) SendMessage2Agent(serverId uint32, message proto.Message) {
-	manager := module.GetManager(module.ModuleID_SM)
+	manager := module_def.GetManager(module_def.ModuleID_SM)
 	np := manager.Get(serverId)
 	if np != nil {
 		np.SendMessage(message)

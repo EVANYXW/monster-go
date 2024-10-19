@@ -1,9 +1,11 @@
-package module
+package kernel
 
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/pkg/async"
+	"github.com/evanyxw/monster-go/pkg/handler"
 	"github.com/evanyxw/monster-go/pkg/ipPort"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/rpc"
@@ -32,10 +34,10 @@ func WithNetType(netType NetType) kernelOption {
 }
 
 type NetKernel struct {
-	nodeManager INodeManager
+	nodeManager module_def.INodeManager
 	netType     NetType
 	NPManager   network.INPManager
-	msgHandler  MsgHandler
+	msgHandler  handler.MsgHandler
 	processor   *network.Processor
 	NetAcceptor *network.Acceptor
 	RpcAcceptor *rpc.Acceptor
@@ -47,7 +49,7 @@ type NetKernel struct {
 	packer      network.Packer
 }
 
-func NewNetKernel(maxConnNum uint32, msgHandler MsgHandler, packerFactory network.PackerFactory, options ...kernelOption) *NetKernel {
+func NewNetKernel(maxConnNum uint32, msgHandler handler.MsgHandler, packerFactory network.PackerFactory, options ...kernelOption) *NetKernel {
 	rpcAcceptor := rpc.NewAcceptor(10000)
 	processor := network.NewProcessor()
 	nodePointManager := network.NewNormal(maxConnNum, rpcAcceptor, processor, packerFactory)
@@ -72,8 +74,8 @@ func NewNetKernel(maxConnNum uint32, msgHandler MsgHandler, packerFactory networ
 	return kernel
 }
 
-func (n *NetKernel) Init(baseModule IBaseModule) bool {
-	AddManager(ModuleID_SM, n.NPManager)
+func (n *NetKernel) Init(baseModule module_def.IBaseModule) bool {
+	module_def.AddManager(module_def.ModuleID_SM, n.NPManager)
 	return true
 }
 
@@ -157,13 +159,13 @@ func (n *NetKernel) DoClose() {
 
 func (n *NetKernel) OnStartCheck() int {
 	if n.Status == server.Net_RunStep_Done {
-		return ModuleOk()
+		return module_def.ModuleOk()
 	}
-	return ModuleWait()
+	return module_def.ModuleWait()
 }
 
 func (n *NetKernel) OnCloseCheck() int {
-	return ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (n *NetKernel) GetNoWaitStart() bool {

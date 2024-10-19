@@ -2,12 +2,12 @@ package robot
 
 import (
 	"github.com/evanyxw/monster-go/client/robot/client_module"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 )
 
 type Robot struct {
-	serverInfoHandler module.IServerInfoHandler
+	serverInfoHandler module_def.IServerInfoHandler
 	ID                int32
 
 	loginModule *client_module.Login
@@ -16,7 +16,7 @@ type Robot struct {
 func NewRobot() *Robot {
 
 	robot := &Robot{
-		loginModule: client_module.New(module.ModuleID_Client),
+		loginModule: client_module.New(module_def.ModuleID_Client),
 	}
 
 	return robot

@@ -3,8 +3,9 @@ package handler
 import (
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/async"
+	"github.com/evanyxw/monster-go/pkg/kernel"
 	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -15,19 +16,19 @@ import (
 
 type centerConnectorMsgHandler struct {
 	isHandle          bool
-	owner             module.IModule
+	owner             module_def.IModule
 	nodes             map[uint32]*network.ServerInfo
-	serverInfoHandler module.IServerInfoHandler
+	serverInfoHandler module_def.IServerInfoHandler
 }
 
-func NewCenterConnectorMsg(serverInfoHandler module.IServerInfoHandler) *centerConnectorMsgHandler {
+func NewCenterConnectorMsg(serverInfoHandler module_def.IServerInfoHandler) *centerConnectorMsgHandler {
 	return &centerConnectorMsgHandler{
 		nodes:             make(map[uint32]*network.ServerInfo),
 		serverInfoHandler: serverInfoHandler,
 	}
 }
 
-func (m *centerConnectorMsgHandler) OnInit(baseModule module.IBaseModule) {
+func (m *centerConnectorMsgHandler) OnInit(baseModule module_def.IBaseModule) {
 
 }
 
@@ -219,8 +220,8 @@ func (m *centerConnectorMsgHandler) OnHandshakeTicker() {
 }
 
 func (m *centerConnectorMsgHandler) SendMessage(msgId uint64, message interface{}) {
-	pack, _ := module.ConnKernel.Client.Pack(message)
-	module.ConnKernel.NetPoint.SetSignal(pack)
+	pack, _ := kernel.ConnKernel.Client.Pack(message)
+	kernel.ConnKernel.NetPoint.SetSignal(pack)
 }
 
 func (m *centerConnectorMsgHandler) C_Cc_Handshake(message *network.Packet) {
@@ -228,7 +229,7 @@ func (m *centerConnectorMsgHandler) C_Cc_Handshake(message *network.Packet) {
 	msg, _ := rpc.GetMessage(messageID)
 	localMsg := msg.(*xsf_pb.C_Cc_Handshake)
 	rpc.Import(message.Msg.Data, localMsg)
-	module.ConnKernel.SetID(localMsg.ServerId)
+	kernel.ConnKernel.SetID(localMsg.ServerId)
 
 	server.ID = localMsg.NewId
 	server.UpdateSID()
@@ -236,14 +237,14 @@ func (m *centerConnectorMsgHandler) C_Cc_Handshake(message *network.Packet) {
 
 	// 握手定时器
 	m.OnHandshakeTicker()
-	module.DoWaitStart() // 去开启gate对外的net
+	module_def.DoWaitStart() // 去开启gate对外的net
 
 	//if xsf_server.Status.Get() == xsf_server.ServerStatus_Running {
 	//	xsf_log.Info("服务器本身已启动完毕，直接同步数据")
 	//	cc.OnOK(sc)
 	//}
 	//fixMe gate 链接world ，比world创建tcp链接更快
-	if module.Status.Load() == int32(module.ModuleRunStatus_Running) {
+	if module_def.Status.Load() == int32(module_def.ModuleRunStatus_Running) {
 		logger.Info("服务器本身已启动完毕，直接同步数据")
 		m.OnOk()
 	}

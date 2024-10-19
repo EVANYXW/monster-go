@@ -5,7 +5,8 @@ import (
 	"github.com/evanyxw/monster-go/internal/servers/gate/acceptor"
 	"github.com/evanyxw/monster-go/internal/servers/login/client"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/kernel"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 )
@@ -13,20 +14,20 @@ import (
 type loginMsgHandler struct {
 	gateAcceptor  acceptor.IAcceptor
 	clientManager *client.Manager
-	owner         *module.BaseModule
+	owner         *module_def.BaseModule
 }
 
 func NewLoginMsgHandler() *loginMsgHandler {
 	clientManager := client.NewClientManager()
-	module.GtAClientManager = clientManager
+	kernel.GtAClientManager = clientManager
 	return &loginMsgHandler{
 		gateAcceptor:  acceptor.NewGate(),
 		clientManager: clientManager,
 	}
 }
 
-func (m *loginMsgHandler) OnInit(baseModule module.IBaseModule) {
-	baseM := baseModule.(*module.BaseModule)
+func (m *loginMsgHandler) OnInit(baseModule module_def.IBaseModule) {
+	baseM := baseModule.(*module_def.BaseModule)
 	m.owner = baseM
 	m.clientManager.Init(m.owner.RpcAcceptor)
 }

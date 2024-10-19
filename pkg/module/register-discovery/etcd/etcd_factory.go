@@ -4,9 +4,9 @@
 package etcd
 
 import (
-	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/module/connector"
 	"github.com/evanyxw/monster-go/pkg/module/connector/factory"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery"
 )
 
@@ -45,7 +45,7 @@ func (f *Factor) CreateConnector(options ...register_discovery.Option) register_
 	for _, fn := range options {
 		fn(opt)
 	}
-	return NewEtcdConnector(module.ModuleID_Etcd, opt.GetServername(), opt.GetIsWatch(), opt.GetNetType())
+	return NewEtcdConnector(module_def.ModuleID_Etcd, opt.GetServername(), opt.GetIsWatch(), opt.GetNetType())
 }
 
 func (f *Factor) GetType() register_discovery.Type {
@@ -55,7 +55,7 @@ func (f *Factor) GetType() register_discovery.Type {
 func (f *Factor) CreateConnectorManager() connector.TcpConnectorManager {
 	//return connector.NewManager(module.ModuleID_ConnectorManager, managerFactory)
 	c := factory.CenterManagerFactory{}
-	manager := c.CreateManager(module.ModuleID_ConnectorManager)
+	manager := c.CreateManager(module_def.ModuleID_ConnectorManager)
 	return manager
 }
 

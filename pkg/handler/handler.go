@@ -1,14 +1,12 @@
-package module
+// Package handler @Author evan_yxw
+// @Date 2024/10/19 17:01:00
+// @Desc
+package handler
 
 import (
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/golang/protobuf/proto"
-	"sync/atomic"
-)
-
-var (
-	MailID    atomic.Uint32
-	ManagerID atomic.Uint32
 )
 
 type ClientHandler interface {
@@ -17,7 +15,8 @@ type ClientHandler interface {
 }
 
 type GateAcceptorHandler interface {
-	SendHandshake(ck *ConnectorKernel)
+	//SendHandshake(ck *kernel.ConnectorKernel)
+	SendHandshake(ck network.IConn)
 }
 
 // HandlerNetEvent handler 接收网络事件
@@ -51,16 +50,6 @@ type HandlerEvent interface {
 	OnOk()
 	OnUpdate()
 	OnServerOk()
-	OnInit(baseModule IBaseModule)
+	OnInit(baseModule module_def.IBaseModule)
 	Start()
-}
-
-// KernelNetEvent kernel网络事件处理器
-type KernelNetEvent interface {
-	OnRpcNetAccept(args []interface{})
-	OnRpcNetConnected(args []interface{})
-	OnRpcNetError(args []interface{})
-	OnRpcNetClose(args []interface{})
-	OnRpcNetData(args []interface{})
-	OnRpcNetMessage(args []interface{})
 }

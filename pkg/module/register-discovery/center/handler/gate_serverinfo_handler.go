@@ -5,6 +5,7 @@ import (
 	"github.com/evanyxw/monster-go/pkg/ipPort"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"go.uber.org/zap"
@@ -38,7 +39,7 @@ func (h *gateServerInfoHandler) OnServerOk(info *network.ServerInfo) {
 	server.ID2Sid(info.ID, &SID)
 
 	if SID.Type == server.EP_Login || SID.Type == server.EP_Game || SID.Type == server.EP_Mail || SID.Type == server.EP_World {
-		owner := module.GetModule(module.ModuleID_ConnectorManager).GetOwner()
+		owner := module_def.GetModule(module_def.ModuleID_ConnectorManager).GetOwner()
 		connectorManager := owner.(*module.Manager)
 
 		fmt.Println("ports:", server.Ports)
@@ -56,9 +57,9 @@ func (h *gateServerInfoHandler) OnServerOk(info *network.ServerInfo) {
 
 	if SID.Type == server.EP_Mail {
 		//h.mailID.Store(info.ID)
-		module.MailID.Store(info.ID)
+		module_def.MailID.Store(info.ID)
 	} else if SID.Type == server.EP_Manager {
-		module.ManagerID.Store(info.ID)
+		module_def.ManagerID.Store(info.ID)
 		//h.managerID.Store(info.ID)
 	}
 }

@@ -4,12 +4,13 @@
 package register_discovery
 
 import (
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/kernel"
 	"github.com/evanyxw/monster-go/pkg/module/connector"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 )
 
 type Connector interface {
-	module.IModule
+	module_def.IModule
 }
 
 type Type int
@@ -21,7 +22,7 @@ const (
 
 type options struct {
 	servername string
-	netType    module.NetType
+	netType    kernel.NetType
 	isWatch    bool
 }
 
@@ -50,7 +51,7 @@ func (o *options) GetIsWatch() bool {
 	return o.isWatch
 }
 
-func (o *options) GetNetType() module.NetType {
+func (o *options) GetNetType() kernel.NetType {
 	return o.netType
 }
 
@@ -60,7 +61,7 @@ func WithServername(name string) Option {
 	}
 }
 
-func WithNetType(netType module.NetType) Option {
+func WithNetType(netType kernel.NetType) Option {
 	return func(options *options) {
 		options.netType = netType
 	}

@@ -1,8 +1,10 @@
-package module
+package kernel
 
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/pkg/client"
+	"github.com/evanyxw/monster-go/pkg/handler"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -18,9 +20,9 @@ type ConnectorKernel struct {
 	wg          sync.WaitGroup
 	runStatus   int
 	NoWaitStart bool
-	msgHandler  MsgHandler
+	msgHandler  handler.MsgHandler
 	processor   *network.Processor
-	baseModule  IBaseModule
+	baseModule  module_def.IBaseModule
 }
 type ckOptions struct {
 	NoWaitStart bool
@@ -34,7 +36,7 @@ func WithCNoWaitStart(noWaitStart bool) ckernelOption {
 	}
 }
 
-func NewConnectorKernel(ip string, port uint32, msgHandler MsgHandler, packerFactory network.PackerFactory,
+func NewConnectorKernel(ip string, port uint32, msgHandler handler.MsgHandler, packerFactory network.PackerFactory,
 	options ...ckernelOption) *ConnectorKernel {
 	opt := &ckOptions{}
 	rpcAcceptor := rpc.NewAcceptor(10000)
@@ -60,9 +62,9 @@ func (c *ConnectorKernel) SetID(id uint32) {
 	server.ID2Sid(id, &c.SID)
 }
 
-func (c *ConnectorKernel) Init(baseModule IBaseModule) bool {
+func (c *ConnectorKernel) Init(baseModule module_def.IBaseModule) bool {
 	c.baseModule = baseModule
-	c.runStatus = ModuleRunStatus_Start
+	c.runStatus = module_def.ModuleRunStatus_Start
 	return true
 }
 
@@ -82,7 +84,7 @@ func (c *ConnectorKernel) DoRun() {
 		return
 	}
 
-	c.runStatus = ModuleRunStatus_Running
+	c.runStatus = module_def.ModuleRunStatus_Running
 	c.msgHandler.Start()
 }
 
@@ -111,10 +113,10 @@ func (c *ConnectorKernel) DoClose() {
 }
 
 func (c *ConnectorKernel) OnStartCheck() int {
-	if c.runStatus == ModuleRunStatus_Running {
-		return ModuleOk()
+	if c.runStatus == module_def.ModuleRunStatus_Running {
+		return module_def.ModuleOk()
 	}
-	return ModuleWait()
+	return module_def.ModuleWait()
 }
 
 func (c *ConnectorKernel) GetNoWaitStart() bool {
@@ -122,7 +124,7 @@ func (c *ConnectorKernel) GetNoWaitStart() bool {
 }
 
 func (c *ConnectorKernel) OnCloseCheck() int {
-	return ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (c *ConnectorKernel) GetNPManager() network.INPManager {

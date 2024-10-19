@@ -3,8 +3,10 @@ package client
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
+	"github.com/evanyxw/monster-go/pkg/kernel"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -38,7 +40,7 @@ func NewClient(np *network.NetPoint) *Client {
 	}
 }
 
-func (c *Client) OnInit(baseModule *module.BaseModule) {
+func (c *Client) OnInit(baseModule *module_def.BaseModule) {
 
 }
 
@@ -70,8 +72,8 @@ func (c *Client) Init() {
 	//c.netPoint.SetNetEventRPC(c.rpcAcceptor)
 	c.netPoint.SetProcessor(c.processor)
 
-	c.server_ids[server.EP_Mail] = module.MailID.Load()
-	c.server_ids[server.EP_Manager] = module.ManagerID.Load()
+	c.server_ids[server.EP_Mail] = module_def.MailID.Load()
+	c.server_ids[server.EP_Manager] = module_def.ManagerID.Load()
 
 	//c.rpcAcceptor.Run()
 }
@@ -131,15 +133,15 @@ func (c *Client) OnNetMessage(pack *network.Packet) {
 	}
 }
 
-func (c *Client) GetConnector(ep int) *module.ConnectorKernel {
-	managerModule := module.GetConnectorManager()
+func (c *Client) GetConnector(ep int) *kernel.ConnectorKernel {
+	managerModule := module_def.GetConnectorManager()
 	connectorManager, ok := managerModule.(*module.Manager)
 	if !ok {
 		logger.Error("GetConnector of module.GetConnectorManager is error!")
 		return nil
 	}
 
-	var iConnector module.IKernel
+	var iConnector module_def.IKernel
 	if ep == server.EP_Login {
 		iConnector = connectorManager.GetConnector(uint32(ep), 0)
 	} else {
@@ -151,7 +153,7 @@ func (c *Client) GetConnector(ep int) *module.ConnectorKernel {
 		return nil
 	}
 
-	connector, ok := iConnector.(*module.ConnectorKernel)
+	connector, ok := iConnector.(*kernel.ConnectorKernel)
 	if !ok {
 		logger.Error("GetConnector of interface to module.IModuleKernel is error!")
 		return nil
@@ -187,8 +189,8 @@ func (c *Client) GetServerIds() []uint32 {
 	return c.server_ids
 }
 
-func (c *Client) GetExistConnector(ep uint32) *module.ConnectorKernel {
-	managerModule := module.GetConnectorManager()
+func (c *Client) GetExistConnector(ep uint32) *kernel.ConnectorKernel {
+	managerModule := module_def.GetConnectorManager()
 	connectorManager, ok := managerModule.(*module.Manager)
 	if !ok {
 		logger.Error("GetConnector of module.GetConnectorManager is error!")
@@ -199,7 +201,7 @@ func (c *Client) GetExistConnector(ep uint32) *module.ConnectorKernel {
 		return nil
 	} else {
 		iGetConnector := connectorManager.GetConnector(ep, c.server_ids[ep])
-		connectorKernel := iGetConnector.(*module.ConnectorKernel)
+		connectorKernel := iGetConnector.(*kernel.ConnectorKernel)
 		return connectorKernel
 	}
 }

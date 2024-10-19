@@ -1,10 +1,12 @@
-package module
+package kernel
 
 import (
 	"context"
 	"fmt"
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/pkg/ipPort"
+	"github.com/evanyxw/monster-go/pkg/module/connector"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -70,8 +72,8 @@ func (e *EtcdKernel) SetID(id uint32) {
 	server.ID2Sid(id, &e.SID)
 }
 
-func (e *EtcdKernel) Init(baseModule IBaseModule) bool {
-	e.runStatus = ModuleRunStatus_Start
+func (e *EtcdKernel) Init(baseModule module_def.IBaseModule) bool {
+	e.runStatus = module_def.ModuleRunStatus_Start
 	return true
 }
 
@@ -81,7 +83,7 @@ func (e *EtcdKernel) DoRegister() {
 
 func (e *EtcdKernel) DoRun() {
 	e.RpcAcceptor.Run()
-	e.runStatus = ModuleRunStatus_Running
+	e.runStatus = module_def.ModuleRunStatus_Running
 
 	outPort := configs.All().OutPort
 
@@ -99,7 +101,7 @@ func (e *EtcdKernel) DoRun() {
 	}
 
 	//e.RegisterService(e.servername, addr) // net 准备好了才注册etcd
-	DoWaitStart()
+	module_def.DoWaitStart()
 
 	if e.isWatch {
 		go e.watchService()
@@ -131,10 +133,10 @@ func (e *EtcdKernel) DoClose() {
 }
 
 func (e *EtcdKernel) OnStartCheck() int {
-	if e.runStatus == ModuleRunStatus_Running {
-		return ModuleOk()
+	if e.runStatus == module_def.ModuleRunStatus_Running {
+		return module_def.ModuleOk()
 	}
-	return ModuleWait()
+	return module_def.ModuleWait()
 }
 
 func (e *EtcdKernel) GetNoWaitStart() bool {
@@ -142,7 +144,7 @@ func (e *EtcdKernel) GetNoWaitStart() bool {
 }
 
 func (e *EtcdKernel) OnCloseCheck() int {
-	return ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (e *EtcdKernel) GetNPManager() network.INPManager {
@@ -327,8 +329,9 @@ func (e *EtcdKernel) connect(etcdKey, etcdValue string) bool {
 	}
 	ip, port := e.getIpPort(etcdValue)
 	serverId := e.getServerId(etcdKey)
-	owner := GetModule(ModuleID_ConnectorManager).GetOwner()
-	connectorManager := owner.(*Manager)
+	owner := module_def.GetModule(module_def.ModuleID_ConnectorManager).GetOwner()
+	//connectorManager := owner.(*module.Manager)
+	connectorManager := owner.(connector.TcpConnectorManager)
 
 	time.Sleep(100 * time.Millisecond) // 延时,对于打印的conn num
 	conn := connectorManager.CreateConnector(serverId, ip, port)
@@ -344,9 +347,9 @@ func (e *EtcdKernel) watchService() {
 	//watchChan := e.etcdClient.Watch(context.Background(), serviceKey)
 	watchChan := e.etcdClient.Watch(context.Background(), serviceKeyPrefix, clientv3.WithPrefix())
 	fmt.Println("Watching for changes...")
-	owner := GetModule(ModuleID_ConnectorManager).GetOwner()
-	connectorManager := owner.(*Manager)
-	//connectorManager := owner.(tcp_manager.TcpConnectorManager)
+	owner := module_def.GetModule(module_def.ModuleID_ConnectorManager).GetOwner()
+	//connectorManager := owner.(*module.Manager)
+	connectorManager := owner.(connector.TcpConnectorManager)
 	for watchResp := range watchChan {
 		for _, ev := range watchResp.Events {
 			switch ev.Type {

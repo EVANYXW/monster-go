@@ -5,7 +5,7 @@ package config
 
 import (
 	"github.com/evanyxw/monster-go/internal/common"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 )
 
@@ -44,7 +44,7 @@ func New() *SchemaKernel {
 	return s
 }
 
-func (s *SchemaKernel) Init(baseModule module.IBaseModule) bool {
+func (s *SchemaKernel) Init(baseModule module_def.IBaseModule) bool {
 	//s.msgHandler.OnInit(baseModule)
 	return true
 }

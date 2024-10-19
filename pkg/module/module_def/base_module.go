@@ -1,4 +1,4 @@
-package module
+package module_def
 
 import (
 	"github.com/evanyxw/monster-go/pkg/async"

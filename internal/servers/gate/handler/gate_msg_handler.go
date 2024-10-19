@@ -5,24 +5,25 @@ import (
 	"github.com/evanyxw/monster-go/internal/servers/gate/client"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/async"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/kernel"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"net"
 	"time"
 )
 
 type GateMsgHandler struct {
-	ClientManager module.IGtClientManager
+	ClientManager module_def.IGtClientManager
 }
 
 func NewGateMsg() *GateMsgHandler {
-	module.ClientManager = client.NewClientManager()
+	kernel.ClientManager = client.NewClientManager()
 	return &GateMsgHandler{
-		ClientManager: module.ClientManager,
+		ClientManager: kernel.ClientManager,
 	}
 }
 
-func (m *GateMsgHandler) OnInit(baseModule module.IBaseModule) {
+func (m *GateMsgHandler) OnInit(baseModule module_def.IBaseModule) {
 
 }
 

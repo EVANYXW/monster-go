@@ -5,7 +5,7 @@ import (
 	"github.com/evanyxw/monster-go/client/robot"
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/timeutil"
 	"time"
 )
@@ -17,9 +17,9 @@ func tcpClient() {
 		logger.WithTimeLayout(timeutil.CSTLayout),
 		logger.WithFileP(configs.LogFile, "client"),
 	)
-	module.Init()
+	module_def.Init()
 	c := robot.NewRobot()
-	module.Run()
+	module_def.Run()
 	c.Start()
 	time.Sleep(10 * time.Hour)
 }

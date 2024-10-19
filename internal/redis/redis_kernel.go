@@ -2,7 +2,7 @@ package redis
 
 import (
 	"github.com/evanyxw/monster-go/internal/common"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 )
@@ -38,7 +38,7 @@ func NewRedisKernel(rds []SCDBInfo) *RedisKernel {
 	return rk
 }
 
-func (rk *RedisKernel) Init(baseModule module.IBaseModule) bool {
+func (rk *RedisKernel) Init(baseModule module_def.IBaseModule) bool {
 	//rk.msgHandler.OnInit(baseModule)
 	return true
 }

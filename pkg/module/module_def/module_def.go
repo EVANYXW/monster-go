@@ -1,9 +1,20 @@
-package module
+package module_def
 
 import (
 	"github.com/evanyxw/monster-go/pkg/network"
+	"github.com/evanyxw/monster-go/pkg/server"
 	"github.com/golang/protobuf/proto"
 )
+
+type INodeManager interface {
+	Start()
+	GetIndex(sid *server.ServerID)
+	AddNode(id uint32, ip string, ports []uint32) *network.ServerInfo
+	Send(np *network.NetPoint, si *network.ServerInfo)
+	OnNodeLost(id uint32, ep uint8)
+	OnNodeOK(id uint32)
+	Broadcast(si *network.ServerInfo)
+}
 
 // 服务器信息变化处理
 type IServerInfoHandler interface {

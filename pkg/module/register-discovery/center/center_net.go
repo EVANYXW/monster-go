@@ -2,8 +2,9 @@ package center
 
 import (
 	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/pkg/kernel"
 	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/handler"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -14,7 +15,7 @@ import (
 )
 
 type CenterNet struct {
-	kernel       module.IKernel
+	kernel       module_def.IKernel
 	status       int
 	startIndex   int
 	curStartNode *configs.ServerNode
@@ -28,11 +29,11 @@ func NewCenterNet(id int32, maxConnNum uint32) *CenterNet {
 
 	centerNet := &CenterNet{
 		id: id,
-		kernel: module.NewNetKernel(
+		kernel: kernel.NewNetKernel(
 			maxConnNum,
 			handler.NewCenterNetMsg(),
 			new(network.DefaultPackerFactory),
-			module.WithNoWaitStart(true)),
+			kernel.WithNoWaitStart(true)),
 	}
 
 	//module.NewBaseModule(id, centerNet) 我在试一试
@@ -41,7 +42,7 @@ func NewCenterNet(id int32, maxConnNum uint32) *CenterNet {
 	return centerNet
 }
 
-func (c *CenterNet) Init(baseModule module.IBaseModule) bool {
+func (c *CenterNet) Init(baseModule module_def.IBaseModule) bool {
 	c.kernel.Init(baseModule)
 	return true
 }
@@ -71,7 +72,7 @@ func (c *CenterNet) OnOk() {
 func (c *CenterNet) OnStartCheck() int {
 	serverCnf := configs.All()
 	if !serverCnf.AutoStart {
-		return module.ModuleOk()
+		return module_def.ModuleOk()
 	}
 
 	serverList := configs.All().ServerList
@@ -106,13 +107,13 @@ func (c *CenterNet) OnStartCheck() int {
 	case server.CN_RunStep_HandshakeDone:
 		c.startIndex++
 		if c.startIndex >= len(serverList) {
-			return module.ModuleOk()
+			return module_def.ModuleOk()
 		} else {
 			c.status = server.CN_RunStep_StartServer
 		}
 	}
 
-	return module.ModuleWait()
+	return module_def.ModuleWait()
 }
 
 func (c *CenterNet) OnCloseCheck() int {
@@ -127,6 +128,6 @@ func (c *CenterNet) GetID() int32 {
 	return c.id
 }
 
-func (c *CenterNet) GetKernel() module.IKernel {
+func (c *CenterNet) GetKernel() module_def.IKernel {
 	return c.kernel
 }

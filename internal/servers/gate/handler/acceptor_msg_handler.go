@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/async"
+	"github.com/evanyxw/monster-go/pkg/kernel"
 	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -26,7 +27,7 @@ func NewAcceptor() *AcceptorMsgHandler {
 	return &AcceptorMsgHandler{}
 }
 
-func (m *AcceptorMsgHandler) OnInit(baseModule module.IBaseModule) {
+func (m *AcceptorMsgHandler) OnInit(baseModule module_def.IBaseModule) {
 
 }
 
@@ -102,5 +103,5 @@ func (m *AcceptorMsgHandler) Gt_GtA_Heartbeat(message *network.Packet) {
 func (m *AcceptorMsgHandler) Gt_GtA_ClientClose(message *network.Packet) {
 	fmt.Println("我收到gate的消息，关闭client")
 	fmt.Println(message.Msg.RawID)
-	module.GtAClientManager.CloseClient(message.Msg.RawID)
+	kernel.GtAClientManager.CloseClient(message.Msg.RawID)
 }

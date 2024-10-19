@@ -4,9 +4,9 @@
 package center
 
 import (
-	"github.com/evanyxw/monster-go/pkg/module"
 	"github.com/evanyxw/monster-go/pkg/module/connector"
 	"github.com/evanyxw/monster-go/pkg/module/connector/factory"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery"
 	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center/handler"
 )
@@ -45,15 +45,15 @@ func (f *Factor) CreateConnector(options ...register_discovery.Option) register_
 	}
 
 	if f.isGateway {
-		return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewGateServerInfoHandler())
+		return NewCenterConnector(module_def.ModuleID_CenterConnector, handler.NewGateServerInfoHandler())
 	}
-	return NewCenterConnector(module.ModuleID_CenterConnector, handler.NewServerInfoHandler())
+	return NewCenterConnector(module_def.ModuleID_CenterConnector, handler.NewServerInfoHandler())
 }
 
 func (f *Factor) CreateConnectorManager() connector.TcpConnectorManager {
 	//return connector.NewManager(module.ModuleID_ConnectorManager, managerFactory)
 	c := factory.CenterManagerFactory{}
-	manager := c.CreateManager(module.ModuleID_ConnectorManager)
+	manager := c.CreateManager(module_def.ModuleID_ConnectorManager)
 	return manager
 }
 
@@ -62,7 +62,7 @@ func (f *Factor) SetGateWay() {
 }
 
 func (f *Factor) CreateNet() register_discovery.Connector {
-	return NewCenterNet(module.ModuleID_SM, 10000)
+	return NewCenterNet(module_def.ModuleID_SM, 10000)
 }
 
 func (f *Factor) GetType() register_discovery.Type {

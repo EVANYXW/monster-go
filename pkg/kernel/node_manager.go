@@ -1,4 +1,4 @@
-package module
+package kernel
 
 import (
 	"container/list"
@@ -6,6 +6,7 @@ import (
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/logger"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -13,21 +14,21 @@ import (
 )
 
 var (
-	NodeManager      INodeManager
+	NodeManager      module_def.INodeManager
 	ConnKernel       *ConnectorKernel
-	ClientManager    IGtClientManager
-	GtAClientManager IGtAClientManager
+	ClientManager    module_def.IGtClientManager
+	GtAClientManager module_def.IGtAClientManager
 )
 
-type INodeManager interface {
-	Start()
-	GetIndex(sid *server.ServerID)
-	AddNode(id uint32, ip string, ports []uint32) *network.ServerInfo
-	Send(np *network.NetPoint, si *network.ServerInfo)
-	OnNodeLost(id uint32, ep uint8)
-	OnNodeOK(id uint32)
-	Broadcast(si *network.ServerInfo)
-}
+//type INodeManager interface {
+//	Start()
+//	GetIndex(sid *server.ServerID)
+//	AddNode(id uint32, ip string, ports []uint32) *network.ServerInfo
+//	Send(np *network.NetPoint, si *network.ServerInfo)
+//	OnNodeLost(id uint32, ep uint8)
+//	OnNodeOK(id uint32)
+//	Broadcast(si *network.ServerInfo)
+//}
 
 type nodeManager struct {
 	innerPort  uint32
@@ -37,7 +38,7 @@ type nodeManager struct {
 	nodes      map[uint32]*network.ServerInfo
 }
 
-func NewNodeManager() INodeManager {
+func NewNodeManager() module_def.INodeManager {
 	return &nodeManager{
 		lostList:   make([]list.List, server.EP_Max),
 		nodes:      make(map[uint32]*network.ServerInfo),
@@ -203,7 +204,7 @@ func (nm *nodeManager) OnNodeLost(id uint32, ep uint8) {
 	downMsg.ServerId = id
 
 	logger.Info("服务器已离线", zap.Uint32("id", id))
-	manager := GetManager(ModuleID_SM)
+	manager := module_def.GetManager(module_def.ModuleID_SM)
 	manager.Broadcast(downMsg, 0)
 }
 
@@ -239,7 +240,7 @@ func (nm *nodeManager) Broadcast(si *network.ServerInfo) {
 	siMsg.Status = si.Status
 	msg.Infos = append(msg.Infos, siMsg)
 
-	manager := GetManager(ModuleID_SM)
+	manager := module_def.GetManager(module_def.ModuleID_SM)
 	manager.Broadcast(msg, si.ID)
 }
 
@@ -257,7 +258,7 @@ func (nm *nodeManager) OnNodeOK(id uint32) {
 
 	//xsf_log.Info("【中心服】收到服务器已准备好", xsf_log.Uint32("id", id))
 	// todo
-	manager := GetManager(ModuleID_SM)
+	manager := module_def.GetManager(module_def.ModuleID_SM)
 	manager.Broadcast(downMsg, id)
 
 	isAllOK := true
@@ -285,7 +286,7 @@ func (nm *nodeManager) OnNodeOK(id uint32) {
 
 		server.Ports = [10]uint32(nm.GetPorts(server.EP_Center))
 		// todo
-		DoWaitStart()
+		module_def.DoWaitStart()
 	}
 	logger.Info("OnNodeOK node length:", zap.Int("node length:", len(nm.nodes)))
 }

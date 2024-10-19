@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
 	"github.com/evanyxw/monster-go/pkg/async"
+	"github.com/evanyxw/monster-go/pkg/kernel"
 	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -14,14 +15,14 @@ import (
 )
 
 type centerNetMsgHandler struct {
-	owner module.IModule
+	owner module_def.IModule
 }
 
 func NewCenterNetMsg() *centerNetMsgHandler {
 	return &centerNetMsgHandler{}
 }
 
-func (m *centerNetMsgHandler) OnInit(baseModule module.IBaseModule) {
+func (m *centerNetMsgHandler) OnInit(baseModule module_def.IBaseModule) {
 
 }
 
@@ -44,7 +45,7 @@ func (m *centerNetMsgHandler) Cc_C_Handshake(message *network.Packet) {
 	localMsg := &xsf_pb.Cc_C_Handshake{}
 	rpc.Import(message.Msg.Data, localMsg)
 
-	si := module.NodeManager.AddNode(localMsg.ServerId, message.NetPoint.RemoteIP, localMsg.Ports)
+	si := kernel.NodeManager.AddNode(localMsg.ServerId, message.NetPoint.RemoteIP, localMsg.Ports)
 	if si == nil {
 		fmt.Println("Cc_C_Handshake AddNode si is nil, net point close!")
 		message.NetPoint.Close()
@@ -59,7 +60,7 @@ func (m *centerNetMsgHandler) Cc_C_Handshake(message *network.Packet) {
 		m.OnNPAdd(np)
 		message.NetPoint.OnHeartbeat()
 		// 同步本地已经有的服务器列表信息到这个节点
-		module.NodeManager.Send(np, si)
+		kernel.NodeManager.Send(np, si)
 
 		// 再回一个握手消息
 		pb := &xsf_pb.C_Cc_Handshake{}
@@ -69,7 +70,7 @@ func (m *centerNetMsgHandler) Cc_C_Handshake(message *network.Packet) {
 		np.SendMessage(pb)
 
 		// 把该节点信息广播给其他所有服务器
-		module.NodeManager.Broadcast(si)
+		kernel.NodeManager.Broadcast(si)
 	}
 }
 
@@ -117,7 +118,7 @@ func (m *centerNetMsgHandler) OnNPAdd(np *network.NetPoint) {
 }
 
 func (m *centerNetMsgHandler) OnNPDel(np *network.NetPoint) {
-	module.NodeManager.OnNodeLost(np.ID, np.SID.Type)
+	kernel.NodeManager.OnNodeLost(np.ID, np.SID.Type)
 }
 
 func (m *centerNetMsgHandler) Cc_C_Heartbeat(message *network.Packet) {
@@ -127,11 +128,11 @@ func (m *centerNetMsgHandler) Cc_C_Heartbeat(message *network.Packet) {
 func (m *centerNetMsgHandler) Cc_C_ServerOk(message *network.Packet) {
 	np := message.NetPoint
 	logger.Info("SMSGID_Cc_C_ServerOk", zap.Uint32("id", np.ID))
-	module.NodeManager.OnNodeOK(np.ID)
+	kernel.NodeManager.OnNodeOK(np.ID)
 }
 
 func (m *centerNetMsgHandler) Cc_C_ServerClose(message *network.Packet) {
-	manager := module.GetManager(module.ModuleID_SM)
+	manager := module_def.GetManager(module_def.ModuleID_SM)
 	msg := &xsf_pb.C_Cc_ServerClose{}
 	manager.Broadcast(msg, 0)
 }

@@ -2,23 +2,24 @@ package module
 
 import (
 	"github.com/evanyxw/monster-go/internal/servers/login/handler"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/kernel"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 )
 
 type LoginManager struct {
-	kernel module.IKernel
+	kernel module_def.IKernel
 	id     int32
 }
 
 func NewLoginManager() *LoginManager {
 	h := handler.NewLoginMsgHandler()
 	l := &LoginManager{
-		id: module.GetModuleId(module.ModuleLoginManager),
-		kernel: module.NewKernel(
+		id: module_def.GetModuleId(module_def.ModuleLoginManager),
+		kernel: kernel.NewKernel(
 			network.NetPointManager.GetRpcAcceptor(),
 			network.NetPointManager.GetProcessor(),
-			module.WithHandler(h),
+			kernel.WithHandler(h),
 		),
 	}
 
@@ -27,7 +28,7 @@ func NewLoginManager() *LoginManager {
 	return l
 }
 
-func (l *LoginManager) Init(baseModule module.IBaseModule) bool {
+func (l *LoginManager) Init(baseModule module_def.IBaseModule) bool {
 	l.kernel.Init(baseModule)
 	return true
 }
@@ -45,7 +46,7 @@ func (l *LoginManager) OnOk() {
 }
 
 func (l *LoginManager) OnStartCheck() int {
-	return module.ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (l *LoginManager) OnCloseCheck() int {
@@ -56,7 +57,7 @@ func (l *LoginManager) GetID() int32 {
 	return l.id
 }
 
-func (l *LoginManager) GetKernel() module.IKernel {
+func (l *LoginManager) GetKernel() module_def.IKernel {
 	return l.kernel
 }
 

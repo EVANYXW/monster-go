@@ -1,6 +1,9 @@
 package module
 
 import (
+	"github.com/evanyxw/monster-go/pkg/handler"
+	"github.com/evanyxw/monster-go/pkg/kernel"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 	"math/rand"
@@ -10,32 +13,32 @@ type ep uint8
 type id uint8
 
 type Manager struct {
-	kernel      IKernel
-	collections []map[uint32]IKernel
-	handler     GateAcceptorHandler
+	kernel      module_def.IKernel
+	collections []map[uint32]module_def.IKernel
+	handler     handler.GateAcceptorHandler
 	id          int32
 	//factory     ManagerFactory
 }
 
-func NewManager(id int32, msgHandler MsgHandler) *Manager {
+func NewManager(id int32, msgHandler handler.MsgHandler) *Manager {
 	c := &Manager{
 		id: id,
 	}
 	//hdler := msgHandler
-	gateAcceptorHandler := msgHandler.(GateAcceptorHandler)
+	gateAcceptorHandler := msgHandler.(handler.GateAcceptorHandler)
 	c.handler = gateAcceptorHandler
-	c.kernel = NewKernel(network.NetPointManager.GetRpcAcceptor(),
+	c.kernel = kernel.NewKernel(network.NetPointManager.GetRpcAcceptor(),
 		network.NetPointManager.GetProcessor())
 
 	return c
 	//return factory.Create(id)
 }
 
-func (c *Manager) Init(baseModule IBaseModule) bool {
+func (c *Manager) Init(baseModule module_def.IBaseModule) bool {
 	//c.collections = make([]connectCollection, xsf_util.EP_Max)
-	c.collections = []map[uint32]IKernel{}
+	c.collections = []map[uint32]module_def.IKernel{}
 	for i := 0; i < server.EP_Max; i++ {
-		c.collections = append(c.collections, make(map[uint32]IKernel))
+		c.collections = append(c.collections, make(map[uint32]module_def.IKernel))
 	}
 	//c.kernel.Init()
 	return true
@@ -66,11 +69,11 @@ func (c *Manager) OnOk() {
 }
 
 func (c Manager) OnStartCheck() int {
-	return ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (c Manager) OnCloseCheck() int {
-	return ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (c Manager) Update() {
@@ -81,11 +84,11 @@ func (c *Manager) GetID() int32 {
 	return c.id
 }
 
-func (c Manager) GetKernel() IKernel {
+func (c Manager) GetKernel() module_def.IKernel {
 	return nil
 }
 
-func (c Manager) GetConnector(ep uint32, id uint32) IKernel {
+func (c Manager) GetConnector(ep uint32, id uint32) module_def.IKernel {
 	eps := c.collections[ep]
 	if id == 0 {
 		len := len(eps)
@@ -116,10 +119,10 @@ func (c Manager) DelConnector(id uint32) {
 	}
 }
 
-func (c *Manager) CreateConnector(id uint32, ip string, port uint32) *ConnectorKernel {
+func (c *Manager) CreateConnector(id uint32, ip string, port uint32) network.IConn {
 	//msgHandler := handler.NewManager()
-	msgHandler := c.handler.(MsgHandler)
-	ck := NewConnectorKernel(ip, port, msgHandler, new(network.ClientPackerFactory))
+	msgHandler := c.handler.(handler.MsgHandler)
+	ck := kernel.NewConnectorKernel(ip, port, msgHandler, new(network.ClientPackerFactory))
 	//ck := module.NewConnectorKernel(ip, port, msgHandler, new(network.DefaultPackerFactory))
 	ck.SetID(id)
 	c.collections[ck.SID.Type][id] = ck

@@ -1,10 +1,11 @@
-package module
+package kernel
 
 import (
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/pkg/async"
 	"github.com/evanyxw/monster-go/pkg/grpcpool"
 	"github.com/evanyxw/monster-go/pkg/logger"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/rpc"
@@ -43,7 +44,7 @@ func NewGrpcNetKernel(servername string, grpcservers []server.GrpcServer) *GrpcN
 	return kernel
 }
 
-func (n *GrpcNetKernel) Init(baseModule IBaseModule) bool {
+func (n *GrpcNetKernel) Init(baseModule module_def.IBaseModule) bool {
 	return true
 }
 
@@ -94,11 +95,11 @@ func (n *GrpcNetKernel) DoClose() {
 }
 
 func (n *GrpcNetKernel) OnStartCheck() int {
-	return ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (n *GrpcNetKernel) OnCloseCheck() int {
-	return ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (n *GrpcNetKernel) GetNoWaitStart() bool {

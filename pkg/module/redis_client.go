@@ -2,15 +2,16 @@ package module
 
 import (
 	"github.com/evanyxw/monster-go/internal/redis"
+	"github.com/evanyxw/monster-go/pkg/kernel"
 	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 )
 
 // 客户端消息接受体
 
 type RedisClient struct {
-	kernel module.IKernel
+	kernel module_def.IKernel
 	id     int32
 }
 
@@ -28,7 +29,7 @@ func NewRedisClient() *RedisClient {
 		},
 	}
 	//h := handler.NewCommonMsgHandler()
-	id := module.GetModuleId(module.ModuleRedis)
+	id := module_def.GetModuleId(module_def.ModuleRedis)
 	r := &RedisClient{
 		id:     id,
 		kernel: redis.NewRedisKernel(redisInfo),
@@ -38,7 +39,7 @@ func NewRedisClient() *RedisClient {
 	return r
 }
 
-func (r *RedisClient) Init(baseModule module.IBaseModule) bool {
+func (r *RedisClient) Init(baseModule module_def.IBaseModule) bool {
 	r.kernel.Init(baseModule)
 	return true
 }
@@ -61,7 +62,7 @@ func (r *RedisClient) OnOk() {
 }
 
 func (r *RedisClient) OnStartCheck() int {
-	return module.ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (r *RedisClient) OnCloseCheck() int {
@@ -72,7 +73,7 @@ func (r *RedisClient) GetID() int32 {
 	return r.id
 }
 
-func (r *RedisClient) GetKernel() module.IKernel {
+func (r *RedisClient) GetKernel() module_def.IKernel {
 	return r.kernel
 }
 
@@ -87,7 +88,7 @@ func (r *RedisClient) DoRegister() {
 func (r *RedisClient) OnNetError(np *network.NetPoint) {
 	logger.Debug("center onNetError")
 	//r.nodeManager.OnNodeLost(np.ID, np.SID.Type)
-	module.NodeManager.OnNodeLost(np.ID, np.SID.Type)
+	kernel.NodeManager.OnNodeLost(np.ID, np.SID.Type)
 }
 
 func (r *RedisClient) OnServerOk() {

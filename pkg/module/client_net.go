@@ -2,25 +2,27 @@ package module
 
 import (
 	"github.com/evanyxw/monster-go/configs"
+	"github.com/evanyxw/monster-go/pkg/handler"
+	"github.com/evanyxw/monster-go/pkg/kernel"
 	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 )
 
 // 客户端消息接受体
 type ClientNet struct {
-	kernel       module.IKernel
+	kernel       module_def.IKernel
 	curStartNode *configs.ServerNode
-	netType      module.NetType
+	netType      kernel.NetType
 	id           int32
 }
 
-func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, netType module.NetType,
+func NewClientNet(id int32, maxConnNum uint32, msgHandler handler.MsgHandler, netType kernel.NetType,
 	packerFactory network.PackerFactory) *ClientNet {
 	c := &ClientNet{
 		id:     id,
-		kernel: module.NewNetKernel(maxConnNum, msgHandler, packerFactory, module.WithNetType(netType)),
+		kernel: kernel.NewNetKernel(maxConnNum, msgHandler, packerFactory, kernel.WithNetType(netType)),
 	}
 	//module.NewBaseModule(id, c) // todo
 	network.NetPointManager = c.kernel.GetNPManager()
@@ -28,7 +30,7 @@ func NewClientNet(id int32, maxConnNum uint32, msgHandler module.MsgHandler, net
 	return c
 }
 
-func (c *ClientNet) Init(baseModule module.IBaseModule) bool {
+func (c *ClientNet) Init(baseModule module_def.IBaseModule) bool {
 	c.kernel.Init(baseModule)
 	return true
 }
@@ -53,9 +55,9 @@ func (c *ClientNet) OnOk() {
 func (c *ClientNet) OnStartCheck() int {
 	// TCP链接准备好
 	if c.kernel.GetStatus() == server.Net_RunStep_Done {
-		return module.ModuleOk()
+		return module_def.ModuleOk()
 	}
-	return module.ModuleWait()
+	return module_def.ModuleWait()
 }
 
 func (c *ClientNet) OnCloseCheck() int {
@@ -66,7 +68,7 @@ func (c *ClientNet) GetID() int32 {
 	return c.id
 }
 
-func (c *ClientNet) GetKernel() module.IKernel {
+func (c *ClientNet) GetKernel() module_def.IKernel {
 	return c.kernel
 }
 
@@ -81,7 +83,7 @@ func (c *ClientNet) DoRegister() {
 func (c *ClientNet) OnNetError(np *network.NetPoint) {
 	logger.Debug("center onNetError")
 	//c.nodeManager.OnNodeLost(np.ID, np.SID.Type)
-	module.NodeManager.OnNodeLost(np.ID, np.SID.Type)
+	kernel.NodeManager.OnNodeLost(np.ID, np.SID.Type)
 }
 
 func (c *ClientNet) OnServerOk() {

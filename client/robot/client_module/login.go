@@ -7,15 +7,16 @@ import "C"
 import (
 	"github.com/evanyxw/monster-go/client/robot/handler"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/kernel"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 )
 
-var _ module.IModule = &Login{}
+var _ module_def.IModule = &Login{}
 
 type Login struct {
-	*module.ConnectorKernel
+	*kernel.ConnectorKernel
 	id int32
 }
 
@@ -23,11 +24,11 @@ func (l *Login) GetID() int32 {
 	return l.id
 }
 
-func (l *Login) GetKernel() module.IKernel {
+func (l *Login) GetKernel() module_def.IKernel {
 	return l.ConnectorKernel
 }
 
-func (l *Login) Init(baseModule module.IBaseModule) bool {
+func (l *Login) Init(baseModule module_def.IBaseModule) bool {
 	return true
 }
 
@@ -61,13 +62,13 @@ func (l *Login) Update() {
 func New(id int32) *Login {
 	l := &Login{
 		id: id,
-		ConnectorKernel: module.NewConnectorKernel("192.168.3.90", 30000,
+		ConnectorKernel: kernel.NewConnectorKernel("192.168.101.8", 30000,
 			handler.NewLoginHandler(),
 			new(network.DefaultPackerFactory),
-			module.WithCNoWaitStart(true),
+			kernel.WithCNoWaitStart(true),
 		),
 	}
-	module.NewBaseModule(id, l)
+	module_def.NewBaseModule(id, l)
 	return l
 }
 

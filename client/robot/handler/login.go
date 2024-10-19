@@ -6,8 +6,9 @@ package handler
 import (
 	"fmt"
 	"github.com/evanyxw/monster-go/message/pb/xsf_pb"
+	"github.com/evanyxw/monster-go/pkg/kernel"
 	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/rpc"
 	"github.com/evanyxw/monster-go/pkg/server"
@@ -23,7 +24,7 @@ func NewLoginHandler() *loginMsgHandler {
 	return &loginMsgHandler{}
 }
 
-func (m *loginMsgHandler) OnInit(baseModule module.IBaseModule) {
+func (m *loginMsgHandler) OnInit(baseModule module_def.IBaseModule) {
 
 }
 
@@ -66,7 +67,8 @@ func (m *loginMsgHandler) MsgRegister(processor *network.Processor) {
 	processor.RegisterMsg(uint16(xsf_pb.MSGID_L_Clt_LoginResult), m.L_Clt_LoginResult)
 }
 
-func (m *loginMsgHandler) SendHandshake(ck *module.ConnectorKernel) {
+func (m *loginMsgHandler) SendHandshake(conn network.IConn) {
+	ck := conn.(*kernel.ConnectorKernel)
 	messageID := uint64(xsf_pb.SMSGID_Gt_GtA_Handshake)
 	msg, _ := rpc.GetMessage(messageID)
 	localMsg := msg.(*xsf_pb.Gt_GtA_Handshake)

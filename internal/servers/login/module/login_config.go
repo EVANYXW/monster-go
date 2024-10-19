@@ -3,18 +3,18 @@ package module
 import (
 	"github.com/evanyxw/monster-go/internal/servers/login/config"
 	"github.com/evanyxw/monster-go/pkg/logger"
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 )
 
 type LoginConfig struct {
-	kernel module.IKernel
+	kernel module_def.IKernel
 	id     int32
 }
 
 func NewLoginConfig() *LoginConfig {
 	//h := handler.NewCommonMsgHandler()
-	id := module.GetModuleId(module.ModuleLoginConfig)
+	id := module_def.GetModuleId(module_def.ModuleLoginConfig)
 	l := &LoginConfig{
 		id:     id,
 		kernel: config.New(),
@@ -25,7 +25,7 @@ func NewLoginConfig() *LoginConfig {
 	return l
 }
 
-func (l *LoginConfig) Init(baseModule module.IBaseModule) bool {
+func (l *LoginConfig) Init(baseModule module_def.IBaseModule) bool {
 	l.kernel.Init(baseModule)
 	return true
 }
@@ -43,7 +43,7 @@ func (l *LoginConfig) OnOk() {
 }
 
 func (l *LoginConfig) OnStartCheck() int {
-	return module.ModuleOk()
+	return module_def.ModuleOk()
 }
 
 func (l *LoginConfig) OnCloseCheck() int {
@@ -54,7 +54,7 @@ func (l *LoginConfig) GetID() int32 {
 	return l.id
 }
 
-func (l *LoginConfig) GetKernel() module.IKernel {
+func (l *LoginConfig) GetKernel() module_def.IKernel {
 	return l.kernel
 }
 

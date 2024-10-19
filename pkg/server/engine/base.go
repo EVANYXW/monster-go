@@ -5,12 +5,14 @@ import (
 	"github.com/evanyxw/monster-go/configs"
 	"github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	"github.com/evanyxw/monster-go/pkg/async"
-	commonModule "github.com/evanyxw/monster-go/pkg/common/module"
 	"github.com/evanyxw/monster-go/pkg/env"
 	"github.com/evanyxw/monster-go/pkg/grpcpool"
+	handler2 "github.com/evanyxw/monster-go/pkg/handler"
+	"github.com/evanyxw/monster-go/pkg/kernel"
 	"github.com/evanyxw/monster-go/pkg/logger"
 	"github.com/evanyxw/monster-go/pkg/logs"
 	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	register_discovery "github.com/evanyxw/monster-go/pkg/module/register-discovery"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/output"
@@ -41,7 +43,7 @@ type option struct {
 	isPprof    bool
 	isOutput   bool
 	output     *output.Config
-	modules    map[int32]module.IModule
+	modules    map[int32]module_def.IModule
 	clientType clientType
 }
 
@@ -58,13 +60,13 @@ func WithOutput(config *output.Config) Options {
 	}
 }
 
-func WithModule(m module.IModule) Options {
+func WithModule(m module_def.IModule) Options {
 	return func(opt *option) {
-		module.NewBaseModule(m.GetID(), m)
+		module_def.NewBaseModule(m.GetID(), m)
 	}
 }
 
-func WithModules(modules map[int32]module.IModule) Options {
+func WithModules(modules map[int32]module_def.IModule) Options {
 	return func(opt *option) {
 		for id, m := range opt.modules {
 			opt.modules[id] = m
@@ -78,15 +80,15 @@ func WithGrpcClient() Options {
 	}
 }
 
-func (b *BaseEngine) WithModule(m module.IModule) *BaseEngine {
-	module.NewBaseModule(m.GetID(), m)
+func (b *BaseEngine) WithModule(m module_def.IModule) *BaseEngine {
+	module_def.NewBaseModule(m.GetID(), m)
 	return b
 }
 
 func (b *BaseEngine) WithOutput(config *output.Config) *BaseEngine {
 	//b.output = output.NewOutput(config)
 	b.isOutput = true
-	b.output = output.NewOutput(config, module.GetModuleMap())
+	b.output = output.NewOutput(config, module_def.GetModuleMap())
 	async.Go(func() {
 		b.output.Run()
 	})
@@ -124,7 +126,7 @@ func Init() {
 
 		server.UpdateID()
 
-		module.Init()
+		module_def.Init()
 
 		initLog(server.GetServerInfo().ServerName) // 主要etcd 包里在用
 
@@ -190,7 +192,7 @@ func ServerInit(name string) {
 func newServer(name string, options ...Options) *BaseEngine {
 
 	opt := &option{
-		modules: make(map[int32]module.IModule),
+		modules: make(map[int32]module_def.IModule),
 	}
 	for _, fn := range options {
 		fn(opt)
@@ -206,7 +208,7 @@ func newServer(name string, options ...Options) *BaseEngine {
 	}
 
 	if opt.isOutput {
-		b.output = output.NewOutput(opt.output, module.GetModuleMap())
+		b.output = output.NewOutput(opt.output, module_def.GetModuleMap())
 		async.Go(func() {
 			b.output.Run()
 		})
@@ -234,14 +236,14 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 	registerDiscovery := factor.CreateConnector(
 		register_discovery.WithServername(name),
 		register_discovery.WithWatch(),
-		register_discovery.WithNetType(module.Outer))
+		register_discovery.WithNetType(kernel.Outer))
 
 	// 创建tcp网络模块
-	tcpNet := commonModule.NewClientNet(
-		module.ModuleID_Client,
+	tcpNet := module.NewClientNet(
+		module_def.ModuleID_Client,
 		5000,
 		handler.NewGateMsg(),
-		module.Outer,
+		kernel.Outer,
 		new(network.DefaultPackerFactory),
 	)
 
@@ -252,7 +254,7 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 	if factor.GetType() == register_discovery.TypeCenter {
 		//options = append(options, WithModule(factor.CreateConnectorManager(&connector.TcpManagerFactory{})))
 		m := factor.CreateConnectorManager()
-		iModule := m.(module.IModule)
+		iModule := m.(module_def.IModule)
 		options = append(options, WithModule(iModule))
 		//options = append(options, WithModule(connector.NewManager(module.ModuleID_ConnectorManager)))
 	}
@@ -261,7 +263,7 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 	if factor.GetType() == register_discovery.TypeEtcd {
 		// 多个etcd的服务器，gateway需要主动连接
 		m := factor.CreateConnectorManager()
-		iModule := m.(module.IModule)
+		iModule := m.(module_def.IModule)
 		options = append(options, WithModule(iModule))
 	}
 
@@ -277,7 +279,7 @@ func NewGateTcpServer(name string, factor register_discovery.ConnectorFactory, o
 // @Param factor
 // @Param options
 // @Return *BaseEngine
-func NewTcpServer(name string, msgHandler module.MsgHandler, factor register_discovery.ConnectorFactory, options ...Options) *BaseEngine {
+func NewTcpServer(name string, msgHandler handler2.MsgHandler, factor register_discovery.ConnectorFactory, options ...Options) *BaseEngine {
 	if factor == nil {
 		log.Fatal("Please provide a factor!")
 	}
@@ -287,15 +289,15 @@ func NewTcpServer(name string, msgHandler module.MsgHandler, factor register_dis
 	// // 注册与发现模块,支持内部的center和etcd两种模式
 	registerDiscovery := factor.CreateConnector(
 		register_discovery.WithServername(name),
-		register_discovery.WithNetType(module.Inner),
+		register_discovery.WithNetType(kernel.Inner),
 	)
 
 	// 创建tcp网络模块
-	clientNet := commonModule.NewClientNet(
-		module.ModuleID_GateAcceptor,
+	clientNet := module.NewClientNet(
+		module_def.ModuleID_GateAcceptor,
 		10000,
 		msgHandler,
-		module.Inner,
+		kernel.Inner,
 		new(network.ClientPackerFactory),
 	)
 	options = append(options, WithModule(registerDiscovery), WithModule(clientNet))
@@ -321,8 +323,8 @@ func NewGrpcServer(name string, grpcServers []server.GrpcServer, options ...Opti
 	// 注册与发现
 	//rd := factor.CreateConnector(name)
 	// 网络模块
-	clientNet := commonModule.NewGrpcNet(
-		module.ModuleID_GateAcceptor,
+	clientNet := module.NewGrpcNet(
+		module_def.ModuleID_GateAcceptor,
 		name,
 		grpcServers,
 	)
@@ -353,11 +355,11 @@ func NewCenterServer(name string, factor register_discovery.NetFactory, options 
 }
 
 func (b *BaseEngine) Run() {
-	module.Run()
+	module_def.Run()
 }
 
 func (b *BaseEngine) Destroy() {
-	module.Close()
+	module_def.Close()
 }
 
 func (b *BaseEngine) OnSystemSignal(signal os.Signal) bool {

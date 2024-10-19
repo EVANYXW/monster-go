@@ -4,7 +4,7 @@
 package client
 
 import (
-	"github.com/evanyxw/monster-go/pkg/module"
+	"github.com/evanyxw/monster-go/pkg/module/module_def"
 	"github.com/evanyxw/monster-go/pkg/network"
 	"github.com/evanyxw/monster-go/pkg/server"
 )
@@ -25,7 +25,7 @@ func (c *clientManager) Init() {
 
 }
 
-func (c *clientManager) NewClient(np *network.NetPoint) (module.Client, bool) {
+func (c *clientManager) NewClient(np *network.NetPoint) (module_def.Client, bool) {
 	for i := 0; i < len(c.clients); i++ {
 		if c.clients[i] == nil {
 			client := NewClient(np)
@@ -63,7 +63,7 @@ func (c *clientManager) NewClient(np *network.NetPoint) (module.Client, bool) {
 	return nil, false
 }
 
-func (c *clientManager) GetClient(id uint32) module.Client {
+func (c *clientManager) GetClient(id uint32) module_def.Client {
 	var CID server.ClientID
 	server.ID2Cid(id, &CID)
 
