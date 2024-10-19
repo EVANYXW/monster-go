@@ -16,7 +16,6 @@ import (
 	"net"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 )
 
@@ -25,14 +24,13 @@ type EtcdKernel struct {
 	ID          uint32
 	SID         server.ServerID
 	address     string
-	wg          sync.WaitGroup
 	runStatus   int
 	NoWaitStart bool
-	etcdClient  *clientv3.Client
 	servername  string
 	logger      *zap.Logger
 	netType     NetType
 	isWatch     bool
+	etcdClient  *clientv3.Client
 	etcdServers map[string]string
 }
 

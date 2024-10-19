@@ -78,7 +78,6 @@ func (c *Client) Run(rpcAcceptor *rpc.Acceptor) error {
 	}
 	c.NetPoint = tcpConn
 
-	//c.NetPoint.SetNetEventRPC(c.rpcAcceptor)
 	c.NetPoint.SetNetEventRPC(rpcAcceptor)
 	c.SetProcessor(c.processor)
 

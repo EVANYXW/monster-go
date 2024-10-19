@@ -9,3 +9,7 @@ const (
 	RPC_NET_MESSAGE   = "NetMessage"
 	RPC_NET_CONNECTED = "NetConnected"
 )
+
+const (
+	RPC_CLOSE = "Close"
+)

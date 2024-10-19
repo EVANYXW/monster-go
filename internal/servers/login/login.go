@@ -5,7 +5,7 @@ import (
 	accHandler "github.com/evanyxw/monster-go/internal/servers/gate/handler"
 	loginModule "github.com/evanyxw/monster-go/internal/servers/login/module"
 	commonModule "github.com/evanyxw/monster-go/pkg/common/module"
-	"github.com/evanyxw/monster-go/pkg/module/register-discovery/etcd"
+	"github.com/evanyxw/monster-go/pkg/module/register-discovery/center"
 	"github.com/evanyxw/monster-go/pkg/output"
 	"github.com/evanyxw/monster-go/pkg/server/engine"
 )
@@ -71,8 +71,8 @@ func New() engine.IServerKernel {
 	baseEngine := engine.NewTcpServer(
 		servers.Login,
 		accHandler.NewAcceptor(),
-		//center.NewFactor(),
-		etcd.NewFactor(),
+		center.NewFactor(),
+		//etcd.NewFactor(),
 	).WithOutput(&output.Config{
 		Name: servers.Login,
 		Addr: "",

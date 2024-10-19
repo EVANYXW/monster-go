@@ -30,11 +30,11 @@ type INodeManager interface {
 }
 
 type nodeManager struct {
-	nodesIndex []int
 	innerPort  uint32
 	outPort    uint32
-	nodes      map[uint32]*network.ServerInfo
+	nodesIndex []int
 	lostList   []list.List
+	nodes      map[uint32]*network.ServerInfo
 }
 
 func NewNodeManager() INodeManager {

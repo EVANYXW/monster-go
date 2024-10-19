@@ -157,6 +157,7 @@ func Run() {
 			continue
 		}
 		total++
+		go moduleNode.module.RpcEventRun() // 事件运行监听,在初始化前让事件控制范围更广
 		moduleNode.module.Init()
 	}
 

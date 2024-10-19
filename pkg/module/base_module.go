@@ -146,6 +146,24 @@ func check() {
 	}
 }
 
+func (m *BaseModule) RpcEventRun() {
+OUTLABEL:
+	for {
+		select {
+		case callMsg, ok := <-m.RpcAcceptor.ChanCall:
+			if !ok {
+				break OUTLABEL
+			}
+			if callMsg == nil {
+				continue
+			}
+			m.RpcAcceptor.Execute(callMsg)
+		default:
+			time.Sleep(100 * time.Millisecond)
+		}
+	}
+}
+
 func (m *BaseModule) Run() {
 	if m.NoWaitStart {
 		m.owner.DoRun()
@@ -161,7 +179,7 @@ func (m *BaseModule) Run() {
 
 	output.Oput.SetAllModules(allModules)
 	async.Go(func() {
-	OUTLABEL:
+
 		for {
 			select {
 			case <-m.closeSig:
@@ -169,14 +187,6 @@ func (m *BaseModule) Run() {
 			case <-m.okSig:
 				m.onOK()
 				m.runStatus = ModuleRunStatus_Running
-			case callMsg, ok := <-m.RpcAcceptor.ChanCall:
-				if !ok {
-					break OUTLABEL
-				}
-				if callMsg == nil {
-					continue
-				}
-				m.RpcAcceptor.Execute(callMsg)
 			default:
 
 			}

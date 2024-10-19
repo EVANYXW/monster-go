@@ -20,6 +20,7 @@ type ConnectorKernel struct {
 	NoWaitStart bool
 	msgHandler  MsgHandler
 	processor   *network.Processor
+	baseModule  IBaseModule
 }
 type ckOptions struct {
 	NoWaitStart bool
@@ -60,6 +61,7 @@ func (c *ConnectorKernel) SetID(id uint32) {
 }
 
 func (c *ConnectorKernel) Init(baseModule IBaseModule) bool {
+	c.baseModule = baseModule
 	c.runStatus = ModuleRunStatus_Start
 	return true
 }
@@ -79,6 +81,7 @@ func (c *ConnectorKernel) DoRun() {
 	if err != nil {
 		return
 	}
+
 	c.runStatus = ModuleRunStatus_Running
 	c.msgHandler.Start()
 }
